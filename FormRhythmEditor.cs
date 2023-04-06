@@ -182,7 +182,7 @@
             int bankNo = selectedKey - keyOffset;
             Rhythm rhythmData = memoryState.GetRhythm(bankNo);
             UpdateTimbreName();
-            if (listViewRhythmBank.SelectedIndices.Count > 0) listViewRhythmBank.SelectedItems[0].SubItems[3].Text = memoryState.GetTimbreNames().Get(rhythmData.GetTimbreNo(), rhythmData.GetTimbreGroup());
+            if (listViewRhythmBank.SelectedIndices.Count > 0) listViewRhythmBank.SelectedItems[0].SubItems[3].Text = comboBoxTimbreName.Text;          
             if (sendSysEx) SendBank(selectedKey);
             changesMade = true;
         }
