@@ -9,7 +9,7 @@ namespace MT32Edit
         // Data structure representing user-accessible system memory areas of MT-32, as per published MIDI implementation.
         // Note that temporary memory areas are not implemented, except for the Part 1 timbre temp area which is used by the Timbre Editor form.
         //
-        private int masterTune = 64;
+        private int masterTune = 63;
         private int masterLevel = 85;
         private int reverbType = 0;
         private int reverbTime = 5;
@@ -19,6 +19,9 @@ namespace MT32Edit
         private readonly int[] defaultMidiChannel = { 1, 2, 3, 4, 5, 6, 7, 8, 9 }; //1 = MIDI channel 2, 2 = MIDI channel 3, etc. - default MT-32/CM-32L configuration.
         private readonly int[] alternativeMidiChannel = { 0, 1, 2, 3, 4, 5, 6, 7, 9 }; //General MIDI compatible option, using MIDI channels 1-8 and 10.
         private readonly int[] defaultPartialReserve = { 3, 10, 6, 4, 3, 0, 0, 0, 6 }; //default values as shown on page 28 of MT-32 user manual
+        private const float LOWEST_TUNING = (float)427.6;
+        private const double HIGHEST_TUNING = (float)452.6;
+
         private int[] midiChannel = new int[9];
         private int[] partialReserve = new int[9];
 
@@ -53,11 +56,11 @@ namespace MT32Edit
 
         public string GetMasterTuneFrequency()
         {
-            double frequency = 432.2 + (masterTune * 0.2);
-            return frequency.ToString("000.00") + "Hz";
+            double frequency = LOWEST_TUNING + (masterTune * (HIGHEST_TUNING - LOWEST_TUNING) / 127);
+            return frequency.ToString("000.0") + "Hz";
         }
 
-        public void SetReverbType(int type, bool autoCorrect = false)
+        public void SetReverbMode(int type, bool autoCorrect = false)
         {
             reverbType = LogicTools.ValidateRange("Reverb Type", type, minPermitted: 0, maxPermitted: 3, autoCorrect);
         }
@@ -92,6 +95,14 @@ namespace MT32Edit
             return reverbLevel;
         }
 
+        public byte[] GetReverbSysExValues()
+        {
+            byte[] sysExData = new byte[3];
+            sysExData[0] = (byte)reverbType;
+            sysExData[1] = (byte)reverbLevel;
+            sysExData[2] = (byte)reverbTime;
+            return sysExData;
+        }
 
         public void SetSysExMidiChannel(int partNo, int midiChannelNo, bool autoCorrect = false) // permitted channel range 0-15
         {
@@ -103,6 +114,16 @@ namespace MT32Edit
         {
             partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect: false);
             return midiChannel[partNo];
+        }
+
+        public byte[] GetMidiChannelSysExValues()
+        {
+            byte[] sysExData = new byte[9];
+            for (int part = 0; part < 9; part++)
+            {
+                sysExData[part] = (byte)midiChannel[part];
+            }
+            return sysExData;
         }
 
         public void SetUIMidiChannel(int partNo, int midiChannelNo, bool autoCorrect = false) // permitted channel range 1-16
@@ -162,6 +183,16 @@ namespace MT32Edit
         {
             LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect: false);
             return partialReserve[partNo];
+        }
+
+        public byte[] GetPartialReserveSysExValues()
+        {
+            byte[] sysExData = new byte[9];
+            for (int part = 0; part < 9; part++)
+            {
+                sysExData[part] = (byte)partialReserve[part];
+            }
+            return sysExData;
         }
 
         public void SetMessage(int messageNo, string message)

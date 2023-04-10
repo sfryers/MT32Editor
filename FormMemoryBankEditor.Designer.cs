@@ -166,7 +166,7 @@
             labelHeading.AutoSize = true;
             labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(7, 9);
+            labelHeading.Location = new Point(35, 9);
             labelHeading.Name = "labelHeading";
             labelHeading.Size = new Size(167, 21);
             labelHeading.TabIndex = 62;

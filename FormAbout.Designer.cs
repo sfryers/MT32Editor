@@ -32,7 +32,7 @@
             label1 = new Label();
             labelVersionNo = new Label();
             label3 = new Label();
-            label4 = new Label();
+            labelReleaseDate = new Label();
             label5 = new Label();
             buttonClose = new Button();
             linkLabelProject = new LinkLabel();
@@ -55,11 +55,11 @@
             // 
             labelVersionNo.AutoSize = true;
             labelVersionNo.ForeColor = SystemColors.ActiveCaptionText;
-            labelVersionNo.Location = new Point(179, 17);
+            labelVersionNo.Location = new Point(190, 17);
             labelVersionNo.Name = "labelVersionNo";
-            labelVersionNo.Size = new Size(78, 15);
+            labelVersionNo.Size = new Size(65, 15);
             labelVersionNo.TabIndex = 1;
-            labelVersionNo.Text = "version 0.9.0a";
+            labelVersionNo.Text = "version no.";
             // 
             // label3
             // 
@@ -71,15 +71,15 @@
             label3.TabIndex = 2;
             label3.Text = " by S. Fryers";
             // 
-            // label4
+            // labelReleaseDate
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.ActiveCaptionText;
-            label4.Location = new Point(198, 34);
-            label4.Name = "label4";
-            label4.Size = new Size(59, 15);
-            label4.TabIndex = 3;
-            label4.Text = "April 2023";
+            labelReleaseDate.AutoSize = true;
+            labelReleaseDate.ForeColor = SystemColors.ActiveCaptionText;
+            labelReleaseDate.Location = new Point(190, 34);
+            labelReleaseDate.Name = "labelReleaseDate";
+            labelReleaseDate.Size = new Size(69, 15);
+            labelReleaseDate.TabIndex = 3;
+            labelReleaseDate.Text = "release date";
             // 
             // label5
             // 
@@ -141,7 +141,7 @@
             Controls.Add(linkLabelProject);
             Controls.Add(buttonClose);
             Controls.Add(label5);
-            Controls.Add(label4);
+            Controls.Add(labelReleaseDate);
             Controls.Add(label3);
             Controls.Add(labelVersionNo);
             Controls.Add(label1);
@@ -162,7 +162,7 @@
         private Label label1;
         private Label labelVersionNo;
         private Label label3;
-        private Label label4;
+        private Label labelReleaseDate;
         private Label label5;
         private Button buttonClose;
         private LinkLabel linkLabelProject;

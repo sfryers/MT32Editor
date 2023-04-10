@@ -82,6 +82,15 @@
             labelMessage1 = new Label();
             textBoxMessage1 = new TextBox();
             toolTip = new ToolTip(components);
+            buttonSave = new Button();
+            groupBoxExportSystemSettings = new GroupBox();
+            label2 = new Label();
+            checkBoxTextMessages = new CheckBox();
+            checkBoxPartialReserve = new CheckBox();
+            checkBoxMIDIChannel = new CheckBox();
+            checkBoxReverb = new CheckBox();
+            checkBoxMasterTune = new CheckBox();
+            checkBoxMasterLevel = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBarMasterLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMasterTune).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReverbRate).BeginInit();
@@ -107,6 +116,7 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve1).BeginInit();
             groupBoxMessageSettings.SuspendLayout();
+            groupBoxExportSystemSettings.SuspendLayout();
             SuspendLayout();
             // 
             // trackBarMasterLevel
@@ -605,7 +615,7 @@
             groupBoxMessageSettings.Controls.Add(textBoxMessage1);
             groupBoxMessageSettings.Location = new Point(14, 425);
             groupBoxMessageSettings.Name = "groupBoxMessageSettings";
-            groupBoxMessageSettings.Size = new Size(514, 60);
+            groupBoxMessageSettings.Size = new Size(516, 60);
             groupBoxMessageSettings.TabIndex = 46;
             groupBoxMessageSettings.TabStop = false;
             groupBoxMessageSettings.Text = "Text messages";
@@ -650,12 +660,129 @@
             toolTip.SetToolTip(textBoxMessage1, "Enter a custom message to be shown on MT-32 display when loading SysEx file");
             textBoxMessage1.TextChanged += textBoxMessage1_TextChanged;
             // 
+            // buttonSave
+            // 
+            buttonSave.Location = new Point(80, 57);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(45, 23);
+            buttonSave.TabIndex = 60;
+            buttonSave.Text = "Save";
+            toolTip.SetToolTip(buttonSave, "Create a SysEx file containing only these System settings");
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
+            // 
+            // groupBoxExportSystemSettings
+            // 
+            groupBoxExportSystemSettings.Controls.Add(buttonSave);
+            groupBoxExportSystemSettings.Controls.Add(label2);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxTextMessages);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxPartialReserve);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxMIDIChannel);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxReverb);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxMasterTune);
+            groupBoxExportSystemSettings.Controls.Add(checkBoxMasterLevel);
+            groupBoxExportSystemSettings.Location = new Point(14, 491);
+            groupBoxExportSystemSettings.Name = "groupBoxExportSystemSettings";
+            groupBoxExportSystemSettings.Size = new Size(516, 100);
+            groupBoxExportSystemSettings.TabIndex = 53;
+            groupBoxExportSystemSettings.TabStop = false;
+            groupBoxExportSystemSettings.Text = "Save system settings";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(19, 27);
+            label2.Name = "label2";
+            label2.Size = new Size(111, 15);
+            label2.TabIndex = 59;
+            label2.Text = "Include parameters:";
+            // 
+            // checkBoxTextMessages
+            // 
+            checkBoxTextMessages.AutoSize = true;
+            checkBoxTextMessages.Checked = true;
+            checkBoxTextMessages.CheckState = CheckState.Checked;
+            checkBoxTextMessages.ForeColor = SystemColors.Control;
+            checkBoxTextMessages.Location = new Point(300, 72);
+            checkBoxTextMessages.Name = "checkBoxTextMessages";
+            checkBoxTextMessages.Size = new Size(145, 19);
+            checkBoxTextMessages.TabIndex = 58;
+            checkBoxTextMessages.Text = "Custom text messages";
+            checkBoxTextMessages.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPartialReserve
+            // 
+            checkBoxPartialReserve.AutoSize = true;
+            checkBoxPartialReserve.Checked = true;
+            checkBoxPartialReserve.CheckState = CheckState.Checked;
+            checkBoxPartialReserve.ForeColor = SystemColors.Control;
+            checkBoxPartialReserve.Location = new Point(300, 47);
+            checkBoxPartialReserve.Name = "checkBoxPartialReserve";
+            checkBoxPartialReserve.Size = new Size(143, 19);
+            checkBoxPartialReserve.TabIndex = 57;
+            checkBoxPartialReserve.Text = "Partial reserve settings";
+            checkBoxPartialReserve.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMIDIChannel
+            // 
+            checkBoxMIDIChannel.AutoSize = true;
+            checkBoxMIDIChannel.Checked = true;
+            checkBoxMIDIChannel.CheckState = CheckState.Checked;
+            checkBoxMIDIChannel.ForeColor = SystemColors.Control;
+            checkBoxMIDIChannel.Location = new Point(300, 22);
+            checkBoxMIDIChannel.Name = "checkBoxMIDIChannel";
+            checkBoxMIDIChannel.Size = new Size(165, 19);
+            checkBoxMIDIChannel.TabIndex = 56;
+            checkBoxMIDIChannel.Text = "MIDI channel assignments";
+            checkBoxMIDIChannel.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxReverb
+            // 
+            checkBoxReverb.AutoSize = true;
+            checkBoxReverb.Checked = true;
+            checkBoxReverb.CheckState = CheckState.Checked;
+            checkBoxReverb.ForeColor = SystemColors.Control;
+            checkBoxReverb.Location = new Point(156, 72);
+            checkBoxReverb.Name = "checkBoxReverb";
+            checkBoxReverb.Size = new Size(106, 19);
+            checkBoxReverb.TabIndex = 55;
+            checkBoxReverb.Text = "Reverb settings";
+            checkBoxReverb.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMasterTune
+            // 
+            checkBoxMasterTune.AutoSize = true;
+            checkBoxMasterTune.Checked = true;
+            checkBoxMasterTune.CheckState = CheckState.Checked;
+            checkBoxMasterTune.ForeColor = SystemColors.Control;
+            checkBoxMasterTune.Location = new Point(156, 47);
+            checkBoxMasterTune.Name = "checkBoxMasterTune";
+            checkBoxMasterTune.Size = new Size(89, 19);
+            checkBoxMasterTune.TabIndex = 54;
+            checkBoxMasterTune.Text = "Master tune";
+            checkBoxMasterTune.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMasterLevel
+            // 
+            checkBoxMasterLevel.AutoSize = true;
+            checkBoxMasterLevel.Checked = true;
+            checkBoxMasterLevel.CheckState = CheckState.Checked;
+            checkBoxMasterLevel.ForeColor = SystemColors.Control;
+            checkBoxMasterLevel.Location = new Point(156, 22);
+            checkBoxMasterLevel.Name = "checkBoxMasterLevel";
+            checkBoxMasterLevel.Size = new Size(89, 19);
+            checkBoxMasterLevel.TabIndex = 53;
+            checkBoxMasterLevel.Text = "Master level";
+            checkBoxMasterLevel.UseVisualStyleBackColor = true;
+            // 
             // FormSystemSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(542, 495);
+            ClientSize = new Size(542, 597);
+            Controls.Add(groupBoxExportSystemSettings);
             Controls.Add(groupBoxMessageSettings);
             Controls.Add(labelMasterLevelValue);
             Controls.Add(numericUpDownPartReserveR);
@@ -728,6 +855,8 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve1).EndInit();
             groupBoxMessageSettings.ResumeLayout(false);
             groupBoxMessageSettings.PerformLayout();
+            groupBoxExportSystemSettings.ResumeLayout(false);
+            groupBoxExportSystemSettings.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -786,5 +915,14 @@
         private Label label1;
         private Label labelMessage1;
         private TextBox textBoxMessage1;
+        private GroupBox groupBoxExportSystemSettings;
+        private Button buttonSave;
+        private Label label2;
+        private CheckBox checkBoxTextMessages;
+        private CheckBox checkBoxPartialReserve;
+        private CheckBox checkBoxMIDIChannel;
+        private CheckBox checkBoxReverb;
+        private CheckBox checkBoxMasterTune;
+        private CheckBox checkBoxMasterLevel;
     }
 }

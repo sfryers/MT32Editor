@@ -16,6 +16,7 @@ namespace MT32Edit
         public const byte MODEL_ID = 0x16;              //Model ID for MT-32
         public const byte RX = 0x11;                    //Receive SysEx data from device
         public const byte TX = 0x12;                    //Transmit SysEx data to device
+        public const byte RESET = 0x7F;                 //MT-32 reset
         public const byte END_OF_DATA_BLOCK = 0xF7;     //SysEx message blocks terminate with F7
 
         public const int MAX_BLOCK_LENGTH = 264;        //maximum length (in bytes) of SysEx data block
@@ -26,6 +27,7 @@ namespace MT32Edit
         public static bool sendTextToMT32 = true;       //user configurable option- when true, parameter changes will be displayed on MT-32 text display.
         public static bool blockMT32text = false;       //if set to true, blocks all text messages from being sent regardless of sendTextToMT32 status.
         public static bool blockSysExMessages = false;  //if set to true, no system exclusive data will be sent to the selected MIDI Out device.
+        public static bool allowReset = false;          //if set to true, will pass any MT-32 reset messages to the selected MIDI Out device.
         private static int channelNo = 1;
 
         public static byte RolandChecksum(int sumOfSysExValues) //calculate Roland SysEx checksum value
@@ -248,6 +250,19 @@ namespace MT32Edit
             SendText(parameterName + " " + MT32Strings.OnOffStatus(sustainStatus));
         }
 
+        public static void SendMT32Reset()
+        {
+            if (!allowReset)
+            {
+                ConsoleMessage.SendLine("Device reset ignored");
+                return;
+            }
+            byte[] sysExData = { START_OF_DATA_BLOCK, MANUFACTURER_ID, DEVICE_ID, MODEL_ID, TX, 0x7F, 0x01, END_OF_DATA_BLOCK };
+            SendSysExData(sysExData);
+            SendText("Device reset");
+            ConsoleMessage.SendLine("Device reset");
+        }
+
         public static void SendMessage(byte[] sysExAddr, byte[] sysExData) //collate MT32 SysEx message from constant parameters, address and data bytes plus Roland checksum
         {
             int sysExMessageLength = sysExData.Length + 10;                         //determine length (in bytes) of full SysEx message
@@ -269,28 +284,6 @@ namespace MT32Edit
             sysExMessage[sysExData.Length + 9] = END_OF_DATA_BLOCK;                 //set message end byte
             SendSysExData(sysExMessage);                                            //send to MIDI Out
 
-            static void SendSysExData(byte[] sysExMessage)  //Send sysex data package to active MIDI Out device
-            {
-                if (blockSysExMessages) return;
-                uploadInProgress = true;
-                Midi.CloseInputDevice();        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
-                Midi.CloseOutputDevice();
-                try
-                {
-                    Midi.Out = new MidiOut(Midi.OutDeviceIndex);
-                    Midi.Out.SendBuffer(sysExMessage);
-                    Midi.Out.Dispose();
-                }
-                catch
-                {
-                    ConsoleMessage.SendLine("Error: Cannot open selected MIDI Out device\\nPlease close any conflicting MIDI applications and restart MT-32 Editor.");
-                    //midiOutError = true;
-                }
-
-                uploadInProgress = false;
-                Midi.ReopenInputDevice();
-            }
-
             static byte CheckSum(byte[] sysExAddr, byte[] sysExData)
             {
                 int valueSum = 0x00;
@@ -305,6 +298,28 @@ namespace MT32Edit
                 }
                 return RolandChecksum(valueSum);
             }
+        }
+
+        private static void SendSysExData(byte[] sysExMessage)  //Send sysex data package to active MIDI Out device
+        {
+            if (blockSysExMessages) return;
+            uploadInProgress = true;
+            Midi.CloseInputDevice();        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
+            Midi.CloseOutputDevice();
+            try
+            {
+                Midi.Out = new MidiOut(Midi.OutDeviceIndex);
+                Midi.Out.SendBuffer(sysExMessage);
+                Midi.Out.Dispose();
+            }
+            catch
+            {
+                ConsoleMessage.SendLine("Error: Cannot open selected MIDI Out device\\nPlease close any conflicting MIDI applications and restart MT-32 Editor.");
+                //midiOutError = true;
+            }
+
+            uploadInProgress = false;
+            Midi.ReopenInputDevice();
         }
 
         public static void SendMemoryTimbre(int timbreNo, TimbreStructure timbre)

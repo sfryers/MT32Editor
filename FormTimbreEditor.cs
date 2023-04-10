@@ -110,7 +110,8 @@ namespace MT32Edit
             checkBoxPartial3.Checked = !timbre.GetPartialMuteStatus()[2];
             checkBoxPartial4.Checked = !timbre.GetPartialMuteStatus()[3];
             checkBoxSustain.Checked = timbre.GetSustainStatus();
-            labelPartialWarning.Visible = false;
+            if (checkBoxPartial1.Checked) labelPartialWarning.Visible = false;
+            else labelPartialWarning.Visible = true;
         }
 
         private void UpdatePartialStructureImages()

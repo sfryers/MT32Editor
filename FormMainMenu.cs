@@ -6,8 +6,7 @@ namespace MT32Edit
     {
         // MT-32 Editor
         // A patch/timbre editor and SysEx librarian for Roland MT-32/CM-32L and compatible synthesizers, including the MUNT software emulator.
-        // v0.9a
-        // S.Fryers April 2023
+        // S.Fryers
         // sfryers@hotmail.com
         //
         // MT32Edit: FormMainMenu
@@ -17,6 +16,10 @@ namespace MT32Edit
         [return: MarshalAs(UnmanagedType.Bool)]
 
         static extern bool AllocConsole();
+
+        const string VERSION_NO = "v0.9.1a";
+        const string RELEASE_DATE = "April 2023";
+
         private bool midiInError = false;
         private bool midiOutError = false;
         private MT32State memoryState = new MT32State();
@@ -27,17 +30,18 @@ namespace MT32Edit
         private SaveFileDialog saveSysExDialog = new SaveFileDialog();
         private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
 
+
         public FormMainMenu()
         {
             InitializeComponent();
             AllocConsole();
-            Console.WriteLine("Welcome to MT32 Editor v0.9.0a");
+            Console.WriteLine("Welcome to MT32 Editor " + VERSION_NO);
             InitialiseMidiConnections();
             OpenTimbreEditor();
             OpenMemoryBankEditor();
             OpenRhythmEditor();
             OpenPatchEditor();
-            MT32SysEx.SendText("MT32 Editor v0.9.0a ");
+            MT32SysEx.SendText("MT32 Editor " + ParseTools.TrimToLength(VERSION_NO, 8));
             timer.Start();
         }
 
@@ -261,7 +265,7 @@ namespace MT32Edit
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormAbout about = new FormAbout();
+            FormAbout about = new FormAbout(VERSION_NO, RELEASE_DATE);
             about.Show();
         }
 
@@ -341,6 +345,20 @@ namespace MT32Edit
             {
                 ConsoleMessage.Enable();
                 verboseConsoleMessagesToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void allowMT32ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MT32SysEx.allowReset)
+            {
+                allowMT32ResetToolStripMenuItem.Checked = false;
+                MT32SysEx.allowReset = false;
+            }
+            else
+            {
+                allowMT32ResetToolStripMenuItem.Checked = true;
+                MT32SysEx.allowReset = true;
             }
         }
     }

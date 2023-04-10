@@ -1,0 +1,16 @@
+MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI synthesizers
+
+Release Notes
+
+v0.9.0a - 6th April 2023
+    - First public release
+
+v0.9.1a - 10th April 2023
+  Bug Fixes:
+    - Master Tuning slider now displays correct Hz values
+    - Very short SysEx messages no longer cause unhandled exception
+  New features:
+    - MT-32 reset messages are now detected and actioned depending on user selection
+    - Options menu has new user selectable flag to either ignore or action MT-32 reset messages
+    - System Area SysEx messages which don't contain values for every parameter are now handled instead of ignored
+    - Added ability to save a SysEx file containing only System Area values. Included parameters are selectable from the System Settings window.

@@ -1,4 +1,5 @@
 ﻿using MT32Edit;
+using System.Net.Security;
 using System.Text;
 
 namespace MT32Edit
@@ -7,7 +8,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: SysExFile class (static)
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Tools to load/save MT-32 System Exclusive data files from/to local filesystem
         //
 
@@ -61,7 +62,9 @@ namespace MT32Edit
                     }
                     if (fileDataValue == MT32SysEx.END_OF_DATA_BLOCK)
                     {
-                        ProcessSysExDataBlock(sysExDataBlock, filePointer);
+                        if (filePointer < 2) return;
+                        Array.Resize(ref sysExDataBlock, filePointer - 1); //remove checksum from end of array
+                        ProcessSysExDataBlock(sysExDataBlock);
                         return;
                     }
                     sysExDataBlock[filePointer] = fileDataValue;
@@ -69,16 +72,28 @@ namespace MT32Edit
                 }
             }
 
-            void ProcessSysExDataBlock(int[] sysExDataBlock, int dataBlockLength)
+            void ProcessSysExDataBlock(int[] sysExDataBlock)
             {
-                ConsoleMessage.SendLine("Processing data block, " + dataBlockLength.ToString() + " bytes.");
-                int[] sysExAddress = new int[3];
-                int[] sysExData = new int[dataBlockLength - 7];
-                if ((dataBlockLength < 9) || (sysExDataBlock[0] != MT32SysEx.MANUFACTURER_ID) || (sysExDataBlock[1] != MT32SysEx.DEVICE_ID) || (sysExDataBlock[2] != MT32SysEx.MODEL_ID) || (sysExDataBlock[3] != MT32SysEx.TX))
+                int dataBlockLength = sysExDataBlock.Length;
+                if (IsMT32ResetCommand(sysExDataBlock))
                 {
-                    ConsoleMessage.SendLine("MT32 non-compatible data block found, ignoring.");
+                    ConsoleMessage.SendLine("MT-32 reset message found.");
+                    DoReset();
                     return;
                 }
+                if (sysExDataBlock.Length < 6)
+                {
+                    ConsoleMessage.SendLine("Short data block found, ignoring.");
+                    return;
+                }
+                if ((sysExDataBlock.Length < 8) || (sysExDataBlock[0] != MT32SysEx.MANUFACTURER_ID) || (sysExDataBlock[1] != MT32SysEx.DEVICE_ID) || (sysExDataBlock[2] != MT32SysEx.MODEL_ID) || (sysExDataBlock[3] != MT32SysEx.TX))
+                {
+                    ConsoleMessage.SendLine("non MT32-compatible data block found, ignoring.");
+                    return;
+                }
+                ConsoleMessage.SendLine("Processing data block, " + sysExDataBlock.Length.ToString() + " bytes.");
+                int[] sysExAddress = new int[3];
+                int[] sysExData = new int[sysExDataBlock.Length - 7];
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 for (int i = 4; i < 7; i++) 
                 {
@@ -109,7 +124,7 @@ namespace MT32Edit
                         break;
                     case 0x10:
                         ConsoleMessage.SendLine("[SYSTEM] ");
-                        ExtractSystemData(sysExData);
+                        ExtractSystemData(sysExData, sysExAddress);
                         break;
                     case 0x20:
                         ConsoleMessage.SendLine("[TEXT] ");
@@ -120,26 +135,62 @@ namespace MT32Edit
                 }
             }
 
-            void ExtractSystemData(int[] sysExData)
+            bool IsMT32ResetCommand(int[] sysExData)
             {
-                if (sysExData.Length < 0x17)
+                if (sysExData.Length != 5) return false;
+                if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) || (sysExData[1] != MT32SysEx.DEVICE_ID) || (sysExData[2] != MT32SysEx.MODEL_ID) || (sysExData[3] != MT32SysEx.TX) || (sysExData[4] != MT32SysEx.RESET)) return false;
+                return true;
+            }
+
+            void DoReset()
+            {
+                MT32SysEx.SendMT32Reset();
+                if (MT32SysEx.allowReset) memoryState.ResetAll();
+            }
+
+            void ExtractSystemData(int[] sysExData, int[] sysExAddress)
+            {
+                if (sysExAddress[1] != 0 || sysExAddress[2] > 0x16)
                 {
-                    ConsoleMessage.SendLine("System data incomplete (" + sysExData.Length.ToString() + " parameters were found)");
-                    return; //only process system data block if all parameters are present
+                    ConsoleMessage.SendLine("System data address invalid, ignoring.");
+                    return;
+                }
+                if (sysExData.Length > 0x17) Array.Resize(ref sysExData, 0x17); //remove any superfluous sysEx data values
+                int[] systemData = GetCurrentSystemAreaStateAsArray();
+                for (int parameterNo = 0; parameterNo < sysExData.Length; parameterNo++)
+                {
+                    systemData[parameterNo + sysExAddress[2]] = sysExData[parameterNo];
                 }
                 SystemLevel systemConfig = memoryState.GetSystem();
                 ConsoleMessage.SendLine("System data found, extracting...");
-                systemConfig.SetMasterTune(sysExData[0], autoCorrect: true);
-                systemConfig.SetReverbType(sysExData[1], autoCorrect: true);
-                systemConfig.SetReverbTime(sysExData[2], autoCorrect: true);
-                systemConfig.SetReverbLevel(sysExData[3], autoCorrect: true);
+                systemConfig.SetMasterTune(systemData[0], autoCorrect: true);
+                systemConfig.SetReverbMode(systemData[1], autoCorrect: true);
+                systemConfig.SetReverbTime(systemData[2], autoCorrect: true);
+                systemConfig.SetReverbLevel(systemData[3], autoCorrect: true);
                 for (int part = 0; part < 9; part++)
                 {
-                    systemConfig.SetPartialReserve(part, sysExData[part + 4], autoCorrect: true);
-                    systemConfig.SetSysExMidiChannel(part, sysExData[part + 13], autoCorrect: true);
+                    systemConfig.SetPartialReserve(part, systemData[part + 4], autoCorrect: true);
+                    systemConfig.SetSysExMidiChannel(part, systemData[part + 13], autoCorrect: true);
                 }
-                systemConfig.SetMasterLevel(sysExData[22], autoCorrect: true);
+                systemConfig.SetMasterLevel(systemData[22], autoCorrect: true);
                 return;
+            }
+
+            int[] GetCurrentSystemAreaStateAsArray()
+            {
+                int[] systemData = new int[0x17];
+                SystemLevel systemConfig = memoryState.GetSystem();
+                systemData[0] = systemConfig.GetMasterTune();
+                systemData[1] = systemConfig.GetReverbMode();
+                systemData[2] = systemConfig.GetReverbTime();
+                systemData[3] = systemConfig.GetReverbLevel();
+                for (int part = 0; part < 9; part++)
+                {
+                    systemData[part + 4] = systemConfig.GetPartialReserve(part);
+                    systemData [part + 13] = systemConfig.GetSysExMidiChannel(part);
+                }
+                systemData[22] = systemConfig.GetMasterLevel();
+                return systemData;
             }
 
             void ExtractTextData(int[] sysExData)
@@ -160,7 +211,6 @@ namespace MT32Edit
 
             void ExtractPatchData(int[] sysExData, int[] sysExAddress)
             {
-                
                 if (!LogicTools.DivisibleBy(sysExData.Length - 1, 8)) //ignore block if patch data array length (minus last byte) is not divisible by 8
                 {
                     ConsoleMessage.SendLine("Patch data (length " + sysExData.Length +") incomplete, ignoring.", ConsoleColor.Red);
@@ -269,10 +319,13 @@ namespace MT32Edit
             }
         }
 
-        public static void Save(MT32State memoryState, SaveFileDialog saveDialog)
+        public static void SaveSystemOnly(SystemLevel systemConfig, SaveFileDialog saveDialog, bool level, bool tuning, bool reverb, bool channels, bool reserve, bool messages)
         {
+            saveDialog.Title = "Save SysEx File";
+            saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
+            if (saveDialog.FileName == "" || saveDialog.FileName == null) saveDialog.FileName = "New MT32 system settings file.syx";
             if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error
-            if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user didn't select a file
+            if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user left filename blank
             FileStream sysExFile;
             try
             {
@@ -283,14 +336,92 @@ namespace MT32Edit
                 MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
                 return;
             }
-            SaveMessage(0);
-            SaveAllSystemData();
+            if (messages) SaveMessage(sysExFile, systemConfig, 0);
+            if (level && tuning && reverb && channels && reserve) SaveAllSystemData(sysExFile, systemConfig);
+            else
+            {   //if not all options are selected, save separate SysEx block for each set of parameters
+                if (tuning)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x00 };
+                    SaveSingleSysExValue(sysExAddr, systemConfig.GetMasterTune());
+                }
+                if (reverb)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x01 };
+                    byte[] sysExData = systemConfig.GetReverbSysExValues();
+                    SaveMultipleSysExValues(sysExAddr, sysExData);
+                }
+                if (reserve)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x04 };
+                    byte[] sysExData = systemConfig.GetPartialReserveSysExValues();
+                    SaveMultipleSysExValues(sysExAddr, sysExData);
+                }
+                if (channels)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x0D };
+                    byte[] sysExData = systemConfig.GetMidiChannelSysExValues(); 
+                    SaveMultipleSysExValues(sysExAddr, sysExData);
+                }
+                if (level)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x16 };
+                    SaveSingleSysExValue(sysExAddr, systemConfig.GetMasterLevel());
+                }
+            }
+            if (messages) SaveMessage(sysExFile, systemConfig, 1);
+            sysExFile.Close();
+            MessageBox.Show("Saved system settings to " + saveDialog.FileName, "MT-32 System Settings");
+
+            void SaveSingleSysExValue(byte[] sysExAddr, int sysExValue)
+            {
+                int sumOfSysExValues = 0;
+                SaveSysExHeader(sysExFile);
+                sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+                byte[] sysExData = { (byte)sysExValue };
+                sysExFile.Write(sysExData, 0, 1);
+                sumOfSysExValues += sysExValue;
+                SaveSysExFooter(sysExFile, sumOfSysExValues);
+            }
+
+            void SaveMultipleSysExValues(byte[] sysExAddr, byte[] sysExData)
+            {
+                int sumOfSysExValues = 0;
+                SaveSysExHeader(sysExFile);
+                sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+                sysExFile.Write(sysExData, 0, sysExData.Length);
+                for (int i = 0; i < sysExData.Length; i++)
+                {
+                    sumOfSysExValues += sysExData[i];
+                }
+                SaveSysExFooter(sysExFile, sumOfSysExValues);
+            }
+        }
+
+        public static void Save(MT32State memoryState, SaveFileDialog saveDialog)
+        {
+            if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error
+            if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user didn't select a file
+            FileStream sysExFile;
+            
+            try
+            {
+                sysExFile = (FileStream)saveDialog.OpenFile();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
+                return;
+            }
+            SystemLevel systemConfig = memoryState.GetSystem();
+            SaveMessage(sysExFile, systemConfig, 0);
+            SaveAllSystemData(sysExFile, systemConfig);
             SaveAllPatches();
             SaveAllMemoryTimbres();
             SaveAllRhythmKeys();
-            SaveMessage(1);
+            SaveMessage(sysExFile, systemConfig, 1);
             sysExFile.Close();
-            MessageBox.Show("Saved SysEx data to " + saveDialog.FileName);
+            MessageBox.Show("Saved SysEx data to " + saveDialog.FileName, "MT-32 Editor");
 
             void SaveAllMemoryTimbres()
             {
@@ -298,69 +429,12 @@ namespace MT32Edit
                 {
                     int sumOfSysExValues = 0; //values of all parameters need to be totalled in order to calculate checksum
                     byte[] sysExAddr = MT32SysEx.MemoryTimbreAddress(timbreNo);
-                    SaveSysExHeader();
-                    sumOfSysExValues += SaveSysExAddress(sysExAddr);
+                    SaveSysExHeader(sysExFile);
+                    sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
                     sumOfSysExValues += TimbreFile.SaveTimbreParameters(memoryState.GetMemoryTimbre(timbreNo), sysExFile);
                     sumOfSysExValues += TimbreFile.SavePartials(memoryState.GetMemoryTimbre(timbreNo), sysExFile);
-                    SaveSysExFooter(sumOfSysExValues);
+                    SaveSysExFooter(sysExFile, sumOfSysExValues);
                 }
-            }
-
-            void SaveSysExHeader()
-            {
-                byte[] sysExData = new byte[5];
-                sysExData[0] = MT32SysEx.START_OF_DATA_BLOCK;
-                sysExData[1] = MT32SysEx.MANUFACTURER_ID;
-                sysExData[2] = MT32SysEx.DEVICE_ID;
-                sysExData[3] = MT32SysEx.MODEL_ID;
-                sysExData[4] = MT32SysEx.TX;
-                sysExFile.Write(sysExData, 0, sysExData.Length);
-            }
-
-            int SaveSysExAddress(byte[] sysExAddr)
-            {
-                sysExFile.Write(sysExAddr, 0, sysExAddr.Length);
-                return sysExAddr[0] + sysExAddr[1] + sysExAddr[2];
-            }
-
-            void SaveSysExFooter(int sumOfSysExValues)
-            {
-                byte[] sysExData = new byte[2];
-                sysExData[0] = MT32SysEx.RolandChecksum(sumOfSysExValues);
-                sysExData[1] = MT32SysEx.END_OF_DATA_BLOCK;
-                sysExFile.Write(sysExData, 0, sysExData.Length);
-            }
-
-            void SaveAllSystemData()
-            {
-                int sumOfSysExValues = 0;
-                byte[] sysExAddr = { 0x10, 0x00, 0x00 };
-                SaveSysExHeader();
-                sumOfSysExValues += SaveSysExAddress(sysExAddr);
-                sumOfSysExValues += SaveSystemData(sumOfSysExValues);
-                SaveSysExFooter(sumOfSysExValues);
-            }
-
-            int SaveSystemData(int sumOfSysExValues)
-            {
-                byte[] sysExData = new byte[23];
-                SystemLevel systemConfig = memoryState.GetSystem();
-                sysExData[0] = (byte)systemConfig.GetMasterTune();
-                sysExData[1] = (byte)systemConfig.GetReverbMode();
-                sysExData[2] = (byte)systemConfig.GetReverbTime();
-                sysExData[3] = (byte)systemConfig.GetReverbLevel();
-                for (int part = 0; part < 9; part++)
-                {
-                    sysExData[part + 4] = (byte)systemConfig.GetPartialReserve(part);
-                    sysExData[part + 13] = (byte)systemConfig.GetSysExMidiChannel(part);
-                }
-                sysExData[22] = (byte)systemConfig.GetMasterLevel();
-                for (int param = 0; param < 23; param++)
-                {
-                    sumOfSysExValues += sysExData[param];
-                }
-                sysExFile.Write(sysExData, 0, sysExData.Length);
-                return sumOfSysExValues;
             }
 
             void SaveAllPatches()
@@ -370,10 +444,10 @@ namespace MT32Edit
                 {
                     int valueSum = 0;
                     byte[] sysExAddr = MT32SysEx.PatchAddress(blockNo * 32);
-                    SaveSysExHeader();
-                    valueSum += SaveSysExAddress(sysExAddr);
+                    SaveSysExHeader(sysExFile);
+                    valueSum += SaveSysExAddress(sysExFile, sysExAddr);
                     valueSum += SavePatchBlock(blockNo);
-                    SaveSysExFooter(valueSum);
+                    SaveSysExFooter(sysExFile, valueSum);
                 }
             }
 
@@ -402,10 +476,10 @@ namespace MT32Edit
                     byte[] sysExAddr = { 0x03, 0x01, 0x10 };
                     if (blockNo == 1) sysExAddr[1] = 0x03;
                     int sumOfSysExValues = 0;
-                    SaveSysExHeader();
-                    sumOfSysExValues += SaveSysExAddress(sysExAddr);
+                    SaveSysExHeader(sysExFile);
+                    sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
                     sumOfSysExValues += SaveRhythmBlock(blockNo);
-                    SaveSysExFooter(sumOfSysExValues);
+                    SaveSysExFooter(sysExFile, sumOfSysExValues);
                 }
             }
 
@@ -427,18 +501,75 @@ namespace MT32Edit
                 return sumOfSysExValues;
             }
 
-            void SaveMessage(int messageNo)
+        }
+
+        private static int SaveSysExAddress(FileStream sysExFile, byte[] sysExAddr)
+        {
+            sysExFile.Write(sysExAddr, 0, sysExAddr.Length);
+            return sysExAddr[0] + sysExAddr[1] + sysExAddr[2];
+        }
+
+        private static void SaveSysExHeader(FileStream sysExFile)
+        {
+            byte[] sysExData = new byte[5];
+            sysExData[0] = MT32SysEx.START_OF_DATA_BLOCK;
+            sysExData[1] = MT32SysEx.MANUFACTURER_ID;
+            sysExData[2] = MT32SysEx.DEVICE_ID;
+            sysExData[3] = MT32SysEx.MODEL_ID;
+            sysExData[4] = MT32SysEx.TX;
+            sysExFile.Write(sysExData, 0, sysExData.Length);
+        }
+
+        private static void SaveSysExFooter(FileStream sysExFile, int sumOfSysExValues)
+        {
+            byte[] sysExData = new byte[2];
+            sysExData[0] = MT32SysEx.RolandChecksum(sumOfSysExValues);
+            sysExData[1] = MT32SysEx.END_OF_DATA_BLOCK;
+            sysExFile.Write(sysExData, 0, sysExData.Length);
+        }
+
+        private static void SaveAllSystemData(FileStream sysExFile, SystemLevel systemConfig)
+        {
+            int sumOfSysExValues = 0;
+            byte[] sysExAddr = { 0x10, 0x00, 0x00 };
+            SaveSysExHeader(sysExFile);
+            sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+            sumOfSysExValues += SaveSystemData(sysExFile, systemConfig, sumOfSysExValues);
+            SaveSysExFooter(sysExFile, sumOfSysExValues);
+        }
+
+        private static int SaveSystemData(FileStream sysExFile, SystemLevel systemConfig, int sumOfSysExValues)
+        {
+            byte[] sysExData = new byte[23];
+            sysExData[0] = (byte)systemConfig.GetMasterTune();
+            sysExData[1] = (byte)systemConfig.GetReverbMode();
+            sysExData[2] = (byte)systemConfig.GetReverbTime();
+            sysExData[3] = (byte)systemConfig.GetReverbLevel();
+            for (int part = 0; part < 9; part++)
             {
-                int sumOfSysExValues = 0; //values of all parameters need to be totalled in order to calculate checksum
-                string message = ParseTools.MakeNCharsLong(memoryState.GetSystem().GetMessage(messageNo), 20);
-                byte[] messageASCIIChars = Encoding.ASCII.GetBytes(message);
-                byte[] sysExAddr = { 0x20, 0x00, 0x00 };
-                SaveSysExHeader();
-                sumOfSysExValues += SaveSysExAddress(sysExAddr);
-                sumOfSysExValues += ParseTools.CharacterSum(messageASCIIChars, 20);
-                sysExFile.Write(messageASCIIChars, 0, 20);
-                SaveSysExFooter(sumOfSysExValues);
+                sysExData[part + 4] = (byte)systemConfig.GetPartialReserve(part);
+                sysExData[part + 13] = (byte)systemConfig.GetSysExMidiChannel(part);
             }
+            sysExData[22] = (byte)systemConfig.GetMasterLevel();
+            for (int param = 0; param < 23; param++)
+            {
+                sumOfSysExValues += sysExData[param];
+            }
+            sysExFile.Write(sysExData, 0, sysExData.Length);
+            return sumOfSysExValues;
+        }
+
+        private static void SaveMessage(FileStream sysExFile, SystemLevel systemConfig, int messageNo)
+        {
+            int sumOfSysExValues = 0; //values of all parameters need to be totalled in order to calculate checksum
+            string message = ParseTools.MakeNCharsLong(systemConfig.GetMessage(messageNo), 20);
+            byte[] messageASCIIChars = Encoding.ASCII.GetBytes(message);
+            byte[] sysExAddr = { 0x20, 0x00, 0x00 };
+            SaveSysExHeader(sysExFile);
+            sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+            sumOfSysExValues += ParseTools.CharacterSum(messageASCIIChars, 20);
+            sysExFile.Write(messageASCIIChars, 0, 20);
+            SaveSysExFooter(sysExFile, sumOfSysExValues);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace MT32Edit
         // Form gives access to MT-32 system area parameters- allows configuration of master volume, master tuning, reverb, MIDI channels and partial reserve settings.
         //
         private SystemLevel system = new SystemLevel();
+        private SaveFileDialog saveSystemDialog = new SaveFileDialog();
         private bool sendSysEx = false;
 
         public FormSystemSettings(SystemLevel systemInput)
@@ -206,7 +207,7 @@ namespace MT32Edit
 
         private void comboBoxReverbType_SelectedValueChanged(object sender, EventArgs e)
         {
-            system.SetReverbType(comboBoxReverbType.SelectedIndex);
+            system.SetReverbMode(comboBoxReverbType.SelectedIndex);
             if (sendSysEx) MT32SysEx.SendSystemParameters(system);
         }
 
@@ -257,6 +258,11 @@ namespace MT32Edit
         private void textBoxMessage2_TextChanged(object sender, EventArgs e)
         {
             system.SetMessage(1, textBoxMessage2.Text);
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SysExFile.SaveSystemOnly(system, saveSystemDialog, checkBoxMasterLevel.Checked, checkBoxMasterTune.Checked, checkBoxReverb.Checked, checkBoxMIDIChannel.Checked, checkBoxPartialReserve.Checked, checkBoxTextMessages.Checked);
         }
     }
 }
