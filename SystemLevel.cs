@@ -175,7 +175,7 @@ namespace MT32Edit
         public void SetPartialReserve(int partNo, int partials, bool autoCorrect = false)
         {
             partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect);
-            partials = LogicTools.ValidateRange("Partial Reserve", partials, minPermitted: 0, maxPermitted: 31, autoCorrect);
+            partials = LogicTools.ValidateRange("Partial Reserve", partials, minPermitted: 0, maxPermitted: 32, autoCorrect);
             partialReserve[partNo] = partials;
         }
 

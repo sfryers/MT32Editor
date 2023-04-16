@@ -12,6 +12,8 @@ namespace MT32Edit
         // Tools to load/save MT-32 System Exclusive data files from/to local filesystem
         //
 
+        const int NO_OF_SYSTEM_PARAMS = 0x17;
+
         public static void Load(MT32State memoryState)
         {
             int timbreNo = 0;
@@ -155,7 +157,7 @@ namespace MT32Edit
                     ConsoleMessage.SendLine("System data address invalid, ignoring.");
                     return;
                 }
-                if (sysExData.Length > 0x17) Array.Resize(ref sysExData, 0x17); //remove any superfluous sysEx data values
+                if (sysExData.Length > NO_OF_SYSTEM_PARAMS) Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS); //remove any superfluous sysEx data values
                 int[] systemData = GetCurrentSystemAreaStateAsArray();
                 for (int parameterNo = 0; parameterNo < sysExData.Length; parameterNo++)
                 {
@@ -178,7 +180,7 @@ namespace MT32Edit
 
             int[] GetCurrentSystemAreaStateAsArray()
             {
-                int[] systemData = new int[0x17];
+                int[] systemData = new int[NO_OF_SYSTEM_PARAMS];
                 SystemLevel systemConfig = memoryState.GetSystem();
                 systemData[0] = systemConfig.GetMasterTune();
                 systemData[1] = systemConfig.GetReverbMode();
@@ -211,7 +213,7 @@ namespace MT32Edit
 
             void ExtractPatchData(int[] sysExData, int[] sysExAddress)
             {
-                if (!LogicTools.DivisibleBy(sysExData.Length - 1, 8)) //ignore block if patch data array length (minus last byte) is not divisible by 8
+                if (!LogicTools.DivisibleBy(sysExData.Length, 8)) //ignore block if patch data array length is not divisible by 8
                 {
                     ConsoleMessage.SendLine("Patch data (length " + sysExData.Length +") incomplete, ignoring.", ConsoleColor.Red);
                     return;
@@ -235,7 +237,7 @@ namespace MT32Edit
             void ExtractRhythmData(int[] sysExData, int[] sysExAddress)
             {
                 //process rhythm settings
-                if (!LogicTools.DivisibleBy(sysExData.Length - 1, 4)) //ignore block if rhythm data array length (minus last byte) is not divisible by 4
+                if (!LogicTools.DivisibleBy(sysExData.Length, 4)) //ignore block if rhythm data array length is not divisible by 4
                 {
                     ConsoleMessage.SendLine("Rhythm data incomplete, ignoring.", ConsoleColor.Red);
                     return;
@@ -442,12 +444,12 @@ namespace MT32Edit
                 //one 256-byte SysEx block can contain up to 32 patches
                 for (int blockNo = 0; blockNo < 4; blockNo++)
                 {
-                    int valueSum = 0;
+                    int sumOfSysExValues = 0;
                     byte[] sysExAddr = MT32SysEx.PatchAddress(blockNo * 32);
                     SaveSysExHeader(sysExFile);
-                    valueSum += SaveSysExAddress(sysExFile, sysExAddr);
-                    valueSum += SavePatchBlock(blockNo);
-                    SaveSysExFooter(sysExFile, valueSum);
+                    sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+                    sumOfSysExValues += SavePatchBlock(blockNo);
+                    SaveSysExFooter(sysExFile, sumOfSysExValues);
                 }
             }
 
@@ -500,7 +502,6 @@ namespace MT32Edit
                 }
                 return sumOfSysExValues;
             }
-
         }
 
         private static int SaveSysExAddress(FileStream sysExFile, byte[] sysExAddr)
@@ -540,7 +541,7 @@ namespace MT32Edit
 
         private static int SaveSystemData(FileStream sysExFile, SystemLevel systemConfig, int sumOfSysExValues)
         {
-            byte[] sysExData = new byte[23];
+            byte[] sysExData = new byte[NO_OF_SYSTEM_PARAMS];
             sysExData[0] = (byte)systemConfig.GetMasterTune();
             sysExData[1] = (byte)systemConfig.GetReverbMode();
             sysExData[2] = (byte)systemConfig.GetReverbTime();
@@ -551,7 +552,7 @@ namespace MT32Edit
                 sysExData[part + 13] = (byte)systemConfig.GetSysExMidiChannel(part);
             }
             sysExData[22] = (byte)systemConfig.GetMasterLevel();
-            for (int param = 0; param < 23; param++)
+            for (int param = 0; param < NO_OF_SYSTEM_PARAMS; param++)
             {
                 sumOfSysExValues += sysExData[param];
             }

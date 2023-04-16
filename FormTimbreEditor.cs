@@ -1,10 +1,12 @@
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace MT32Edit
 {
     public partial class FormTimbreEditor : Form
     {
         //
         // MT32Edit: FormTimbreEditor
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Form provides visual access to all MT-32 timbre parameters- allows timbres to be created, edited and previewed through a connected MT32-compatible MIDI device.
         //
         private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
@@ -53,7 +55,7 @@ namespace MT32Edit
         {
             thisFormIsActive = true;
             ConsoleMessage.SendLine("Timbre Editor activated");
-            if (initialisationComplete && timer.Interval == 100 && timbre.GetTimbreName() == "[empty]")
+            if (initialisationComplete && timer.Interval == 100 && timbre.GetTimbreName() == MT32Strings.EMPTY)
             {
                 timbre.SetDefaultTimbreParameters(createAudibleTimbre: true);
                 SetAllControlValues();
@@ -116,8 +118,16 @@ namespace MT32Edit
 
         private void UpdatePartialStructureImages()
         {
-            if (comboBoxPart12Struct.SelectedIndex > -1) pictureBoxPartial12.Image = imageList.Images[comboBoxPart12Struct.SelectedIndex];
-            if (comboBoxPart34Struct.SelectedIndex > -1) pictureBoxPartial34.Image = imageList.Images[comboBoxPart34Struct.SelectedIndex];
+            if (comboBoxPart12Struct.SelectedIndex > -1)
+            {
+                pictureBoxPartial12.Image = imageList.Images[comboBoxPart12Struct.SelectedIndex];
+                toolTipParameterValue.SetToolTip(pictureBoxPartial12, MT32Strings.partialConfig12Desc[comboBoxPart12Struct.SelectedIndex]);
+            }
+            if (comboBoxPart34Struct.SelectedIndex > -1)
+            {
+                pictureBoxPartial34.Image = imageList.Images[comboBoxPart34Struct.SelectedIndex];
+                toolTipParameterValue.SetToolTip(pictureBoxPartial34, MT32Strings.partialConfig34Desc[comboBoxPart34Struct.SelectedIndex]);
+            }
         }
 
         private void UpdatePartialSliders()     //update all UI controls to match current partial parameters
@@ -286,10 +296,11 @@ namespace MT32Edit
         {
             QuickSaveTimbre(timbre);
         }
-
         private void QuickSaveTimbre(TimbreStructure timbre)
         {
-            switch (MessageBox.Show("Overwrite file " + saveTimbreDialog.FileName + "?", "MT-32 Editor", MessageBoxButtons.OKCancel))
+            string action = "Overwrite";
+            if (!File.Exists(saveTimbreDialog.FileName)) action = "Save";
+            switch (MessageBox.Show(action + " file " + saveTimbreDialog.FileName + "?", "MT-32 Editor", MessageBoxButtons.OKCancel))
             {
                 case DialogResult.OK:
                     TimbreFile.Save(timbre, saveTimbreDialog);
@@ -367,9 +378,10 @@ namespace MT32Edit
             //send Partial 1 & 2 structure type value to device
             timbre.SetPart12Structure(comboBoxPart12Struct.SelectedIndex);
             if (sendSysEx) MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
-            if (sendSysEx) MT32SysEx.SendText("P1&2Struct = " + comboBoxPart12Struct.Text);
+            if (sendSysEx) MT32SysEx.SendText("P1&2 Struct: " + MT32Strings.partialConfig[comboBoxPart12Struct.SelectedIndex]);
             changesMade = true;
             UpdatePartialStructureImages();
+            toolTipParameterValue.SetToolTip(comboBoxPart12Struct, MT32Strings.partialConfig12Desc[comboBoxPart12Struct.SelectedIndex]);
             if (activePartial == 0) SetControlsforLeftPartial(comboBoxPart12Struct.SelectedIndex);
             else if (activePartial == 1) SetControlsforRightPartial(comboBoxPart12Struct.SelectedIndex);
         }
@@ -379,9 +391,10 @@ namespace MT32Edit
             //send Partial 3 & 4 structure type value to device
             timbre.SetPart34Structure(comboBoxPart34Struct.SelectedIndex);
             if (sendSysEx) MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
-            if (sendSysEx) MT32SysEx.SendText("P3&4Struct = " + comboBoxPart34Struct.Text);
+            if (sendSysEx) MT32SysEx.SendText("P3&4 Struct: " + MT32Strings.partialConfig[comboBoxPart34Struct.SelectedIndex]);
             changesMade = true;
             UpdatePartialStructureImages();
+            toolTipParameterValue.SetToolTip(comboBoxPart34Struct, MT32Strings.partialConfig34Desc[comboBoxPart34Struct.SelectedIndex]);
             if (activePartial == 2) SetControlsforLeftPartial(comboBoxPart34Struct.SelectedIndex);
             else if (activePartial == 3) SetControlsforRightPartial(comboBoxPart34Struct.SelectedIndex);
         }
@@ -422,6 +435,40 @@ namespace MT32Edit
                 default:
                     ShowOnlyPCMControls();
                     break;
+            }
+        }
+
+        private void comboBoxPart12Struct_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawStructureList(sender, e, isPartial12: true, comboBoxPart12Struct.DroppedDown);
+        }
+
+        private void comboBoxPart34Struct_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            DrawStructureList(sender, e, isPartial12: false, comboBoxPart34Struct.DroppedDown);
+        }
+
+        private void DrawStructureList(object sender, DrawItemEventArgs e, bool isPartial12, bool droppedDown)
+        {
+            //custom comboBox draw method- creates vertical divider between structure type and structure description
+            if (e.Index < 0) return;
+            e.DrawBackground();
+            string partialConfigType = e.Index.ToString() + ": " + MT32Strings.partialConfig[e.Index].ToString();
+            string partialConfigDescription;
+            if (isPartial12) partialConfigDescription = MT32Strings.partialConfig12Desc[e.Index];
+            else partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
+
+            int xLeft = e.Bounds.Location.X;
+            int xMid = 58;
+            int yTop = e.Bounds.Location.Y;
+            int yBottom = yTop + e.Bounds.Height;
+
+            TextRenderer.DrawText(e.Graphics, partialConfigType, e.Font, new Point(xLeft, yTop), e.ForeColor);
+            if (droppedDown)
+            {
+                e.Graphics.DrawLine(SystemPens.ButtonFace, xMid, yTop, xMid, yBottom);
+                TextRenderer.DrawText(e.Graphics, partialConfigDescription, e.Font, new Point(xMid + 5, yTop), e.ForeColor, TextFormatFlags.Left);
+                e.DrawFocusRectangle();
             }
         }
 
@@ -538,27 +585,27 @@ namespace MT32Edit
             changesMade = true;
         }
 
-        private void checkBoxPartial1_CheckStateChanged(object sender, EventArgs e) //enable or disable Partial 1 
+        private void checkBoxPartial1_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 1 
         {
-            timbre.SetPartialMuteStatus(0, !checkBoxPartial1.Checked);        //set mute status to inverse of checkbox status
+            timbre.SetPartialMuteStatus(0, !checkBoxPartial1.Checked);              //set mute status to inverse of checkbox status
             ConfigurePartialWarnings(activePartial);
             changesMade = true;
         }
         private void checkBoxPartial2_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 2
         {
-            timbre.SetPartialMuteStatus(1, !checkBoxPartial2.Checked);        //set mute status to inverse of checkbox status
+            timbre.SetPartialMuteStatus(1, !checkBoxPartial2.Checked);              //set mute status to inverse of checkbox status
             ConfigurePartialWarnings(activePartial);
             changesMade = true;
         }
         private void checkBoxPartial3_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 3
         {
-            timbre.SetPartialMuteStatus(2, !checkBoxPartial3.Checked);        //set mute status to inverse of checkbox status
+            timbre.SetPartialMuteStatus(2, !checkBoxPartial3.Checked);              //set mute status to inverse of checkbox status
             ConfigurePartialWarnings(activePartial);
             changesMade = true;
         }
         private void checkBoxPartial4_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 4
         {
-            timbre.SetPartialMuteStatus(3, !checkBoxPartial4.Checked);        //set mute status to inverse of checkbox status
+            timbre.SetPartialMuteStatus(3, !checkBoxPartial4.Checked);              //set mute status to inverse of checkbox status
             ConfigurePartialWarnings(activePartial);
             changesMade = true;
         }
@@ -575,7 +622,7 @@ namespace MT32Edit
         }
 
         ////////////////////////////////////////////////////// Update partial 1-4 parameters ////////////////////////////////////////////////////
-        private void UpdatePartialValueFromSliderValue(byte parameterNo, TrackBar slider)
+        private void UpdatePartialValueFromSliderValue(byte parameterNo, System.Windows.Forms.TrackBar slider)
         {
             int parameterValue = slider.Value;
             timbre.SetUIParameter(activePartial, parameterNo, parameterValue);
@@ -615,11 +662,6 @@ namespace MT32Edit
             timbre.SetUIParameter(activePartial, 0x04, waveFormState);
             if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);   //send Waveform type to device
             changesMade = true;
-        }
-
-        private void radioButtonPCMBank1_CheckedChanged(object sender, EventArgs e)
-        {
-            //SetPCMBank();
         }
 
         private void radioButtonPCMBank1_MouseUp(object sender, MouseEventArgs e)

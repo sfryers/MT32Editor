@@ -33,7 +33,7 @@ namespace MT32Edit
             }
             else
             {
-                timbreName = "[empty]   ";
+                timbreName = ParseTools.MakeNCharsLong(MT32Strings.EMPTY, 10);
                 partialMuteStatus = new bool[] { true, true, true, true }; //all partials muted
             }
             part12Structure = 0;

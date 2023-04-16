@@ -121,7 +121,7 @@ namespace MT32Edit
             for (int timbreNo = 0; timbreNo < 64; timbreNo++)
             {
                 string timbreName = ParseTools.RemoveTrailingSpaces(timbreArray[timbreNo].GetTimbreName());
-                if (timbreName == "[empty]") continue; //skip empty timbres
+                if (timbreName == MT32Strings.EMPTY) continue; //skip empty timbres
                 string timbreFileName = CreateBatchTimbreFilename(timbreNo);
                 timbreFileName = RemoveInvalidCharacters(timbreFileName);
                 if (SaveTimbreFile(timbreArray[timbreNo], filePath + Path.DirectorySeparatorChar + timbreFileName)) fileCount++;

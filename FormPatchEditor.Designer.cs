@@ -294,6 +294,7 @@
             // 
             // comboBoxAssignMode
             // 
+            comboBoxAssignMode.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxAssignMode.FormattingEnabled = true;
             comboBoxAssignMode.Items.AddRange(new object[] { "1: Single Assign", "2: Multi Assign", "3: First In, First Out", "4: First In, Last Out" });
             comboBoxAssignMode.Location = new Point(326, 229);

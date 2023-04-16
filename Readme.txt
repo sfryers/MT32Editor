@@ -1,6 +1,6 @@
-MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI synthesizers
+MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI synthesisers
 
-Unless stated otherwise, any reference in this document to MT-32 also applies to CM-32L, CM-64 or MUNT software synthesizer.
+Unless stated otherwise, any reference in this document to MT-32 also applies to CM-32L, CM-64 or MUNT software synthesiser.
 The term 'SysEx' refers to MIDI System Exclusive message files, which normally contain a file extension '.syx'.
 
 COMPATIBILITY:
@@ -41,9 +41,10 @@ Individual timbres, in .timbre format, can also be loaded and saved using this m
 View Menu - switch between Patch Editor and Rhythm Editor view.
 
 Options Menu 
-	- open System AreaSettings window (allows setting master volume, master tune, reverb, midi channels and partial reserve values).
+	- System area settings (allows setting master volume, master tune, reverb, midi channels and partial reserve values).
         - Hardware MT-32 connected (when enabled, adds 50ms delay between large sysex messages to prevent buffer overflow errors on original hardware).
 	- Send info to MT-32 display (when enabled, sends messages to device's matrix display to show parameter changes etc).
+	- Allow MT-32 reset from SysEx (when enabled, will pass any MT-32 reset messages found whilst loading a SysEx file directly to the connected MIDI Out device).
 	- Verbose console messages (when enabled, sends status messages to Windows console).
 
 MIDI In/MIDI Out - select MIDI input and output devices. A settings file MT32Edit.ini will be created in the same folder as the application- ensure you have write access to the folder where the application is stored.
@@ -105,4 +106,3 @@ My timbre sounds crackly/distorted:
 I can't save my timbre or SysEx files- I see an error message "File not found. Check the filename and try again."
 
 - Check that you have write access to the folder you're trying to save into.
-

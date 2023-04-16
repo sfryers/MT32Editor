@@ -71,7 +71,7 @@ namespace MT32Edit
             labelTimbreName.Text = timbreName;
             SelectTimbreInListView(selectedTimbre);
             SynchroniseTimbreEditor(selectedTimbre);
-            if (timbreName == "[empty]") timbreName = "New Timbre";
+            if (timbreName == MT32Strings.EMPTY) timbreName = "New Timbre";
             MT32SysEx.SendText("Editing " + timbreName);
         }
 
@@ -83,7 +83,7 @@ namespace MT32Edit
 
         private void buttonClearTimbre_Click(object sender, EventArgs e)
         {
-            if (labelTimbreName.Text == "[empty]") return;
+            if (labelTimbreName.Text == MT32Strings.EMPTY) return;
             switch (MessageBox.Show("Clear selected memory timbre?", "", MessageBoxButtons.OKCancel))
             {
                 case DialogResult.OK:
@@ -144,7 +144,7 @@ namespace MT32Edit
         private void buttonPasteTimbre_Click(object sender, EventArgs e)
         {
             int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
-            if (labelTimbreName.Text != "[empty]")
+            if (labelTimbreName.Text != MT32Strings.EMPTY)
             {
                 switch (MessageBox.Show("Overwrite " + memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName() + " with copied timbre " + copiedTimbre.GetTimbreName() + "?", "", MessageBoxButtons.OKCancel))
                 {

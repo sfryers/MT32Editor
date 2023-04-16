@@ -38,7 +38,6 @@
             saveSysExToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             loadTimbreFileToolStripMenuItem = new ToolStripMenuItem();
-            saveTimbreFileAsToolStripMenuItem = new ToolStripMenuItem();
             saveTimbreFileToolStripMenuItem = new ToolStripMenuItem();
             saveAllTimbresToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
@@ -77,7 +76,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadSysExFileToolStripMenuItem, saveSysExFileAsToolStripMenuItem, saveSysExToolStripMenuItem, toolStripSeparator1, loadTimbreFileToolStripMenuItem, saveTimbreFileAsToolStripMenuItem, saveTimbreFileToolStripMenuItem, saveAllTimbresToolStripMenuItem, toolStripSeparator2, closeToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadSysExFileToolStripMenuItem, saveSysExFileAsToolStripMenuItem, saveSysExToolStripMenuItem, toolStripSeparator1, loadTimbreFileToolStripMenuItem, saveTimbreFileToolStripMenuItem, saveAllTimbresToolStripMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 23);
             fileToolStripMenuItem.Text = "File";
@@ -86,7 +85,7 @@
             // 
             loadSysExFileToolStripMenuItem.Image = (Image)resources.GetObject("loadSysExFileToolStripMenuItem.Image");
             loadSysExFileToolStripMenuItem.Name = "loadSysExFileToolStripMenuItem";
-            loadSysExFileToolStripMenuItem.Size = new Size(181, 22);
+            loadSysExFileToolStripMenuItem.Size = new Size(180, 22);
             loadSysExFileToolStripMenuItem.Text = "Load SysEx File";
             loadSysExFileToolStripMenuItem.Click += loadSysExFileToolStripMenuItem_Click;
             // 
@@ -94,7 +93,7 @@
             // 
             saveSysExFileAsToolStripMenuItem.Image = Properties.Resources.SaveAs;
             saveSysExFileAsToolStripMenuItem.Name = "saveSysExFileAsToolStripMenuItem";
-            saveSysExFileAsToolStripMenuItem.Size = new Size(181, 22);
+            saveSysExFileAsToolStripMenuItem.Size = new Size(180, 22);
             saveSysExFileAsToolStripMenuItem.Text = "Save SysEx File As..";
             saveSysExFileAsToolStripMenuItem.Click += saveSysExFileAsToolStripMenuItem_Click;
             // 
@@ -103,56 +102,47 @@
             saveSysExToolStripMenuItem.Enabled = false;
             saveSysExToolStripMenuItem.Image = Properties.Resources.Save;
             saveSysExToolStripMenuItem.Name = "saveSysExToolStripMenuItem";
-            saveSysExToolStripMenuItem.Size = new Size(181, 22);
+            saveSysExToolStripMenuItem.Size = new Size(180, 22);
             saveSysExToolStripMenuItem.Text = "Save SysEx File";
             saveSysExToolStripMenuItem.Click += saveSysExToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(178, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // loadTimbreFileToolStripMenuItem
             // 
             loadTimbreFileToolStripMenuItem.Image = Properties.Resources.Open;
             loadTimbreFileToolStripMenuItem.Name = "loadTimbreFileToolStripMenuItem";
-            loadTimbreFileToolStripMenuItem.Size = new Size(181, 22);
+            loadTimbreFileToolStripMenuItem.Size = new Size(180, 22);
             loadTimbreFileToolStripMenuItem.Text = "Load Timbre File";
             loadTimbreFileToolStripMenuItem.Click += loadTimbreFileToolStripMenuItem_Click;
             // 
-            // saveTimbreFileAsToolStripMenuItem
-            // 
-            saveTimbreFileAsToolStripMenuItem.Image = Properties.Resources.SaveAs;
-            saveTimbreFileAsToolStripMenuItem.Name = "saveTimbreFileAsToolStripMenuItem";
-            saveTimbreFileAsToolStripMenuItem.Size = new Size(181, 22);
-            saveTimbreFileAsToolStripMenuItem.Text = "Save Timbre File As..";
-            saveTimbreFileAsToolStripMenuItem.Click += saveTimbreFileAsToolStripMenuItem_Click;
-            // 
             // saveTimbreFileToolStripMenuItem
             // 
-            saveTimbreFileToolStripMenuItem.Enabled = false;
             saveTimbreFileToolStripMenuItem.Image = Properties.Resources.Save;
             saveTimbreFileToolStripMenuItem.Name = "saveTimbreFileToolStripMenuItem";
-            saveTimbreFileToolStripMenuItem.Size = new Size(181, 22);
+            saveTimbreFileToolStripMenuItem.Size = new Size(180, 22);
             saveTimbreFileToolStripMenuItem.Text = "Save Timbre File";
             saveTimbreFileToolStripMenuItem.Click += saveTimbreFileToolStripMenuItem_Click;
             // 
             // saveAllTimbresToolStripMenuItem
             // 
             saveAllTimbresToolStripMenuItem.Name = "saveAllTimbresToolStripMenuItem";
-            saveAllTimbresToolStripMenuItem.Size = new Size(181, 22);
+            saveAllTimbresToolStripMenuItem.Size = new Size(180, 22);
             saveAllTimbresToolStripMenuItem.Text = "Save All Timbres";
             saveAllTimbresToolStripMenuItem.Click += saveAllTimbresToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(178, 6);
+            toolStripSeparator2.Size = new Size(177, 6);
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(181, 22);
+            closeToolStripMenuItem.Size = new Size(180, 22);
             closeToolStripMenuItem.Text = "Exit";
             closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
             // 
@@ -168,14 +158,14 @@
             patchEditorToolStripMenuItem.Checked = true;
             patchEditorToolStripMenuItem.CheckState = CheckState.Checked;
             patchEditorToolStripMenuItem.Name = "patchEditorToolStripMenuItem";
-            patchEditorToolStripMenuItem.Size = new Size(180, 22);
+            patchEditorToolStripMenuItem.Size = new Size(179, 22);
             patchEditorToolStripMenuItem.Text = "Patch Editor";
             patchEditorToolStripMenuItem.Click += patchEditorToolStripMenuItem_Click;
             // 
             // rhythmEditorToolStripMenuItem
             // 
             rhythmEditorToolStripMenuItem.Name = "rhythmEditorToolStripMenuItem";
-            rhythmEditorToolStripMenuItem.Size = new Size(180, 22);
+            rhythmEditorToolStripMenuItem.Size = new Size(179, 22);
             rhythmEditorToolStripMenuItem.Text = "Rhythm Bank Editor";
             rhythmEditorToolStripMenuItem.Click += rhythmEditorToolStripMenuItem_Click;
             // 
@@ -337,7 +327,6 @@
         private ToolStripMenuItem saveSysExFileAsToolStripMenuItem;
         private ToolStripMenuItem saveSysExToolStripMenuItem;
         private ToolStripMenuItem loadTimbreFileToolStripMenuItem;
-        private ToolStripMenuItem saveTimbreFileAsToolStripMenuItem;
         private ToolStripMenuItem saveTimbreFileToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private ToolStripMenuItem mIDIToolStripMenuItem;

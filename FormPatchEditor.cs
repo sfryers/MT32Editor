@@ -2,7 +2,7 @@ namespace MT32Edit
 {
     //
     // MT32Edit: FormPatchEditor
-    // S.Fryers Mar 2023
+    // S.Fryers Apr 2023
     // Form showing visual representation of MT-32's 128 patch banks- allows custom patches to be configured
     //
     public partial class FormPatchEditor : Form
@@ -343,9 +343,11 @@ namespace MT32Edit
             DoFullRefresh(selectedPatch);
         }
 
-        private void EditPresetTimbre(int selectedPatch)
+        private void EditPresetTimbre(int patchNo)
         {
-            FormSelectMemoryBank selectMemoryBank = new FormSelectMemoryBank(memoryState, memoryState.GetTimbreNames().Get(selectedPatch));
+            Patch currentPatch = memoryState.GetPatch(patchNo);
+            string patchName = memoryState.GetTimbreNames().Get(currentPatch.GetTimbreNo(), currentPatch.GetTimbreGroup());
+            FormSelectMemoryBank selectMemoryBank = new FormSelectMemoryBank(memoryState, patchName);
             selectMemoryBank.ShowDialog();
         }
 

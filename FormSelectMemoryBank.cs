@@ -4,9 +4,10 @@
     {
         //
         // MT32Edit: FormSelectMemoryBank
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Simple form allowing selection of a memory bank to copy preset timbre into
         //
+        const int MEMORY_GROUP = 2;
         MT32State memoryState = new MT32State();
         string presetTimbreName = "none";
 
@@ -21,29 +22,29 @@
         private void PopulateForm()
         {
             labelPresetTimbreName.Text = presetTimbreName + ":";
-            string[] memoryTimbreNames = memoryState.GetTimbreNames().GetAll(2);
+            string[] memoryTimbreNames = memoryState.GetTimbreNames().GetAll(MEMORY_GROUP);
             for (int timbreNo = 0; timbreNo < memoryTimbreNames.Length; timbreNo++)
             {
                 memoryTimbreNames[timbreNo] = (timbreNo + 1).ToString() + ":   " + memoryTimbreNames[timbreNo]; //prefix timbre names with numbered list starting from 1
             }
             comboBoxMemoryBank.DataSource = memoryTimbreNames;
-            comboBoxMemoryBank.Text = memoryState.GetTimbreNames().Get(0, 2);
+            comboBoxMemoryBank.Text = memoryState.GetTimbreNames().Get(0, MEMORY_GROUP);
         }
 
         private void ReplaceMemoryTimbre()
         {
-            int selectedPatch = memoryState.GetSelectedPatchNo();
-            TimbreStructure timbre = PresetTimbres.Get(selectedPatch);
+            int patchNo = memoryState.GetSelectedPatchNo();
+            Patch selectedPatch = memoryState.GetPatch(patchNo);
+            TimbreStructure timbre = PresetTimbres.Get(selectedPatch.GetTimbreNo(), selectedPatch.GetTimbreGroup());
             memoryState.SetMemoryTimbre(timbre, comboBoxMemoryBank.SelectedIndex);
-            Patch memoryPatch = memoryState.GetPatch(selectedPatch);
-            memoryPatch.SetTimbreGroup(2);
-            memoryPatch.SetTimbreNo(comboBoxMemoryBank.SelectedIndex);
+            selectedPatch.SetTimbreGroup(MEMORY_GROUP);
+            selectedPatch.SetTimbreNo(comboBoxMemoryBank.SelectedIndex);
         }
 
         private void comboBoxMemoryBank_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string timbreNameCheck = ParseTools.RightMost(memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, 2), 7);
-            if (timbreNameCheck == "[empty]") buttonOK.Text = "OK";
+            string timbreName = ParseTools.RightMost(memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, MEMORY_GROUP), MT32Strings.EMPTY.Length);
+            if (timbreName == MT32Strings.EMPTY) buttonOK.Text = "OK";
             else buttonOK.Text = "Replace";
         }
 
@@ -51,7 +52,7 @@
         {
             if (buttonOK.Text == "Replace")
             {
-                switch (MessageBox.Show("This memory slot is already occupied. Overwrite " + memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, 2) + " with preset timbre " + presetTimbreName + "?", "Confirm timbre replacement", MessageBoxButtons.OKCancel))
+                switch (MessageBox.Show("This memory slot is already occupied. Overwrite " + memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, MEMORY_GROUP) + " with preset timbre " + presetTimbreName + "?", "Confirm timbre replacement", MessageBoxButtons.OKCancel))
                 {
                     case DialogResult.OK:
                         break;

@@ -17,7 +17,7 @@ namespace MT32Edit
 
         static extern bool AllocConsole();
 
-        const string VERSION_NO = "v0.9.1a";
+        const string VERSION_NO = "v0.9.2a";
         const string RELEASE_DATE = "April 2023";
 
         private bool midiInError = false;
@@ -152,6 +152,7 @@ namespace MT32Edit
         private void loadSysExFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SysExFile.Load(memoryState);
+            saveSysExToolStripMenuItem.Enabled = true;
         }
 
         private void saveSysExFileAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,6 +161,7 @@ namespace MT32Edit
             saveSysExDialog.Filter = "MIDI System Exclusive message file|*.syx";
             saveSysExDialog.FileName = "New SysEx file.syx";
             SysExFile.Save(memoryState, saveSysExDialog);
+            saveSysExToolStripMenuItem.Enabled = true;
         }
 
         private void saveSysExToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,7 +179,7 @@ namespace MT32Edit
             int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
             string timbreName = memoryState.GetTimbreNames().Get(selectedTimbre, 2);
             TimbreStructure timbreData = memoryState.GetMemoryTimbre(selectedTimbre);
-            if (timbreName != "[empty]")
+            if (timbreName != MT32Strings.EMPTY)
             {
                 switch (MessageBox.Show("Memory slot " + (selectedTimbre + 1).ToString() + " already contains a timbre. Replace " + timbreName + "?", "MT32 Editor", MessageBoxButtons.OKCancel))
                 {
@@ -198,7 +200,7 @@ namespace MT32Edit
             memoryBankEditor.Select();
         }
 
-        private void SaveTimbreAs()
+        private void SaveTimbre()
         {
             int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
             TimbreStructure memoryTimbre = memoryState.GetMemoryTimbre(selectedTimbre);
@@ -206,35 +208,17 @@ namespace MT32Edit
             saveTimbreDialog.Filter = "Timbre file|*.timbre";
             saveTimbreDialog.FileName = timbreName;
             saveTimbreDialog.Title = "Save Timbre File";
-            if (saveTimbreDialog.ShowDialog() == DialogResult.OK)
-            {
-                saveTimbreFileToolStripMenuItem.Enabled = true;
-                TimbreFile.Save(memoryTimbre, saveTimbreDialog);
-            }
-        }
-
-        private void QuickSaveTimbre()
-        {
-            switch (MessageBox.Show("Overwrite file " + saveTimbreDialog.FileName + "?", "MT-32 Timbre Editor", MessageBoxButtons.OKCancel))
-            {
-                case DialogResult.OK:
-                    int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
-                    TimbreStructure memoryTimbre = memoryState.GetMemoryTimbre(selectedTimbre);
-                    TimbreFile.Save(memoryTimbre, saveTimbreDialog);
-                    break;
-                case DialogResult.Cancel:
-                    break;
-            }
+            if (saveTimbreDialog.ShowDialog() == DialogResult.OK) TimbreFile.Save(memoryTimbre, saveTimbreDialog);
         }
 
         private void saveTimbreFileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveTimbreAs();
+            SaveTimbre();
         }
 
         private void saveTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            QuickSaveTimbre();
+            SaveTimbre();
         }
 
         private void saveAllTimbresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -282,6 +266,8 @@ namespace MT32Edit
                 DisableTimbreEditor();
             }
             else EnableTimbreEditor();
+            if (memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY) saveTimbreFileToolStripMenuItem.Enabled = false;
+            else saveTimbreFileToolStripMenuItem.Enabled = true;
         }
 
         private void DisableTimbreEditor()

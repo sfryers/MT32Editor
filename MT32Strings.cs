@@ -61,6 +61,40 @@
         public static readonly string[] waveform = { "Square", "Saw" };
 
         public static readonly string[] onOff = { "Off", "On" };
+        
+        public static readonly string[] partialConfig = { "(SS)     ", "(S(SR))", "(PS)     ", "(P(SR))", "(S(PR))", "(PP)     ", "(P(PR))", "(S)(S)   ", "(P)(P)  ", "(SS)R ", "(PS)R ", "(SP)R ", "(PP)R " };
+        public static readonly string[] partialConfig12Desc =   { 
+                                                                "(Partial 1 [Synth] + Partial 2 [Synth]) → Mono Out",
+                                                                "(Partial 1 [Synth] + Partial 2 [Synth] → Ring Mod.) + Partial 1 [Synth] → Mono Out",
+                                                                "(Partial 1 [PCM] + Partial 2 [Synth]) → Mono Out",
+                                                                "(Partial 1 [PCM] + Partial 2 [Synth] → Ring Mod.) + Partial 1 [PCM] → Mono Out",
+                                                                "(Partial 1 [Synth] + Partial 2 [PCM] → Ring Mod.) + Partial 1 [Synth] → Mono Out",
+                                                                "(Partial 1 [PCM] + Partial 2 [PCM]) → Mono Out",
+                                                                "(Partial 1 [PCM] + Partial 2 [PCM] → Ring Mod.) + Partial 1 [PCM] → Mono Out",
+                                                                "(Partial 1 [Synth] → Left Channel) (Partial 2 [Synth] → Right Channel) → Stereo Out",
+                                                                "(Partial 1 [PCM] → Left Channel) (Partial 2 [PCM] → Right Channel) → Stereo Out", 
+                                                                "(Partial 1 [Synth] + Partial 2 [Synth]) → Ring Mod. → Mono Out", 
+                                                                "(Partial 1 [PCM] + Partial 2 [Synth]) → Ring Mod. → Mono Out", 
+                                                                "(Partial 1 [Synth] + Partial 2 [PCM]) → Ring Mod. → Mono Out", 
+                                                                "(Partial 1 [PCM] + Partial 2 [PCM]) → Ring Mod. → Mono Out" 
+                                                                };
+        public static readonly string[] partialConfig34Desc = {
+                                                                "(Partial 3 [Synth] + Partial 4 [Synth]) → Mono Out",
+                                                                "(Partial 3 [Synth] + Partial 4 [Synth] → Ring Mod.) + Partial 3 [Synth] → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [Synth]) → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [Synth] → Ring Mod.) + Partial 3 [PCM] → Mono Out",
+                                                                "(Partial 3 [Synth] + Partial 4 [PCM] → Ring Mod.) + Partial 3 [Synth] → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [PCM]) → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [PCM] → Ring Mod.) + Partial 3 [PCM] → Mono Out",
+                                                                "(Partial 3 [Synth] → Left Channel) (Partial 4 [Synth] → Right Channel) → Stereo Out",
+                                                                "(Partial 3 [PCM] → Left Channel) (Partial 4 [PCM] → Right Channel) → Stereo Out",
+                                                                "(Partial 3 [Synth] + Partial 4 [Synth]) → Ring Mod. → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [Synth]) → Ring Mod. → Mono Out",
+                                                                "(Partial 3 [Synth] + Partial 4 [PCM]) → Ring Mod. → Mono Out",
+                                                                "(Partial 3 [PCM] + Partial 4 [PCM]) → Ring Mod. → Mono Out"
+                                                                };
+
+        public const string EMPTY = "[empty]";
 
         public static string PitchNote(int pitchValue)
         {

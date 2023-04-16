@@ -1,4 +1,6 @@
-﻿namespace MT32Edit
+﻿using System.Drawing.Imaging;
+
+namespace MT32Edit
 {  
     public class TimbreNames
     {
@@ -7,16 +9,16 @@
         // S.Fryers Feb 2023
         // Data class containing names of MT-32 memory timbres and an interface to static read-only class PresetTimbreNames.
         //
-
+        private const string EMPTY = MT32Strings.EMPTY;
         private string[] memoryGroup =               {
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"   ,
-                                                     "[empty]"   ,"[empty]",   "[empty]"   ,"[empty]",   "[empty]",   "[empty]"   ,"[empty]"   ,"[empty]"
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+                                                     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY
                                                      }; //64 members
 
         public string Get(int timbreNo, int group = -1)
@@ -69,7 +71,7 @@
         public void ResetMemoryTimbreName(int timbreNo) 
         {
             LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
-            memoryGroup[timbreNo] = "[empty]";
+            memoryGroup[timbreNo] = MT32Strings.EMPTY;
         }
 
         public void ResetAllMemoryTimbreNames()

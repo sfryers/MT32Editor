@@ -134,7 +134,7 @@ namespace MT32Edit
             }
             SendMessage(sysExAddr, sysExData);
             Midi.SendProgramChange(patchNo, channelNo);
-            SendText(MT32Strings.patchParameterNames[parameterNo] + " = " + MT32Strings.PatchParameterValueText(parameterNo, patchData[patchNo].GetParameterUIValue(parameterNo)));
+            SendText(MT32Strings.patchParameterNames[parameterNo] + ": " + MT32Strings.PatchParameterValueText(parameterNo, patchData[patchNo].GetParameterUIValue(parameterNo)));
         }
 
         public static void UpdateTimbreParameters(TimbreStructure t)
@@ -155,7 +155,7 @@ namespace MT32Edit
             byte[] sysExAddr = PartialAddress(parameterNo, partialNo);
             byte[] sysExData = { Convert.ToByte(sysExParameterValue) }; // ensure no negative values are passed to device
             SendMessage(sysExAddr, sysExData);
-            SendText(parameterName + " = " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
+            SendText(parameterName + ": " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
         }
 
         public static void SendAllPartialParameters(TimbreStructure t)

@@ -168,19 +168,12 @@
             label43 = new Label();
             toolTipParameterValue = new ToolTip(components);
             buttonRefresh = new Button();
-            buttonCopyPartial = new Button();
-            buttonPastePartial = new Button();
             buttonReset = new Button();
             buttonSaveTimbreAs = new Button();
             buttonQuickSaveTimbre = new Button();
             buttonLoadTimbre = new Button();
-            comboBoxEditPartialNo = new ComboBox();
-            labelEditPartialNo = new Label();
-            labelEnablePartials = new Label();
-            checkBoxPartial1 = new CheckBox();
-            checkBoxPartial2 = new CheckBox();
-            checkBoxPartial3 = new CheckBox();
-            checkBoxPartial4 = new CheckBox();
+            buttonPastePartial = new Button();
+            buttonCopyPartial = new Button();
             textBoxTimbreName = new TextBox();
             labelTimbreName = new Label();
             checkBoxSustain = new CheckBox();
@@ -188,7 +181,6 @@
             comboBoxPart34Struct = new ComboBox();
             label45 = new Label();
             label46 = new Label();
-            labelPartialWarning = new Label();
             checkBoxShowLabels = new CheckBox();
             checkBoxShowAllPartials = new CheckBox();
             timer = new System.Windows.Forms.Timer(components);
@@ -204,11 +196,23 @@
             label59 = new Label();
             label60 = new Label();
             label61 = new Label();
-            label62 = new Label();
-            label63 = new Label();
             imageList = new ImageList(components);
             pictureBoxPartial12 = new PictureBox();
             pictureBoxPartial34 = new PictureBox();
+            label64 = new Label();
+            label65 = new Label();
+            label66 = new Label();
+            groupBoxPartialStructure = new GroupBox();
+            label63 = new Label();
+            label62 = new Label();
+            labelPartialWarning = new Label();
+            checkBoxPartial4 = new CheckBox();
+            checkBoxPartial3 = new CheckBox();
+            checkBoxPartial2 = new CheckBox();
+            checkBoxPartial1 = new CheckBox();
+            labelEnablePartials = new Label();
+            labelEditPartialNo = new Label();
+            comboBoxEditPartialNo = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFinePitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarPitchKeyFollow).BeginInit();
@@ -277,6 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).BeginInit();
+            groupBoxPartialStructure.SuspendLayout();
             SuspendLayout();
             // 
             // trackBarPitch
@@ -298,7 +303,7 @@
             // labelWaveform
             // 
             labelWaveform.AutoSize = true;
-            labelWaveform.Location = new Point(20, 34);
+            labelWaveform.Location = new Point(26, 28);
             labelWaveform.Name = "labelWaveform";
             labelWaveform.Size = new Size(62, 15);
             labelWaveform.TabIndex = 1;
@@ -308,7 +313,7 @@
             // labelFinePitch
             // 
             labelFinePitch.AutoSize = true;
-            labelFinePitch.Location = new Point(76, 119);
+            labelFinePitch.Location = new Point(82, 117);
             labelFinePitch.Name = "labelFinePitch";
             labelFinePitch.Size = new Size(29, 15);
             labelFinePitch.TabIndex = 3;
@@ -334,7 +339,7 @@
             // labelPitchKeyfollow
             // 
             labelPitchKeyfollow.AutoSize = true;
-            labelPitchKeyfollow.Location = new Point(121, 119);
+            labelPitchKeyfollow.Location = new Point(127, 117);
             labelPitchKeyfollow.Name = "labelPitchKeyfollow";
             labelPitchKeyfollow.Size = new Size(59, 15);
             labelPitchKeyfollow.TabIndex = 5;
@@ -359,7 +364,7 @@
             // labelCoarsePitch
             // 
             labelCoarsePitch.AutoSize = true;
-            labelCoarsePitch.Location = new Point(16, 119);
+            labelCoarsePitch.Location = new Point(16, 117);
             labelCoarsePitch.Name = "labelCoarsePitch";
             labelCoarsePitch.Size = new Size(43, 15);
             labelCoarsePitch.TabIndex = 6;
@@ -393,7 +398,7 @@
             groupBoxPitch.Controls.Add(trackBarPitch);
             groupBoxPitch.Location = new Point(256, 6);
             groupBoxPitch.Name = "groupBoxPitch";
-            groupBoxPitch.Size = new Size(216, 168);
+            groupBoxPitch.Size = new Size(214, 171);
             groupBoxPitch.TabIndex = 8;
             groupBoxPitch.TabStop = false;
             // 
@@ -408,9 +413,10 @@
             // 
             // comboBoxWaveform
             // 
+            comboBoxWaveform.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxWaveform.FormattingEnabled = true;
             comboBoxWaveform.Items.AddRange(new object[] { "Square", "Saw" });
-            comboBoxWaveform.Location = new Point(104, 26);
+            comboBoxWaveform.Location = new Point(110, 20);
             comboBoxWaveform.Name = "comboBoxWaveform";
             comboBoxWaveform.Size = new Size(77, 23);
             comboBoxWaveform.TabIndex = 9;
@@ -422,7 +428,7 @@
             comboBoxPCMSample.DropDownWidth = 150;
             comboBoxPCMSample.FormattingEnabled = true;
             comboBoxPCMSample.Items.AddRange(new object[] { "Ac. Bass Drum", "Ac. Snare Drum", "El. Snare Drum", "Electric Tom", "Closed Hihat", "Open Hihat", "Crash Cymbal", "Crash Cymbal (loop)", "Ride cymbal", "Rim Shot", "Hand Clap", "Muted Conga", "Conga", "Bongo", "Cowbell", "Tambourine", "Agogo Bell", "Claves", "Timbale", "Cabasa", "Keypress", "Perc Organ", "Trombone", "Trumpet", "Breath Noise (loop)", "Clarinet", "Flute", "Pan Pipes", "Shakuhachi", "Alto Sax", "Baritone Sax", "Marimba", "Glockenspiel", "Xylophone", "Tubular Bells", "Fingered Bass", "Slap Bass", "Picked Bass (loop)", "Acoustic Bass", "Nylon Guitar", "Steel Guitar", "Pizzicato", "Harp", "Harpsichord (loop)", "Bow string", "Violin", "Timpani", "Orchestra Hit", "Flute", "Organ (loop)", "Bowed Glass (loop)", "Telephone", "Bowed Glass", "Reverse Cymbal", "Ac. Bass Drum #", "Ac. Snare Drum #", "El. Snare Drum #", "Ac. Tom #", "Closed Hihat #", "Open Hihat (loop) #", "Crash Cymbal #", "Crash Cymbal (loop) #", "Ride cymbal #", "Rim shot #", "Hand clap #", "Mute Conga #", "Conga #", "Bongo #", "Cowbell #", "Tambourine #", "Agogo #", "Claves #", "Timbale #", "Cabasa #", "Bass Drum (loop)", "Snare (loop)", "Acoustic Tom (loop)", "Electric Tom (loop)", "Hihat (loop)", "Crash Cymbal (loop)", "Ride cymbal (loop)", "Ride cymbal 2 (loop)", "Rim (loop)", "Hand clap (loop)", "Bongo (loop)", "Conga (loop)", "Muted conga (loop)", "Cowbell (loop)", "Tambourine (loop)", "Agogo (loop)", "Woodblock (loop)", "Timbales (loop)", "Maracas (loop)", "Sticks (loop)", "Perc Organ (loop)", "Trombone (loop)", "Trumpet (loop)", "Clarinet (loop)", "Piccolo (loop)", "Pan Pipe (loop)", "Breath Noise (loop)", "Alto Sax (loop)", "Baritone Sax (loop)", "Xylophone (loop)", "Glockenspiel (loop)", "Marimba (loop)", "Tubular Bells (loop)", "Fingered Bass (loop)", "Slap Bass (loop)", "Acoustic Bass (loop)", "Nylon Guitar (loop)", "Steel Guitar (loop)", "Pizzicato (loop)", "Harp (loop)", "Bowed string (loop)", "String Ensemble (loop)", "[null]", "Orchestra Hit (loop)", "Flute (loop)", "Percussion loop 1", "Percussion loop 2", "Orchestra & Percussion loop", "Wind & Percussion loop", "Guitar & Bass loop", "Orchestra loop", "Percussion loop 3", "Bass & Percussion loop", "Bass & Snare loop" });
-            comboBoxPCMSample.Location = new Point(97, 194);
+            comboBoxPCMSample.Location = new Point(103, 188);
             comboBoxPCMSample.Name = "comboBoxPCMSample";
             comboBoxPCMSample.Size = new Size(123, 23);
             comboBoxPCMSample.TabIndex = 11;
@@ -432,7 +438,7 @@
             // labelPCMSample
             // 
             labelPCMSample.AutoSize = true;
-            labelPCMSample.Location = new Point(16, 202);
+            labelPCMSample.Location = new Point(22, 196);
             labelPCMSample.Name = "labelPCMSample";
             labelPCMSample.Size = new Size(75, 15);
             labelPCMSample.TabIndex = 10;
@@ -453,9 +459,9 @@
             groupBoxWaveform.Controls.Add(trackBarPWVeloSens);
             groupBoxWaveform.Controls.Add(labelWaveform);
             groupBoxWaveform.Controls.Add(trackBarPulseWidth);
-            groupBoxWaveform.Location = new Point(11, 400);
+            groupBoxWaveform.Location = new Point(12, 419);
             groupBoxWaveform.Name = "groupBoxWaveform";
-            groupBoxWaveform.Size = new Size(237, 273);
+            groupBoxWaveform.Size = new Size(235, 253);
             groupBoxWaveform.TabIndex = 12;
             groupBoxWaveform.TabStop = false;
             // 
@@ -472,7 +478,7 @@
             // 
             radioButtonPCMBank2.AutoSize = true;
             radioButtonPCMBank2.Enabled = false;
-            radioButtonPCMBank2.Location = new Point(160, 233);
+            radioButtonPCMBank2.Location = new Point(167, 224);
             radioButtonPCMBank2.Name = "radioButtonPCMBank2";
             radioButtonPCMBank2.Size = new Size(60, 19);
             radioButtonPCMBank2.TabIndex = 16;
@@ -486,14 +492,13 @@
             radioButtonPCMBank1.AutoSize = true;
             radioButtonPCMBank1.Checked = true;
             radioButtonPCMBank1.Enabled = false;
-            radioButtonPCMBank1.Location = new Point(92, 233);
+            radioButtonPCMBank1.Location = new Point(99, 224);
             radioButtonPCMBank1.Name = "radioButtonPCMBank1";
             radioButtonPCMBank1.Size = new Size(60, 19);
             radioButtonPCMBank1.TabIndex = 15;
             radioButtonPCMBank1.TabStop = true;
             radioButtonPCMBank1.Text = "Bank 1";
             radioButtonPCMBank1.UseVisualStyleBackColor = true;
-            radioButtonPCMBank1.CheckedChanged += radioButtonPCMBank1_CheckedChanged;
             radioButtonPCMBank1.MouseUp += radioButtonPCMBank1_MouseUp;
             // 
             // labelPWVeloSens
@@ -501,7 +506,7 @@
             labelPWVeloSens.AccessibleDescription = "Pulse Width Velocity Sensitivity";
             labelPWVeloSens.AccessibleName = "Pulse Width Velocity Sensitivity";
             labelPWVeloSens.AutoSize = true;
-            labelPWVeloSens.Location = new Point(134, 162);
+            labelPWVeloSens.Location = new Point(140, 156);
             labelPWVeloSens.Name = "labelPWVeloSens";
             labelPWVeloSens.Size = new Size(60, 15);
             labelPWVeloSens.TabIndex = 14;
@@ -512,7 +517,7 @@
             labelWidth.AccessibleDescription = "Pulse Width";
             labelWidth.AccessibleName = "Pulse Width";
             labelWidth.AutoSize = true;
-            labelWidth.Location = new Point(92, 162);
+            labelWidth.Location = new Point(98, 156);
             labelWidth.Name = "labelWidth";
             labelWidth.Size = new Size(39, 15);
             labelWidth.TabIndex = 13;
@@ -523,7 +528,7 @@
             labelPulseWidth.AccessibleDescription = "Pulse Width";
             labelPulseWidth.AccessibleName = "Pulse Width";
             labelPulseWidth.AutoSize = true;
-            labelPulseWidth.Location = new Point(16, 102);
+            labelPulseWidth.Location = new Point(22, 96);
             labelPulseWidth.Name = "labelPulseWidth";
             labelPulseWidth.Size = new Size(70, 15);
             labelPulseWidth.TabIndex = 12;
@@ -534,7 +539,7 @@
             trackBarPWVeloSens.AccessibleDescription = "Pulse Width Velocity Sensitivity";
             trackBarPWVeloSens.AccessibleName = "Pulse Width Velocity Sensitivity";
             trackBarPWVeloSens.LargeChange = 3;
-            trackBarPWVeloSens.Location = new Point(143, 55);
+            trackBarPWVeloSens.Location = new Point(149, 49);
             trackBarPWVeloSens.Maximum = 7;
             trackBarPWVeloSens.Minimum = -7;
             trackBarPWVeloSens.Name = "trackBarPWVeloSens";
@@ -549,7 +554,7 @@
             trackBarPulseWidth.AccessibleDescription = "Pulse Width";
             trackBarPulseWidth.AccessibleName = "Pulse Width";
             trackBarPulseWidth.LargeChange = 10;
-            trackBarPulseWidth.Location = new Point(92, 55);
+            trackBarPulseWidth.Location = new Point(98, 49);
             trackBarPulseWidth.Maximum = 100;
             trackBarPulseWidth.Name = "trackBarPulseWidth";
             trackBarPulseWidth.Orientation = Orientation.Vertical;
@@ -576,7 +581,7 @@
             // labelPitchEnvDepth
             // 
             labelPitchEnvDepth.AutoSize = true;
-            labelPitchEnvDepth.Location = new Point(8, 126);
+            labelPitchEnvDepth.Location = new Point(8, 127);
             labelPitchEnvDepth.Name = "labelPitchEnvDepth";
             labelPitchEnvDepth.Size = new Size(39, 15);
             labelPitchEnvDepth.TabIndex = 14;
@@ -605,9 +610,9 @@
             labelPitchEnvVeloSens.AutoSize = true;
             labelPitchEnvVeloSens.Location = new Point(52, 127);
             labelPitchEnvVeloSens.Name = "labelPitchEnvVeloSens";
-            labelPitchEnvVeloSens.Size = new Size(60, 15);
+            labelPitchEnvVeloSens.Size = new Size(59, 15);
             labelPitchEnvVeloSens.TabIndex = 16;
-            labelPitchEnvVeloSens.Text = "Sensitivity";
+            labelPitchEnvVeloSens.Text = "Velo Sens.";
             // 
             // trackBarPitchEnvTimeKeyfollow
             // 
@@ -922,7 +927,7 @@
             groupBoxLFO.Controls.Add(trackBarLFORate);
             groupBoxLFO.Location = new Point(256, 180);
             groupBoxLFO.Name = "groupBoxLFO";
-            groupBoxLFO.Size = new Size(216, 139);
+            groupBoxLFO.Size = new Size(214, 139);
             groupBoxLFO.TabIndex = 29;
             groupBoxLFO.TabStop = false;
             // 
@@ -1130,11 +1135,11 @@
             label38.AccessibleDescription = "TVF Envelope Velocity Sensitivity";
             label38.AccessibleName = "TVF Envelope Velocity Sensitivity";
             label38.AutoSize = true;
-            label38.Location = new Point(152, 280);
+            label38.Location = new Point(153, 278);
             label38.Name = "label38";
-            label38.Size = new Size(60, 15);
+            label38.Size = new Size(59, 15);
             label38.TabIndex = 49;
-            label38.Text = "Sensitivity";
+            label38.Text = "Velo Sens.";
             // 
             // label39
             // 
@@ -1172,7 +1177,7 @@
             trackBarTVFVeloSensitivity.Orientation = Orientation.Vertical;
             trackBarTVFVeloSensitivity.Size = new Size(45, 104);
             trackBarTVFVeloSensitivity.TabIndex = 48;
-            trackBarTVFVeloSensitivity.TickFrequency = 5;
+            trackBarTVFVeloSensitivity.TickFrequency = 10;
             trackBarTVFVeloSensitivity.TickStyle = TickStyle.Both;
             trackBarTVFVeloSensitivity.ValueChanged += trackBarTVFVeloSensitivity_ValueChanged;
             // 
@@ -1468,7 +1473,7 @@
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(115, 131);
+            label23.Location = new Point(121, 131);
             label23.Name = "label23";
             label23.Size = new Size(59, 15);
             label23.TabIndex = 18;
@@ -1891,11 +1896,11 @@
             label32.AccessibleDescription = "TVA Velocity Sensitivity";
             label32.AccessibleName = "TVA Velocity Sensitivity";
             label32.AutoSize = true;
-            label32.Location = new Point(59, 131);
+            label32.Location = new Point(60, 131);
             label32.Name = "label32";
-            label32.Size = new Size(60, 15);
+            label32.Size = new Size(59, 15);
             label32.TabIndex = 16;
-            label32.Text = "Sensitivity";
+            label32.Text = "Velo Sens.";
             // 
             // trackBarTVAVeloSensitivity
             // 
@@ -2046,7 +2051,7 @@
             buttonRefresh.AccessibleDescription = "Resend parameter data to device";
             buttonRefresh.ForeColor = SystemColors.ActiveCaptionText;
             buttonRefresh.Image = (Image)resources.GetObject("buttonRefresh.Image");
-            buttonRefresh.Location = new Point(161, 99);
+            buttonRefresh.Location = new Point(165, 81);
             buttonRefresh.Name = "buttonRefresh";
             buttonRefresh.Size = new Size(26, 25);
             buttonRefresh.TabIndex = 49;
@@ -2055,43 +2060,12 @@
             buttonRefresh.UseVisualStyleBackColor = true;
             buttonRefresh.Click += buttonRefresh_Click;
             // 
-            // buttonCopyPartial
-            // 
-            buttonCopyPartial.AccessibleDescription = "Copy Partial values";
-            buttonCopyPartial.ForeColor = SystemColors.ActiveCaptionText;
-            buttonCopyPartial.Image = (Image)resources.GetObject("buttonCopyPartial.Image");
-            buttonCopyPartial.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCopyPartial.Location = new Point(176, 341);
-            buttonCopyPartial.Name = "buttonCopyPartial";
-            buttonCopyPartial.Size = new Size(26, 25);
-            buttonCopyPartial.TabIndex = 51;
-            buttonCopyPartial.TextAlign = ContentAlignment.MiddleRight;
-            toolTipParameterValue.SetToolTip(buttonCopyPartial, "Copy all settings from the currently selected partial");
-            buttonCopyPartial.UseVisualStyleBackColor = true;
-            buttonCopyPartial.Click += buttonCopyPartial_Click;
-            // 
-            // buttonPastePartial
-            // 
-            buttonPastePartial.AccessibleDescription = "Paste Partial values";
-            buttonPastePartial.Enabled = false;
-            buttonPastePartial.ForeColor = SystemColors.ActiveCaptionText;
-            buttonPastePartial.Image = (Image)resources.GetObject("buttonPastePartial.Image");
-            buttonPastePartial.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonPastePartial.Location = new Point(176, 372);
-            buttonPastePartial.Name = "buttonPastePartial";
-            buttonPastePartial.Size = new Size(26, 25);
-            buttonPastePartial.TabIndex = 52;
-            buttonPastePartial.TextAlign = ContentAlignment.MiddleRight;
-            toolTipParameterValue.SetToolTip(buttonPastePartial, "Paste copied settings to the currently selected partial");
-            buttonPastePartial.UseVisualStyleBackColor = true;
-            buttonPastePartial.Click += buttonPastePartial_Click;
-            // 
             // buttonReset
             // 
             buttonReset.AccessibleDescription = "New timbre";
             buttonReset.ForeColor = SystemColors.ActiveCaptionText;
             buttonReset.Image = (Image)resources.GetObject("buttonReset.Image");
-            buttonReset.Location = new Point(20, 99);
+            buttonReset.Location = new Point(24, 81);
             buttonReset.Name = "buttonReset";
             buttonReset.Size = new Size(26, 23);
             buttonReset.TabIndex = 50;
@@ -2106,7 +2080,7 @@
             buttonSaveTimbreAs.AccessibleName = "Save timbre as";
             buttonSaveTimbreAs.ForeColor = SystemColors.ActiveCaptionText;
             buttonSaveTimbreAs.Image = (Image)resources.GetObject("buttonSaveTimbreAs.Image");
-            buttonSaveTimbreAs.Location = new Point(161, 132);
+            buttonSaveTimbreAs.Location = new Point(165, 114);
             buttonSaveTimbreAs.Name = "buttonSaveTimbreAs";
             buttonSaveTimbreAs.Size = new Size(26, 24);
             buttonSaveTimbreAs.TabIndex = 54;
@@ -2122,7 +2096,7 @@
             buttonQuickSaveTimbre.Enabled = false;
             buttonQuickSaveTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonQuickSaveTimbre.Image = (Image)resources.GetObject("buttonQuickSaveTimbre.Image");
-            buttonQuickSaveTimbre.Location = new Point(91, 132);
+            buttonQuickSaveTimbre.Location = new Point(95, 114);
             buttonQuickSaveTimbre.Name = "buttonQuickSaveTimbre";
             buttonQuickSaveTimbre.Size = new Size(26, 24);
             buttonQuickSaveTimbre.TabIndex = 55;
@@ -2137,7 +2111,7 @@
             buttonLoadTimbre.AccessibleName = "Load timbre";
             buttonLoadTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonLoadTimbre.Image = (Image)resources.GetObject("buttonLoadTimbre.Image");
-            buttonLoadTimbre.Location = new Point(20, 133);
+            buttonLoadTimbre.Location = new Point(24, 115);
             buttonLoadTimbre.Name = "buttonLoadTimbre";
             buttonLoadTimbre.Size = new Size(26, 23);
             buttonLoadTimbre.TabIndex = 56;
@@ -2146,84 +2120,41 @@
             buttonLoadTimbre.UseVisualStyleBackColor = true;
             buttonLoadTimbre.Click += buttonLoadTimbre_Click;
             // 
-            // comboBoxEditPartialNo
+            // buttonPastePartial
             // 
-            comboBoxEditPartialNo.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEditPartialNo.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            comboBoxEditPartialNo.FormattingEnabled = true;
-            comboBoxEditPartialNo.Items.AddRange(new object[] { "1", "2", "3", "4" });
-            comboBoxEditPartialNo.Location = new Point(124, 353);
-            comboBoxEditPartialNo.Name = "comboBoxEditPartialNo";
-            comboBoxEditPartialNo.Size = new Size(34, 28);
-            comboBoxEditPartialNo.TabIndex = 35;
-            comboBoxEditPartialNo.SelectedIndexChanged += comboBoxEditPartialNo_SelectedIndexChanged;
+            buttonPastePartial.AccessibleDescription = "Paste Partial values";
+            buttonPastePartial.Enabled = false;
+            buttonPastePartial.ForeColor = SystemColors.ActiveCaptionText;
+            buttonPastePartial.Image = (Image)resources.GetObject("buttonPastePartial.Image");
+            buttonPastePartial.ImageAlign = ContentAlignment.MiddleLeft;
+            buttonPastePartial.Location = new Point(164, 203);
+            buttonPastePartial.Name = "buttonPastePartial";
+            buttonPastePartial.Size = new Size(26, 25);
+            buttonPastePartial.TabIndex = 102;
+            buttonPastePartial.TextAlign = ContentAlignment.MiddleRight;
+            toolTipParameterValue.SetToolTip(buttonPastePartial, "Paste copied settings to the currently selected partial");
+            buttonPastePartial.UseVisualStyleBackColor = true;
+            buttonPastePartial.Click += buttonPastePartial_Click;
             // 
-            // labelEditPartialNo
+            // buttonCopyPartial
             // 
-            labelEditPartialNo.AutoSize = true;
-            labelEditPartialNo.Location = new Point(19, 361);
-            labelEditPartialNo.Name = "labelEditPartialNo";
-            labelEditPartialNo.Size = new Size(102, 15);
-            labelEditPartialNo.TabIndex = 36;
-            labelEditPartialNo.Text = "Editing Partial No.";
-            // 
-            // labelEnablePartials
-            // 
-            labelEnablePartials.AutoSize = true;
-            labelEnablePartials.Location = new Point(15, 284);
-            labelEnablePartials.Name = "labelEnablePartials";
-            labelEnablePartials.Size = new Size(83, 15);
-            labelEnablePartials.TabIndex = 37;
-            labelEnablePartials.Text = "Enable Partials";
-            // 
-            // checkBoxPartial1
-            // 
-            checkBoxPartial1.AutoSize = true;
-            checkBoxPartial1.Location = new Point(20, 302);
-            checkBoxPartial1.Name = "checkBoxPartial1";
-            checkBoxPartial1.Size = new Size(32, 19);
-            checkBoxPartial1.TabIndex = 38;
-            checkBoxPartial1.Text = "1";
-            checkBoxPartial1.UseVisualStyleBackColor = true;
-            checkBoxPartial1.CheckStateChanged += checkBoxPartial1_CheckStateChanged;
-            // 
-            // checkBoxPartial2
-            // 
-            checkBoxPartial2.AutoSize = true;
-            checkBoxPartial2.Location = new Point(56, 302);
-            checkBoxPartial2.Name = "checkBoxPartial2";
-            checkBoxPartial2.Size = new Size(32, 19);
-            checkBoxPartial2.TabIndex = 39;
-            checkBoxPartial2.Text = "2";
-            checkBoxPartial2.UseVisualStyleBackColor = true;
-            checkBoxPartial2.CheckedChanged += checkBoxPartial2_CheckedChanged;
-            // 
-            // checkBoxPartial3
-            // 
-            checkBoxPartial3.AutoSize = true;
-            checkBoxPartial3.Location = new Point(94, 302);
-            checkBoxPartial3.Name = "checkBoxPartial3";
-            checkBoxPartial3.Size = new Size(32, 19);
-            checkBoxPartial3.TabIndex = 40;
-            checkBoxPartial3.Text = "3";
-            checkBoxPartial3.UseVisualStyleBackColor = true;
-            checkBoxPartial3.CheckedChanged += checkBoxPartial3_CheckedChanged;
-            // 
-            // checkBoxPartial4
-            // 
-            checkBoxPartial4.AutoSize = true;
-            checkBoxPartial4.Location = new Point(132, 302);
-            checkBoxPartial4.Name = "checkBoxPartial4";
-            checkBoxPartial4.Size = new Size(32, 19);
-            checkBoxPartial4.TabIndex = 41;
-            checkBoxPartial4.Text = "4";
-            checkBoxPartial4.UseVisualStyleBackColor = true;
-            checkBoxPartial4.CheckedChanged += checkBoxPartial4_CheckedChanged;
+            buttonCopyPartial.AccessibleDescription = "Copy Partial values";
+            buttonCopyPartial.ForeColor = SystemColors.ActiveCaptionText;
+            buttonCopyPartial.Image = (Image)resources.GetObject("buttonCopyPartial.Image");
+            buttonCopyPartial.ImageAlign = ContentAlignment.MiddleLeft;
+            buttonCopyPartial.Location = new Point(164, 172);
+            buttonCopyPartial.Name = "buttonCopyPartial";
+            buttonCopyPartial.Size = new Size(26, 25);
+            buttonCopyPartial.TabIndex = 101;
+            buttonCopyPartial.TextAlign = ContentAlignment.MiddleRight;
+            toolTipParameterValue.SetToolTip(buttonCopyPartial, "Copy all settings from the currently selected partial");
+            buttonCopyPartial.UseVisualStyleBackColor = true;
+            buttonCopyPartial.Click += buttonCopyPartial_Click;
             // 
             // textBoxTimbreName
             // 
             textBoxTimbreName.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            textBoxTimbreName.Location = new Point(119, 54);
+            textBoxTimbreName.Location = new Point(120, 44);
             textBoxTimbreName.MaxLength = 10;
             textBoxTimbreName.Name = "textBoxTimbreName";
             textBoxTimbreName.Size = new Size(124, 27);
@@ -2233,7 +2164,7 @@
             // labelTimbreName
             // 
             labelTimbreName.AutoSize = true;
-            labelTimbreName.Location = new Point(19, 61);
+            labelTimbreName.Location = new Point(20, 51);
             labelTimbreName.Name = "labelTimbreName";
             labelTimbreName.Size = new Size(79, 15);
             labelTimbreName.TabIndex = 43;
@@ -2244,7 +2175,7 @@
             checkBoxSustain.AutoSize = true;
             checkBoxSustain.Checked = true;
             checkBoxSustain.CheckState = CheckState.Checked;
-            checkBoxSustain.Location = new Point(20, 172);
+            checkBoxSustain.Location = new Point(24, 152);
             checkBoxSustain.Name = "checkBoxSustain";
             checkBoxSustain.Size = new Size(102, 19);
             checkBoxSustain.TabIndex = 44;
@@ -2254,55 +2185,50 @@
             // 
             // comboBoxPart12Struct
             // 
+            comboBoxPart12Struct.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxPart12Struct.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPart12Struct.DropDownWidth = 510;
             comboBoxPart12Struct.FormattingEnabled = true;
             comboBoxPart12Struct.Items.AddRange(new object[] { "(SS)", "(S(SR))", "(PS)", "(P(SR))", "(S(PR))", "(PP)", "(P(PR))", "(S)(S)", "(P)(P)", "(SS)R", "(PS)R", "(SP)R", "(PP)R" });
-            comboBoxPart12Struct.Location = new Point(140, 213);
+            comboBoxPart12Struct.Location = new Point(91, 26);
             comboBoxPart12Struct.Name = "comboBoxPart12Struct";
-            comboBoxPart12Struct.Size = new Size(60, 23);
+            comboBoxPart12Struct.Size = new Size(77, 24);
             comboBoxPart12Struct.TabIndex = 45;
+            comboBoxPart12Struct.DrawItem += comboBoxPart12Struct_DrawItem;
             comboBoxPart12Struct.SelectedIndexChanged += comboBoxPart12Struct_SelectedIndexChanged;
             // 
             // comboBoxPart34Struct
             // 
+            comboBoxPart34Struct.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxPart34Struct.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPart34Struct.DropDownWidth = 510;
             comboBoxPart34Struct.FormattingEnabled = true;
             comboBoxPart34Struct.Items.AddRange(new object[] { "(SS)", "(S(SR))", "(PS)", "(P(SR))", "(S(PR))", "(PP)", "(P(PR))", "(S)(S)", "(P)(P)", "(SS)R", "(PS)R", "(SP)R", "(PP)R" });
-            comboBoxPart34Struct.Location = new Point(140, 242);
+            comboBoxPart34Struct.Location = new Point(91, 55);
             comboBoxPart34Struct.Name = "comboBoxPart34Struct";
-            comboBoxPart34Struct.Size = new Size(60, 23);
+            comboBoxPart34Struct.Size = new Size(77, 24);
             comboBoxPart34Struct.TabIndex = 46;
+            comboBoxPart34Struct.DrawItem += comboBoxPart34Struct_DrawItem;
             comboBoxPart34Struct.SelectedIndexChanged += comboBoxPart34Struct_SelectedIndexChanged;
             // 
             // label45
             // 
             label45.AutoSize = true;
             label45.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label45.Location = new Point(16, 216);
+            label45.Location = new Point(14, 31);
             label45.Name = "label45";
-            label45.Size = new Size(122, 15);
+            label45.Size = new Size(71, 15);
             label45.TabIndex = 47;
-            label45.Text = "Partial 1 && 2 Structure";
+            label45.Text = "Partial 1 && 2";
             // 
             // label46
             // 
             label46.AutoSize = true;
-            label46.Location = new Point(16, 245);
+            label46.Location = new Point(14, 59);
             label46.Name = "label46";
-            label46.Size = new Size(122, 15);
+            label46.Size = new Size(71, 15);
             label46.TabIndex = 48;
-            label46.Text = "Partial 3 && 4 Structure";
-            // 
-            // labelPartialWarning
-            // 
-            labelPartialWarning.AutoSize = true;
-            labelPartialWarning.ForeColor = Color.Yellow;
-            labelPartialWarning.Location = new Point(17, 322);
-            labelPartialWarning.Name = "labelPartialWarning";
-            labelPartialWarning.Size = new Size(167, 15);
-            labelPartialWarning.TabIndex = 53;
-            labelPartialWarning.Text = "Selected Partial is not enabled!";
-            labelPartialWarning.Visible = false;
+            label46.Text = "Partial 3 && 4";
             // 
             // checkBoxShowLabels
             // 
@@ -2404,7 +2330,7 @@
             // label57
             // 
             label57.AutoSize = true;
-            label57.Location = new Point(188, 104);
+            label57.Location = new Point(192, 86);
             label57.Name = "label57";
             label57.Size = new Size(46, 15);
             label57.TabIndex = 82;
@@ -2413,7 +2339,7 @@
             // label58
             // 
             label58.AutoSize = true;
-            label58.Location = new Point(49, 103);
+            label58.Location = new Point(53, 85);
             label58.Name = "label58";
             label58.Size = new Size(71, 15);
             label58.TabIndex = 83;
@@ -2422,7 +2348,7 @@
             // label59
             // 
             label59.AutoSize = true;
-            label59.Location = new Point(191, 137);
+            label59.Location = new Point(195, 119);
             label59.Name = "label59";
             label59.Size = new Size(47, 15);
             label59.TabIndex = 84;
@@ -2431,7 +2357,7 @@
             // label60
             // 
             label60.AutoSize = true;
-            label60.Location = new Point(120, 137);
+            label60.Location = new Point(124, 119);
             label60.Name = "label60";
             label60.Size = new Size(31, 15);
             label60.TabIndex = 85;
@@ -2440,29 +2366,11 @@
             // label61
             // 
             label61.AutoSize = true;
-            label61.Location = new Point(51, 137);
+            label61.Location = new Point(55, 119);
             label61.Name = "label61";
             label61.Size = new Size(33, 15);
             label61.TabIndex = 86;
             label61.Text = "Load";
-            // 
-            // label62
-            // 
-            label62.AutoSize = true;
-            label62.Location = new Point(208, 346);
-            label62.Name = "label62";
-            label62.Size = new Size(35, 15);
-            label62.TabIndex = 87;
-            label62.Text = "Copy";
-            // 
-            // label63
-            // 
-            label63.AutoSize = true;
-            label63.Location = new Point(209, 377);
-            label63.Name = "label63";
-            label63.Size = new Size(35, 15);
-            label63.TabIndex = 88;
-            label63.Text = "Paste";
             // 
             // imageList
             // 
@@ -2485,7 +2393,7 @@
             // 
             // pictureBoxPartial12
             // 
-            pictureBoxPartial12.Location = new Point(206, 205);
+            pictureBoxPartial12.Location = new Point(176, 18);
             pictureBoxPartial12.Name = "pictureBoxPartial12";
             pictureBoxPartial12.Size = new Size(45, 31);
             pictureBoxPartial12.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -2494,12 +2402,175 @@
             // 
             // pictureBoxPartial34
             // 
-            pictureBoxPartial34.Location = new Point(206, 242);
+            pictureBoxPartial34.Location = new Point(176, 55);
             pictureBoxPartial34.Name = "pictureBoxPartial34";
             pictureBoxPartial34.Size = new Size(45, 31);
             pictureBoxPartial34.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxPartial34.TabIndex = 90;
             pictureBoxPartial34.TabStop = false;
+            // 
+            // label64
+            // 
+            label64.AutoSize = true;
+            label64.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            label64.Location = new Point(6, 1);
+            label64.Name = "label64";
+            label64.Size = new Size(91, 15);
+            label64.TabIndex = 91;
+            label64.Text = "Partial Structure";
+            // 
+            // label65
+            // 
+            label65.AutoSize = true;
+            label65.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            label65.Location = new Point(126, 95);
+            label65.Name = "label65";
+            label65.Size = new Size(0, 15);
+            label65.TabIndex = 92;
+            // 
+            // label66
+            // 
+            label66.AutoSize = true;
+            label66.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            label66.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            label66.Location = new Point(51, 89);
+            label66.Name = "label66";
+            label66.Size = new Size(165, 15);
+            label66.TabIndex = 93;
+            label66.Text = "S: Synth, P: PCM, R: Ring Mod.";
+            // 
+            // groupBoxPartialStructure
+            // 
+            groupBoxPartialStructure.Controls.Add(label63);
+            groupBoxPartialStructure.Controls.Add(label62);
+            groupBoxPartialStructure.Controls.Add(labelPartialWarning);
+            groupBoxPartialStructure.Controls.Add(buttonPastePartial);
+            groupBoxPartialStructure.Controls.Add(buttonCopyPartial);
+            groupBoxPartialStructure.Controls.Add(checkBoxPartial4);
+            groupBoxPartialStructure.Controls.Add(checkBoxPartial3);
+            groupBoxPartialStructure.Controls.Add(checkBoxPartial2);
+            groupBoxPartialStructure.Controls.Add(checkBoxPartial1);
+            groupBoxPartialStructure.Controls.Add(labelEnablePartials);
+            groupBoxPartialStructure.Controls.Add(labelEditPartialNo);
+            groupBoxPartialStructure.Controls.Add(comboBoxEditPartialNo);
+            groupBoxPartialStructure.Controls.Add(label45);
+            groupBoxPartialStructure.Controls.Add(label64);
+            groupBoxPartialStructure.Controls.Add(label66);
+            groupBoxPartialStructure.Controls.Add(comboBoxPart12Struct);
+            groupBoxPartialStructure.Controls.Add(label65);
+            groupBoxPartialStructure.Controls.Add(comboBoxPart34Struct);
+            groupBoxPartialStructure.Controls.Add(label46);
+            groupBoxPartialStructure.Controls.Add(pictureBoxPartial34);
+            groupBoxPartialStructure.Controls.Add(pictureBoxPartial12);
+            groupBoxPartialStructure.Location = new Point(12, 180);
+            groupBoxPartialStructure.Name = "groupBoxPartialStructure";
+            groupBoxPartialStructure.Size = new Size(235, 236);
+            groupBoxPartialStructure.TabIndex = 94;
+            groupBoxPartialStructure.TabStop = false;
+            groupBoxPartialStructure.Text = "Partial Structure";
+            // 
+            // label63
+            // 
+            label63.AutoSize = true;
+            label63.Location = new Point(194, 208);
+            label63.Name = "label63";
+            label63.Size = new Size(35, 15);
+            label63.TabIndex = 105;
+            label63.Text = "Paste";
+            // 
+            // label62
+            // 
+            label62.AutoSize = true;
+            label62.Location = new Point(194, 177);
+            label62.Name = "label62";
+            label62.Size = new Size(35, 15);
+            label62.TabIndex = 104;
+            label62.Text = "Copy";
+            // 
+            // labelPartialWarning
+            // 
+            labelPartialWarning.AutoSize = true;
+            labelPartialWarning.ForeColor = Color.Yellow;
+            labelPartialWarning.Location = new Point(22, 152);
+            labelPartialWarning.Name = "labelPartialWarning";
+            labelPartialWarning.Size = new Size(167, 15);
+            labelPartialWarning.TabIndex = 103;
+            labelPartialWarning.Text = "Selected Partial is not enabled!";
+            labelPartialWarning.Visible = false;
+            // 
+            // checkBoxPartial4
+            // 
+            checkBoxPartial4.AutoSize = true;
+            checkBoxPartial4.Location = new Point(134, 130);
+            checkBoxPartial4.Name = "checkBoxPartial4";
+            checkBoxPartial4.Size = new Size(32, 19);
+            checkBoxPartial4.TabIndex = 100;
+            checkBoxPartial4.Text = "4";
+            checkBoxPartial4.UseVisualStyleBackColor = true;
+            checkBoxPartial4.CheckedChanged += checkBoxPartial4_CheckedChanged;
+            // 
+            // checkBoxPartial3
+            // 
+            checkBoxPartial3.AutoSize = true;
+            checkBoxPartial3.Location = new Point(96, 130);
+            checkBoxPartial3.Name = "checkBoxPartial3";
+            checkBoxPartial3.Size = new Size(32, 19);
+            checkBoxPartial3.TabIndex = 99;
+            checkBoxPartial3.Text = "3";
+            checkBoxPartial3.UseVisualStyleBackColor = true;
+            checkBoxPartial3.CheckedChanged += checkBoxPartial3_CheckedChanged;
+            // 
+            // checkBoxPartial2
+            // 
+            checkBoxPartial2.AutoSize = true;
+            checkBoxPartial2.Location = new Point(58, 130);
+            checkBoxPartial2.Name = "checkBoxPartial2";
+            checkBoxPartial2.Size = new Size(32, 19);
+            checkBoxPartial2.TabIndex = 98;
+            checkBoxPartial2.Text = "2";
+            checkBoxPartial2.UseVisualStyleBackColor = true;
+            checkBoxPartial2.CheckedChanged += checkBoxPartial2_CheckedChanged;
+            // 
+            // checkBoxPartial1
+            // 
+            checkBoxPartial1.AutoSize = true;
+            checkBoxPartial1.Location = new Point(22, 130);
+            checkBoxPartial1.Name = "checkBoxPartial1";
+            checkBoxPartial1.Size = new Size(32, 19);
+            checkBoxPartial1.TabIndex = 97;
+            checkBoxPartial1.Text = "1";
+            checkBoxPartial1.UseVisualStyleBackColor = true;
+            checkBoxPartial1.CheckedChanged += checkBoxPartial1_CheckedChanged;
+            // 
+            // labelEnablePartials
+            // 
+            labelEnablePartials.AutoSize = true;
+            labelEnablePartials.Location = new Point(9, 112);
+            labelEnablePartials.Name = "labelEnablePartials";
+            labelEnablePartials.Size = new Size(83, 15);
+            labelEnablePartials.TabIndex = 96;
+            labelEnablePartials.Text = "Enable Partials";
+            // 
+            // labelEditPartialNo
+            // 
+            labelEditPartialNo.AutoSize = true;
+            labelEditPartialNo.Location = new Point(11, 193);
+            labelEditPartialNo.Name = "labelEditPartialNo";
+            labelEditPartialNo.Size = new Size(102, 15);
+            labelEditPartialNo.TabIndex = 95;
+            labelEditPartialNo.Text = "Editing Partial No.";
+            // 
+            // comboBoxEditPartialNo
+            // 
+            comboBoxEditPartialNo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEditPartialNo.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            comboBoxEditPartialNo.FormattingEnabled = true;
+            comboBoxEditPartialNo.Items.AddRange(new object[] { "1", "2", "3", "4" });
+            comboBoxEditPartialNo.Location = new Point(116, 185);
+            comboBoxEditPartialNo.Name = "comboBoxEditPartialNo";
+            comboBoxEditPartialNo.Size = new Size(34, 28);
+            comboBoxEditPartialNo.TabIndex = 94;
+            comboBoxEditPartialNo.SelectedIndexChanged += comboBoxEditPartialNo_SelectedIndexChanged;
             // 
             // FormTimbreEditor
             // 
@@ -2509,10 +2580,7 @@
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(991, 960);
             ControlBox = false;
-            Controls.Add(pictureBoxPartial34);
-            Controls.Add(pictureBoxPartial12);
-            Controls.Add(label63);
-            Controls.Add(label62);
+            Controls.Add(groupBoxPartialStructure);
             Controls.Add(label61);
             Controls.Add(label60);
             Controls.Add(label59);
@@ -2527,26 +2595,12 @@
             Controls.Add(buttonLoadTimbre);
             Controls.Add(buttonQuickSaveTimbre);
             Controls.Add(buttonSaveTimbreAs);
-            Controls.Add(labelPartialWarning);
-            Controls.Add(buttonPastePartial);
             Controls.Add(groupBoxLFO);
-            Controls.Add(buttonCopyPartial);
             Controls.Add(buttonReset);
             Controls.Add(buttonRefresh);
-            Controls.Add(label46);
-            Controls.Add(label45);
-            Controls.Add(comboBoxPart34Struct);
-            Controls.Add(comboBoxPart12Struct);
             Controls.Add(checkBoxSustain);
             Controls.Add(labelTimbreName);
             Controls.Add(textBoxTimbreName);
-            Controls.Add(checkBoxPartial4);
-            Controls.Add(checkBoxPartial3);
-            Controls.Add(checkBoxPartial2);
-            Controls.Add(checkBoxPartial1);
-            Controls.Add(labelEnablePartials);
-            Controls.Add(labelEditPartialNo);
-            Controls.Add(comboBoxEditPartialNo);
             Controls.Add(groupBoxPitch);
             Controls.Add(groupBoxWaveform);
             Controls.Add(groupBoxPitchEnvelope);
@@ -2643,6 +2697,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).EndInit();
+            groupBoxPartialStructure.ResumeLayout(false);
+            groupBoxPartialStructure.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2750,13 +2806,6 @@
         private Label labelTVALevel;
         private TrackBar trackBarTVALevel;
         private ToolTip toolTipParameterValue;
-        private ComboBox comboBoxEditPartialNo;
-        private Label labelEditPartialNo;
-        private Label labelEnablePartials;
-        private CheckBox checkBoxPartial1;
-        private CheckBox checkBoxPartial2;
-        private CheckBox checkBoxPartial3;
-        private CheckBox checkBoxPartial4;
         private Label label33;
         private TrackBar trackBarTVAVelocityKeyfollow;
         private Label label35;
@@ -2790,9 +2839,6 @@
         private Label label46;
         private Button buttonRefresh;
         private Button buttonReset;
-        private Button buttonCopyPartial;
-        private Button buttonPastePartial;
-        private Label labelPartialWarning;
         private Button buttonSaveTimbreAs;
         private Button buttonQuickSaveTimbre;
         private Button buttonLoadTimbre;
@@ -2823,10 +2869,24 @@
         private Label label59;
         private Label label60;
         private Label label61;
-        private Label label62;
-        private Label label63;
         private ImageList imageList;
         private PictureBox pictureBoxPartial12;
         private PictureBox pictureBoxPartial34;
+        private Label label64;
+        private Label label65;
+        private Label label66;
+        private GroupBox groupBoxPartialStructure;
+        private Label label63;
+        private Label label62;
+        private Label labelPartialWarning;
+        private Button buttonPastePartial;
+        private Button buttonCopyPartial;
+        private CheckBox checkBoxPartial4;
+        private CheckBox checkBoxPartial3;
+        private CheckBox checkBoxPartial2;
+        private CheckBox checkBoxPartial1;
+        private Label labelEnablePartials;
+        private Label labelEditPartialNo;
+        private ComboBox comboBoxEditPartialNo;
     }
 }

@@ -9,8 +9,21 @@ v0.9.1a - 10th April 2023
   Bug Fixes:
     - Master Tuning slider now displays correct Hz values
     - Very short SysEx messages no longer cause unhandled exception
-  New features:
+  New Features:
     - MT-32 reset messages are now detected and actioned depending on user selection
     - Options menu has new user selectable flag to either ignore or action MT-32 reset messages
     - System Area SysEx messages which don't contain values for every parameter are now handled instead of ignored
     - Added ability to save a SysEx file containing only System Area values. Included parameters are selectable from the System Settings window.
+
+v0.9.2a - 16th April 2023
+  Bug Fixes:
+    - Fixed new bug introduced in v0.9.1a update where loading SysEx file no longer loaded patch or rhythm bank data.
+    - Selecting Edit Preset Timbre in patch editor now edits whichever preset is in the selected patch position- previously only the default timbre for that position was sent to the editor
+    - Partial Reserve value changes now display correct part numbers on MT32 display
+    - Changing reverb settings now sends message to MT32 display
+    - Selecting partial reserve value of 32 no longer causes unhandled exception
+    - Changing certain parameter values no longer sends overly long strings to MT32 display- all messages are now within 20-character limit
+    - Improved visual behaviour of save timbre/save sysex options.
+  New Features:
+    - Updated partial structure display in Timbre Editor window. Structure no (1-13) is now shown in list. Detailed description of structure functionality shown in drop-down list and tooltips.
+    - Re-labelled "Sensitivity" as "Velo Sens." in Timbre Editor window to improve clarity.
