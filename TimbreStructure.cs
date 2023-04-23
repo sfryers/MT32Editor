@@ -212,7 +212,6 @@ namespace MT32Edit
         {
             TimbreStructure clonedTimbre = new TimbreStructure(false);
             clonedTimbre.timbreName = timbreName;
-            clonedTimbre.partialMuteStatus = partialMuteStatus;
             clonedTimbre.part12Structure = part12Structure;
             clonedTimbre.part34Structure = part34Structure;
             clonedTimbre.sustain = sustain;

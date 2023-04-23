@@ -85,7 +85,7 @@
             // 
             loadSysExFileToolStripMenuItem.Image = (Image)resources.GetObject("loadSysExFileToolStripMenuItem.Image");
             loadSysExFileToolStripMenuItem.Name = "loadSysExFileToolStripMenuItem";
-            loadSysExFileToolStripMenuItem.Size = new Size(180, 22);
+            loadSysExFileToolStripMenuItem.Size = new Size(173, 22);
             loadSysExFileToolStripMenuItem.Text = "Load SysEx File";
             loadSysExFileToolStripMenuItem.Click += loadSysExFileToolStripMenuItem_Click;
             // 
@@ -93,7 +93,7 @@
             // 
             saveSysExFileAsToolStripMenuItem.Image = Properties.Resources.SaveAs;
             saveSysExFileAsToolStripMenuItem.Name = "saveSysExFileAsToolStripMenuItem";
-            saveSysExFileAsToolStripMenuItem.Size = new Size(180, 22);
+            saveSysExFileAsToolStripMenuItem.Size = new Size(173, 22);
             saveSysExFileAsToolStripMenuItem.Text = "Save SysEx File As..";
             saveSysExFileAsToolStripMenuItem.Click += saveSysExFileAsToolStripMenuItem_Click;
             // 
@@ -102,20 +102,20 @@
             saveSysExToolStripMenuItem.Enabled = false;
             saveSysExToolStripMenuItem.Image = Properties.Resources.Save;
             saveSysExToolStripMenuItem.Name = "saveSysExToolStripMenuItem";
-            saveSysExToolStripMenuItem.Size = new Size(180, 22);
+            saveSysExToolStripMenuItem.Size = new Size(173, 22);
             saveSysExToolStripMenuItem.Text = "Save SysEx File";
             saveSysExToolStripMenuItem.Click += saveSysExToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(170, 6);
             // 
             // loadTimbreFileToolStripMenuItem
             // 
             loadTimbreFileToolStripMenuItem.Image = Properties.Resources.Open;
             loadTimbreFileToolStripMenuItem.Name = "loadTimbreFileToolStripMenuItem";
-            loadTimbreFileToolStripMenuItem.Size = new Size(180, 22);
+            loadTimbreFileToolStripMenuItem.Size = new Size(173, 22);
             loadTimbreFileToolStripMenuItem.Text = "Load Timbre File";
             loadTimbreFileToolStripMenuItem.Click += loadTimbreFileToolStripMenuItem_Click;
             // 
@@ -123,26 +123,26 @@
             // 
             saveTimbreFileToolStripMenuItem.Image = Properties.Resources.Save;
             saveTimbreFileToolStripMenuItem.Name = "saveTimbreFileToolStripMenuItem";
-            saveTimbreFileToolStripMenuItem.Size = new Size(180, 22);
+            saveTimbreFileToolStripMenuItem.Size = new Size(173, 22);
             saveTimbreFileToolStripMenuItem.Text = "Save Timbre File";
             saveTimbreFileToolStripMenuItem.Click += saveTimbreFileToolStripMenuItem_Click;
             // 
             // saveAllTimbresToolStripMenuItem
             // 
             saveAllTimbresToolStripMenuItem.Name = "saveAllTimbresToolStripMenuItem";
-            saveAllTimbresToolStripMenuItem.Size = new Size(180, 22);
+            saveAllTimbresToolStripMenuItem.Size = new Size(173, 22);
             saveAllTimbresToolStripMenuItem.Text = "Save All Timbres";
             saveAllTimbresToolStripMenuItem.Click += saveAllTimbresToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(170, 6);
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(180, 22);
+            closeToolStripMenuItem.Size = new Size(173, 22);
             closeToolStripMenuItem.Text = "Exit";
             closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
             // 
@@ -305,6 +305,7 @@
             Name = "FormMainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MT-32 Editor";
+            FormClosing += FormMainMenu_FormClosing;
             Load += FormMainMenu_Load;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();

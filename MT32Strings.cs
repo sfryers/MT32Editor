@@ -54,7 +54,7 @@
 
         public static readonly string[] noteName = { "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" };
 
-        public static readonly string[] keyfollowRatio = { "-1", "-1/2", "0", "1", "1/8", "1/4", "3/8", "1/2", "5/8", "3/4", "7/8", "1", "5/4", "3/2", "2", "s1", "s2" };
+        public static readonly string[] keyfollowRatio = { "-1", "-1/2", "-1/4", "0", "1/8", "1/4", "3/8", "1/2", "5/8", "3/4", "7/8", "1", "5/4", "3/2", "2", "s1", "s2" };
 
         public static readonly string[] reverbTypeName = { "Room", "Hall", "Plate", "Delay" };
 

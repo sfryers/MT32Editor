@@ -305,12 +305,12 @@ namespace MT32Edit
             if (blockSysExMessages) return;
             uploadInProgress = true;
             Midi.CloseInputDevice();        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
-            Midi.CloseOutputDevice();
+            //Midi.CloseOutputDevice();
             try
             {
-                Midi.Out = new MidiOut(Midi.OutDeviceIndex);
-                Midi.Out.SendBuffer(sysExMessage);
-                Midi.Out.Dispose();
+                //Midi.Out = new MidiOut(Midi.OutDeviceIndex);
+                if (Midi.Out != null) Midi.Out.SendBuffer(sysExMessage);
+                //Midi.Out.Dispose();
             }
             catch
             {

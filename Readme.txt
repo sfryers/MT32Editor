@@ -96,6 +96,7 @@ I can't hear any sound:
 Unexpected timbres are coming from my device:
 
 - Check that the MIDI Out port is connected to an MT-32 or compatible device. Other devices will sound in response to MIDI messages, but will not understand the MT-32 SysEx commands issued by this application.
+- If you're using MUNT, make sure MUNT is running before opening MT-32 Editor.
 - Press the refresh button in the Timbre Editor to re-send the current timbre data to the connected MIDI device.
 - If you've changed the MIDI Out port during the current session, you'll need to restart MT32 Editor to fully synchronise your MIDI device.
 

@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using System.Windows.Forms;
 
 namespace MT32Edit
 {
@@ -6,7 +7,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: Midi class (static)
-        // S.Fryers Feb 2023
+        // S.Fryers Apr 2023
         // Simple tools to interface with NAudio Midi library.
         //
         public static int OutDeviceIndex = -1;
@@ -47,16 +48,21 @@ namespace MT32Edit
         public static void InputMessageReceived(object sender, MidiInMessageEventArgs e)
         //echo any note data received from MIDI In port thru to MIDI Out port
         {
-            if (MT32SysEx.uploadInProgress) return; // only open MIDI Out port if a sysEx upload is not in progress
-            else if (Out != null) Out.Dispose(); //close any existing MIDI Out connection
-            Out = new MidiOut(OutDeviceIndex);
-            Out.Send(e.RawMessage); //send MIDI In data to MIDI Out
-            Out.Dispose();
+            if (MT32SysEx.uploadInProgress) return; // only echo data if a sysEx upload is not in progress
+            if (Out != null)
+                try
+                {
+                    Out.Send(e.RawMessage); //send MIDI In data to MIDI Out
+                }
+                catch 
+                {
+                    ConsoleMessage.SendLine("Error opening MIDI Out device.");
+                    Out = null;
+                }
         }
 
         public static bool OpenInputDevice(int device)
         {
-            //if (InDeviceIndex == -1) return; //check whether any MIDI In devices exist, if not then do nothing.
             if (In != null) //close any existing MIDI In connection
             {
                 In.Stop();
@@ -97,7 +103,6 @@ namespace MT32Edit
             try                             //test for errors
             {
                 Out = new MidiOut(OutDeviceIndex);
-                Out.Dispose();
                 return true;
             }
             catch { return false; }
@@ -127,8 +132,15 @@ namespace MT32Edit
         {
             if (Out != null)
             {
-                Out.Dispose();
-                Out = null;
+                try
+                {
+                    Out.Dispose();
+                }
+                catch
+                {
+                    ConsoleMessage.SendLine("MIDI Out device already closed.");
+                    Out = null;
+                }
             }
         }
 
@@ -136,46 +148,62 @@ namespace MT32Edit
         {
             if (In != null) 
             {
-                In.Stop();
-                In.Dispose();
-                In = null;
+                try
+                {
+                    In.Stop();
+                    In.Dispose();
+                    In = null;
+                }
+                catch
+                {
+                    ConsoleMessage.SendLine("MIDI In device already closed.");
+                    In = null;
+                }
             }
         }
 
         public static void PlayRhythmNote(int note, int midiChannel)
         {
             LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
-            Out = new MidiOut(OutDeviceIndex);
-            Out.Send(MidiMessage.StartNote(note, 120, midiChannel + 1).RawData);
-            Out.Dispose();
+            try
+            {
+                if (Out != null) Out.Send(MidiMessage.StartNote(note, 120, midiChannel + 1).RawData);
+            }
+            catch
+            {
+                ConsoleMessage.SendLine("Error opening MIDI Out device.");
+                Out = null;
+            }
         }
 
         public static void StopRhythmNote(int note, int midiChannel)
         {
             LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
-            Out = new MidiOut(OutDeviceIndex);
-            Out.Send(MidiMessage.StopNote(note, 120, midiChannel + 1).RawData);
-            Out.Dispose();
-        }
-
-        public static void SendProgramChange(int patchNo, int channelNo)
-        {
-            byte status = (byte)(0xC0 + channelNo); //program change
-            if (patchNo < 0 || patchNo > 127) return;
-            CloseInputDevice();                     //close any existing MIDI connections to prevent clash
-            CloseOutputDevice();
-            byte programNo = (byte)patchNo;
-            byte[] message = {status, programNo};
             try
             {
-                Out = new MidiOut(OutDeviceIndex);
-                Out.SendBuffer(message);
-                Out.Dispose();
-                ReopenInputDevice();
+                if (Out != null) Out.Send(MidiMessage.StopNote(note, 120, midiChannel + 1).RawData);
             }
             catch
             {
                 ConsoleMessage.SendLine("Error opening MIDI Out device.");
+                Out = null;
+            }
+        }
+
+    public static void SendProgramChange(int patchNo, int channelNo)
+        {
+            byte status = (byte)(0xC0 + channelNo); //program change
+            if (patchNo < 0 || patchNo > 127) return;
+            byte programNo = (byte)patchNo;
+            byte[] message = {status, programNo};
+            try
+            {
+                if (Out != null) Out.SendBuffer(message);
+            }
+            catch
+            {
+                ConsoleMessage.SendLine("Error opening MIDI Out device.");
+                Out = null;
             }
         }
     }

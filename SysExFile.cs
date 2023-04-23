@@ -14,10 +14,9 @@ namespace MT32Edit
 
         const int NO_OF_SYSTEM_PARAMS = 0x17;
 
-        public static void Load(MT32State memoryState)
+        public static void Load(OpenFileDialog loadSysExDialog, MT32State memoryState)
         {
             int timbreNo = 0;
-            OpenFileDialog loadSysExDialog = new OpenFileDialog();
             loadSysExDialog.Filter = "MIDI System Exclusive message file|*.syx";
             loadSysExDialog.Title = "Load SysEx File";
             loadSysExDialog.CheckFileExists = true;

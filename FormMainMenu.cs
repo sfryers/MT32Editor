@@ -17,7 +17,7 @@ namespace MT32Edit
 
         static extern bool AllocConsole();
 
-        const string VERSION_NO = "v0.9.2a";
+        const string VERSION_NO = "v0.9.3a";
         const string RELEASE_DATE = "April 2023";
 
         private bool midiInError = false;
@@ -27,9 +27,9 @@ namespace MT32Edit
         private FormTimbreEditor timbreEditor;
         private FormPatchEditor patchEditor;
         private FormRhythmEditor rhythmEditor;
+        private OpenFileDialog loadSysExDialog = new OpenFileDialog();
         private SaveFileDialog saveSysExDialog = new SaveFileDialog();
         private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
-
 
         public FormMainMenu()
         {
@@ -37,6 +37,7 @@ namespace MT32Edit
             AllocConsole();
             Console.WriteLine("Welcome to MT32 Editor " + VERSION_NO);
             InitialiseMidiConnections();
+            if (midiInError || midiOutError) return;
             OpenTimbreEditor();
             OpenMemoryBankEditor();
             OpenRhythmEditor();
@@ -87,6 +88,11 @@ namespace MT32Edit
             string[] midiDeviceNames = ConfigFile.Load();
             InitialiseMidiInConnection();
             InitialiseMidiOutConnection();
+            if (midiInError || midiOutError)
+            {
+                Close();
+                return;
+            }
             CheckForEmulator();
 
             void InitialiseMidiInConnection()
@@ -99,7 +105,8 @@ namespace MT32Edit
                     if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0]) inDeviceNo = device;      //Set active MIDI In device
                 }
                 midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
-                if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
+                //if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
+                if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
             }
 
             void InitialiseMidiOutConnection()
@@ -113,19 +120,20 @@ namespace MT32Edit
                 }
                 midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
                 Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex);
-                if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
+                //if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
+                if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
             }
         }
 
         private void MidiInError(string midiInDeviceName)
         {
-            MessageBox.Show("Error: Cannot open MIDI In device '" + midiInDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.", "MT-32 Editor", MessageBoxButtons.OK);
+            MessageBox.Show("Error: Cannot open MIDI In device '" + midiInDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
             midiInError = true;
         }
 
         private void MidiOutError(string midiOutDeviceName)
         {
-            MessageBox.Show("Error: Cannot open MIDI Out device '" + midiOutDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.", "MT-32 Editor", MessageBoxButtons.OK);
+            MessageBox.Show("Error: Cannot open MIDI Out device '" + midiOutDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
             midiOutError = true;
         }
 
@@ -151,23 +159,33 @@ namespace MT32Edit
 
         private void loadSysExFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SysExFile.Load(memoryState);
-            saveSysExToolStripMenuItem.Enabled = true;
+            SysExFile.Load(loadSysExDialog, memoryState);
+            if (loadSysExDialog.FileName != "")
+            {
+                saveSysExDialog.FileName = loadSysExDialog.FileName;
+                saveSysExToolStripMenuItem.Enabled = true;
+            }
         }
 
         private void saveSysExFileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveSysExDialog.Title = "Save SysEx File";
-            saveSysExDialog.Filter = "MIDI System Exclusive message file|*.syx";
             saveSysExDialog.FileName = "New SysEx file.syx";
-            SysExFile.Save(memoryState, saveSysExDialog);
-            saveSysExToolStripMenuItem.Enabled = true;
+            SaveSysExFile();
         }
 
         private void saveSysExToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SysExFile.Save(memoryState, saveSysExDialog);
+            SaveSysExFile();
         }
+
+        private void SaveSysExFile()
+        {
+            saveSysExDialog.Title = "Save SysEx File";
+            saveSysExDialog.Filter = "MIDI System Exclusive message file|*.syx";
+            SysExFile.Save(memoryState, saveSysExDialog);
+            saveSysExToolStripMenuItem.Enabled = true;
+        }
+
 
         private void loadTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -211,11 +229,6 @@ namespace MT32Edit
             if (saveTimbreDialog.ShowDialog() == DialogResult.OK) TimbreFile.Save(memoryTimbre, saveTimbreDialog);
         }
 
-        private void saveTimbreFileAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveTimbre();
-        }
-
         private void saveTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveTimbre();
@@ -229,6 +242,12 @@ namespace MT32Edit
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Midi.CloseInputDevice();
+            Midi.CloseOutputDevice();
         }
 
         private void patchEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -268,6 +287,7 @@ namespace MT32Edit
             else EnableTimbreEditor();
             if (memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY) saveTimbreFileToolStripMenuItem.Enabled = false;
             else saveTimbreFileToolStripMenuItem.Enabled = true;
+            if (midiInError || midiOutError) Close();
         }
 
         private void DisableTimbreEditor()
@@ -292,7 +312,7 @@ namespace MT32Edit
 
         private void CheckForEmulator()
         {
-            if (Midi.GetOutputDeviceName(midiOutToolStripMenuItem.SelectedIndex) == "MT-32 Synth Emulator") EmulatorConnected();
+            if (Midi.Out != null && !midiOutError && Midi.GetOutputDeviceName(midiOutToolStripMenuItem.SelectedIndex) == "MT-32 Synth Emulator") EmulatorConnected();
         }
 
         private void EmulatorConnected()

@@ -18,6 +18,8 @@ namespace MT32Edit
         private bool sendSysEx = false;
         private bool initialisationComplete = false;
         private bool thisFormIsActive = true;
+        private int part12Image = -1;
+        private int part34Image = -1;
 
         public FormTimbreEditor()
         {
@@ -118,15 +120,17 @@ namespace MT32Edit
 
         private void UpdatePartialStructureImages()
         {
-            if (comboBoxPart12Struct.SelectedIndex > -1)
+            if (comboBoxPart12Struct.SelectedIndex > -1 && comboBoxPart12Struct.SelectedIndex != part12Image)
             {
-                pictureBoxPartial12.Image = imageList.Images[comboBoxPart12Struct.SelectedIndex];
-                toolTipParameterValue.SetToolTip(pictureBoxPartial12, MT32Strings.partialConfig12Desc[comboBoxPart12Struct.SelectedIndex]);
+                part12Image = comboBoxPart12Struct.SelectedIndex;
+                pictureBoxPartial12.Image = imageList.Images[part12Image];
+                toolTipParameterValue.SetToolTip(pictureBoxPartial12, MT32Strings.partialConfig12Desc[part12Image]);
             }
-            if (comboBoxPart34Struct.SelectedIndex > -1)
+            if (comboBoxPart34Struct.SelectedIndex > -1 && comboBoxPart34Struct.SelectedIndex != part34Image)
             {
-                pictureBoxPartial34.Image = imageList.Images[comboBoxPart34Struct.SelectedIndex];
-                toolTipParameterValue.SetToolTip(pictureBoxPartial34, MT32Strings.partialConfig34Desc[comboBoxPart34Struct.SelectedIndex]);
+                part34Image = comboBoxPart34Struct.SelectedIndex;
+                pictureBoxPartial34.Image = imageList.Images[part34Image];
+                toolTipParameterValue.SetToolTip(pictureBoxPartial34, MT32Strings.partialConfig34Desc[part34Image]);
             }
         }
 
@@ -497,7 +501,6 @@ namespace MT32Edit
             labelTVFDisabled.Visible = true;
             radioButtonPCMBank1.Enabled = true;
             radioButtonPCMBank2.Enabled = true;
-            //SetPCMBank();
             RefreshGraphs();
         }
 

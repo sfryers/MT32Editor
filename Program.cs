@@ -18,7 +18,15 @@ namespace MT32Edit
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormMainMenu());
+            try
+            {
+                Application.Run(new FormMainMenu());
+            }
+            catch 
+            {
+                //Application failed to open, probably closed prematurely by failure to open MIDI device;
+            }
+
         }
     }
 }
