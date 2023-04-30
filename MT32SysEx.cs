@@ -38,53 +38,53 @@ namespace MT32Edit
             return checkSum;
         }
 
+        private static int[] WrapBytes(int[] Addr)
+        {
+            while (Addr[1] > 0x7F)                                //if value exceeds 7-bit maximum, wrap value and increment next significant byte
+            {
+                Addr[0] += 0x01;
+                Addr[1] -= 0x80;
+            }
+            return Addr;
+        }
+
         public static byte[] PatchAddress(int patchNo)          //calculate address of specific patch memory area
         {
-            
-            int Addr1 = 0x00;
-            int Addr2 = patchNo * 8;
-            while (Addr2 > 0x7F)                                //if value exceeds 7-bit maximum, wrap value and increment next significant byte
-            {
-                Addr1 += 0x01;
-                Addr2 -= 0x80;
-            }
-            byte[] sysExAddr = { 0x05, Convert.ToByte(Addr1), Convert.ToByte(Addr2) };
+            int[] Addr = new int[2];   
+            Addr[0] = 0x00;
+            Addr[1] = patchNo * 8;
+            Addr = WrapBytes(Addr);
+            byte[] sysExAddr = { 0x05, Convert.ToByte(Addr[0]), Convert.ToByte(Addr[1]) };
             return sysExAddr;
         }
 
         public static byte[] RhythmKeyAddress(int keyNo)        //calculate address of specific rhythm bank key area
         {
-
-            int Addr1 = 0x01;
-            int Addr2 = 0x10 + ((keyNo - 24) * 4);
-            while (Addr2 > 0x7F)                                //if value exceeds 7-bit maximum, wrap value and increment next significant byte
-            {
-                Addr1 += 0x01;
-                Addr2 -= 0x80;
-            }
-            byte[] sysExAddr = { 0x03, Convert.ToByte(Addr1), Convert.ToByte(Addr2) };
+            int[] Addr = new int[2];
+            Addr[0] = 0x01;
+            Addr[1] = 0x10 + ((keyNo - 24) * 4);
+            Addr = WrapBytes(Addr);
+            byte[] sysExAddr = { 0x03, Convert.ToByte(Addr[0]), Convert.ToByte(Addr[1]) };
             return sysExAddr;
         }
 
         public static byte[] MemoryTimbreAddress(int timbreNo)  //calculate address of specific memory timbre
         {
             if (timbreNo < 0 || timbreNo > 63) timbreNo = 0;
-            byte Addr1 = Convert.ToByte(timbreNo * 2);
-            byte Addr2 = 0x00;
-            byte[] sysExAddr = { 0x08, Addr1, Addr2 };
+            byte[] Addr = new byte[2];
+            Addr[0] = Convert.ToByte(timbreNo * 2);
+            Addr[1] = 0x00;
+            byte[] sysExAddr = { 0x08, Addr[0], Addr[1] };
             return sysExAddr;
         }
 
-        public static byte[] PartialAddress(int parameter, int partial) //calculate address of specific timbre partial parameter
+        public static byte[] TempPartialAddress(int parameter, int partial) //calculate address of specific temporary timbre area partial parameter
         {
-            int Addr1 = 0x00;
-            int Addr2 = parameter + PARTIAL_ADDRESS_OFFSET + (PARAMETER_COUNT * partial);
-            while (Addr2 > 0x7F)                                //if value exceeds 7-bit maximum, wrap value and increment next significant byte
-            {
-                Addr1 += 0x01;
-                Addr2 -= 0x80;
-            }
-            byte[] sysExAddr = { 0x04, Convert.ToByte(Addr1), Convert.ToByte(Addr2) };
+            int[] Addr = new int[2];
+            Addr[0] = 0x00;
+            Addr[1] = parameter + PARTIAL_ADDRESS_OFFSET + (PARAMETER_COUNT * partial);
+            Addr = WrapBytes(Addr);
+            byte[] sysExAddr = { 0x04, Convert.ToByte(Addr[0]), Convert.ToByte(Addr[1]) };
             return sysExAddr;
         }
 
@@ -152,7 +152,7 @@ namespace MT32Edit
             string parameterName = MT32Strings.partialParameterNames[parameterNo];
             int sysExParameterValue = parameterValue + PartialConstants.offset[parameterNo];
             LogicTools.ValidateRange("sysEx parameter", sysExParameterValue, 0, 127, autoCorrect: false);
-            byte[] sysExAddr = PartialAddress(parameterNo, partialNo);
+            byte[] sysExAddr = TempPartialAddress(parameterNo, partialNo);
             byte[] sysExData = { Convert.ToByte(sysExParameterValue) }; // ensure no negative values are passed to device
             SendMessage(sysExAddr, sysExData);
             SendText(parameterName + ": " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
@@ -171,7 +171,7 @@ namespace MT32Edit
 
         public static void ApplyPartialParameters(TimbreStructure t, int partialNo) //send all partial parameters to device
         {
-            byte[] sysExAddr = PartialAddress(0, partialNo);
+            byte[] sysExAddr = TempPartialAddress(parameter: 0x00, partialNo);
             byte[] sysExData = new byte[PARAMETER_COUNT];
             for (int parameterNo = 0; parameterNo < PARAMETER_COUNT; parameterNo++)
             {
@@ -185,7 +185,7 @@ namespace MT32Edit
         {
             string bankNo = "1";
             if (sysExValue > 1) bankNo = "2";
-            byte[] sysExAddr = PartialAddress(0x04, partialNo);
+            byte[] sysExAddr = TempPartialAddress(parameter: 0x04, partialNo);
             byte[] sysExData = { (byte)sysExValue };
             SendMessage(sysExAddr, sysExData);
             SendText("PCM Bank Select = " + bankNo);
@@ -326,15 +326,6 @@ namespace MT32Edit
         {
             byte[] sysExAddress = MemoryTimbreAddress(timbreNo);
             SendTimbre(timbreNo, timbre, sysExAddress);
-
-            static byte[] MemoryTimbreAddress(int timbreNo)    //calculate address of specific memory timbre
-            {
-                if (timbreNo < 0 || timbreNo > 63) timbreNo = 0;
-                byte Addr1 = Convert.ToByte(timbreNo * 2);
-                byte Addr2 = 0x00;
-                byte[] sysExAddr = { 0x08, Addr1, Addr2 };
-                return sysExAddr;
-            }
         }
 
         public static void PreviewTimbre(int timbreNo, TimbreStructure timbre)

@@ -7,7 +7,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: TimbreFile class (static)
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)
         // Valid .timbre files consist of:
         //      bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "

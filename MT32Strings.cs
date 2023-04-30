@@ -4,7 +4,7 @@
     {
         //
         // MT32Edit: MT32Strings class (static)
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
         //
         public static readonly string[] bank1SampleNames = 
@@ -38,7 +38,7 @@
 
         public static readonly string[] partialParameterNames = 
         {
-            "Pitch", "Fine Pitch", "Pitch KF", "Pitch Bend", "Waveform", "PCM Sample No.", "Pulse Width", "PW Velo. Sens.", "Pitch Env Depth", "P.Env Velo Sens", "P.Env Time KeyF",
+            "Pitch", "Fine Pitch", "Pitch KF", "Pitch Bend", "Waveform", "PCM Sample No.", "Pulse Width", "PW Velo. Sens.", "Pitch Env Depth", "P.Env Velo Sens", "P.Env Time KF",
             "P.Env Time 1", "P.Env Time 2", "P.Env Time 3", "P.Env Time 4", "P.Env Level 0", "P.Env Level 1", "P.Env Level 2", "P.Env Sust Lvl", "P.Env Rel Lvl",
             "Pitch LFO Rate", "Pitch LFO Depth", "P.LFO Mod Sens",
             "TVF Cutoff", "TVF Resonance", "TVF Keyfollow", "TVF Bias Pt", "TVF Bias Lvl", "TVF Env Depth", "TVF Velo Sens", "TVF Depth KF", "TVF Time KF",

@@ -6,7 +6,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: Rhythm class
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Data structure representing user-accessible rhythm areas of MT-32, as per published MIDI implementation.
         //
         private int timbreGroup = 1;
@@ -15,16 +15,15 @@ namespace MT32Edit
         private int panPot = 0;
         private int outputLevel = 80;
         private bool reverbEnabled = true;
-        private const int panPotOffset = 7;
-        private const int keyOffset = 24;
+
         private DateTime timeOfLastFullUpdate = DateTime.Now;
 
         public Rhythm(int keyNo, bool autoCorrect = false)
         {
-            keyNo = LogicTools.ValidateRange("key", keyNo, minPermitted: 24, maxPermitted: 108, autoCorrect);
+            keyNo = LogicTools.ValidateRange("keyNo", keyNo, minPermitted: RhythmConstants.KEY_OFFSET, maxPermitted: 108, autoCorrect);
             timbreGroup = 1;
-            timbreNo = RhythmConstants.defaultSampleNo[keyNo - keyOffset];
-            panPot = RhythmConstants.defaultPanPosition[keyNo - keyOffset];
+            timbreNo = RhythmConstants.defaultSampleNo[keyNo - RhythmConstants.KEY_OFFSET];
+            panPot = RhythmConstants.defaultPanPosition[keyNo - RhythmConstants.KEY_OFFSET];
         }
 
         public DateTime GetUpdateTime()
@@ -46,7 +45,7 @@ namespace MT32Edit
                 case 1:
                     return outputLevel;
                 case 2:
-                    return panPot + panPotOffset;
+                    return panPot + RhythmConstants.PANPOT_OFFSET;
                 case 3:
                     if (reverbEnabled) return 1;
                     else return 0;
@@ -90,7 +89,7 @@ namespace MT32Edit
                     SetOutputLevel(parameterValue, autoCorrect);
                     return;
                 case 2:
-                    SetPanPot(parameterValue - panPotOffset, autoCorrect);
+                    SetPanPot(parameterValue - RhythmConstants.PANPOT_OFFSET, autoCorrect);
                     return;
                 case 3:
                     if (parameterValue == 1) SetReverbEnabled(true);
@@ -118,7 +117,7 @@ namespace MT32Edit
             else 
             {
                 SetTimbreGroup(1);
-                SetTimbreNo(parameterValue-64);
+                SetTimbreNo(parameterValue - 64);
             }          
         }
 
@@ -149,7 +148,7 @@ namespace MT32Edit
 
         public void SetPanPot(int panPotValue, bool autoCorrect = false)
         {
-            panPot = LogicTools.ValidateRange("pan pot value", panPotValue, minPermitted: -7, maxPermitted: 7, autoCorrect);
+            panPot = LogicTools.ValidateRange("Pan pot value", panPotValue, minPermitted: -7, maxPermitted: 7, autoCorrect);
         }
 
         public int GetPanPot()

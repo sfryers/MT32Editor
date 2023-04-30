@@ -203,6 +203,10 @@
             label65 = new Label();
             label66 = new Label();
             groupBoxPartialStructure = new GroupBox();
+            radioButtonPartial4 = new RadioButton();
+            radioButtonPartial3 = new RadioButton();
+            radioButtonPartial2 = new RadioButton();
+            radioButtonPartial1 = new RadioButton();
             label63 = new Label();
             label62 = new Label();
             labelPartialWarning = new Label();
@@ -212,7 +216,6 @@
             checkBoxPartial1 = new CheckBox();
             labelEnablePartials = new Label();
             labelEditPartialNo = new Label();
-            comboBoxEditPartialNo = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFinePitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarPitchKeyFollow).BeginInit();
@@ -2441,6 +2444,10 @@
             // 
             // groupBoxPartialStructure
             // 
+            groupBoxPartialStructure.Controls.Add(radioButtonPartial4);
+            groupBoxPartialStructure.Controls.Add(radioButtonPartial3);
+            groupBoxPartialStructure.Controls.Add(radioButtonPartial2);
+            groupBoxPartialStructure.Controls.Add(radioButtonPartial1);
             groupBoxPartialStructure.Controls.Add(label63);
             groupBoxPartialStructure.Controls.Add(label62);
             groupBoxPartialStructure.Controls.Add(labelPartialWarning);
@@ -2452,7 +2459,6 @@
             groupBoxPartialStructure.Controls.Add(checkBoxPartial1);
             groupBoxPartialStructure.Controls.Add(labelEnablePartials);
             groupBoxPartialStructure.Controls.Add(labelEditPartialNo);
-            groupBoxPartialStructure.Controls.Add(comboBoxEditPartialNo);
             groupBoxPartialStructure.Controls.Add(label45);
             groupBoxPartialStructure.Controls.Add(label64);
             groupBoxPartialStructure.Controls.Add(label66);
@@ -2468,6 +2474,54 @@
             groupBoxPartialStructure.TabIndex = 94;
             groupBoxPartialStructure.TabStop = false;
             groupBoxPartialStructure.Text = "Partial Structure";
+            // 
+            // radioButtonPartial4
+            // 
+            radioButtonPartial4.AutoSize = true;
+            radioButtonPartial4.Location = new Point(126, 194);
+            radioButtonPartial4.Name = "radioButtonPartial4";
+            radioButtonPartial4.Size = new Size(31, 19);
+            radioButtonPartial4.TabIndex = 109;
+            radioButtonPartial4.TabStop = true;
+            radioButtonPartial4.Text = "4";
+            radioButtonPartial4.UseVisualStyleBackColor = true;
+            radioButtonPartial4.CheckedChanged += radioButtonPartial4_CheckedChanged;
+            // 
+            // radioButtonPartial3
+            // 
+            radioButtonPartial3.AutoSize = true;
+            radioButtonPartial3.Location = new Point(89, 194);
+            radioButtonPartial3.Name = "radioButtonPartial3";
+            radioButtonPartial3.Size = new Size(31, 19);
+            radioButtonPartial3.TabIndex = 108;
+            radioButtonPartial3.TabStop = true;
+            radioButtonPartial3.Text = "3";
+            radioButtonPartial3.UseVisualStyleBackColor = true;
+            radioButtonPartial3.CheckedChanged += radioButtonPartial3_CheckedChanged;
+            // 
+            // radioButtonPartial2
+            // 
+            radioButtonPartial2.AutoSize = true;
+            radioButtonPartial2.Location = new Point(51, 194);
+            radioButtonPartial2.Name = "radioButtonPartial2";
+            radioButtonPartial2.Size = new Size(31, 19);
+            radioButtonPartial2.TabIndex = 107;
+            radioButtonPartial2.TabStop = true;
+            radioButtonPartial2.Text = "2";
+            radioButtonPartial2.UseVisualStyleBackColor = true;
+            radioButtonPartial2.CheckedChanged += radioButtonPartial2_CheckedChanged;
+            // 
+            // radioButtonPartial1
+            // 
+            radioButtonPartial1.AutoSize = true;
+            radioButtonPartial1.Location = new Point(15, 194);
+            radioButtonPartial1.Name = "radioButtonPartial1";
+            radioButtonPartial1.Size = new Size(31, 19);
+            radioButtonPartial1.TabIndex = 106;
+            radioButtonPartial1.TabStop = true;
+            radioButtonPartial1.Text = "1";
+            radioButtonPartial1.UseVisualStyleBackColor = true;
+            radioButtonPartial1.CheckedChanged += radioButtonPartial1_CheckedChanged;
             // 
             // label63
             // 
@@ -2491,7 +2545,7 @@
             // 
             labelPartialWarning.AutoSize = true;
             labelPartialWarning.ForeColor = Color.Yellow;
-            labelPartialWarning.Location = new Point(22, 152);
+            labelPartialWarning.Location = new Point(14, 152);
             labelPartialWarning.Name = "labelPartialWarning";
             labelPartialWarning.Size = new Size(167, 15);
             labelPartialWarning.TabIndex = 103;
@@ -2501,7 +2555,7 @@
             // checkBoxPartial4
             // 
             checkBoxPartial4.AutoSize = true;
-            checkBoxPartial4.Location = new Point(134, 130);
+            checkBoxPartial4.Location = new Point(126, 133);
             checkBoxPartial4.Name = "checkBoxPartial4";
             checkBoxPartial4.Size = new Size(32, 19);
             checkBoxPartial4.TabIndex = 100;
@@ -2512,7 +2566,7 @@
             // checkBoxPartial3
             // 
             checkBoxPartial3.AutoSize = true;
-            checkBoxPartial3.Location = new Point(96, 130);
+            checkBoxPartial3.Location = new Point(89, 133);
             checkBoxPartial3.Name = "checkBoxPartial3";
             checkBoxPartial3.Size = new Size(32, 19);
             checkBoxPartial3.TabIndex = 99;
@@ -2523,7 +2577,7 @@
             // checkBoxPartial2
             // 
             checkBoxPartial2.AutoSize = true;
-            checkBoxPartial2.Location = new Point(58, 130);
+            checkBoxPartial2.Location = new Point(51, 133);
             checkBoxPartial2.Name = "checkBoxPartial2";
             checkBoxPartial2.Size = new Size(32, 19);
             checkBoxPartial2.TabIndex = 98;
@@ -2534,7 +2588,7 @@
             // checkBoxPartial1
             // 
             checkBoxPartial1.AutoSize = true;
-            checkBoxPartial1.Location = new Point(22, 130);
+            checkBoxPartial1.Location = new Point(15, 133);
             checkBoxPartial1.Name = "checkBoxPartial1";
             checkBoxPartial1.Size = new Size(32, 19);
             checkBoxPartial1.TabIndex = 97;
@@ -2554,23 +2608,11 @@
             // labelEditPartialNo
             // 
             labelEditPartialNo.AutoSize = true;
-            labelEditPartialNo.Location = new Point(11, 193);
+            labelEditPartialNo.Location = new Point(9, 176);
             labelEditPartialNo.Name = "labelEditPartialNo";
-            labelEditPartialNo.Size = new Size(102, 15);
+            labelEditPartialNo.Size = new Size(85, 15);
             labelEditPartialNo.TabIndex = 95;
-            labelEditPartialNo.Text = "Editing Partial No.";
-            // 
-            // comboBoxEditPartialNo
-            // 
-            comboBoxEditPartialNo.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEditPartialNo.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            comboBoxEditPartialNo.FormattingEnabled = true;
-            comboBoxEditPartialNo.Items.AddRange(new object[] { "1", "2", "3", "4" });
-            comboBoxEditPartialNo.Location = new Point(116, 185);
-            comboBoxEditPartialNo.Name = "comboBoxEditPartialNo";
-            comboBoxEditPartialNo.Size = new Size(34, 28);
-            comboBoxEditPartialNo.TabIndex = 94;
-            comboBoxEditPartialNo.SelectedIndexChanged += comboBoxEditPartialNo_SelectedIndexChanged;
+            labelEditPartialNo.Text = "Edit Partial No.";
             // 
             // FormTimbreEditor
             // 
@@ -2887,6 +2929,9 @@
         private CheckBox checkBoxPartial1;
         private Label labelEnablePartials;
         private Label labelEditPartialNo;
-        private ComboBox comboBoxEditPartialNo;
+        private RadioButton radioButtonPartial4;
+        private RadioButton radioButtonPartial3;
+        private RadioButton radioButtonPartial2;
+        private RadioButton radioButtonPartial1;
     }
 }

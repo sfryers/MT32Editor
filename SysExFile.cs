@@ -1,6 +1,4 @@
-﻿using MT32Edit;
-using System.Net.Security;
-using System.Text;
+﻿using System.Text;
 
 namespace MT32Edit
 {
@@ -21,7 +19,7 @@ namespace MT32Edit
             loadSysExDialog.Title = "Load SysEx File";
             loadSysExDialog.CheckFileExists = true;
             loadSysExDialog.CheckPathExists = true;
-            loadSysExDialog.ShowDialog();
+            if (loadSysExDialog.ShowDialog() != DialogResult.OK) return; //file error or dialogue cancelled
             if (loadSysExDialog.FileName == "") return; //No file specified, abort loading process
             FileStream file = (FileStream)loadSysExDialog.OpenFile();
             MT32SysEx.blockMT32text = true;
@@ -95,40 +93,37 @@ namespace MT32Edit
                 ConsoleMessage.SendLine("Processing data block, " + sysExDataBlock.Length.ToString() + " bytes.");
                 int[] sysExAddress = new int[3];
                 int[] sysExData = new int[sysExDataBlock.Length - 7];
-                Console.ForegroundColor = ConsoleColor.Yellow;
                 for (int i = 4; i < 7; i++) 
                 {
                     sysExAddress[i - 4] = (byte)sysExDataBlock[i];      //get memory address bytes
                 }
-                Console.ForegroundColor = ConsoleColor.Gray;
                 for (int i = 7; i < dataBlockLength; i++)
                 {
                     sysExData[i - 7] = (byte)sysExDataBlock[i];         //get data bytes
                 }
-                Console.ForegroundColor = ConsoleColor.Blue;
                 switch (sysExAddress[0])
                 {
                     case 0x03:
                         if (((sysExAddress[1] * 128) + sysExAddress[2]) > 137) //Rhythm data starts at address {0x03, 0x01, 0x10}
                         {
-                            ConsoleMessage.SendLine("[RHYTHM] ");
+                            ConsoleMessage.SendLine("[RHYTHM] ", ConsoleColor.Green);
                             ExtractRhythmData(sysExData, sysExAddress);
                         }
                         break;
                     case 0x05:
-                        ConsoleMessage.SendLine("[PATCH] ");
+                        ConsoleMessage.SendLine("[PATCH] ", ConsoleColor.Cyan);
                         ExtractPatchData(sysExData, sysExAddress);
                         break;
                     case 0x08:
-                        ConsoleMessage.SendLine("[TIMBRE] ");
+                        ConsoleMessage.SendLine("[TIMBRE] ", ConsoleColor.Blue);
                         ExtractTimbreData(sysExData, sysExAddress);
                         break;
                     case 0x10:
-                        ConsoleMessage.SendLine("[SYSTEM] ");
+                        ConsoleMessage.SendLine("[SYSTEM] ", ConsoleColor.Red);
                         ExtractSystemData(sysExData, sysExAddress);
                         break;
                     case 0x20:
-                        ConsoleMessage.SendLine("[TEXT] ");
+                        ConsoleMessage.SendLine("[TEXT] ", ConsoleColor.Yellow);
                         ExtractTextData(sysExData);
                         break;
                     default:
@@ -156,7 +151,7 @@ namespace MT32Edit
                     ConsoleMessage.SendLine("System data address invalid, ignoring.");
                     return;
                 }
-                if (sysExData.Length > NO_OF_SYSTEM_PARAMS) Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS); //remove any superfluous sysEx data values
+                if (sysExData.Length + sysExAddress[2] > NO_OF_SYSTEM_PARAMS) Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS - sysExAddress[2]); //remove any superfluous sysEx data values
                 int[] systemData = GetCurrentSystemAreaStateAsArray();
                 for (int parameterNo = 0; parameterNo < sysExData.Length; parameterNo++)
                 {
@@ -261,12 +256,37 @@ namespace MT32Edit
 
             void ExtractTimbreData(int[] sysExData, int[] sysExAddress)
             {
-                //only proceed if full timbre data exists
-                if (sysExData.Length < 245)
+                //check whether timbre data contains data for some or all partials
+                int noOfPartials;
+                int dataLength = sysExData.Length;
+                const int ONE_PARTIAL = 71;
+                const int TWO_PARTIALS = 129;
+                const int THREE_PARTIALS = 187;
+                const int FOUR_PARTIALS = 245;
+
+                switch (dataLength)
                 {
-                    ConsoleMessage.SendLine("Timbre data incomplete, ignoring.", ConsoleColor.Red);
-                    return;
+                    case >= ONE_PARTIAL and < TWO_PARTIALS:
+                        ConsoleMessage.SendLine("Timbre data found, only 1 partial defined.", ConsoleColor.Red);
+                        noOfPartials = 1;
+                        break;
+                    case >= TWO_PARTIALS and < THREE_PARTIALS:
+                        ConsoleMessage.SendLine("Timbre data found, only 2 partials defined.", ConsoleColor.Red);
+                        noOfPartials = 2;
+                        break;
+                    case >= THREE_PARTIALS and < FOUR_PARTIALS:
+                        ConsoleMessage.SendLine("Timbre data found, only 3 partials defined.", ConsoleColor.Red);
+                        noOfPartials = 3;
+                        break;
+                    case >= FOUR_PARTIALS:
+                        ConsoleMessage.SendLine("Timbre data found, all partials defined.", ConsoleColor.Red);
+                        noOfPartials = 4;
+                        break;
+                    default:
+                        ConsoleMessage.SendLine("Timbre data incomplete, ignoring.", ConsoleColor.Red);
+                        return;
                 }
+
                 timbreNo = GetTimbreNo(sysExAddress);
                 if (timbreNo < 0 || timbreNo > 63)
                 {
@@ -305,7 +325,7 @@ namespace MT32Edit
                     memoryTimbre.SetPart34Structure(sysExData[11], autoCorrect: true);
                     memoryTimbre.SetSustainStatus(!LogicTools.IntToBool(sysExData[13])); //use inverse value
 
-                    for (int partialNo = 0; partialNo < 4; partialNo++)
+                    for (int partialNo = 0; partialNo < noOfPartials; partialNo++)
                     {
                         if ((sysExData[12] & (1 << partialNo)) != 0) memoryTimbre.SetPartialMuteStatus(partialNo, false);
                         else memoryTimbre.SetPartialMuteStatus(partialNo, true);
@@ -332,7 +352,7 @@ namespace MT32Edit
             {
                 sysExFile = (FileStream)saveDialog.OpenFile();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
                 return;
@@ -401,7 +421,7 @@ namespace MT32Edit
 
         public static void Save(MT32State memoryState, SaveFileDialog saveDialog)
         {
-            if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error
+            if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error or cancelled dialogue
             if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user didn't select a file
             FileStream sysExFile;
             

@@ -5,9 +5,13 @@ namespace MT32Edit
     {
         //
         // MT32Edit: RhythmConstants class (static)
-        // S.Fryers Feb 2023
-        // Read-only data class containing default sample and pan values for MT-32 rhythm parameters.
+        // S.Fryers Apr 2023
+        // Read-only data class containing default values for MT-32 rhythm parameters.
         //
+
+        public const int KEY_OFFSET = 24;    //lowest MIDI note no. to which a rhythm timbre can be allocated
+        public const int PANPOT_OFFSET = 7;
+
         public static readonly byte[] defaultSampleNo =
         { 
             63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,  0,  0, 10,  1, 11,

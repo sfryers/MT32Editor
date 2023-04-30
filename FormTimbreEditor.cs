@@ -71,7 +71,7 @@ namespace MT32Edit
         private void InitialiseTimbreParameters(bool editExisting)
         {
             radioButtonPCMBank1.Select();
-            if (!editExisting) CreateBlankTimbre();
+            if (!editExisting) CreateDefaultTimbre();
             timer.Interval = 2000;
             timer.Enabled = true;
             timer.Start();
@@ -79,7 +79,7 @@ namespace MT32Edit
             SendAllSysExParameters();
             changesMade = false;
 
-            void CreateBlankTimbre()
+            void CreateDefaultTimbre()
             {
                 //Set all timbre and partial parameters to default values;
                 timbre.SetDefaultTimbreParameters(createAudibleTimbre: false);
@@ -108,7 +108,7 @@ namespace MT32Edit
             comboBoxPart12Struct.SelectedIndex = timbre.GetPart12Structure();
             comboBoxPart34Struct.SelectedIndex = timbre.GetPart34Structure();
             UpdatePartialStructureImages();
-            comboBoxEditPartialNo.SelectedIndex = activePartial;
+            SetPartialRadioButton(activePartial);
             checkBoxPartial1.Checked = !timbre.GetPartialMuteStatus()[0]; // set checkboxes to inverse of corresponding partial mute statuses
             checkBoxPartial2.Checked = !timbre.GetPartialMuteStatus()[1];
             checkBoxPartial3.Checked = !timbre.GetPartialMuteStatus()[2];
@@ -116,6 +116,14 @@ namespace MT32Edit
             checkBoxSustain.Checked = timbre.GetSustainStatus();
             if (checkBoxPartial1.Checked) labelPartialWarning.Visible = false;
             else labelPartialWarning.Visible = true;
+
+            void SetPartialRadioButton(int partialNo)
+            {
+                if (partialNo == 0) radioButtonPartial1.Checked = true;
+                if (partialNo == 1) radioButtonPartial2.Checked = true;
+                if (partialNo == 2) radioButtonPartial3.Checked = true;
+                if (partialNo == 3) radioButtonPartial4.Checked = true;
+            }
         }
 
         private void UpdatePartialStructureImages()
@@ -457,7 +465,7 @@ namespace MT32Edit
             //custom comboBox draw method- creates vertical divider between structure type and structure description
             if (e.Index < 0) return;
             e.DrawBackground();
-            string partialConfigType = e.Index.ToString() + ": " + MT32Strings.partialConfig[e.Index].ToString();
+            string partialConfigType = (e.Index + 1).ToString() + ": " + MT32Strings.partialConfig[e.Index].ToString();
             string partialConfigDescription;
             if (isPartial12) partialConfigDescription = MT32Strings.partialConfig12Desc[e.Index];
             else partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
@@ -532,13 +540,37 @@ namespace MT32Edit
             RefreshGraphs();
         }
 
-        private void comboBoxEditPartialNo_SelectedIndexChanged(object sender, EventArgs e)
-        //select which partial number to edit
+        private void radioButtonPartial1_CheckedChanged(object sender, EventArgs e)
         {
-            activePartial = comboBoxEditPartialNo.SelectedIndex;
+            SelectPartial();
+        }
+
+        private void radioButtonPartial2_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectPartial();
+        }
+
+        private void radioButtonPartial3_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectPartial();
+        }
+
+        private void radioButtonPartial4_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectPartial();
+        }
+
+        private void SelectPartial()
+        {   //select which partial number to edit
+            int selectedPartial = 0;
+            if (radioButtonPartial1.Checked) selectedPartial = 0;
+            if (radioButtonPartial2.Checked) selectedPartial = 1;
+            if (radioButtonPartial3.Checked) selectedPartial = 2;
+            if (radioButtonPartial4.Checked) selectedPartial = 3;
             if (initialisationComplete) sendSysEx = false;
             UpdatePartialSliders(); //update UI controls with new values 
-            MT32SysEx.SendText("Editing partial " + (activePartial + 1).ToString());
+            if (selectedPartial != activePartial) MT32SysEx.SendText("Editing partial " + (selectedPartial + 1).ToString());
+            activePartial = selectedPartial;
             labelPartialWarning.Visible = false;                                    //hide warning if currently displayed
             switch (activePartial)                                                  //make selected partial active
             {

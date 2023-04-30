@@ -5,7 +5,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: FormMemoryBankEditor
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
         //
         private MT32State memoryState = new MT32State();
@@ -164,6 +164,7 @@ namespace MT32Edit
             int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
             if (memoryState.patchEditorActive) selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
             else if (memoryState.rhythmEditorActive) selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
+            if (memoryState.returnFocusToMemoryBankList) ReturnFocusToMemoryBankList();
             else SynchroniseTimbreEditor(selectedTimbre);
             RefreshMemoryBankListView(selectedTimbre);
         }
@@ -206,6 +207,12 @@ namespace MT32Edit
             memoryState.SetTimbreIsEditable(true);
             SynchroniseTimbreEditor(selectedTimbre);
             memoryState.returnFocusToPatchEditor = true;
+        }
+
+        private void ReturnFocusToMemoryBankList()
+        {
+            listViewTimbres.Select();
+            memoryState.returnFocusToMemoryBankList = false;
         }
 
         private void RefreshMemoryBankListView(int selectedTimbre)

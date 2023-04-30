@@ -175,7 +175,6 @@
             // timer
             // 
             timer.Enabled = true;
-            timer.Interval = 500;
             timer.Tick += timer_Tick;
             // 
             // labelTimbreName

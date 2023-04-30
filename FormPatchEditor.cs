@@ -263,6 +263,7 @@ namespace MT32Edit
             SendPatchParameterChange(selectedPatch, 0x05);
             changesMade = true;
         }
+
         private void radioButtonReverbOn_CheckedChanged(object sender, EventArgs e)
         {
             SetReverb(memoryState.GetSelectedPatchNo());
@@ -285,11 +286,29 @@ namespace MT32Edit
         {
             if (!thisFormIsActive)
             {
+                int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
                 CheckForMemoryStateUpdates();
                 UpdateMemoryTimbreNames();
+                FindMemoryTimbreInPatchList(selectedTimbre);
             }
             if (comboBoxTimbreGroup.Text == "Memory") SyncMemoryTimbreNames();
             if (memoryState.returnFocusToPatchEditor) ReturnFocusToPatchEditor();
+        }
+
+        private void FindMemoryTimbreInPatchList(int selectedTimbreNo)
+        {
+            for (int patchNo = 0; patchNo < 128; patchNo++)
+            {
+                Patch patchData = memoryState.GetPatch(patchNo);
+                if (patchData.GetTimbreGroupType() == "Memory" && patchData.GetTimbreNo() == selectedTimbreNo)
+                {
+                    if (memoryState.patchEditorActive) return;             // only proceed if focus is not on patch editor
+                    if (numericUpDownPatchNo.Value == patchNo + 1) return; // patch is already selected
+                    numericUpDownPatchNo.Value = patchNo + 1;              // focus on selected patch
+                    memoryState.returnFocusToMemoryBankList = true;
+                    return;
+                }
+            }
         }
 
         private void CheckForMemoryStateUpdates()
@@ -306,7 +325,7 @@ namespace MT32Edit
         {
             int selectedPatch = memoryState.GetSelectedPatchNo();
             string newTimbreName = memoryState.GetTimbreNames().Get(memoryState.GetPatch(selectedPatch).GetTimbreNo(), 2);
-            listViewPatches.SelectedItems[0].SubItems[2].Text = newTimbreName;
+            if (listViewPatches.SelectedIndices.Count > 0) listViewPatches.SelectedItems[0].SubItems[2].Text = newTimbreName;
             if (comboBoxTimbreName.Text != newTimbreName)
             {
                 RefreshTimbreNamesList(); //ensure that memory timbre name changes are synchronised across comboBox and listView

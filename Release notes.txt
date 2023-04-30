@@ -2,19 +2,24 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
-v0.9.0a - 6th April 2023
-    - First public release
+v0.9.4a - 30th April 2023
+  Bug Fixes:
+    - SysEx files containing superfluous bytes in system data area no longer cause unhandled exception.
+    - Cancelling Load SysEx dialogue no longer causes previously loaded file to reload.
+    - Partial Structure list is correctly numbered from 1-13 instead of 0-12.
+  New Features:
+    - Partial 1-4 selection now uses radio buttons instead of combo box.
+    - Selecting a memory timbre in the left-hand list now selects the first patch using that timbre in the right hand list, if one exists.
+    - When loading SysEx files, certain incomplete timbre data (truncated after 1st, 2nd or 3rd partials) is now processed instead of ignored.
 
-v0.9.1a - 10th April 2023
+v0.9.3a - 23rd April 2023
 
   Bug Fixes:
-    - Master Tuning slider now displays correct Hz values
-    - Very short SysEx messages no longer cause unhandled exception
-  New Features:
-    - MT-32 reset messages are now detected and actioned depending on user selection
-    - Options menu has new user selectable flag to either ignore or action MT-32 reset messages
-    - System Area SysEx messages which don't contain values for every parameter are now handled instead of ignored
-    - Added ability to save a SysEx file containing only System Area values. Included parameters are selectable from the System Settings window.
+    - MIDI connections are now kept open to improve compatibility with other virtual devices. Previous releases were shown to cause issues with MUNT for some users.
+    - v0.9.2 caused higher CPU utilisation due to a bug where partial structure images were constantly refreshed. Images now only refresh when partial structure is changed.
+    - Some Keyfollow Ratio values were incorrectly labelled due to corresponding error in MT-32 manual. All values are now as per CM-32L manual.
+    - Copy/pasting timbres no longer causes partial checkboxes to affect both original and copied timbre.
+    - Save SysEx File option on menu bar now filters by file type and suggests file name even if Save As hasn't previously been used.
 
 v0.9.2a - 16th April 2023
 
@@ -30,11 +35,16 @@ v0.9.2a - 16th April 2023
     - Updated partial structure display in Timbre Editor window. Structure no (1-13) is now shown in list. Detailed description of structure functionality shown in drop-down list and tooltips.
     - Re-labelled "Sensitivity" as "Velo Sens." in Timbre Editor window to improve clarity.
 
-v0.9.3a - 23rd April 2023
+v0.9.1a - 10th April 2023
 
   Bug Fixes:
-    - MIDI connections are now kept open to improve compatibility with other virtual devices. Previous releases were shown to cause issues with MUNT for some users.
-    - v0.9.2 caused higher CPU utilisation due to a bug where partial structure images were constantly refreshed. Images now only refresh when partial structure is changed.
-    - Some Keyfollow Ratio values were incorrectly labelled due to corresponding error in MT-32 manual. All values are now as per CM-32L manual.
-    - Copy/pasting timbres no longer causes partial checkboxes to affect both original and copied timbre.
-    - Save SysEx File option on menu bar now filters by file type and suggests file name even if Save As hasn't previously been used.
+    - Master Tuning slider now displays correct Hz values
+    - Very short SysEx messages no longer cause unhandled exception
+  New Features:
+    - MT-32 reset messages are now detected and actioned depending on user selection
+    - Options menu has new user selectable flag to either ignore or action MT-32 reset messages
+    - System Area SysEx messages which don't contain values for every parameter are now handled instead of ignored
+    - Added ability to save a SysEx file containing only System Area values. Included parameters are selectable from the System Settings window.
+
+v0.9.0a - 6th April 2023
+    - First public release

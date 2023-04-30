@@ -6,7 +6,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: TimbreStructure class
-        // S.Fryers Mar 2023
+        // S.Fryers Apr 2023
         // Data structure representing user-accessible timbre memory areas of MT-32, as per published Roland MIDI implementation.
         //
         public const int PARTIALS = 4;                  //each timbre consists of (up to) 4 partials

@@ -6,7 +6,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: TimbreNames class (static)
-        // S.Fryers Feb 2023
+        // S.Fryers Apr 2023
         // Data class containing names of MT-32 memory timbres and an interface to static read-only class PresetTimbreNames.
         //
         private const string EMPTY = MT32Strings.EMPTY;

@@ -17,7 +17,7 @@ namespace MT32Edit
 
         static extern bool AllocConsole();
 
-        const string VERSION_NO = "v0.9.3a";
+        const string VERSION_NO = "v0.9.4a";
         const string RELEASE_DATE = "April 2023";
 
         private bool midiInError = false;

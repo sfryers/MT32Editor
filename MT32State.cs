@@ -18,6 +18,7 @@
         public bool rhythmEditorActive = false;
         public bool returnFocusToPatchEditor = false;
         public bool returnFocusToRhythmEditor = false;
+        public bool returnFocusToMemoryBankList = false;
         private bool timbreEditable = true;
         private int selectedPatch = 0;
         private int selectedMemoryTimbre = 0;
