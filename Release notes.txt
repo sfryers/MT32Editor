@@ -2,6 +2,13 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.5a - 2nd August 2023
+  Bug Fixes:
+    - TVA Bias Level 2 control is now correctly labeled "Level 2" instead of "Level 1".
+  New Features:
+    - UI is now DPI-aware and will scale accordingly when Windows Display Scaling is set to values above 100%.
+    - Main app window can now be maximised and resized.
+
 v0.9.4a - 30th April 2023
   Bug Fixes:
     - SysEx files containing superfluous bytes in system data area no longer cause unhandled exception.

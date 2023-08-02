@@ -5,22 +5,46 @@ namespace MT32Edit
     {
         //
         // MT32Edit: FormMemoryBankEditor
-        // S.Fryers Apr 2023
+        // S.Fryers Aug 2023
         // Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
         //
         private MT32State memoryState = new MT32State();
         private FormTimbreEditor timbreEditor;
         private TimbreStructure? copiedTimbre;
         private DateTime lastGlobalUpdate = DateTime.Now;
+        private float UIScale = 1;
 
-        internal FormMemoryBankEditor(MT32State inputMemoryState, FormTimbreEditor timbreEditorFormInput)
+        internal FormMemoryBankEditor(float DPIScale, MT32State inputMemoryState, FormTimbreEditor timbreEditorFormInput)
         {
             InitializeComponent();
+            UIScale = DPIScale;
+            ScaleUIElements();
             timbreEditor = timbreEditorFormInput;
             memoryState = inputMemoryState;
             SynchroniseTimbreEditor(0);
             PopulateMemoryBankListView(0);
             timer.Start();
+        }
+
+        private void ScaleUIElements()
+        {
+            ScaleListView();
+            ScaleListViewColumns();
+        }
+
+        private void ScaleListView()
+        {
+            //Scale listView to form size
+            listViewTimbres.Width = (Width * 88) / 100;
+            listViewTimbres.Height = Height - (int)(270 * Math.Pow(UIScale, 1.3));
+        }
+
+        private void ScaleListViewColumns()
+        {
+            //Set column widths to fill the available space
+            int listWidth = listViewTimbres.Width;
+            listViewTimbres.Columns[0].Width = (int)(listWidth * 0.31);
+            listViewTimbres.Columns[1].Width = (int)(listWidth * 0.55);
         }
 
         private void PopulateMemoryBankListView(int selectedTimbre)
@@ -79,7 +103,6 @@ namespace MT32Edit
         {
             return ParseTools.RemoveTrailingSpaces(memoryState.GetTimbreNames().Get(selectedTimbre, 2));
         }
-
 
         private void buttonClearTimbre_Click(object sender, EventArgs e)
         {
@@ -232,7 +255,7 @@ namespace MT32Edit
 
         private void FormMemoryBankEditor_Resize(object sender, EventArgs e)
         {
-            //listViewTimbres.Height = Height - 60; //resize listView box to match form height
+            ScaleListView();
         }
 
         private void FormMemoryBankEditor_Activated(object sender, EventArgs e)

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectMemoryBank));
             labelSelectMemoryBank = new Label();
             comboBoxMemoryBank = new ComboBox();
-            labelPresetTimbreName = new Label();
             buttonOK = new Button();
             buttonCancel = new Button();
             SuspendLayout();
@@ -39,38 +38,29 @@
             // labelSelectMemoryBank
             // 
             labelSelectMemoryBank.AutoSize = true;
+            labelSelectMemoryBank.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelSelectMemoryBank.ForeColor = SystemColors.ControlLight;
             labelSelectMemoryBank.Location = new Point(12, 18);
             labelSelectMemoryBank.Name = "labelSelectMemoryBank";
-            labelSelectMemoryBank.Size = new Size(155, 15);
+            labelSelectMemoryBank.Size = new Size(225, 15);
             labelSelectMemoryBank.TabIndex = 0;
-            labelSelectMemoryBank.Text = "Select memory bank slot for";
+            labelSelectMemoryBank.Text = "Select memory bank slot for AcouPiano1:";
             // 
             // comboBoxMemoryBank
             // 
             comboBoxMemoryBank.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxMemoryBank.FormattingEnabled = true;
-            comboBoxMemoryBank.Location = new Point(22, 45);
+            comboBoxMemoryBank.Location = new Point(15, 45);
             comboBoxMemoryBank.Name = "comboBoxMemoryBank";
-            comboBoxMemoryBank.Size = new Size(145, 23);
+            comboBoxMemoryBank.Size = new Size(172, 23);
             comboBoxMemoryBank.TabIndex = 1;
             comboBoxMemoryBank.SelectedIndexChanged += comboBoxMemoryBank_SelectedIndexChanged;
             // 
-            // labelPresetTimbreName
-            // 
-            labelPresetTimbreName.AutoSize = true;
-            labelPresetTimbreName.ForeColor = SystemColors.ControlLightLight;
-            labelPresetTimbreName.Location = new Point(164, 18);
-            labelPresetTimbreName.Name = "labelPresetTimbreName";
-            labelPresetTimbreName.Size = new Size(68, 15);
-            labelPresetTimbreName.TabIndex = 2;
-            labelPresetTimbreName.Text = "AcouPiano:";
-            // 
             // buttonOK
             // 
-            buttonOK.Location = new Point(173, 45);
+            buttonOK.Location = new Point(193, 44);
             buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(59, 23);
+            buttonOK.Size = new Size(71, 25);
             buttonOK.TabIndex = 3;
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
@@ -78,9 +68,9 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(173, 74);
+            buttonCancel.Location = new Point(193, 73);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(59, 23);
+            buttonCancel.Size = new Size(71, 26);
             buttonCancel.TabIndex = 4;
             buttonCancel.Text = "Cancel";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -91,12 +81,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(254, 109);
+            ClientSize = new Size(278, 109);
             Controls.Add(buttonCancel);
             Controls.Add(buttonOK);
-            Controls.Add(labelPresetTimbreName);
             Controls.Add(comboBoxMemoryBank);
             Controls.Add(labelSelectMemoryBank);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "FormSelectMemoryBank";
@@ -110,7 +100,6 @@
 
         private Label labelSelectMemoryBank;
         private ComboBox comboBoxMemoryBank;
-        private Label labelPresetTimbreName;
         private Button buttonOK;
         private Button buttonCancel;
     }

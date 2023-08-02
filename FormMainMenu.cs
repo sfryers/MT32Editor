@@ -1,4 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
 
 namespace MT32Edit
 {
@@ -17,8 +20,8 @@ namespace MT32Edit
 
         static extern bool AllocConsole();
 
-        const string VERSION_NO = "v0.9.4a";
-        const string RELEASE_DATE = "April 2023";
+        const string VERSION_NO = "v0.9.5a";
+        const string RELEASE_DATE = "August 2023";
 
         private bool midiInError = false;
         private bool midiOutError = false;
@@ -31,7 +34,7 @@ namespace MT32Edit
         private SaveFileDialog saveSysExDialog = new SaveFileDialog();
         private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
 
-        public FormMainMenu()
+        public FormMainMenu(string[] args)
         {
             InitializeComponent();
             AllocConsole();
@@ -42,45 +45,102 @@ namespace MT32Edit
             OpenMemoryBankEditor();
             OpenRhythmEditor();
             OpenPatchEditor();
+            ScaleUIElements();
             MT32SysEx.SendText("MT32 Editor " + ParseTools.TrimToLength(VERSION_NO, 8));
             timer.Start();
         }
 
+        private float DPIScale()
+        {
+            float dpi = DeviceDpi;
+            float scaleValue = (dpi / 96);
+            return scaleValue;
+        }
+
         private void OpenTimbreEditor()
         {
-            timbreEditor = new FormTimbreEditor();
+            timbreEditor = new FormTimbreEditor(DPIScale());
             timbreEditor.MdiParent = this;
-            timbreEditor.Left = 240;
-            timbreEditor.Top = 24;
             timbreEditor.Show();
         }
 
         private void OpenPatchEditor()
         {
-            patchEditor = new FormPatchEditor(memoryState);
+            patchEditor = new FormPatchEditor(DPIScale(), memoryState);
             patchEditor.MdiParent = this;
-            patchEditor.Left = 1233;
-            patchEditor.Top = 24;
             patchEditor.Show();
         }
 
         private void OpenRhythmEditor()
         {
-            rhythmEditor = new FormRhythmEditor(memoryState);
+            rhythmEditor = new FormRhythmEditor(DPIScale(), memoryState);
             rhythmEditor.MdiParent = this;
-            rhythmEditor.Left = 1233;
-            rhythmEditor.Top = 24;
             rhythmEditor.Show();
             rhythmEditor.Visible = false;
         }
 
         private void OpenMemoryBankEditor()
         {
-            memoryBankEditor = new FormMemoryBankEditor(memoryState, timbreEditor);
+            memoryBankEditor = new FormMemoryBankEditor(DPIScale(), memoryState, timbreEditor);
             memoryBankEditor.MdiParent = this;
-            memoryBankEditor.Left = 0;
-            memoryBankEditor.Top = 24;
             memoryBankEditor.Show();
+        }
+
+        private void ScaleUIElements()
+        {
+            int xMargin = (int)(23 * DPIScale());
+            int yMargin = (int)(44 * DPIScale());
+
+            menuStrip.Width = Width; 
+            midiInToolStripMenuItem.Width = (int)(200 * DPIScale());
+            midiOutToolStripMenuItem.Width = (int)(200 * DPIScale());
+
+            ScaleMemoryBankEditor();
+            ScaleTimbreEditor();
+            ScalePatchEditor();
+            ScaleRhythmEditor();
+
+            void ScaleMemoryBankEditor()
+            {
+                if (memoryBankEditor == null) return;
+                memoryBankEditor.Left = 0;
+                memoryBankEditor.Top = 0;
+                memoryBankEditor.Width = (Width / 8);
+                if (Height > memoryBankEditor.MinimumSize.Height) memoryBankEditor.Height = Height -  yMargin;
+            }
+
+            void ScaleTimbreEditor()
+            {
+                if (timbreEditor == null || memoryBankEditor == null) return;
+                timbreEditor.Left = memoryBankEditor.Width + 1;
+                timbreEditor.Top = 0;
+                if (Height > timbreEditor.MinimumSize.Height) timbreEditor.Height = Height -  yMargin;
+            }
+
+            void ScalePatchEditor()
+            {
+                if (patchEditor == null || timbreEditor == null || memoryBankEditor == null) return;
+                patchEditor.Left = (Width * 68) / 100;
+                patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+                patchEditor.Top = 0;
+                patchEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+                if (Height > patchEditor.MinimumSize.Height) patchEditor.Height = Height -  yMargin;
+            }
+
+            void ScaleRhythmEditor()
+            {
+                if (rhythmEditor == null || timbreEditor == null || memoryBankEditor == null) return;
+                rhythmEditor.Left = (Width * 68) / 100;
+                rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+                rhythmEditor.Top = 0;
+                rhythmEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+                if (Height > rhythmEditor.MinimumSize.Height) rhythmEditor.Height = Height -  yMargin;
+            }
+        }
+
+        private void FormMainMenu_Resize(object sender, EventArgs e)
+        {
+            ScaleUIElements();
         }
 
         private void InitialiseMidiConnections()
@@ -105,7 +165,6 @@ namespace MT32Edit
                     if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0]) inDeviceNo = device;      //Set active MIDI In device
                 }
                 midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
-                //if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
                 if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
             }
 
@@ -119,8 +178,6 @@ namespace MT32Edit
                     if (Midi.GetOutputDeviceName(device).ToString() == midiDeviceNames[1]) outDeviceNo = device;    //Set active MIDI Out device
                 }
                 midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
-                Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex);
-                //if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
                 if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
             }
         }
@@ -185,7 +242,6 @@ namespace MT32Edit
             SysExFile.Save(memoryState, saveSysExDialog);
             saveSysExToolStripMenuItem.Enabled = true;
         }
-
 
         private void loadTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
         {

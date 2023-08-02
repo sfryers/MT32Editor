@@ -58,19 +58,21 @@
             MidiOutLabelToolStripMenuItem = new ToolStripMenuItem();
             midiOutToolStripMenuItem = new ToolStripComboBox();
             timer = new System.Windows.Forms.Timer(components);
-            toolStripContainer1 = new ToolStripContainer();
             menuStrip.SuspendLayout();
-            toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            toolStripContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
+            menuStrip.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            menuStrip.AutoSize = false;
+            menuStrip.BackColor = SystemColors.MenuBar;
             menuStrip.Dock = DockStyle.None;
+            menuStrip.ImageScalingSize = new Size(20, 20);
             menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, optionsToolStripMenuItem, helpToolStripMenuItem1, MidiInLabelToolStripMenuItem, midiInToolStripMenuItem, MidiOutLabelToolStripMenuItem, midiOutToolStripMenuItem });
-            menuStrip.Location = new Point(0, 0);
+            menuStrip.Location = new Point(1, 1);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(1775, 27);
+            menuStrip.Size = new Size(2192, 30);
+            menuStrip.Stretch = false;
             menuStrip.TabIndex = 40;
             menuStrip.Text = "menuStrip";
             // 
@@ -78,7 +80,7 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadSysExFileToolStripMenuItem, saveSysExFileAsToolStripMenuItem, saveSysExToolStripMenuItem, toolStripSeparator1, loadTimbreFileToolStripMenuItem, saveTimbreFileToolStripMenuItem, saveAllTimbresToolStripMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 23);
+            fileToolStripMenuItem.Size = new Size(37, 26);
             fileToolStripMenuItem.Text = "File";
             // 
             // loadSysExFileToolStripMenuItem
@@ -150,7 +152,7 @@
             // 
             viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { patchEditorToolStripMenuItem, rhythmEditorToolStripMenuItem });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(44, 23);
+            viewToolStripMenuItem.Size = new Size(44, 26);
             viewToolStripMenuItem.Text = "View";
             // 
             // patchEditorToolStripMenuItem
@@ -173,7 +175,7 @@
             // 
             optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new Size(61, 23);
+            optionsToolStripMenuItem.Size = new Size(61, 26);
             optionsToolStripMenuItem.Text = "Options";
             // 
             // masterSettingsToolStripMenuItem
@@ -220,7 +222,7 @@
             // 
             helpToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
             helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            helpToolStripMenuItem1.Size = new Size(44, 23);
+            helpToolStripMenuItem1.Size = new Size(44, 26);
             helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -234,13 +236,14 @@
             // 
             MidiInLabelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
             MidiInLabelToolStripMenuItem.Enabled = false;
-            MidiInLabelToolStripMenuItem.Margin = new Padding(490, 0, 0, 0);
+            MidiInLabelToolStripMenuItem.Margin = new Padding(60, 0, 0, 0);
             MidiInLabelToolStripMenuItem.Name = "MidiInLabelToolStripMenuItem";
-            MidiInLabelToolStripMenuItem.Size = new Size(57, 23);
+            MidiInLabelToolStripMenuItem.Size = new Size(57, 26);
             MidiInLabelToolStripMenuItem.Text = "MIDI In";
             // 
             // midiInToolStripMenuItem
             // 
+            midiInToolStripMenuItem.AutoSize = false;
             midiInToolStripMenuItem.CausesValidation = false;
             midiInToolStripMenuItem.DropDownStyle = ComboBoxStyle.DropDownList;
             midiInToolStripMenuItem.DropDownWidth = 200;
@@ -256,11 +259,12 @@
             MidiOutLabelToolStripMenuItem.Enabled = false;
             MidiOutLabelToolStripMenuItem.Margin = new Padding(20, 0, 0, 0);
             MidiOutLabelToolStripMenuItem.Name = "MidiOutLabelToolStripMenuItem";
-            MidiOutLabelToolStripMenuItem.Size = new Size(67, 23);
+            MidiOutLabelToolStripMenuItem.Size = new Size(67, 26);
             MidiOutLabelToolStripMenuItem.Text = "MIDI Out";
             // 
             // midiOutToolStripMenuItem
             // 
+            midiOutToolStripMenuItem.AutoSize = false;
             midiOutToolStripMenuItem.CausesValidation = false;
             midiOutToolStripMenuItem.DropDownStyle = ComboBoxStyle.DropDownList;
             midiOutToolStripMenuItem.FlatStyle = FlatStyle.Standard;
@@ -274,45 +278,25 @@
             timer.Enabled = true;
             timer.Tick += timer_Tick;
             // 
-            // toolStripContainer1
-            // 
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            toolStripContainer1.ContentPanel.Size = new Size(1775, 0);
-            toolStripContainer1.Location = new Point(0, 0);
-            toolStripContainer1.Name = "toolStripContainer1";
-            toolStripContainer1.Size = new Size(1775, 27);
-            toolStripContainer1.TabIndex = 42;
-            toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            toolStripContainer1.TopToolStripPanel.Controls.Add(menuStrip);
-            // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(48, 48, 48);
-            ClientSize = new Size(1777, 988);
-            Controls.Add(toolStripContainer1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
+            ClientSize = new Size(1758, 1001);
+            Controls.Add(menuStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
-            MaximizeBox = false;
+            MinimumSize = new Size(1774, 1038);
             Name = "FormMainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MT-32 Editor";
             FormClosing += FormMainMenu_FormClosing;
             Load += FormMainMenu_Load;
+            Resize += FormMainMenu_Resize;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
-            toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            toolStripContainer1.TopToolStripPanel.PerformLayout();
-            toolStripContainer1.ResumeLayout(false);
-            toolStripContainer1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -343,7 +327,6 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem saveAllTimbresToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator2;
-        private ToolStripContainer toolStripContainer1;
         private ToolStripComboBox midiInToolStripMenuItem;
         private ToolStripComboBox midiOutToolStripMenuItem;
         private ToolStripMenuItem MidiInLabelToolStripMenuItem;

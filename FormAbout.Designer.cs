@@ -93,7 +93,7 @@
             // 
             // buttonClose
             // 
-            buttonClose.Location = new Point(216, 146);
+            buttonClose.Location = new Point(280, 146);
             buttonClose.Name = "buttonClose";
             buttonClose.Size = new Size(46, 23);
             buttonClose.TabIndex = 7;
@@ -135,7 +135,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(160, 160, 150);
-            ClientSize = new Size(274, 181);
+            ClientSize = new Size(338, 181);
             Controls.Add(label6);
             Controls.Add(label2);
             Controls.Add(linkLabelProject);

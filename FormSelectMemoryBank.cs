@@ -21,7 +21,7 @@
 
         private void PopulateForm()
         {
-            labelPresetTimbreName.Text = presetTimbreName + ":";
+            labelSelectMemoryBank.Text = "Select memory bank slot for " + presetTimbreName + ":";
             string[] memoryTimbreNames = memoryState.GetTimbreNames().GetAll(MEMORY_GROUP);
             for (int timbreNo = 0; timbreNo < memoryTimbreNames.Length; timbreNo++)
             {

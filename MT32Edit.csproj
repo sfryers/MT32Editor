@@ -11,9 +11,9 @@
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<ApplicationIcon>MT32Edit.ico</ApplicationIcon>
 	<Product>MT32 Editor</Product>
-	<Version>0.9.4.0</Version>
-	<AssemblyVersion>0.9.4.0</AssemblyVersion>
-	<FileVersion>0.9.4.0</FileVersion>
+	<Version>0.9.5.0</Version>
+	<AssemblyVersion>0.9.5.0</AssemblyVersion>
+	<FileVersion>0.9.5.0</FileVersion>
 	<Copyright>Copyright © 2023 S.Fryers. Licenced under GPL3</Copyright>
 	<Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>

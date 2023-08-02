@@ -59,10 +59,11 @@
             listViewTimbres.FullRowSelect = true;
             listViewTimbres.GridLines = true;
             listViewTimbres.Items.AddRange(new ListViewItem[] { listViewItem1 });
-            listViewTimbres.Location = new Point(43, 229);
+            listViewTimbres.Location = new Point(14, 256);
+            listViewTimbres.MinimumSize = new Size(0, 28);
             listViewTimbres.MultiSelect = false;
             listViewTimbres.Name = "listViewTimbres";
-            listViewTimbres.Size = new Size(159, 710);
+            listViewTimbres.Size = new Size(192, 489);
             listViewTimbres.TabIndex = 2;
             listViewTimbres.TileSize = new Size(50, 20);
             listViewTimbres.UseCompatibleStateImageBehavior = false;
@@ -83,7 +84,7 @@
             // 
             labelTimbreNo.AutoSize = true;
             labelTimbreNo.ForeColor = SystemColors.Control;
-            labelTimbreNo.Location = new Point(43, 52);
+            labelTimbreNo.Location = new Point(31, 82);
             labelTimbreNo.Name = "labelTimbreNo";
             labelTimbreNo.Size = new Size(74, 15);
             labelTimbreNo.TabIndex = 8;
@@ -92,7 +93,7 @@
             // numericUpDownTimbreNo
             // 
             numericUpDownTimbreNo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numericUpDownTimbreNo.Location = new Point(129, 45);
+            numericUpDownTimbreNo.Location = new Point(117, 75);
             numericUpDownTimbreNo.Maximum = new decimal(new int[] { 64, 0, 0, 0 });
             numericUpDownTimbreNo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownTimbreNo.Name = "numericUpDownTimbreNo";
@@ -107,7 +108,7 @@
             buttonCopyTimbre.AccessibleName = "Copy timbre";
             buttonCopyTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonCopyTimbre.Image = Properties.Resources.Copy;
-            buttonCopyTimbre.Location = new Point(43, 131);
+            buttonCopyTimbre.Location = new Point(17, 157);
             buttonCopyTimbre.Name = "buttonCopyTimbre";
             buttonCopyTimbre.Size = new Size(27, 23);
             buttonCopyTimbre.TabIndex = 58;
@@ -122,7 +123,7 @@
             buttonPasteTimbre.Enabled = false;
             buttonPasteTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonPasteTimbre.Image = Properties.Resources.Paste;
-            buttonPasteTimbre.Location = new Point(118, 131);
+            buttonPasteTimbre.Location = new Point(92, 157);
             buttonPasteTimbre.Name = "buttonPasteTimbre";
             buttonPasteTimbre.Size = new Size(25, 23);
             buttonPasteTimbre.TabIndex = 57;
@@ -137,7 +138,7 @@
             buttonClearTimbre.AccessibleName = "Clear timbre";
             buttonClearTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonClearTimbre.Image = (Image)resources.GetObject("buttonClearTimbre.Image");
-            buttonClearTimbre.Location = new Point(43, 160);
+            buttonClearTimbre.Location = new Point(17, 186);
             buttonClearTimbre.Name = "buttonClearTimbre";
             buttonClearTimbre.Size = new Size(27, 24);
             buttonClearTimbre.TabIndex = 59;
@@ -152,7 +153,7 @@
             buttonClearAll.AccessibleName = "Clear All";
             buttonClearAll.ForeColor = SystemColors.ActiveCaptionText;
             buttonClearAll.Image = (Image)resources.GetObject("buttonClearAll.Image");
-            buttonClearAll.Location = new Point(43, 190);
+            buttonClearAll.Location = new Point(17, 216);
             buttonClearAll.Name = "buttonClearAll";
             buttonClearAll.Size = new Size(27, 24);
             buttonClearAll.TabIndex = 60;
@@ -166,7 +167,7 @@
             labelHeading.AutoSize = true;
             labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(35, 9);
+            labelHeading.Location = new Point(14, 39);
             labelHeading.Name = "labelHeading";
             labelHeading.Size = new Size(167, 21);
             labelHeading.TabIndex = 62;
@@ -182,7 +183,7 @@
             labelTimbreName.AutoSize = true;
             labelTimbreName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelTimbreName.ForeColor = SystemColors.Control;
-            labelTimbreName.Location = new Point(43, 88);
+            labelTimbreName.Location = new Point(17, 114);
             labelTimbreName.Name = "labelTimbreName";
             labelTimbreName.Size = new Size(57, 21);
             labelTimbreName.TabIndex = 63;
@@ -192,7 +193,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(71, 135);
+            label1.Location = new Point(45, 161);
             label1.Name = "label1";
             label1.Size = new Size(35, 15);
             label1.TabIndex = 64;
@@ -202,7 +203,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(143, 135);
+            label2.Location = new Point(117, 161);
             label2.Name = "label2";
             label2.Size = new Size(35, 15);
             label2.TabIndex = 65;
@@ -212,7 +213,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(71, 165);
+            label3.Location = new Point(45, 191);
             label3.Name = "label3";
             label3.Size = new Size(121, 15);
             label3.TabIndex = 66;
@@ -222,7 +223,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(71, 195);
+            label4.Location = new Point(45, 221);
             label4.Name = "label4";
             label4.Size = new Size(96, 15);
             label4.TabIndex = 67;
@@ -233,7 +234,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
-            ClientSize = new Size(239, 960);
+            ClientSize = new Size(226, 960);
             ControlBox = false;
             Controls.Add(label4);
             Controls.Add(label3);
@@ -250,9 +251,8 @@
             Controls.Add(listViewTimbres);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
-            MaximumSize = new Size(239, 2160);
             MinimizeBox = false;
-            MinimumSize = new Size(239, 460);
+            MinimumSize = new Size(200, 150);
             Name = "FormMemoryBankEditor";
             ShowIcon = false;
             ShowInTaskbar = false;

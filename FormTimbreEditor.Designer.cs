@@ -399,7 +399,7 @@
             groupBoxPitch.Controls.Add(labelFinePitch);
             groupBoxPitch.Controls.Add(trackBarFinePitch);
             groupBoxPitch.Controls.Add(trackBarPitch);
-            groupBoxPitch.Location = new Point(256, 6);
+            groupBoxPitch.Location = new Point(255, 36);
             groupBoxPitch.Name = "groupBoxPitch";
             groupBoxPitch.Size = new Size(214, 171);
             groupBoxPitch.TabIndex = 8;
@@ -462,7 +462,7 @@
             groupBoxWaveform.Controls.Add(trackBarPWVeloSens);
             groupBoxWaveform.Controls.Add(labelWaveform);
             groupBoxWaveform.Controls.Add(trackBarPulseWidth);
-            groupBoxWaveform.Location = new Point(12, 419);
+            groupBoxWaveform.Location = new Point(11, 449);
             groupBoxWaveform.Name = "groupBoxWaveform";
             groupBoxWaveform.Size = new Size(235, 253);
             groupBoxWaveform.TabIndex = 12;
@@ -794,7 +794,7 @@
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvVeloSens);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvelopeDepth);
             groupBoxPitchEnvelope.Controls.Add(labelPitchEnvDepth);
-            groupBoxPitchEnvelope.Location = new Point(478, 6);
+            groupBoxPitchEnvelope.Location = new Point(477, 36);
             groupBoxPitchEnvelope.Name = "groupBoxPitchEnvelope";
             groupBoxPitchEnvelope.Size = new Size(505, 313);
             groupBoxPitchEnvelope.TabIndex = 28;
@@ -815,7 +815,7 @@
             // 
             labelNoActivePartials.AutoSize = true;
             labelNoActivePartials.ForeColor = Color.Yellow;
-            labelNoActivePartials.Location = new Point(210, 60);
+            labelNoActivePartials.Location = new Point(177, 59);
             labelNoActivePartials.Name = "labelNoActivePartials";
             labelNoActivePartials.Size = new Size(271, 15);
             labelNoActivePartials.TabIndex = 74;
@@ -834,7 +834,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(309, 203);
+            label9.Location = new Point(302, 203);
             label9.Name = "label9";
             label9.Size = new Size(45, 15);
             label9.TabIndex = 37;
@@ -928,7 +928,7 @@
             groupBoxLFO.Controls.Add(trackBarLFODepth);
             groupBoxLFO.Controls.Add(labelLFORate);
             groupBoxLFO.Controls.Add(trackBarLFORate);
-            groupBoxLFO.Location = new Point(256, 180);
+            groupBoxLFO.Location = new Point(255, 210);
             groupBoxLFO.Name = "groupBoxLFO";
             groupBoxLFO.Size = new Size(214, 139);
             groupBoxLFO.TabIndex = 29;
@@ -1058,7 +1058,7 @@
             groupBoxTVF.Controls.Add(labelTVFCutoff);
             groupBoxTVF.Controls.Add(trackBarTVFCutoff);
             groupBoxTVF.FlatStyle = FlatStyle.Flat;
-            groupBoxTVF.Location = new Point(256, 322);
+            groupBoxTVF.Location = new Point(255, 352);
             groupBoxTVF.Name = "groupBoxTVF";
             groupBoxTVF.Size = new Size(727, 313);
             groupBoxTVF.TabIndex = 29;
@@ -1078,7 +1078,7 @@
             // labelTVFDisabled
             // 
             labelTVFDisabled.AutoSize = true;
-            labelTVFDisabled.Location = new Point(432, 63);
+            labelTVFDisabled.Location = new Point(399, 61);
             labelTVFDisabled.Name = "labelTVFDisabled";
             labelTVFDisabled.Size = new Size(243, 15);
             labelTVFDisabled.TabIndex = 55;
@@ -1211,7 +1211,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(586, 185);
+            label12.Location = new Point(583, 185);
             label12.Name = "label12";
             label12.Size = new Size(45, 15);
             label12.TabIndex = 37;
@@ -1581,7 +1581,7 @@
             groupBoxTVA.Controls.Add(labelTVALevel);
             groupBoxTVA.Controls.Add(trackBarTVALevel);
             groupBoxTVA.Controls.Add(groupBoxTVABias);
-            groupBoxTVA.Location = new Point(256, 638);
+            groupBoxTVA.Location = new Point(255, 668);
             groupBoxTVA.Name = "groupBoxTVA";
             groupBoxTVA.Size = new Size(727, 313);
             groupBoxTVA.TabIndex = 30;
@@ -1680,7 +1680,7 @@
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(587, 183);
+            label21.Location = new Point(583, 183);
             label21.Name = "label21";
             label21.Size = new Size(45, 15);
             label21.TabIndex = 37;
@@ -1996,7 +1996,7 @@
             label41.Name = "label41";
             label41.Size = new Size(43, 15);
             label41.TabIndex = 46;
-            label41.Text = "Level 1";
+            label41.Text = "Level 2";
             // 
             // label42
             // 
@@ -2054,7 +2054,7 @@
             buttonRefresh.AccessibleDescription = "Resend parameter data to device";
             buttonRefresh.ForeColor = SystemColors.ActiveCaptionText;
             buttonRefresh.Image = (Image)resources.GetObject("buttonRefresh.Image");
-            buttonRefresh.Location = new Point(165, 81);
+            buttonRefresh.Location = new Point(164, 111);
             buttonRefresh.Name = "buttonRefresh";
             buttonRefresh.Size = new Size(26, 25);
             buttonRefresh.TabIndex = 49;
@@ -2068,7 +2068,7 @@
             buttonReset.AccessibleDescription = "New timbre";
             buttonReset.ForeColor = SystemColors.ActiveCaptionText;
             buttonReset.Image = (Image)resources.GetObject("buttonReset.Image");
-            buttonReset.Location = new Point(24, 81);
+            buttonReset.Location = new Point(23, 111);
             buttonReset.Name = "buttonReset";
             buttonReset.Size = new Size(26, 23);
             buttonReset.TabIndex = 50;
@@ -2083,7 +2083,7 @@
             buttonSaveTimbreAs.AccessibleName = "Save timbre as";
             buttonSaveTimbreAs.ForeColor = SystemColors.ActiveCaptionText;
             buttonSaveTimbreAs.Image = (Image)resources.GetObject("buttonSaveTimbreAs.Image");
-            buttonSaveTimbreAs.Location = new Point(165, 114);
+            buttonSaveTimbreAs.Location = new Point(164, 144);
             buttonSaveTimbreAs.Name = "buttonSaveTimbreAs";
             buttonSaveTimbreAs.Size = new Size(26, 24);
             buttonSaveTimbreAs.TabIndex = 54;
@@ -2099,7 +2099,7 @@
             buttonQuickSaveTimbre.Enabled = false;
             buttonQuickSaveTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonQuickSaveTimbre.Image = (Image)resources.GetObject("buttonQuickSaveTimbre.Image");
-            buttonQuickSaveTimbre.Location = new Point(95, 114);
+            buttonQuickSaveTimbre.Location = new Point(94, 144);
             buttonQuickSaveTimbre.Name = "buttonQuickSaveTimbre";
             buttonQuickSaveTimbre.Size = new Size(26, 24);
             buttonQuickSaveTimbre.TabIndex = 55;
@@ -2114,7 +2114,7 @@
             buttonLoadTimbre.AccessibleName = "Load timbre";
             buttonLoadTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonLoadTimbre.Image = (Image)resources.GetObject("buttonLoadTimbre.Image");
-            buttonLoadTimbre.Location = new Point(24, 115);
+            buttonLoadTimbre.Location = new Point(23, 145);
             buttonLoadTimbre.Name = "buttonLoadTimbre";
             buttonLoadTimbre.Size = new Size(26, 23);
             buttonLoadTimbre.TabIndex = 56;
@@ -2157,7 +2157,7 @@
             // textBoxTimbreName
             // 
             textBoxTimbreName.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            textBoxTimbreName.Location = new Point(120, 44);
+            textBoxTimbreName.Location = new Point(119, 74);
             textBoxTimbreName.MaxLength = 10;
             textBoxTimbreName.Name = "textBoxTimbreName";
             textBoxTimbreName.Size = new Size(124, 27);
@@ -2167,7 +2167,7 @@
             // labelTimbreName
             // 
             labelTimbreName.AutoSize = true;
-            labelTimbreName.Location = new Point(20, 51);
+            labelTimbreName.Location = new Point(19, 81);
             labelTimbreName.Name = "labelTimbreName";
             labelTimbreName.Size = new Size(79, 15);
             labelTimbreName.TabIndex = 43;
@@ -2178,7 +2178,7 @@
             checkBoxSustain.AutoSize = true;
             checkBoxSustain.Checked = true;
             checkBoxSustain.CheckState = CheckState.Checked;
-            checkBoxSustain.Location = new Point(24, 152);
+            checkBoxSustain.Location = new Point(23, 182);
             checkBoxSustain.Name = "checkBoxSustain";
             checkBoxSustain.Size = new Size(102, 19);
             checkBoxSustain.TabIndex = 44;
@@ -2190,12 +2190,12 @@
             // 
             comboBoxPart12Struct.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxPart12Struct.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxPart12Struct.DropDownWidth = 510;
+            comboBoxPart12Struct.DropDownWidth = 650;
             comboBoxPart12Struct.FormattingEnabled = true;
             comboBoxPart12Struct.Items.AddRange(new object[] { "(SS)", "(S(SR))", "(PS)", "(P(SR))", "(S(PR))", "(PP)", "(P(PR))", "(S)(S)", "(P)(P)", "(SS)R", "(PS)R", "(SP)R", "(PP)R" });
-            comboBoxPart12Struct.Location = new Point(91, 26);
+            comboBoxPart12Struct.Location = new Point(89, 26);
             comboBoxPart12Struct.Name = "comboBoxPart12Struct";
-            comboBoxPart12Struct.Size = new Size(77, 24);
+            comboBoxPart12Struct.Size = new Size(79, 24);
             comboBoxPart12Struct.TabIndex = 45;
             comboBoxPart12Struct.DrawItem += comboBoxPart12Struct_DrawItem;
             comboBoxPart12Struct.SelectedIndexChanged += comboBoxPart12Struct_SelectedIndexChanged;
@@ -2204,12 +2204,12 @@
             // 
             comboBoxPart34Struct.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxPart34Struct.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxPart34Struct.DropDownWidth = 510;
+            comboBoxPart34Struct.DropDownWidth = 650;
             comboBoxPart34Struct.FormattingEnabled = true;
             comboBoxPart34Struct.Items.AddRange(new object[] { "(SS)", "(S(SR))", "(PS)", "(P(SR))", "(S(PR))", "(PP)", "(P(PR))", "(S)(S)", "(P)(P)", "(SS)R", "(PS)R", "(SP)R", "(PP)R" });
-            comboBoxPart34Struct.Location = new Point(91, 55);
+            comboBoxPart34Struct.Location = new Point(89, 55);
             comboBoxPart34Struct.Name = "comboBoxPart34Struct";
-            comboBoxPart34Struct.Size = new Size(77, 24);
+            comboBoxPart34Struct.Size = new Size(79, 24);
             comboBoxPart34Struct.TabIndex = 46;
             comboBoxPart34Struct.DrawItem += comboBoxPart34Struct_DrawItem;
             comboBoxPart34Struct.SelectedIndexChanged += comboBoxPart34Struct_SelectedIndexChanged;
@@ -2218,7 +2218,7 @@
             // 
             label45.AutoSize = true;
             label45.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label45.Location = new Point(14, 31);
+            label45.Location = new Point(7, 29);
             label45.Name = "label45";
             label45.Size = new Size(71, 15);
             label45.TabIndex = 47;
@@ -2227,7 +2227,7 @@
             // label46
             // 
             label46.AutoSize = true;
-            label46.Location = new Point(14, 59);
+            label46.Location = new Point(7, 58);
             label46.Name = "label46";
             label46.Size = new Size(71, 15);
             label46.TabIndex = 48;
@@ -2236,7 +2236,7 @@
             // checkBoxShowLabels
             // 
             checkBoxShowLabels.AutoSize = true;
-            checkBoxShowLabels.Location = new Point(14, 25);
+            checkBoxShowLabels.Location = new Point(8, 25);
             checkBoxShowLabels.Name = "checkBoxShowLabels";
             checkBoxShowLabels.Size = new Size(88, 19);
             checkBoxShowLabels.TabIndex = 72;
@@ -2247,7 +2247,7 @@
             // checkBoxShowAllPartials
             // 
             checkBoxShowAllPartials.AutoSize = true;
-            checkBoxShowAllPartials.Location = new Point(115, 25);
+            checkBoxShowAllPartials.Location = new Point(109, 25);
             checkBoxShowAllPartials.Name = "checkBoxShowAllPartials";
             checkBoxShowAllPartials.Size = new Size(111, 19);
             checkBoxShowAllPartials.TabIndex = 73;
@@ -2264,7 +2264,7 @@
             labelHeading.AutoSize = true;
             labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(15, 9);
+            labelHeading.Location = new Point(14, 39);
             labelHeading.Name = "labelHeading";
             labelHeading.Size = new Size(110, 21);
             labelHeading.TabIndex = 75;
@@ -2273,7 +2273,7 @@
             // pictureBoxTVATVF
             // 
             pictureBoxTVATVF.Image = (Image)resources.GetObject("pictureBoxTVATVF.Image");
-            pictureBoxTVATVF.Location = new Point(11, 869);
+            pictureBoxTVATVF.Location = new Point(10, 899);
             pictureBoxTVATVF.Name = "pictureBoxTVATVF";
             pictureBoxTVATVF.Size = new Size(236, 82);
             pictureBoxTVATVF.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -2283,7 +2283,7 @@
             // label54
             // 
             label54.AutoSize = true;
-            label54.Location = new Point(15, 745);
+            label54.Location = new Point(14, 775);
             label54.Name = "label54";
             label54.Size = new Size(181, 15);
             label54.TabIndex = 78;
@@ -2293,7 +2293,7 @@
             // label55
             // 
             label55.AutoSize = true;
-            label55.Location = new Point(17, 851);
+            label55.Location = new Point(16, 881);
             label55.Name = "label55";
             label55.Size = new Size(198, 15);
             label55.TabIndex = 79;
@@ -2305,7 +2305,7 @@
             groupBox1.Controls.Add(label56);
             groupBox1.Controls.Add(checkBoxShowLabels);
             groupBox1.Controls.Add(checkBoxShowAllPartials);
-            groupBox1.Location = new Point(11, 678);
+            groupBox1.Location = new Point(10, 708);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(236, 59);
             groupBox1.TabIndex = 80;
@@ -2323,7 +2323,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(11, 763);
+            pictureBox1.Location = new Point(10, 793);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(236, 81);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -2333,7 +2333,7 @@
             // label57
             // 
             label57.AutoSize = true;
-            label57.Location = new Point(192, 86);
+            label57.Location = new Point(191, 116);
             label57.Name = "label57";
             label57.Size = new Size(46, 15);
             label57.TabIndex = 82;
@@ -2342,7 +2342,7 @@
             // label58
             // 
             label58.AutoSize = true;
-            label58.Location = new Point(53, 85);
+            label58.Location = new Point(52, 115);
             label58.Name = "label58";
             label58.Size = new Size(71, 15);
             label58.TabIndex = 83;
@@ -2351,7 +2351,7 @@
             // label59
             // 
             label59.AutoSize = true;
-            label59.Location = new Point(195, 119);
+            label59.Location = new Point(194, 149);
             label59.Name = "label59";
             label59.Size = new Size(47, 15);
             label59.TabIndex = 84;
@@ -2360,7 +2360,7 @@
             // label60
             // 
             label60.AutoSize = true;
-            label60.Location = new Point(124, 119);
+            label60.Location = new Point(123, 149);
             label60.Name = "label60";
             label60.Size = new Size(31, 15);
             label60.TabIndex = 85;
@@ -2369,7 +2369,7 @@
             // label61
             // 
             label61.AutoSize = true;
-            label61.Location = new Point(55, 119);
+            label61.Location = new Point(54, 149);
             label61.Name = "label61";
             label61.Size = new Size(33, 15);
             label61.TabIndex = 86;
@@ -2468,7 +2468,7 @@
             groupBoxPartialStructure.Controls.Add(label46);
             groupBoxPartialStructure.Controls.Add(pictureBoxPartial34);
             groupBoxPartialStructure.Controls.Add(pictureBoxPartial12);
-            groupBoxPartialStructure.Location = new Point(12, 180);
+            groupBoxPartialStructure.Location = new Point(11, 210);
             groupBoxPartialStructure.Name = "groupBoxPartialStructure";
             groupBoxPartialStructure.Size = new Size(235, 236);
             groupBoxPartialStructure.TabIndex = 94;
@@ -2620,7 +2620,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(56, 56, 56);
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(991, 960);
+            ClientSize = new Size(991, 1003);
             ControlBox = false;
             Controls.Add(groupBoxPartialStructure);
             Controls.Add(label61);
@@ -2651,8 +2651,8 @@
             ForeColor = SystemColors.ControlLight;
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
-            MaximumSize = new Size(1920, 1050);
             MinimizeBox = false;
+            MinimumSize = new Size(991, 960);
             Name = "FormTimbreEditor";
             RightToLeft = RightToLeft.No;
             ShowIcon = false;

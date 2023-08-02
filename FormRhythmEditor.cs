@@ -4,22 +4,24 @@
     {
         //
         // MT32Edit: FormRhythmEditor
-        // S.Fryers Apr 2023
+        // S.Fryers Aug 2023
         // Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
         //
         private const int bankOffset = 2; //Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
         private MT32State memoryState = new MT32State();
-        //private SaveFileDialog saveSysExDialog = new SaveFileDialog();
         private DateTime lastGlobalUpdate = DateTime.Now;
         private bool thisFormIsActive = false;
         private bool changesMade = false;
         private int pressedKey = -1;
         private bool sendSysEx = false;
+        private float UIScale = 1;
 
-        public FormRhythmEditor(MT32State inputMemoryState)
+        public FormRhythmEditor(float DPIScale, MT32State inputMemoryState)
         {
             InitializeComponent();
             memoryState = inputMemoryState;
+            UIScale = DPIScale;
+            ScaleUIElements();
             InitialiseRhythmBank();
             changesMade = false;
             timer.Start();
@@ -36,6 +38,32 @@
             PopulateRhythmFormParameters(RhythmConstants.KEY_OFFSET);
             comboBoxTimbreName.Items.Clear();
             comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex + bankOffset));
+        }
+
+        private void ScaleUIElements()
+        {
+            ScaleListView();
+            ScaleListViewColumns();
+        }
+
+        private void ScaleListView()
+        {
+            //Scale listView to form size
+            listViewRhythmBank.Width = Width - 30;
+            listViewRhythmBank.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
+        }
+
+        private void ScaleListViewColumns()
+        {
+            //Set column widths to fill the available space
+            int listWidth = listViewRhythmBank.Width;
+            listViewRhythmBank.Columns[0].Width = (int)(listWidth * 0.10);
+            listViewRhythmBank.Columns[1].Width = (int)(listWidth * 0.13);
+            listViewRhythmBank.Columns[2].Width = (int)(listWidth * 0.20);
+            listViewRhythmBank.Columns[3].Width = (int)(listWidth * 0.21);
+            listViewRhythmBank.Columns[4].Width = (int)(listWidth * 0.12);
+            listViewRhythmBank.Columns[5].Width = (int)(listWidth * 0.08);
+            listViewRhythmBank.Columns[6].Width = (int)(listWidth * 0.10);
         }
 
         private void SelectKeyInListView(int keyNo)
@@ -181,7 +209,7 @@
             int bankNo = selectedKey - RhythmConstants.KEY_OFFSET;
             Rhythm rhythmData = memoryState.GetRhythm(bankNo);
             UpdateTimbreName();
-            if (listViewRhythmBank.SelectedIndices.Count > 0) listViewRhythmBank.SelectedItems[0].SubItems[3].Text = comboBoxTimbreName.Text;          
+            if (listViewRhythmBank.SelectedIndices.Count > 0) listViewRhythmBank.SelectedItems[0].SubItems[3].Text = comboBoxTimbreName.Text;
             if (sendSysEx) SendBank(selectedKey);
             changesMade = true;
         }
@@ -202,7 +230,7 @@
             memoryState.GetRhythm(bankNo).SetPanPot(trackBarPanPot.Value);
             if (listViewRhythmBank.SelectedIndices.Count > 0) listViewRhythmBank.SelectedItems[0].SubItems[5].Text = trackBarPanPot.Value.ToString();
             if (sendSysEx) SendBank(selectedKey);
-            toolTipParameterValue.SetToolTip(trackBarPanPot, "Pan Pot = " + trackBarPanPot.Value.ToString());
+            toolTipParameterValue.SetToolTip(trackBarPanPot, "Pan = " + trackBarPanPot.Value.ToString());
             changesMade = true;
         }
 
@@ -224,7 +252,7 @@
 
         private void FormRhythmEditor_Resize(object sender, EventArgs e)
         {
-            //listViewRhythmBank.Height = Height - 90;
+            ScaleListView();
         }
 
         private void buttonPlayNote_MouseDown(object sender, MouseEventArgs e)

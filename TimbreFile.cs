@@ -127,8 +127,8 @@ namespace MT32Edit
                 if (SaveTimbreFile(timbreArray[timbreNo], filePath + Path.DirectorySeparatorChar + timbreFileName)) fileCount++;
                 else return;
             }
-            if (fileCount == 0) MessageBox.Show("Couldn't save any timbre files- memory timbre slots are all empty.");
-            else MessageBox.Show(fileCount.ToString() + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath);
+            if (fileCount == 0) MessageBox.Show("Couldn't save any timbre files- memory timbre slots are all empty.", "MT-32 Editor");
+            else MessageBox.Show(fileCount.ToString() + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
 
             string CreateBatchTimbreFilename(int timbreNo)
             {

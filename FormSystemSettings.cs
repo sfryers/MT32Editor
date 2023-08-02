@@ -6,7 +6,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: FormSystemSettings
-        // S.Fryers Mar 2023
+        // S.Fryers Aug 2023
         // Form gives access to MT-32 system area parameters- allows configuration of master volume, master tuning, reverb, MIDI channels and partial reserve settings.
         //
         private SystemLevel system = new SystemLevel();
@@ -216,6 +216,7 @@ namespace MT32Edit
         {
             system.SetReverbLevel(trackBarReverbLevel.Value);
             if (sendSysEx) MT32SysEx.SendSystemParameters(system);
+            labelReverbLevelValue.Text = trackBarReverbLevel.Value.ToString();
             if (sendSysEx) MT32SysEx.SendText("Reverb Level: " + trackBarReverbLevel.Value.ToString());
 
         }
@@ -224,6 +225,7 @@ namespace MT32Edit
         {
             system.SetReverbTime(trackBarReverbRate.Value);
             if (sendSysEx) MT32SysEx.SendSystemParameters(system);
+            labelReverbRateValue.Text = trackBarReverbRate.Value.ToString();
             if (sendSysEx) MT32SysEx.SendText("Reverb Rate: " + trackBarReverbRate.Value.ToString());
         }
 

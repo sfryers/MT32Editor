@@ -57,6 +57,8 @@
             radioButtonChannels1to8 = new RadioButton();
             radioButtonChannels2to9 = new RadioButton();
             groupBoxReverb = new GroupBox();
+            labelReverbRateValue = new Label();
+            labelReverbLevelValue = new Label();
             numericUpDownMIDIPart1 = new NumericUpDown();
             numericUpDownMIDIPart2 = new NumericUpDown();
             numericUpDownMIDIPart3 = new NumericUpDown();
@@ -180,7 +182,7 @@
             // 
             labelReverbRate.AutoSize = true;
             labelReverbRate.ForeColor = SystemColors.Control;
-            labelReverbRate.Location = new Point(119, 77);
+            labelReverbRate.Location = new Point(119, 64);
             labelReverbRate.Name = "labelReverbRate";
             labelReverbRate.Size = new Size(30, 15);
             labelReverbRate.TabIndex = 8;
@@ -191,7 +193,7 @@
             // 
             labelReverbLevel.AutoSize = true;
             labelReverbLevel.ForeColor = SystemColors.Control;
-            labelReverbLevel.Location = new Point(37, 77);
+            labelReverbLevel.Location = new Point(37, 64);
             labelReverbLevel.Name = "labelReverbLevel";
             labelReverbLevel.Size = new Size(34, 15);
             labelReverbLevel.TabIndex = 7;
@@ -200,7 +202,7 @@
             // 
             // trackBarReverbRate
             // 
-            trackBarReverbRate.Location = new Point(115, 95);
+            trackBarReverbRate.Location = new Point(115, 82);
             trackBarReverbRate.Maximum = 7;
             trackBarReverbRate.Name = "trackBarReverbRate";
             trackBarReverbRate.Orientation = Orientation.Vertical;
@@ -212,7 +214,7 @@
             // 
             // trackBarReverbLevel
             // 
-            trackBarReverbLevel.Location = new Point(35, 95);
+            trackBarReverbLevel.Location = new Point(35, 82);
             trackBarReverbLevel.Maximum = 7;
             trackBarReverbLevel.Name = "trackBarReverbLevel";
             trackBarReverbLevel.Orientation = Orientation.Vertical;
@@ -226,9 +228,9 @@
             // 
             comboBoxReverbType.FormattingEnabled = true;
             comboBoxReverbType.Items.AddRange(new object[] { "Room", "Hall", "Plate", "Delay" });
-            comboBoxReverbType.Location = new Point(87, 34);
+            comboBoxReverbType.Location = new Point(90, 34);
             comboBoxReverbType.Name = "comboBoxReverbType";
-            comboBoxReverbType.Size = new Size(87, 23);
+            comboBoxReverbType.Size = new Size(84, 23);
             comboBoxReverbType.TabIndex = 12;
             comboBoxReverbType.SelectedValueChanged += comboBoxReverbType_SelectedValueChanged;
             // 
@@ -359,7 +361,7 @@
             panel1.Controls.Add(radioButtonChannels2to9);
             panel1.Location = new Point(244, 326);
             panel1.Name = "panel1";
-            panel1.Size = new Size(285, 93);
+            panel1.Size = new Size(307, 93);
             panel1.TabIndex = 25;
             // 
             // radioButtonChannelCustom
@@ -403,6 +405,8 @@
             // 
             // groupBoxReverb
             // 
+            groupBoxReverb.Controls.Add(labelReverbRateValue);
+            groupBoxReverb.Controls.Add(labelReverbLevelValue);
             groupBoxReverb.Controls.Add(labelReverbType);
             groupBoxReverb.Controls.Add(comboBoxReverbType);
             groupBoxReverb.Controls.Add(trackBarReverbLevel);
@@ -415,6 +419,28 @@
             groupBoxReverb.TabIndex = 26;
             groupBoxReverb.TabStop = false;
             groupBoxReverb.Text = "Reverb settings";
+            // 
+            // labelReverbRateValue
+            // 
+            labelReverbRateValue.AutoSize = true;
+            labelReverbRateValue.ForeColor = SystemColors.Control;
+            labelReverbRateValue.Location = new Point(129, 188);
+            labelReverbRateValue.Name = "labelReverbRateValue";
+            labelReverbRateValue.Size = new Size(13, 15);
+            labelReverbRateValue.TabIndex = 47;
+            labelReverbRateValue.Text = "0";
+            labelReverbRateValue.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // labelReverbLevelValue
+            // 
+            labelReverbLevelValue.AutoSize = true;
+            labelReverbLevelValue.ForeColor = SystemColors.Control;
+            labelReverbLevelValue.Location = new Point(49, 188);
+            labelReverbLevelValue.Name = "labelReverbLevelValue";
+            labelReverbLevelValue.Size = new Size(13, 15);
+            labelReverbLevelValue.TabIndex = 46;
+            labelReverbLevelValue.Text = "0";
+            labelReverbLevelValue.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // numericUpDownMIDIPart1
             // 
@@ -615,17 +641,17 @@
             groupBoxMessageSettings.Controls.Add(textBoxMessage1);
             groupBoxMessageSettings.Location = new Point(14, 425);
             groupBoxMessageSettings.Name = "groupBoxMessageSettings";
-            groupBoxMessageSettings.Size = new Size(516, 60);
+            groupBoxMessageSettings.Size = new Size(537, 60);
             groupBoxMessageSettings.TabIndex = 46;
             groupBoxMessageSettings.TabStop = false;
             groupBoxMessageSettings.Text = "Text messages";
             // 
             // textBoxMessage2
             // 
-            textBoxMessage2.Location = new Point(332, 22);
+            textBoxMessage2.Location = new Point(344, 22);
             textBoxMessage2.MaxLength = 20;
             textBoxMessage2.Name = "textBoxMessage2";
-            textBoxMessage2.Size = new Size(167, 23);
+            textBoxMessage2.Size = new Size(180, 23);
             textBoxMessage2.TabIndex = 18;
             toolTip.SetToolTip(textBoxMessage2, "Enter a custom message to be shown on MT-32 display after loading SysEx file");
             textBoxMessage2.TextChanged += textBoxMessage2_TextChanged;
@@ -634,7 +660,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(264, 25);
+            label1.Location = new Point(272, 25);
             label1.Name = "label1";
             label1.Size = new Size(62, 15);
             label1.TabIndex = 17;
@@ -652,10 +678,10 @@
             // 
             // textBoxMessage1
             // 
-            textBoxMessage1.Location = new Point(78, 22);
+            textBoxMessage1.Location = new Point(81, 22);
             textBoxMessage1.MaxLength = 20;
             textBoxMessage1.Name = "textBoxMessage1";
-            textBoxMessage1.Size = new Size(167, 23);
+            textBoxMessage1.Size = new Size(175, 23);
             textBoxMessage1.TabIndex = 0;
             toolTip.SetToolTip(textBoxMessage1, "Enter a custom message to be shown on MT-32 display when loading SysEx file");
             textBoxMessage1.TextChanged += textBoxMessage1_TextChanged;
@@ -683,7 +709,7 @@
             groupBoxExportSystemSettings.Controls.Add(checkBoxMasterLevel);
             groupBoxExportSystemSettings.Location = new Point(14, 491);
             groupBoxExportSystemSettings.Name = "groupBoxExportSystemSettings";
-            groupBoxExportSystemSettings.Size = new Size(516, 100);
+            groupBoxExportSystemSettings.Size = new Size(537, 100);
             groupBoxExportSystemSettings.TabIndex = 53;
             groupBoxExportSystemSettings.TabStop = false;
             groupBoxExportSystemSettings.Text = "Save system settings";
@@ -704,7 +730,7 @@
             checkBoxTextMessages.Checked = true;
             checkBoxTextMessages.CheckState = CheckState.Checked;
             checkBoxTextMessages.ForeColor = SystemColors.Control;
-            checkBoxTextMessages.Location = new Point(300, 72);
+            checkBoxTextMessages.Location = new Point(311, 72);
             checkBoxTextMessages.Name = "checkBoxTextMessages";
             checkBoxTextMessages.Size = new Size(145, 19);
             checkBoxTextMessages.TabIndex = 58;
@@ -717,7 +743,7 @@
             checkBoxPartialReserve.Checked = true;
             checkBoxPartialReserve.CheckState = CheckState.Checked;
             checkBoxPartialReserve.ForeColor = SystemColors.Control;
-            checkBoxPartialReserve.Location = new Point(300, 47);
+            checkBoxPartialReserve.Location = new Point(311, 47);
             checkBoxPartialReserve.Name = "checkBoxPartialReserve";
             checkBoxPartialReserve.Size = new Size(143, 19);
             checkBoxPartialReserve.TabIndex = 57;
@@ -730,7 +756,7 @@
             checkBoxMIDIChannel.Checked = true;
             checkBoxMIDIChannel.CheckState = CheckState.Checked;
             checkBoxMIDIChannel.ForeColor = SystemColors.Control;
-            checkBoxMIDIChannel.Location = new Point(300, 22);
+            checkBoxMIDIChannel.Location = new Point(311, 22);
             checkBoxMIDIChannel.Name = "checkBoxMIDIChannel";
             checkBoxMIDIChannel.Size = new Size(165, 19);
             checkBoxMIDIChannel.TabIndex = 56;
@@ -781,7 +807,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(542, 597);
+            ClientSize = new Size(563, 597);
             Controls.Add(groupBoxExportSystemSettings);
             Controls.Add(groupBoxMessageSettings);
             Controls.Add(labelMasterLevelValue);
@@ -924,5 +950,7 @@
         private CheckBox checkBoxReverb;
         private CheckBox checkBoxMasterTune;
         private CheckBox checkBoxMasterLevel;
+        private Label labelReverbRateValue;
+        private Label labelReverbLevelValue;
     }
 }

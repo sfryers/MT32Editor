@@ -65,7 +65,7 @@
             // 
             label9.AutoSize = true;
             label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(193, 140);
+            label9.Location = new Point(174, 159);
             label9.Name = "label9";
             label9.Size = new Size(43, 15);
             label9.TabIndex = 47;
@@ -75,7 +75,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(259, 188);
+            label5.Location = new Point(240, 207);
             label5.Name = "label5";
             label5.Size = new Size(94, 15);
             label5.TabIndex = 45;
@@ -85,7 +85,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(138, 140);
+            label4.Location = new Point(119, 159);
             label4.Name = "label4";
             label4.Size = new Size(34, 15);
             label4.TabIndex = 44;
@@ -95,7 +95,7 @@
             // 
             radioButtonReverbOff.AutoSize = true;
             radioButtonReverbOff.ForeColor = SystemColors.Control;
-            radioButtonReverbOff.Location = new Point(195, 183);
+            radioButtonReverbOff.Location = new Point(176, 202);
             radioButtonReverbOff.Name = "radioButtonReverbOff";
             radioButtonReverbOff.Size = new Size(42, 19);
             radioButtonReverbOff.TabIndex = 43;
@@ -107,7 +107,7 @@
             // 
             radioButtonReverbOn.AutoSize = true;
             radioButtonReverbOn.ForeColor = SystemColors.Control;
-            radioButtonReverbOn.Location = new Point(195, 158);
+            radioButtonReverbOn.Location = new Point(176, 177);
             radioButtonReverbOn.Name = "radioButtonReverbOn";
             radioButtonReverbOn.Size = new Size(41, 19);
             radioButtonReverbOn.TabIndex = 42;
@@ -119,7 +119,7 @@
             // trackBarPanPot
             // 
             trackBarPanPot.LargeChange = 2;
-            trackBarPanPot.Location = new Point(259, 140);
+            trackBarPanPot.Location = new Point(240, 159);
             trackBarPanPot.Maximum = 7;
             trackBarPanPot.Minimum = -7;
             trackBarPanPot.Name = "trackBarPanPot";
@@ -131,7 +131,7 @@
             // trackBarLevel
             // 
             trackBarLevel.LargeChange = 10;
-            trackBarLevel.Location = new Point(133, 156);
+            trackBarLevel.Location = new Point(114, 175);
             trackBarLevel.Maximum = 100;
             trackBarLevel.Name = "trackBarLevel";
             trackBarLevel.Orientation = Orientation.Vertical;
@@ -146,7 +146,7 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(232, 70);
+            label3.Location = new Point(219, 95);
             label3.Name = "label3";
             label3.Size = new Size(79, 15);
             label3.TabIndex = 38;
@@ -156,7 +156,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(105, 70);
+            label2.Location = new Point(92, 95);
             label2.Name = "label2";
             label2.Size = new Size(80, 15);
             label2.TabIndex = 37;
@@ -166,7 +166,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(332, 22);
+            label1.Location = new Point(328, 46);
             label1.Name = "label1";
             label1.Size = new Size(48, 15);
             label1.TabIndex = 36;
@@ -176,16 +176,16 @@
             // 
             comboBoxTimbreName.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTimbreName.FormattingEnabled = true;
-            comboBoxTimbreName.Location = new Point(232, 88);
+            comboBoxTimbreName.Location = new Point(219, 113);
             comboBoxTimbreName.Name = "comboBoxTimbreName";
-            comboBoxTimbreName.Size = new Size(121, 23);
+            comboBoxTimbreName.Size = new Size(125, 23);
             comboBoxTimbreName.TabIndex = 35;
             comboBoxTimbreName.SelectionChangeCommitted += comboBoxTimbreName_SelectionChangeCommitted;
             // 
             // numericUpDownKeyNo
             // 
             numericUpDownKeyNo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numericUpDownKeyNo.Location = new Point(389, 15);
+            numericUpDownKeyNo.Location = new Point(385, 39);
             numericUpDownKeyNo.Maximum = new decimal(new int[] { 108, 0, 0, 0 });
             numericUpDownKeyNo.Minimum = new decimal(new int[] { 24, 0, 0, 0 });
             numericUpDownKeyNo.Name = "numericUpDownKeyNo";
@@ -199,7 +199,7 @@
             comboBoxTimbreGroup.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTimbreGroup.FormattingEnabled = true;
             comboBoxTimbreGroup.Items.AddRange(new object[] { "Memory", "Rhythm" });
-            comboBoxTimbreGroup.Location = new Point(105, 88);
+            comboBoxTimbreGroup.Location = new Point(92, 113);
             comboBoxTimbreGroup.Name = "comboBoxTimbreGroup";
             comboBoxTimbreGroup.Size = new Size(121, 23);
             comboBoxTimbreGroup.TabIndex = 33;
@@ -213,10 +213,11 @@
             listViewRhythmBank.FullRowSelect = true;
             listViewRhythmBank.GridLines = true;
             listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem1 });
-            listViewRhythmBank.Location = new Point(51, 278);
+            listViewRhythmBank.Location = new Point(14, 305);
+            listViewRhythmBank.MinimumSize = new Size(0, 28);
             listViewRhythmBank.MultiSelect = false;
             listViewRhythmBank.Name = "listViewRhythmBank";
-            listViewRhythmBank.Size = new Size(432, 655);
+            listViewRhythmBank.Size = new Size(495, 591);
             listViewRhythmBank.TabIndex = 32;
             listViewRhythmBank.TileSize = new Size(50, 20);
             listViewRhythmBank.UseCompatibleStateImageBehavior = false;
@@ -260,10 +261,9 @@
             // buttonPlayNote
             // 
             buttonPlayNote.Image = (Image)resources.GetObject("buttonPlayNote.Image");
-            buttonPlayNote.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonPlayNote.Location = new Point(51, 249);
+            buttonPlayNote.Location = new Point(14, 269);
             buttonPlayNote.Name = "buttonPlayNote";
-            buttonPlayNote.Size = new Size(24, 23);
+            buttonPlayNote.Size = new Size(41, 30);
             buttonPlayNote.TabIndex = 58;
             toolTipParameterValue.SetToolTip(buttonPlayNote, "Play selected sound on device");
             buttonPlayNote.UseVisualStyleBackColor = true;
@@ -275,7 +275,7 @@
             labelHeading.AutoSize = true;
             labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(21, 9);
+            labelHeading.Location = new Point(17, 41);
             labelHeading.Name = "labelHeading";
             labelHeading.Size = new Size(153, 21);
             labelHeading.TabIndex = 59;
@@ -292,7 +292,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 24, 24);
-            ClientSize = new Size(540, 960);
+            ClientSize = new Size(533, 960);
             ControlBox = false;
             Controls.Add(labelHeading);
             Controls.Add(buttonPlayNote);
@@ -312,9 +312,8 @@
             Controls.Add(listViewRhythmBank);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
-            MaximumSize = new Size(540, 2880);
             MinimizeBox = false;
-            MinimumSize = new Size(540, 449);
+            MinimumSize = new Size(350, 200);
             Name = "FormRhythmEditor";
             ShowIcon = false;
             ShowInTaskbar = false;

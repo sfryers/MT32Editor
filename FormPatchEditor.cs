@@ -2,7 +2,7 @@ namespace MT32Edit
 {
     //
     // MT32Edit: FormPatchEditor
-    // S.Fryers Apr 2023
+    // S.Fryers Aug 2023
     // Form showing visual representation of MT-32's 128 patch banks- allows custom patches to be configured
     //
     public partial class FormPatchEditor : Form
@@ -13,10 +13,13 @@ namespace MT32Edit
         private bool changesMade = false;
         private bool sendSysEx = false;
         private bool thisFormIsActive = true;
+        private float UIScale = 1;
 
-        public FormPatchEditor(MT32State inputMemoryState)
+        public FormPatchEditor(float DPIScale, MT32State inputMemoryState)
         {
             InitializeComponent();
+            UIScale = DPIScale;
+            ScaleUIElements();
             memoryState = inputMemoryState;
             InitialisePatchArray();
             changesMade = false;
@@ -37,6 +40,33 @@ namespace MT32Edit
             comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex));
             int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(0);
             Midi.SendProgramChange(selectedPatch, midiChannel);
+        }
+
+        private void ScaleUIElements()
+        {
+            ScaleListView();
+            ScaleListViewColumns();
+        }
+
+        private void ScaleListView()
+        {
+            //Scale listView to form size
+            listViewPatches.Width = Width - 30;
+            listViewPatches.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
+        }
+
+        private void ScaleListViewColumns()
+        {
+            //Set column widths to fill the available space
+            int listWidth = listViewPatches.Width;
+            listViewPatches.Columns[0].Width = (int)(listWidth * 0.10);
+            listViewPatches.Columns[1].Width = (int)(listWidth * 0.19);
+            listViewPatches.Columns[2].Width = (int)(listWidth * 0.19);
+            listViewPatches.Columns[3].Width = (int)(listWidth * 0.08);
+            listViewPatches.Columns[4].Width = (int)(listWidth * 0.08);
+            listViewPatches.Columns[5].Width = (int)(listWidth * 0.09);
+            listViewPatches.Columns[6].Width = (int)(listWidth * 0.11);
+            listViewPatches.Columns[7].Width = (int)(listWidth * 0.12);
         }
 
         private void SelectPatchInListView(int patchNo)
@@ -191,6 +221,11 @@ namespace MT32Edit
             }
         }
 
+        private void FormPatchEditor_Resize(object sender, EventArgs e)
+        {
+            ScaleListView();
+        }
+
         private void comboBoxTimbreGroup_SelectionChangeCommitted(object sender, EventArgs e) //timbre group changed- populate timbre list with names from selected bank
         {
             int selectedPatch = memoryState.GetSelectedPatchNo();
@@ -218,11 +253,6 @@ namespace MT32Edit
             if (listViewPatches.SelectedIndices.Count > 0) listViewPatches.SelectedItems[0].SubItems[2].Text = memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup());
             SendPatch(selectedPatch, sendSysExMessage: false);
             changesMade = true;
-        }
-
-        private void FormPatchEditor_Resize(object sender, EventArgs e)
-        {
-            //listViewPatches.Height = Height - 90; //resize listView box to fit form height
         }
 
         private void trackBarKeyShift_ValueChanged(object sender, EventArgs e)

@@ -6,7 +6,7 @@ namespace MT32Edit
     {
         //
         // MT32Edit: FormTimbreEditor
-        // S.Fryers Apr 2023
+        // S.Fryers Aug 2023
         // Form provides visual access to all MT-32 timbre parameters- allows timbres to be created, edited and previewed through a connected MT32-compatible MIDI device.
         //
         private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
@@ -20,11 +20,20 @@ namespace MT32Edit
         private bool thisFormIsActive = true;
         private int part12Image = -1;
         private int part34Image = -1;
+        private float UIScale = 1;
 
-        public FormTimbreEditor()
+        public FormTimbreEditor(float DPIScale)
         {
             InitializeComponent();
+            UIScale = DPIScale;
+            ScaleUIComponents();
             InitialiseTimbreParameters(false);
+        }
+
+        private void ScaleUIComponents()
+        {
+            comboBoxPart12Struct.DropDownWidth = (int)(525 * UIScale);
+            comboBoxPart34Struct.DropDownWidth = (int)(525 * UIScale);
         }
 
         public static TimbreStructure returnTimbre = new TimbreStructure(createAudibleTimbre: false);
@@ -240,7 +249,7 @@ namespace MT32Edit
         {
             CheckIfCurrentPartialIsEnabled();
             CheckIfAllPartialsAreMuted();
-            InvalidateGraphs();
+            UpdateAllGraphs();
             Invalidate();
 
             void CheckIfCurrentPartialIsEnabled()
@@ -471,7 +480,7 @@ namespace MT32Edit
             else partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
 
             int xLeft = e.Bounds.Location.X;
-            int xMid = 58;
+            int xMid = (int)(58 * UIScale);
             int yTop = e.Bounds.Location.Y;
             int yBottom = yTop + e.Bounds.Height;
 
@@ -653,7 +662,7 @@ namespace MT32Edit
         private void checkBoxSustain_CheckedChanged(object sender, EventArgs e)
         {
             timbre.SetSustainStatus(checkBoxSustain.Checked);
-            if (sendSysEx) MT32SysEx.SendSustainValue(timbre.GetSustainStatus());                              //send sustain on/off value to device
+            if (sendSysEx) MT32SysEx.SendSustainValue(timbre.GetSustainStatus());   //send sustain on/off value to device
         }
 
         ////////////////////////////////////////////////////// Update partial 1-4 parameters ////////////////////////////////////////////////////
@@ -692,7 +701,6 @@ namespace MT32Edit
         private void comboBoxWaveform_SelectedValueChanged(object sender, EventArgs e)
         {
             int waveFormState = comboBoxWaveform.SelectedIndex;
-            //if (radioButtonPCMBank2.Checked) waveFormState += 2;
             if (timbre.GetPCMBankNo(activePartial) == 1) waveFormState += 2;
             timbre.SetUIParameter(activePartial, 0x04, waveFormState);
             if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);   //send Waveform type to device
@@ -1061,6 +1069,18 @@ namespace MT32Edit
             groupBoxTVF.Invalidate();
         }
 
+        private void UpdateAllGraphs()
+        {
+            UpdatePitchGraph();
+            UpdateTVAGraph();
+            UpdateTVFGraph();
+        }
+
+        private void RefreshGraphs()
+        {
+            if (this.Enabled && thisFormIsActive) UpdateAllGraphs();
+        }
+
         private void checkBoxShowLabels_CheckedChanged(object sender, EventArgs e)
         {
             RefreshGraphs();
@@ -1071,23 +1091,11 @@ namespace MT32Edit
             RefreshGraphs();
         }
 
-        private void RefreshGraphs()
-        {
-            if (this.Enabled && thisFormIsActive) InvalidateGraphs();
-        }
-
-        private void InvalidateGraphs()
-        {
-            groupBoxPitchEnvelope.Invalidate();
-            groupBoxTVA.Invalidate();
-            groupBoxTVF.Invalidate();
-        }
-
         private void groupBoxPitchEnvelope_Paint(object sender, PaintEventArgs e)
         {
             //plot pitch envelope
             Graphics envelope = groupBoxPitchEnvelope.CreateGraphics();
-            EnvelopeGraph graph = new EnvelopeGraph(220, 30);
+            EnvelopeGraph graph = new EnvelopeGraph((int)(220 * UIScale), (int)(30 * UIScale));
             graph.Plot(envelope, timbre, 0, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
         }
 
@@ -1096,7 +1104,7 @@ namespace MT32Edit
             //plot TVF envelope
             if (labelTVFDisabled.Visible) return;
             Graphics envelope = groupBoxTVF.CreateGraphics();
-            EnvelopeGraph graph = new EnvelopeGraph(440, 30);
+            EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale), (int)(30 * UIScale));
             graph.Plot(envelope, timbre, 1, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
         }
 
@@ -1104,7 +1112,7 @@ namespace MT32Edit
         {
             //plot TVA envelope
             Graphics envelope = groupBoxTVA.CreateGraphics();
-            EnvelopeGraph graph = new EnvelopeGraph(440, 30);
+            EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale), (int)(30 * UIScale));
             graph.Plot(envelope, timbre, 2, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
         }
     }
