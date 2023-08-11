@@ -551,7 +551,7 @@ internal static class SysExFile
         }
         catch(Exception e)
         {
-            MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
+            MessageBox.Show($"Could not write SysEx file: {e.GetBaseException().Message}{Environment.NewLine}Please ensure you have write access to the selected folder path.", "MT-32 Editor");
             return;
         }
         SystemLevel systemConfig = memoryState.GetSystem();
