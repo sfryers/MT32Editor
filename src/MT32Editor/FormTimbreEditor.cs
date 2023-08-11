@@ -1,12 +1,17 @@
 namespace MT32Edit;
 
+/// <summary>
+/// Form provides visual access to all MT-32 timbre
+/// parameters- allows timbres to be created, edited and previewed through a connected
+/// MT32-compatible MIDI device.
+/// </summary>
 public partial class FormTimbreEditor : Form
 {
-    //
     // MT32Edit: FormTimbreEditor
     // S.Fryers Aug 2023
-    // Form provides visual access to all MT-32 timbre parameters- allows timbres to be created, edited and previewed through a connected MT32-compatible MIDI device.
-    //
+    // Form provides visual access to all MT-32 timbre
+    // parameters- allows timbres to be created, edited and previewed through a connected
+    // MT32-compatible MIDI device.
     private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
 
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
@@ -45,7 +50,8 @@ public partial class FormTimbreEditor : Form
 
     private void timer_Tick(object sender, EventArgs e)
     {
-        if (!thisFormIsActive) //keep controls updated whilst changes made by other active forms
+        //keep controls updated whilst changes made by other active forms
+        if (!thisFormIsActive)
         {
             MT32SysEx.blockSysExMessages = true;
             SetAllControlValues();
@@ -54,7 +60,8 @@ public partial class FormTimbreEditor : Form
         }
         if (initialisationComplete)
         {
-            timer.Interval = 100; //increase timer polling rate after form initialisation is completed.
+            //increase timer polling rate after form initialisation is completed.
+            timer.Interval = 100;
         }
 
         initialisationComplete = true;
@@ -133,7 +140,8 @@ public partial class FormTimbreEditor : Form
         comboBoxPart34Struct.SelectedIndex = timbre.GetPart34Structure();
         UpdatePartialStructureImages();
         SetPartialRadioButton(activePartial);
-        checkBoxPartial1.Checked = !timbre.GetPartialMuteStatus()[0]; // set checkboxes to inverse of corresponding partial mute statuses
+        // set checkboxes to inverse of corresponding partial mute statuses
+        checkBoxPartial1.Checked = !timbre.GetPartialMuteStatus()[0];
         checkBoxPartial2.Checked = !timbre.GetPartialMuteStatus()[1];
         checkBoxPartial3.Checked = !timbre.GetPartialMuteStatus()[2];
         checkBoxPartial4.Checked = !timbre.GetPartialMuteStatus()[3];
@@ -187,15 +195,20 @@ public partial class FormTimbreEditor : Form
         }
     }
 
-    private void UpdatePartialSliders()     //update all UI controls to match current partial parameters
+    /// <summary>
+    /// Updates all UI controls to match current partial parameters
+    /// </summary>
+    private void UpdatePartialSliders()
     {
-        MT32SysEx.blockMT32text = true;   // set flag in order to prevent control changes triggering messages on device
+        // set flag in order to prevent control changes triggering messages on device
+        MT32SysEx.blockMT32text = true;
         trackBarPitch.Value = timbre.GetUIParameter(activePartial, 0x00);
         trackBarFinePitch.Value = timbre.GetUIParameter(activePartial, 0x01);
         trackBarPitchKeyFollow.Value = timbre.GetUIParameter(activePartial, 0x02);
         checkBoxPitchBend.Checked = LogicTools.IntToBool(timbre.GetUIParameter(activePartial, 0x03));
         comboBoxPCMSample.SelectedIndex = timbre.GetUIParameter(activePartial, 0x05);
-        UpdateWaveFormAndPCMBankControls(); //parameter 0x04 sets two control values
+        //Parameter 0x04 sets two control values
+        UpdateWaveFormAndPCMBankControls();
         trackBarPulseWidth.Value = timbre.GetUIParameter(activePartial, 0x06);
         trackBarPWVeloSens.Value = timbre.GetUIParameter(activePartial, 0x07);
         trackBarPitchEnvelopeDepth.Value = timbre.GetUIParameter(activePartial, 0x08);
@@ -319,7 +332,8 @@ public partial class FormTimbreEditor : Form
 
         void CheckIfAllPartialsAreMuted()
         {
-            if (timbre.GetPartialMuteStatus()[0] && timbre.GetPartialMuteStatus()[1] && timbre.GetPartialMuteStatus()[2] && timbre.GetPartialMuteStatus()[3]) //if all partials are muted
+            //if all partials are muted
+            if (timbre.GetPartialMuteStatus()[0] && timbre.GetPartialMuteStatus()[1] && timbre.GetPartialMuteStatus()[2] && timbre.GetPartialMuteStatus()[3])
             {
                 labelNoActivePartials.Visible = true;
             }
@@ -450,9 +464,11 @@ public partial class FormTimbreEditor : Form
         switch (MessageBox.Show(message, "MT-32 Editor", MessageBoxButtons.YesNo))
         {
             case DialogResult.Yes:
-                break;              //Allow form to close
+                //Allow form to close
+                break;
             case DialogResult.No:
-                e.Cancel = true;    //Cancel form close request
+                //Cancel form close request
+                e.Cancel = true;
                 break;
         }
     }
@@ -713,15 +729,18 @@ public partial class FormTimbreEditor : Form
             sendSysEx = false;
         }
 
-        UpdatePartialSliders(); //update UI controls with new values
+        //update UI controls with new values
+        UpdatePartialSliders();
         if (selectedPartial != activePartial)
         {
             MT32SysEx.SendText("Editing partial " + (selectedPartial + 1).ToString());
         }
 
         activePartial = selectedPartial;
-        labelPartialWarning.Visible = false;                                    //hide warning if currently displayed
-        switch (activePartial)                                                  //make selected partial active
+        //hide warning if currently displayed
+        labelPartialWarning.Visible = false;
+        //make selected partial active
+        switch (activePartial)
         {
             case 0:
                 checkBoxPartial1.Checked = true;
@@ -756,7 +775,8 @@ public partial class FormTimbreEditor : Form
         {
             partialClipboard[partialNo] = timbre.GetSysExParameter(activePartial, partialNo);
         }
-        buttonPastePartial.Enabled = true;                                      //allow paste operation
+        //allow paste operation
+        buttonPastePartial.Enabled = true;
         MT32SysEx.SendText("Partial " + (activePartial + 1).ToString() + " copied");
     }
 
@@ -767,43 +787,64 @@ public partial class FormTimbreEditor : Form
         {
             timbre.SetSysExParameter(activePartial, partialNo, partialClipboard[partialNo]);
         }
-        MT32SysEx.ApplyPartialParameters(timbre, activePartial);                //send to device
-        UpdatePartialSliders();                                                 //update slider positions
+        //send to device
+        MT32SysEx.ApplyPartialParameters(timbre, activePartial);
+        //update slider positions
+        UpdatePartialSliders();
         RefreshGraphs();
         Invalidate();
         MT32SysEx.SendText("Pasted to partial " + (activePartial + 1).ToString());
         changesMade = true;
     }
 
-    private void checkBoxPartial1_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 1
+    /// <summary>
+    /// Enables or disables partial 1
+    /// </summary>
+    private void checkBoxPartial1_CheckedChanged(object sender, EventArgs e)
     {
-        timbre.SetPartialMuteStatus(0, !checkBoxPartial1.Checked);              //set mute status to inverse of checkbox status
+        ///set mute status to inverse of checkbox status
+        timbre.SetPartialMuteStatus(0, !checkBoxPartial1.Checked);
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
 
-    private void checkBoxPartial2_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 2
+    /// <summary>
+    /// Enables or disables Partial 2
+    /// </summary>
+    private void checkBoxPartial2_CheckedChanged(object sender, EventArgs e)
     {
-        timbre.SetPartialMuteStatus(1, !checkBoxPartial2.Checked);              //set mute status to inverse of checkbox status
+        //set mute status to inverse of checkbox status
+        timbre.SetPartialMuteStatus(1, !checkBoxPartial2.Checked);
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
 
-    private void checkBoxPartial3_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 3
+    /// <summary>
+    /// Enables or disables Partial 3
+    /// </summary>
+    private void checkBoxPartial3_CheckedChanged(object sender, EventArgs e)
     {
-        timbre.SetPartialMuteStatus(2, !checkBoxPartial3.Checked);              //set mute status to inverse of checkbox status
+        //set mute status to inverse of checkbox status
+        timbre.SetPartialMuteStatus(2, !checkBoxPartial3.Checked);
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
 
-    private void checkBoxPartial4_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 4
+    /// <summary>
+    /// Enables or disables Partial 4
+    /// </summary>
+    private void checkBoxPartial4_CheckedChanged(object sender, EventArgs e)
     {
-        timbre.SetPartialMuteStatus(3, !checkBoxPartial4.Checked);              //set mute status to inverse of checkbox status
+        //set mute status to inverse of checkbox status
+        timbre.SetPartialMuteStatus(3, !checkBoxPartial4.Checked);
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
 
-    private void buttonRefresh_Click(object sender, EventArgs e)                //resend all timbre parameters to device
+    /// <summary>
+    /// Resends all timbre parameters to device
+    /// </summary>
+    private void buttonRefresh_Click(object sender, EventArgs e)
     {
         SendAllSysExParameters();
     }
@@ -813,7 +854,8 @@ public partial class FormTimbreEditor : Form
         timbre.SetSustainStatus(checkBoxSustain.Checked);
         if (sendSysEx)
         {
-            MT32SysEx.SendSustainValue(timbre.GetSustainStatus());   //send sustain on/off value to device
+            //send sustain on/off value to device
+            MT32SysEx.SendSustainValue(timbre.GetSustainStatus());
         }
     }
 
@@ -824,7 +866,8 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, parameterNo, parameterValue);
         if (sendSysEx)
         {
-            MT32SysEx.SendPartialParameter(activePartial, parameterNo, parameterValue);     //send value to device register and send text to device screen
+            //send value to device register and send text to device screen
+            MT32SysEx.SendPartialParameter(activePartial, parameterNo, parameterValue);
         }
 
         toolTipParameterValue.SetToolTip(slider, MT32Strings.partialParameterNames[parameterNo] + " = " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
@@ -833,17 +876,20 @@ public partial class FormTimbreEditor : Form
 
     private void trackBarPitch_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x00, trackBarPitch);                             //send Pitch value to device
+        //send Pitch value to device
+        UpdatePartialValueFromSliderValue(0x00, trackBarPitch);
     }
 
     private void trackBarFinePitch_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x01, trackBarFinePitch);                         //send Fine Pitch value to device
+        //send Fine Pitch value to device
+        UpdatePartialValueFromSliderValue(0x01, trackBarFinePitch);
     }
 
     private void trackBarPitchKeyFollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x02, trackBarPitchKeyFollow);                    //send Pitch keyfollow value to device
+        //send Pitch keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x02, trackBarPitchKeyFollow);
     }
 
     private void checkBoxPitchBend_CheckedChanged(object sender, EventArgs e)
@@ -852,7 +898,8 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, 0x03, pitchBendState);
         if (sendSysEx)
         {
-            MT32SysEx.SendPartialParameter(activePartial, 0x03, pitchBendState); //send Pitch bend on/off value to device
+            //send Pitch bend on/off value to device
+            MT32SysEx.SendPartialParameter(activePartial, 0x03, pitchBendState);
         }
 
         changesMade = true;
@@ -869,7 +916,8 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, 0x04, waveFormState);
         if (sendSysEx)
         {
-            MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);   //send Waveform type to device
+            //send Waveform type to device
+            MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);
         }
 
         changesMade = true;
@@ -962,7 +1010,8 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, 0x05, sampleNo);
         if (sendSysEx)
         {
-            MT32SysEx.SendPartialParameter(activePartial, 0x05, sampleNo);            //send PCM sample type to device
+            //send PCM sample type to device
+            MT32SysEx.SendPartialParameter(activePartial, 0x05, sampleNo);
         }
 
         changesMade = true;
@@ -970,288 +1019,340 @@ public partial class FormTimbreEditor : Form
 
     private void trackBarPulseWidth_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x06, trackBarPulseWidth);            //send Pulse Width value to device
+        //send Pulse Width value to device
+        UpdatePartialValueFromSliderValue(0x06, trackBarPulseWidth);
     }
 
     private void trackBarPWVeloSens_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x07, trackBarPWVeloSens);            //send Pulse Width Velocity Sensitivity value to device
+        //send Pulse Width Velocity Sensitivity value to device
+        UpdatePartialValueFromSliderValue(0x07, trackBarPWVeloSens);
     }
 
     private void trackBarPitchEnvelopeDepth_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x08, trackBarPitchEnvelopeDepth);    //send Pitch Envelope Depth value to device
+        //send Pitch Envelope Depth value to device
+        UpdatePartialValueFromSliderValue(0x08, trackBarPitchEnvelopeDepth);
     }
 
     private void trackBarPitchEnvVeloSens_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x09, trackBarPitchEnvVeloSens);      //send Pitch Envelope Velocity Sensitivity value to device
+        //send Pitch Envelope Velocity Sensitivity value to device
+        UpdatePartialValueFromSliderValue(0x09, trackBarPitchEnvVeloSens);
     }
 
     private void trackBarPitchEnvTimeKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0A, trackBarPitchEnvTimeKeyfollow); //send Pitch Envelope Time Keyfollow value to device
+        //send Pitch Envelope Time Keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x0A, trackBarPitchEnvTimeKeyfollow);
     }
 
     private void trackBarPitchEnvT1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0B, trackBarPitchEnvT1);            //send Pitch Envelope Time 1 value to device
+        //send Pitch Envelope Time 1 value to device
+        UpdatePartialValueFromSliderValue(0x0B, trackBarPitchEnvT1);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvT2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0C, trackBarPitchEnvT2);            //send Pitch Envelope Time 2 value to device
+        //send Pitch Envelope Time 2 value to device
+        UpdatePartialValueFromSliderValue(0x0C, trackBarPitchEnvT2);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvT3_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0D, trackBarPitchEnvT3);            //send Pitch Envelope Time 3 value to device
+        //send Pitch Envelope Time 3 value to device
+        UpdatePartialValueFromSliderValue(0x0D, trackBarPitchEnvT3);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvT4_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0E, trackBarPitchEnvT4);            //send Pitch Envelope Time 4 value to device
+        //send Pitch Envelope Time 4 value to device
+        UpdatePartialValueFromSliderValue(0x0E, trackBarPitchEnvT4);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvL0_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x0F, trackBarPitchEnvL0);            //send Pitch Envelope Level 0 value to device
+        //send Pitch Envelope Level 0 value to device
+        UpdatePartialValueFromSliderValue(0x0F, trackBarPitchEnvL0);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvL1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x10, trackBarPitchEnvL1);            //send Pitch Envelope Level 1 value to device
+        //send Pitch Envelope Level 1 value to device
+        UpdatePartialValueFromSliderValue(0x10, trackBarPitchEnvL1);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvL2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x11, trackBarPitchEnvL2);            //send Pitch Envelope Level 2 value to device
+        //send Pitch Envelope Level 2 value to device
+        UpdatePartialValueFromSliderValue(0x11, trackBarPitchEnvL2);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvSust_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x12, trackBarPitchEnvSust);          //send Pitch Envelope Sustain Level value to device
+        //send Pitch Envelope Sustain Level value to device
+        UpdatePartialValueFromSliderValue(0x12, trackBarPitchEnvSust);
         UpdatePitchGraph();
     }
 
     private void trackBarPitchEnvReleaseLevel_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x13, trackBarPitchEnvReleaseLevel);  //send Pitch Envelope Release Level value to device
+        //send Pitch Envelope Release Level value to device
+        UpdatePartialValueFromSliderValue(0x13, trackBarPitchEnvReleaseLevel);
         UpdatePitchGraph();
     }
 
     private void trackBarLFORate_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x14, trackBarLFORate);               //send Pitch LFO Rate value to device
+        //send Pitch LFO Rate value to device
+        UpdatePartialValueFromSliderValue(0x14, trackBarLFORate);
     }
 
     private void trackBarLFODepth_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x15, trackBarLFODepth);              //send Pitch LFO Depth value to device
+        //send Pitch LFO Depth value to device
+        UpdatePartialValueFromSliderValue(0x15, trackBarLFODepth);
     }
 
     private void trackBarLFOModSens_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x16, trackBarLFOModSens);            //send Pitch LFO Modulation Sensitivity value to device
+        //send Pitch LFO Modulation Sensitivity value to device
+        UpdatePartialValueFromSliderValue(0x16, trackBarLFOModSens);
     }
 
     private void trackBarTVFCutoff_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x17, trackBarTVFCutoff);             //send TVF Cutoff (low pass filter) value to device
+        //send TVF Cutoff (low pass filter) value to device
+        UpdatePartialValueFromSliderValue(0x17, trackBarTVFCutoff);
     }
 
     private void trackBarTVFResonance_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x18, trackBarTVFResonance);          //send TVF Resonance value to device
+        //send TVF Resonance value to device
+        UpdatePartialValueFromSliderValue(0x18, trackBarTVFResonance);
     }
 
     private void trackBarTVFKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x19, trackBarTVFKeyfollow);          //send TVF Keyfollow value to device
+        //send TVF Keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x19, trackBarTVFKeyfollow);
     }
 
     private void trackBarTVFBiasPoint_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1A, trackBarTVFBiasPoint);          //send TVF Bias Point value to device
+        //send TVF Bias Point value to device
+        UpdatePartialValueFromSliderValue(0x1A, trackBarTVFBiasPoint);
     }
 
     private void trackBarTVFBiasLevel_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1B, trackBarTVFBiasLevel);          //send TVF Bias Level value to device
+        //send TVF Bias Level value to device
+        UpdatePartialValueFromSliderValue(0x1B, trackBarTVFBiasLevel);
     }
 
     private void trackBarTVFEnvDepth_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1C, trackBarTVFEnvDepth);           //send TVF Envelope Depth value to device
+        //send TVF Envelope Depth value to device
+        UpdatePartialValueFromSliderValue(0x1C, trackBarTVFEnvDepth);
     }
 
     private void trackBarTVFVeloSensitivity_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1D, trackBarTVFVeloSensitivity);    //send TVFVeloSensitivity value to device
+        //send TVFVeloSensitivity value to device
+        UpdatePartialValueFromSliderValue(0x1D, trackBarTVFVeloSensitivity);
     }
 
     private void trackBarTVFDepthKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1E, trackBarTVFDepthKeyfollow);     //send TVF Envelope Depth Keyfollow value to device
+       //send TVF Envelope Depth Keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x1E, trackBarTVFDepthKeyfollow);
     }
 
     private void trackBarTVFTimeKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x1F, trackBarTVFTimeKeyfollow);      //send TVF Envelope Time Keyfollow to device
+        //send TVF Envelope Time Keyfollow to device
+        UpdatePartialValueFromSliderValue(0x1F, trackBarTVFTimeKeyfollow);
     }
 
     private void trackBarTVFT1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x20, trackBarTVFT1);                 //send TVF Envelope Time 1 value to device
+        //send TVF Envelope Time 1 value to device
+        UpdatePartialValueFromSliderValue(0x20, trackBarTVFT1);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFT2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x21, trackBarTVFT2);                 //send TVF Envelope Time 2 value to device
+        //send TVF Envelope Time 2 value to device
+        UpdatePartialValueFromSliderValue(0x21, trackBarTVFT2);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFT3_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x22, trackBarTVFT3);                 //send TVF Envelope Time 3 value to device
+        //send TVF Envelope Time 3 value to device
+        UpdatePartialValueFromSliderValue(0x22, trackBarTVFT3);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFT4_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x23, trackBarTVFT4);                 //send TVF Envelope Time 4 value to device
+        //send TVF Envelope Time 4 value to device
+        UpdatePartialValueFromSliderValue(0x23, trackBarTVFT4);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFT5_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x24, trackBarTVFT5);                 //send TVF Envelope Time 5 value to device
+        //send TVF Envelope Time 5 value to device
+        UpdatePartialValueFromSliderValue(0x24, trackBarTVFT5);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFL1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x25, trackBarTVFL1);                 //send TVF Envelope Level 1 value to device
+        //send TVF Envelope Level 1 value to device
+        UpdatePartialValueFromSliderValue(0x25, trackBarTVFL1);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFL2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x26, trackBarTVFL2);                 //send TVF Envelope Level 2 value to device
+        //send TVF Envelope Level 2 value to device
+        UpdatePartialValueFromSliderValue(0x26, trackBarTVFL2);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFL3_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x27, trackBarTVFL3);                 //send TVF Envelope Level 3 value to device
+        //send TVF Envelope Level 3 value to device
+        UpdatePartialValueFromSliderValue(0x27, trackBarTVFL3);
         UpdateTVFGraph();
     }
 
     private void trackBarTVFSustain_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x28, trackBarTVFSustain);            //send TVF Envelope Sustain value to device
+        //send TVF Envelope Sustain value to device
+        UpdatePartialValueFromSliderValue(0x28, trackBarTVFSustain);
         UpdateTVFGraph();
     }
 
     private void trackBarTVALevel_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x29, trackBarTVALevel);              //send TVA Level to device
+        //send TVA Level to device
+        UpdatePartialValueFromSliderValue(0x29, trackBarTVALevel);
     }
 
     private void trackBarTVAVeloSensitivity_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2A, trackBarTVAVeloSensitivity);    //send TVA Velocity Sensitivity level to device
+        //send TVA Velocity Sensitivity level to device
+        UpdatePartialValueFromSliderValue(0x2A, trackBarTVAVeloSensitivity);
     }
 
     private void trackBarTVABiasPoint1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2B, trackBarTVABiasPoint1);         //send TVA Bias Point 1 value to device
+        //send TVA Bias Point 1 value to device
+        UpdatePartialValueFromSliderValue(0x2B, trackBarTVABiasPoint1);
     }
 
     private void trackBarTVABiasLevel1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2C, trackBarTVABiasLevel1);         //send TVA Bias Level 1 value to device
+        //send TVA Bias Level 1 value to device
+        UpdatePartialValueFromSliderValue(0x2C, trackBarTVABiasLevel1);
     }
 
     private void trackBarTVABiasPoint2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2D, trackBarTVABiasPoint2);         //send TVA Bias Point 2 value to device
+        //send TVA Bias Point 2 value to device
+        UpdatePartialValueFromSliderValue(0x2D, trackBarTVABiasPoint2);
     }
 
     private void trackBarTVABiasLevel2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2E, trackBarTVABiasLevel2);         //send TVA Bias Level 2 value to device
+        //send TVA Bias Level 2 value to device
+        UpdatePartialValueFromSliderValue(0x2E, trackBarTVABiasLevel2);
     }
 
     private void trackBarTVATimeKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x2F, trackBarTVATimeKeyfollow);      //send TVA Time Keyfollow value to device
+        //send TVA Time Keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x2F, trackBarTVATimeKeyfollow);
     }
 
     private void trackBarTVAVelocityKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x30, trackBarTVAVelocityKeyfollow);  //send TVA Velocity Keyfollow value to device
+        //send TVA Velocity Keyfollow value to device
+        UpdatePartialValueFromSliderValue(0x30, trackBarTVAVelocityKeyfollow);
     }
 
     private void trackBarTVAT1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x31, trackBarTVAT1);                 //send TVA Envelope Time 1 to device
+        //send TVA Envelope Time 1 to device
+        UpdatePartialValueFromSliderValue(0x31, trackBarTVAT1);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAT2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x32, trackBarTVAT2);                 //send TVA Envelope Time 2 to device
+        //send TVA Envelope Time 2 to device
+        UpdatePartialValueFromSliderValue(0x32, trackBarTVAT2);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAT3_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x33, trackBarTVAT3);                 //send TVA Envelope Time 3 to device
+        //send TVA Envelope Time 3 to device
+        UpdatePartialValueFromSliderValue(0x33, trackBarTVAT3);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAT4_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x34, trackBarTVAT4);                 //send TVA Envelope Time 4 to device
+        //send TVA Envelope Time 4 to device
+        UpdatePartialValueFromSliderValue(0x34, trackBarTVAT4);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAT5_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x35, trackBarTVAT5);                 //send TVA Envelope Time 5 to device
+        //send TVA Envelope Time 5 to device
+        UpdatePartialValueFromSliderValue(0x35, trackBarTVAT5);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAL1_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x36, trackBarTVAL1);                 //send TVA Envelope Level 1 to device
+        //send TVA Envelope Level 1 to device
+        UpdatePartialValueFromSliderValue(0x36, trackBarTVAL1);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAL2_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x37, trackBarTVAL2);                 //send TVA Envelope Level 2 to device
+        //send TVA Envelope Level 2 to device
+        UpdatePartialValueFromSliderValue(0x37, trackBarTVAL2);
         UpdateTVAGraph();
     }
 
     private void trackBarTVAL3_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x38, trackBarTVAL3);                 //send TVA Envelope Level 3 to device
+        //send TVA Envelope Level 3 to device
+        UpdatePartialValueFromSliderValue(0x38, trackBarTVAL3);
         UpdateTVAGraph();
     }
 
     private void trackBarTVASustain_ValueChanged(object sender, EventArgs e)
     {
-        UpdatePartialValueFromSliderValue(0x39, trackBarTVASustain);            //send TVA Envelope Sustain Level to device
+        //send TVA Envelope Sustain Level to device
+        UpdatePartialValueFromSliderValue(0x39, trackBarTVASustain);
         UpdateTVAGraph();
     }
 

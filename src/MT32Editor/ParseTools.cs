@@ -1,20 +1,28 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Simple tools for parsing text strings
+/// </summary>
 internal static class ParseTools
 {
-    //
     // MT32Edit: ParseTools class (static)
     // S.Fryers Mar 2023
     // Simple tools for parsing text strings
-    //
-    public static string MakeNCharsLong(string str, int desiredLength) //ensure string is precisely the desiredLength by adding spaces or removing excess characters from right hand side
+    
+    /// <summary>
+    /// Ensures string is precisely the desiredLength by adding spaces or removing excess characters from right hand side
+    /// </summary>
+    public static string MakeNCharsLong(string str, int desiredLength)
     {
         str = PadWithSpace(str, desiredLength);
         str = TrimToLength(str, desiredLength);
         return str;
     }
 
-    public static string PadWithSpace(string str, int desiredLength) //adds spaces to end of string to pad it to the desiredLength
+    /// <summary>
+    /// Adds spaces to end of string to pad it to the desiredLength
+    /// </summary>
+    public static string PadWithSpace(string str, int desiredLength)
     {
         while (str.Length < desiredLength)
         {
@@ -23,7 +31,10 @@ internal static class ParseTools
         return str;
     }
 
-    public static string Plural(int noOfItems) //helps format text for plural instances- returns string "s" if input value is exactly 1, otherwise returns null string
+    /// <summary>
+    /// Helps format text for plural instances - returns string "s" if input value is exactly 1, otherwise returns null string
+    /// </summary>
+    public static string Plural(int noOfItems)
     {
         if (noOfItems == 1)
         {
@@ -48,7 +59,8 @@ internal static class ParseTools
     {
         while (RightMost(str, 1) == " ")
         {
-            str = LeftMost(str, str.Length - 1); //remove any trailing space characters
+            // remove any trailing space characters
+            str = LeftMost(str, str.Length - 1);
         }
         return str;
     }
@@ -57,12 +69,16 @@ internal static class ParseTools
     {
         while (LeftMost(str, 1) == " ")
         {
-            str = RightMost(str, str.Length - 1); //remove any trailing space characters
+            // remove any trailing space characters
+            str = RightMost(str, str.Length - 1);
         }
         return str;
     }
 
-    public static string LeftMost(string str, int charCount) //return leftmost [charCount] characters from str
+    /// <summary>
+    /// Returns leftmost [charCount] characters from str
+    /// </summary>
+    public static string LeftMost(string str, int charCount)
     {
         if (string.IsNullOrEmpty(str))
         {
@@ -75,7 +91,10 @@ internal static class ParseTools
         return str;
     }
 
-    public static string RightMost(string str, int charCount) //return rightmost [charCount] characters from str
+    /// <summary>
+    /// Returns rightmost [charCount] characters from str
+    /// </summary>
+    public static string RightMost(string str, int charCount)
     {
         if (string.IsNullOrEmpty(str))
         {
@@ -88,7 +107,10 @@ internal static class ParseTools
         return str;
     }
 
-    public static string RightOfChar(string str, char character) //return all characters to right of specified character, if it exists
+    /// <summary>
+    /// Returns all characters to right of specified character, if it exists
+    /// </summary>
+    public static string RightOfChar(string str, char character)
     {
         while (LeftMost(str, 1) != character.ToString() && str.Length > 1)
         {
@@ -101,7 +123,10 @@ internal static class ParseTools
         return RightMost(str, str.Length - 1);
     }
 
-    public static string LeftOfChar(string str, char character) //return all characters to right of specified character, if it exists
+    /// <summary>
+    /// Return all characters to right of specified character, if it exists
+    /// </summary>
+    public static string LeftOfChar(string str, char character)
     {
         while (RightMost(str, 1) != character.ToString() && str.Length > 1)
         {
@@ -114,7 +139,10 @@ internal static class ParseTools
         return LeftMost(str, str.Length - 1);
     }
 
-    public static int CharacterSum(byte[] asciiValue, int length) // calculate sum of ascii values in byte array
+    /// <summary>
+    /// Calculate sum of ascii values in byte array
+    /// </summary>
+    public static int CharacterSum(byte[] asciiValue, int length)
     {
         int sum = 0;
         for (int charNo = 0; charNo < length; charNo++)

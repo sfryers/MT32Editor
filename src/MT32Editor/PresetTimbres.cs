@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Read-only class containing complete parameter data for all 128 MT-32 factory preset timbres
+/// </summary>
 internal static class PresetTimbres
 {
-    //
     // MT32Edit: PresetTimbres class (static)
     // S.Fryers Mar 2023
     // Read-only class containing complete parameter data for all 128 MT-32 factory preset timbres
-    //
     private static readonly byte[,] presetTimbreData = new byte[,]
     {
         {   //Preset 0: AcouPiano1
@@ -935,7 +936,8 @@ internal static class PresetTimbres
         }
         timbre.SetPart12Structure(presetTimbreData[timbreNo, 0]);
         timbre.SetPart34Structure(presetTimbreData[timbreNo, 1]);
-        timbre.SetSustainStatus(!LogicTools.IntToBool(presetTimbreData[timbreNo, 3])); //use inverse value
+        //use inverse value
+        timbre.SetSustainStatus(!LogicTools.IntToBool(presetTimbreData[timbreNo, 3]));
 
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {

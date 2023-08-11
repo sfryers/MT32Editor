@@ -2,13 +2,15 @@
 
 namespace MT32Edit;
 
+/// <summary>
+/// Tools to create and send MT32-compatible system exclusive messages
+/// </summary>
 internal static class MT32SysEx
 {
-    //
     // MT32Edit: MT32SysEx class (static)
     // S.Fryers Mar 2023
     // Tools to create and send MT32-compatible system exclusive messages
-    //
+
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
 
     public const byte MANUFACTURER_ID = 0x41;       //Manufacturer ID (Roland)
@@ -24,16 +26,25 @@ internal static class MT32SysEx
     public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0E
 
     public static bool uploadInProgress = false;
-    public static bool sendTextToMT32 = true;       //user configurable option- when true, parameter changes will be displayed on MT-32 text display.
-    public static bool blockMT32text = false;       //if set to true, blocks all text messages from being sent regardless of sendTextToMT32 status.
-    public static bool blockSysExMessages = false;  //if set to true, no system exclusive data will be sent to the selected MIDI Out device.
-    public static bool allowReset = false;          //if set to true, will pass any MT-32 reset messages to the selected MIDI Out device.
+    //user configurable option- when true, parameter changes will be displayed on MT-32 text display.
+    public static bool sendTextToMT32 = true;
+    //if set to true, blocks all text messages from being sent regardless of sendTextToMT32 status.
+    public static bool blockMT32text = false;
+    //if set to true, no system exclusive data will be sent to the selected MIDI Out device.
+    public static bool blockSysExMessages = false;
+    //if set to true, will pass any MT-32 reset messages to the selected MIDI Out device.
+    public static bool allowReset = false;
     private static readonly int channelNo = 1;
 
-    public static byte RolandChecksum(int sumOfSysExValues) //calculate Roland SysEx checksum value
+    /// <summary>
+    /// Calculate Roland SysEx checksum value
+    /// </summary>
+    public static byte RolandChecksum(int sumOfSysExValues)
     {
-        byte checkSum = (byte)(sumOfSysExValues % 0x80);    //round to 7-bit value
-        checkSum = (byte)(0x80 - checkSum);                 //invert
+        //round to 7-bit value
+        byte checkSum = (byte)(sumOfSysExValues % 0x80);
+        //invert
+        checkSum = (byte)(0x80 - checkSum);
         if (checkSum == 0x80)
         {
             checkSum = 0x00;
@@ -44,7 +55,8 @@ internal static class MT32SysEx
 
     private static int[] WrapBytes(int[] Addr)
     {
-        while (Addr[1] > 0x7F)                                //if value exceeds 7-bit maximum, wrap value and increment next significant byte
+        //if value exceeds 7-bit maximum, wrap value and increment next significant byte
+        while (Addr[1] > 0x7F)
         {
             Addr[0] += 0x01;
             Addr[1] -= 0x80;
@@ -52,7 +64,10 @@ internal static class MT32SysEx
         return Addr;
     }
 
-    public static byte[] PatchAddress(int patchNo)          //calculate address of specific patch memory area
+    /// <summary>
+    /// Calculates address of specific patch memory area
+    /// </summary>
+    public static byte[] PatchAddress(int patchNo)
     {
         int[] Addr = new int[2];
         Addr[0] = 0x00;
@@ -62,7 +77,10 @@ internal static class MT32SysEx
         return sysExAddr;
     }
 
-    public static byte[] RhythmKeyAddress(int keyNo)        //calculate address of specific rhythm bank key area
+    /// <summary>
+    /// Calculates address of specific rhythm bank key area
+    /// </summary>
+    public static byte[] RhythmKeyAddress(int keyNo)
     {
         int[] Addr = new int[2];
         Addr[0] = 0x01;
@@ -72,7 +90,10 @@ internal static class MT32SysEx
         return sysExAddr;
     }
 
-    public static byte[] MemoryTimbreAddress(int timbreNo)  //calculate address of specific memory timbre
+    /// <summary>
+    /// Calculates address of specific memory timbre
+    /// </summary>
+    public static byte[] MemoryTimbreAddress(int timbreNo)
     {
         if (timbreNo < 0 || timbreNo > 63)
         {
@@ -86,7 +107,10 @@ internal static class MT32SysEx
         return sysExAddr;
     }
 
-    public static byte[] TempPartialAddress(int parameter, int partial) //calculate address of specific temporary timbre area partial parameter
+    /// <summary>
+    /// Calculates address of specific temporary timbre area partial parameter
+    /// </summary>
+    public static byte[] TempPartialAddress(int parameter, int partial)
     {
         int[] Addr = new int[2];
         Addr[0] = 0x00;
@@ -158,13 +182,17 @@ internal static class MT32SysEx
         blockMT32text = false;
     }
 
-    public static void SendPartialParameter(int partialNo, byte parameterNo, int parameterValue) //send parameter change to device and show text on device display
+    /// <summary>
+    /// Sends parameter change to device and show text on device display
+    /// </summary>
+    public static void SendPartialParameter(int partialNo, byte parameterNo, int parameterValue)
     {
         string parameterName = MT32Strings.partialParameterNames[parameterNo];
         int sysExParameterValue = parameterValue + PartialConstants.offset[parameterNo];
         LogicTools.ValidateRange("sysEx parameter", sysExParameterValue, 0, 127, autoCorrect: false);
         byte[] sysExAddr = TempPartialAddress(parameterNo, partialNo);
-        byte[] sysExData = { Convert.ToByte(sysExParameterValue) }; // ensure no negative values are passed to device
+        // ensure no negative values are passed to device
+        byte[] sysExData = { Convert.ToByte(sysExParameterValue) };
         SendMessage(sysExAddr, sysExData);
         SendText(parameterName + ": " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
     }
@@ -180,7 +208,8 @@ internal static class MT32SysEx
         SendText("Loaded " + t.GetTimbreName());
     }
 
-    public static void ApplyPartialParameters(TimbreStructure t, int partialNo) //send all partial parameters to device
+    //send all partial parameters to device
+    public static void ApplyPartialParameters(TimbreStructure t, int partialNo)
     {
         byte[] sysExAddr = TempPartialAddress(parameter: 0x00, partialNo);
         byte[] sysExData = new byte[PARAMETER_COUNT];
@@ -191,11 +220,15 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
         if (Midi.hardwareMT32)
         {
-            Thread.Sleep(50);    //avoid buffer overflow on hardware MT-32
+            //avoid buffer overflow on hardware MT-32
+            Thread.Sleep(50);
         }
     }
 
-    public static void SendPCMBankNo(int partialNo, int sysExValue) //send parameter change to device and show text on device display
+    /// <summary>
+    /// Sends parameter change to device and show text on device display
+    /// </summary>
+    public static void SendPCMBankNo(int partialNo, int sysExValue)
     {
         string bankNo = "1";
         if (sysExValue > 1)
@@ -209,19 +242,26 @@ internal static class MT32SysEx
         SendText("PCM Bank Select = " + bankNo);
     }
 
-    public static void UpdatePartialStructures(int partial1Structure, int partial2Structure)    //send updated partial structures to device
+    /// <summary>
+    /// Sends updated partial structures to device
+    /// </summary>
+    public static void UpdatePartialStructures(int partial1Structure, int partial2Structure)
     {
-        byte[] sysExAddr = { 0x04, 0x00, 0x0A };                        //temporary timbre area, partial mute status
+        //temporary timbre area, partial mute status
+        byte[] sysExAddr = { 0x04, 0x00, 0x0A };
         byte[] sysExData = { (byte)partial1Structure, (byte)partial2Structure };
         SendMessage(sysExAddr, sysExData);
     }
 
     public static void UpdatePartialMuteStatus(bool[] partialMuteStatus, int activePartialNo)
     {
-        byte[] sysExAddr = { 0x04, 0x00, 0x0C };                        //temporary timbre area, partial mute status
+        //temporary timbre area, partial mute status
+        byte[] sysExAddr = { 0x04, 0x00, 0x0C };
         byte[] sysExData = { PartialMuteValue(partialMuteStatus) };
-        SendMessage(sysExAddr, sysExData);                              //send updated partial mute status to device
-        DisplayPartialMuteStatus(partialMuteStatus, activePartialNo);   //send partial status to MT-32 screen
+        //send updated partial mute status to device
+        SendMessage(sysExAddr, sysExData);
+        //send partial status to MT-32 screen
+        DisplayPartialMuteStatus(partialMuteStatus, activePartialNo);
 
         static void DisplayPartialMuteStatus(bool[] partialMuteStatus, int activePartialNo)
         {
@@ -231,9 +271,11 @@ internal static class MT32SysEx
 
     public static byte PartialMuteValue(bool[] partialMuteStatus)
     {
-        Array.Reverse(partialMuteStatus);                       //order right to left
+        //order right to left
+        Array.Reverse(partialMuteStatus);
         byte sum = 0;
-        foreach (bool partialMuted in partialMuteStatus)        //convert boolean bits representing individual partial mute states into byte value for sysex message
+        //convert boolean bits representing individual partial mute states into byte value for sysex message
+        foreach (bool partialMuted in partialMuteStatus)
         {
             sum <<= 1;
             if (!partialMuted)
@@ -241,11 +283,15 @@ internal static class MT32SysEx
                 sum |= 1;
             }
         }
-        Array.Reverse(partialMuteStatus);                       //order left to right
+        //order left to right
+        Array.Reverse(partialMuteStatus);
         return sum;
     }
 
-    public static void SendText(string textMessage)             //send text string of exactly 20 characters to MT-32 LED matrix display
+    /// <summary>
+    /// Send text string of exactly 20 characters to MT-32 LED matrix display
+    /// </summary>
+    public static void SendText(string textMessage)
     {
         if (blockMT32text || !sendTextToMT32)
         {
@@ -253,7 +299,8 @@ internal static class MT32SysEx
         }
 
         textMessage = ParseTools.MakeNCharsLong(textMessage, 20);
-        byte[] sysExAddr = { 0x20, 0x00, 0x00 };                // start of text display register
+        // start of text display register
+        byte[] sysExAddr = { 0x20, 0x00, 0x00 };
         byte[] sysExData = Encoding.ASCII.GetBytes(textMessage);
         SendMessage(sysExAddr, sysExData);
     }
@@ -261,15 +308,18 @@ internal static class MT32SysEx
     public static void SendTimbreName(string timbreName)
     {
         timbreName = ParseTools.MakeNCharsLong(timbreName, 10);
-        byte[] sysExAddr = { 0x04, 0x00, 0x00 };                // start of temp patch name register
-        byte[] sysExData = Encoding.ASCII.GetBytes(timbreName); // convert string to ASCII values
+        // start of temp patch name register
+        byte[] sysExAddr = { 0x04, 0x00, 0x00 };
+        // convert string to ASCII values
+        byte[] sysExData = Encoding.ASCII.GetBytes(timbreName);
         SendMessage(sysExAddr, sysExData);
     }
 
     public static void SendSustainValue(bool sustainStatus)
     {
         string parameterName = "Sustain";
-        byte[] sysExAddr = { 0x04, 0x00, 0x0D };                //temporary timbre area, sustain on/off register
+        //temporary timbre area, sustain on/off register
+        byte[] sysExAddr = { 0x04, 0x00, 0x0D };
         byte[] sysExData = { (byte)LogicTools.BoolToInt(!sustainStatus) };
         SendMessage(sysExAddr, sysExData);
         SendText(parameterName + " " + MT32Strings.OnOffStatus(sustainStatus));
@@ -288,30 +338,41 @@ internal static class MT32SysEx
         ConsoleMessage.SendLine("Device reset");
     }
 
-    public static void SendMessage(byte[] sysExAddr, byte[] sysExData) //collate MT32 SysEx message from constant parameters, address and data bytes plus Roland checksum
+    /// <summary>
+    /// Collates MT32 SysEx message from constant parameters, address and data bytes plus Roland checksum
+    /// </summary>
+    public static void SendMessage(byte[] sysExAddr, byte[] sysExData)
     {
-        int sysExMessageLength = sysExData.Length + 10;                         //determine length (in bytes) of full SysEx message
+        //determine length (in bytes) of full SysEx message
+        int sysExMessageLength = sysExData.Length + 10;
         byte[] sysExMessage = new byte[sysExMessageLength];
-        sysExMessage[0] = START_OF_DATA_BLOCK;                                  //set fixed parameters
+        //set fixed parameters
+        sysExMessage[0] = START_OF_DATA_BLOCK;
         sysExMessage[1] = MANUFACTURER_ID;
         sysExMessage[2] = DEVICE_ID;
         sysExMessage[3] = MODEL_ID;
         sysExMessage[4] = TX;
         for (int i = 0; i < 3; i++)
         {
-            sysExMessage[i + 5] = sysExAddr[i];                                 //set address bytes
+            //set address bytes
+            sysExMessage[i + 5] = sysExAddr[i];
         }
         for (int i = 0; i < sysExData.Length; i++)
         {
-            sysExMessage[i + 8] = sysExData[i];                                 //set data bytes
+            //set data bytes
+            sysExMessage[i + 8] = sysExData[i];
         }
-        sysExMessage[sysExData.Length + 8] = CheckSum(sysExAddr, sysExData);    //calculate checksum byte
-        sysExMessage[sysExData.Length + 9] = END_OF_DATA_BLOCK;                 //set message end byte
-        SendSysExData(sysExMessage);                                            //send to MIDI Out
+        //calculate checksum byte
+        sysExMessage[sysExData.Length + 8] = CheckSum(sysExAddr, sysExData);
+        //set message end byte
+        sysExMessage[sysExData.Length + 9] = END_OF_DATA_BLOCK;
+        //send to MIDI Out
+        SendSysExData(sysExMessage);
 
         static byte CheckSum(byte[] sysExAddr, byte[] sysExData)
         {
             int valueSum = 0x00;
+
             //calculate sum of all values in sysExAddr[] and sysExData[]
             for (int i = 0; i < 3; i++)
             {
@@ -325,7 +386,10 @@ internal static class MT32SysEx
         }
     }
 
-    private static void SendSysExData(byte[] sysExMessage)  //Send sysex data package to active MIDI Out device
+    /// <summary>
+    /// Sends sysex data package to active MIDI Out device
+    /// </summary>
+    private static void SendSysExData(byte[] sysExMessage)
     {
         if (blockSysExMessages)
         {
@@ -333,8 +397,12 @@ internal static class MT32SysEx
         }
 
         uploadInProgress = true;
-        Midi.CloseInputDevice();        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
+        
+        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
+        Midi.CloseInputDevice();
+
         //Midi.CloseOutputDevice();
+        
         try
         {
             //Midi.Out = new MidiOut(Midi.OutDeviceIndex);
@@ -342,11 +410,13 @@ internal static class MT32SysEx
             {
                 Midi.Out.SendBuffer(sysExMessage);
             }
+
             //Midi.Out.Dispose();
         }
         catch
         {
             ConsoleMessage.SendLine("Error: Cannot open selected MIDI Out device\\nPlease close any conflicting MIDI applications and restart MT-32 Editor.");
+
             //midiOutError = true;
         }
 
@@ -362,7 +432,8 @@ internal static class MT32SysEx
 
     public static void PreviewTimbre(int timbreNo, TimbreStructure timbre)
     {
-        byte[] sysExAddress = { 0x04, 0x00, 0x00 }; //timbre temp area 1
+        //timbre temp area 1
+        byte[] sysExAddress = { 0x04, 0x00, 0x00 };
         SendTimbre(timbreNo, timbre, sysExAddress);
         if (Midi.hardwareMT32)
         {
@@ -403,9 +474,11 @@ internal static class MT32SysEx
         SendMessage(sysExAddress, sysExData);
     }
 
+    /// <summary>
+    /// Sends rhythm bank parameters to device
+    /// </summary>
     public static void SendRhythmKey(Rhythm rhythmKey, int keyNo)
     {
-        //send rhythm bank parameters to device
         int bankNo = keyNo - 24;
         byte[] sysExAddr = RhythmKeyAddress(keyNo);
         byte[] sysExData = new byte[4];
@@ -416,9 +489,11 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Send multiple rhythm keys to device
+    /// </summary>
     public static void SendRhythmKeyBlock(Rhythm[] rhythmData, int firstKeyNo, int lastKeyNo)
     {
-        //send multiple rhythm keys to device
         for (int keyNo = firstKeyNo; keyNo < lastKeyNo + 1; keyNo++)
         {
             int bankNo = keyNo - 24;

@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Data structure representing user-accessible rhythm areas of MT-32, as per published MIDI implementation.
+/// </summary>
 public class Rhythm
 {
-    //
     // MT32Edit: Rhythm class
     // S.Fryers Apr 2023
     // Data structure representing user-accessible rhythm areas of MT-32, as per published MIDI implementation.
-    //
     private int timbreGroup = 1;
 
     private readonly string[] timbreGroupType = { "Memory", "Rhythm" };

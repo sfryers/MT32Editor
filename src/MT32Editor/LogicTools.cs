@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Simple tools for boolean logic and data validation.
+/// </summary>
 internal static class LogicTools
 {
-    //
     // MT32Edit: LogicTools class (static)
     // S.Fryers Mar 2023
     // Simple tools for boolean logic and data validation.
-    //
     public static int BoolToInt(bool flag)
     {
         if (flag)
@@ -50,7 +51,10 @@ internal static class LogicTools
         return value;
     }
 
-    public static int AutoCorrect(int value, int minPermitted, int maxPermitted) //if value is outside permitted range, change it to closest permitted value
+    /// <summary>
+    /// If value is outside permitted range, change it to closest permitted value
+    /// </summary>
+    public static int AutoCorrect(int value, int minPermitted, int maxPermitted)
     {
         if (value < minPermitted)
         {
@@ -64,7 +68,15 @@ internal static class LogicTools
         return value;
     }
 
-    public static void ErrorCheck(string parameterName, int value, int minPermitted, int maxPermitted) //throw exception if value is outside permitted range
+    /// <summary>
+    /// Throw exception if value is outside permitted range
+    /// </summary>
+    /// <param name="parameterName">The name of the parameter, used in the error message.</param>
+    /// <param name="value">The value to test.</param>
+    /// <param name="minPermitted">The range start of permitted values.</param>
+    /// <param name="maxPermitted">The range end of permitted values.</param>
+    /// <exception cref="ArgumentOutOfRangeException">When the value is outside the expected range.</exception>
+    public static void ErrorCheck(string parameterName, int value, int minPermitted, int maxPermitted)
     {
         if (value < minPermitted || value > maxPermitted)
         {

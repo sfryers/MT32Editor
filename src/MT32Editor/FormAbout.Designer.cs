@@ -99,7 +99,7 @@
             buttonClose.TabIndex = 7;
             buttonClose.Text = "Close";
             buttonClose.UseVisualStyleBackColor = true;
-            buttonClose.Click += buttonClose_Click;
+            buttonClose.Click += ButtonClose_Click;
             // 
             // linkLabelProject
             // 
@@ -110,7 +110,7 @@
             linkLabelProject.TabIndex = 8;
             linkLabelProject.TabStop = true;
             linkLabelProject.Text = "https://github.com/sfryers/MT32Editor";
-            linkLabelProject.LinkClicked += linkLabelProject_LinkClicked;
+            linkLabelProject.LinkClicked += LinkLabelProject_LinkClicked;
             // 
             // label2
             // 

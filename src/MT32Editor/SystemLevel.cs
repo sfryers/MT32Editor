@@ -1,13 +1,19 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Data structure representing user-accessible system memory areas of MT-32, as per published MIDI implementation.
+/// </summary>
+/// <remarks>
+/// Note that temporary memory areas are not implemented, except for the Part 1 timbre temp area
+/// which is used by the Timbre Editor form.
+/// </remarks>
+
 public class SystemLevel
 {
-    //
-    // MT32Edit: SystemLevel class
-    // S.Fryers Mar 2023
-    // Data structure representing user-accessible system memory areas of MT-32, as per published MIDI implementation.
-    // Note that temporary memory areas are not implemented, except for the Part 1 timbre temp area which is used by the Timbre Editor form.
-    //
+    // MT32Edit: SystemLevel class S.Fryers Mar 2023 Data structure representing user-accessible
+    // system memory areas of MT-32, as per published MIDI implementation. Note that temporary
+    // memory areas are not implemented, except for the Part 1 timbre temp area which is used by the
+    // Timbre Editor form.
     private int masterTune = 63;
 
     private int masterLevel = 85;
@@ -126,7 +132,19 @@ public class SystemLevel
         return sysExData;
     }
 
-    public void SetUIMidiChannel(int partNo, int midiChannelNo, bool autoCorrect = false) // permitted channel range 1-16
+    /// <summary>
+    /// Sets the midiChannel at the <paramref name="partNo"/> to <paramref name="midiChannelNo"/>
+    /// minus 1.
+    /// </summary>
+    /// <param name="partNo">The partition number.</param>
+    /// <param name="midiChannelNo">
+    /// The MIDI channel number. Permitted channel range is between 1-16
+    /// </param>
+    /// <param name="autoCorrect">
+    /// Whether we automatically set the <paramref name="midiChannelNo"/> and the <paramref
+    /// name="partNo"/> to the allowed range.
+    /// </param>
+    public void SetUIMidiChannel(int partNo, int midiChannelNo, bool autoCorrect = false)
     {
         partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect);
         midiChannelNo = LogicTools.ValidateRange("MIDI Channel No.", midiChannelNo, minPermitted: 1, maxPermitted: 16, autoCorrect);

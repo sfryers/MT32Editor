@@ -2,13 +2,13 @@
 
 namespace MT32Edit;
 
+/// <summary>
+/// Tools to load/save MT-32 System Exclusive data files from/to local filesystem
+/// </summary>
 internal static class SysExFile
 {
-    //
-    // MT32Edit: SysExFile class (static)
-    // S.Fryers Apr 2023
-    // Tools to load/save MT-32 System Exclusive data files from/to local filesystem
-    //
+    // MT32Edit: SysExFile class (static) S.Fryers Apr 2023 Tools to load/save MT-32 System
+    // Exclusive data files from/to local filesystem
 
     private const int NO_OF_SYSTEM_PARAMS = 0x17;
 
@@ -77,7 +77,8 @@ internal static class SysExFile
                         return;
                     }
 
-                    Array.Resize(ref sysExDataBlock, filePointer - 1); //remove checksum from end of array
+                    //remove checksum from end of array
+                    Array.Resize(ref sysExDataBlock, filePointer - 1);
                     ProcessSysExDataBlock(sysExDataBlock);
                     return;
                 }
@@ -100,7 +101,9 @@ internal static class SysExFile
                 ConsoleMessage.SendLine("Short data block found, ignoring.");
                 return;
             }
-            if ((sysExDataBlock.Length < 8) || (sysExDataBlock[0] != MT32SysEx.MANUFACTURER_ID) || (sysExDataBlock[1] != MT32SysEx.DEVICE_ID) || (sysExDataBlock[2] != MT32SysEx.MODEL_ID) || (sysExDataBlock[3] != MT32SysEx.TX))
+            if ((sysExDataBlock.Length < 8) || (sysExDataBlock[0] != MT32SysEx.MANUFACTURER_ID) ||
+                (sysExDataBlock[1] != MT32SysEx.DEVICE_ID) || (sysExDataBlock[2] != MT32SysEx.MODEL_ID) ||
+                (sysExDataBlock[3] != MT32SysEx.TX))
             {
                 ConsoleMessage.SendLine("non MT32-compatible data block found, ignoring.");
                 return;
@@ -110,16 +113,20 @@ internal static class SysExFile
             int[] sysExData = new int[sysExDataBlock.Length - 7];
             for (int i = 4; i < 7; i++)
             {
-                sysExAddress[i - 4] = (byte)sysExDataBlock[i];      //get memory address bytes
+                //get memory address bytes
+                sysExAddress[i - 4] = (byte)sysExDataBlock[i];
             }
             for (int i = 7; i < dataBlockLength; i++)
             {
-                sysExData[i - 7] = (byte)sysExDataBlock[i];         //get data bytes
+                //get data bytes
+                sysExData[i - 7] = (byte)sysExDataBlock[i];
             }
             switch (sysExAddress[0])
             {
                 case 0x03:
-                    if (((sysExAddress[1] * 128) + sysExAddress[2]) > 137) //Rhythm data starts at address {0x03, 0x01, 0x10}
+
+                    //Rhythm data starts at address {0x03, 0x01, 0x10}
+                    if (((sysExAddress[1] * 128) + sysExAddress[2]) > 137)
                     {
                         ConsoleMessage.SendLine("[RHYTHM] ", ConsoleColor.Green);
                         ExtractRhythmData(sysExData, sysExAddress);
@@ -158,7 +165,11 @@ internal static class SysExFile
                 return false;
             }
 
-            if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) || (sysExData[1] != MT32SysEx.DEVICE_ID) || (sysExData[2] != MT32SysEx.MODEL_ID) || (sysExData[3] != MT32SysEx.TX) || (sysExData[4] != MT32SysEx.RESET))
+            if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) ||
+                (sysExData[1] != MT32SysEx.DEVICE_ID) ||
+                (sysExData[2] != MT32SysEx.MODEL_ID) ||
+                (sysExData[3] != MT32SysEx.TX) ||
+                (sysExData[4] != MT32SysEx.RESET))
             {
                 return false;
             }
@@ -184,7 +195,8 @@ internal static class SysExFile
             }
             if (sysExData.Length + sysExAddress[2] > NO_OF_SYSTEM_PARAMS)
             {
-                Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS - sysExAddress[2]); //remove any superfluous sysEx data values
+                //remove any superfluous sysEx data values
+                Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS - sysExAddress[2]);
             }
 
             int[] systemData = GetCurrentSystemAreaStateAsArray();
@@ -250,11 +262,13 @@ internal static class SysExFile
 
         void ExtractPatchData(int[] sysExData, int[] sysExAddress)
         {
-            if (!LogicTools.DivisibleBy(sysExData.Length, 8)) //ignore block if patch data array length is not divisible by 8
+            //ignore block if patch data array length is not divisible by 8
+            if (!LogicTools.DivisibleBy(sysExData.Length, 8))
             {
                 ConsoleMessage.SendLine("Patch data (length " + sysExData.Length + ") incomplete, ignoring.", ConsoleColor.Red);
                 return;
             }
+
             //one 256-byte SysEx block can contain up to 32 patches
             int startingPatchNo = ((sysExAddress[1] * 128) + sysExAddress[2]) / 8;
             int noOfPatches = sysExData.Length / 8;
@@ -274,13 +288,16 @@ internal static class SysExFile
         void ExtractRhythmData(int[] sysExData, int[] sysExAddress)
         {
             //process rhythm settings
-            if (!LogicTools.DivisibleBy(sysExData.Length, 4)) //ignore block if rhythm data array length is not divisible by 4
+            //ignore block if rhythm data array length is not divisible by 4
+            if (!LogicTools.DivisibleBy(sysExData.Length, 4))
             {
                 ConsoleMessage.SendLine("Rhythm data incomplete, ignoring.", ConsoleColor.Red);
                 return;
             }
-            //one 256-byte SysEx block can contain up to 64 rhythm keys
-            int startingbankNo = ((sysExAddress[1] * 128) + sysExAddress[2] - 144) / 4; // Bank 0 is located at address {0x03, 0x01, 0x10}
+
+            // one 256-byte SysEx block can contain up to 64 rhythm keys
+            // Bank 0 is located at address {0x03, 0x01, 0x10}
+            int startingbankNo = ((sysExAddress[1] * 128) + sysExAddress[2] - 144) / 4;
             ConsoleMessage.SendLine("Address " + sysExAddress[0].ToString() + " " + sysExAddress[1].ToString() + " " + sysExAddress[2].ToString() + ": Bank No " + (startingbankNo + 1).ToString());
             int noOfKeys = sysExData.Length / 4;
             ConsoleMessage.SendLine(noOfKeys.ToString() + " keys found.");
@@ -353,12 +370,14 @@ internal static class SysExFile
             {
                 if (sysExAddress[2] != 0)
                 {
-                    return -1; //address suggests incomplete timbre data, ignore.
+                    //address suggests incomplete timbre data, ignore.
+                    return -1;
                 }
 
                 if (!LogicTools.DivisibleBy(sysExAddress[1], 2))
                 {
-                    return -1; //odd value suggests incomplete timbre data, ignore;
+                    //odd value suggests incomplete timbre data, ignore;
+                    return -1;
                 }
 
                 return sysExAddress[1] / 2;
@@ -382,7 +401,8 @@ internal static class SysExFile
                 memoryTimbre.SetTimbreName(timbreName);
                 memoryTimbre.SetPart12Structure(sysExData[10], autoCorrect: true);
                 memoryTimbre.SetPart34Structure(sysExData[11], autoCorrect: true);
-                memoryTimbre.SetSustainStatus(!LogicTools.IntToBool(sysExData[13])); //use inverse value
+                //use inverse value
+                memoryTimbre.SetSustainStatus(!LogicTools.IntToBool(sysExData[13]));
 
                 for (int partialNo = 0; partialNo < noOfPartials; partialNo++)
                 {
@@ -416,12 +436,14 @@ internal static class SysExFile
 
         if (saveDialog.ShowDialog() != DialogResult.OK)
         {
-            return; //file error
+            //file error
+            return;
         }
 
         if (saveDialog.FileName == "" || saveDialog.FileName == null)
         {
-            return; //user left filename blank
+            //user left filename blank
+            return;
         }
 
         FileStream sysExFile;
@@ -511,12 +533,14 @@ internal static class SysExFile
     {
         if (saveDialog.ShowDialog() != DialogResult.OK)
         {
-            return; //file error or cancelled dialogue
+            //file error or cancelled dialogue
+            return;
         }
 
         if (saveDialog.FileName == "" || saveDialog.FileName == null)
         {
-            return; //user didn't select a file
+            //user didn't select a file
+            return;
         }
 
         FileStream sysExFile;
@@ -525,7 +549,7 @@ internal static class SysExFile
         {
             sysExFile = (FileStream)saveDialog.OpenFile();
         }
-        catch (Exception ex)
+        catch(Exception e)
         {
             MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
             return;
@@ -544,7 +568,8 @@ internal static class SysExFile
         {
             for (int timbreNo = 0; timbreNo < 64; timbreNo++)
             {
-                int sumOfSysExValues = 0; //values of all parameters need to be totalled in order to calculate checksum
+                //values of all parameters need to be totalled in order to calculate checksum
+                int sumOfSysExValues = 0;
                 byte[] sysExAddr = MT32SysEx.MemoryTimbreAddress(timbreNo);
                 SaveSysExHeader(sysExFile);
                 sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
@@ -681,7 +706,8 @@ internal static class SysExFile
 
     private static void SaveMessage(FileStream sysExFile, SystemLevel systemConfig, int messageNo)
     {
-        int sumOfSysExValues = 0; //values of all parameters need to be totalled in order to calculate checksum
+        //values of all parameters need to be totalled in order to calculate checksum
+        int sumOfSysExValues = 0;
         string message = ParseTools.MakeNCharsLong(systemConfig.GetMessage(messageNo), 20);
         byte[] messageASCIIChars = Encoding.ASCII.GetBytes(message);
         byte[] sysExAddr = { 0x20, 0x00, 0x00 };

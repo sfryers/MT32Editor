@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Read-only data class containing names of all preset MT-32 timbres.
+/// </summary>
 internal static class PresetTimbreNames
 {
-    //
     // MT32Edit: PresetTimbreNames class (static)
     // S.Fryers Feb 2023
     // Read-only data class containing names of all preset MT-32 timbres.
-    //
     private static readonly string[] presetGroupA =     {
                                                         "AcouPiano1","AcouPiano2","AcouPiano3","ElecPiano1","ElecPiano2","ElecPiano3","ElecPiano4","Honkytonk" ,
                                                         "Elec Org 1","Elec Org 2","Elec Org 3","Elec Org 4","Pipe Org 1","Pipe Org 2","Pipe Org 3","Accordion" ,

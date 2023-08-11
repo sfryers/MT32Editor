@@ -2,13 +2,14 @@
 
 namespace MT32Edit;
 
+/// <summary>
+/// Simple tools to interface with NAudio MIDI library.
+/// </summary>
 internal static class Midi
 {
-    //
     // MT32Edit: Midi class (static)
     // S.Fryers Apr 2023
-    // Simple tools to interface with NAudio Midi library.
-    //
+    // Simple tools to interface with NAudio MIDI library.
     public static int OutDeviceIndex = -1;
 
     public static int InDeviceIndex = -1;
@@ -54,6 +55,7 @@ internal static class Midi
     }
 
     public static void InputMessageReceived(object sender, MidiInMessageEventArgs e)
+
     //echo any note data received from MIDI In port thru to MIDI Out port
     {
         if (MT32SysEx.uploadInProgress)
@@ -220,7 +222,8 @@ internal static class Midi
 
     public static void SendProgramChange(int patchNo, int channelNo)
     {
-        byte status = (byte)(0xC0 + channelNo); //program change
+        //program change
+        byte status = (byte)(0xC0 + channelNo);
         if (patchNo < 0 || patchNo > 127)
         {
             return;

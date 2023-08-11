@@ -1,12 +1,12 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Saves and load system parameters from .ini file
+/// </summary>
 internal static class ConfigFile
 {
-    //
-    // MT32Edit: ConfigFile class (static)
-    // S.Fryers Mar 2023
-    // Save and load system parameters from .ini file
-    //
+    // MT32Edit: ConfigFile class (static) S.Fryers Mar 2023 Save and load system parameters from
+    // .ini file
     public static readonly string fileName = "MT32Edit.ini";
 
     public static string[] Load()

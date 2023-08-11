@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
+/// </summary>
 internal static class MT32Strings
 {
-    //
     // MT32Edit: MT32Strings class (static)
     // S.Fryers Apr 2023
     // Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
-    //
     public static readonly string[] bank1SampleNames =
     {
         "Ac. Bass Drum","Ac. Snare Drum","El. Snare Drum","Electric Tom","Closed Hihat","Open Hihat","Crash Cymbal","Crash Cymbal (loop)","Ride cymbal","Rim Shot","Hand Clap","Muted Conga","Conga","Bongo","Cowbell",
@@ -22,6 +23,9 @@ internal static class MT32Strings
         "Perc. loop 1","Perc. loop 2","Orch&Perc loop","Wind&Perc loop","Guitar & Bass loop","Orchestra loop","Perc. loop 3","Bass & Perc. loop","Bass & Snare loop"
     };
 
+    /// <summary>
+    /// This sample bank is only available on CM-32L or MUNT with a CM-32L compatible ROM loaded
+    /// </summary>
     public static readonly string[] bank2SampleNames =
     {
         "Laugh #","Applause #","Windchime #","Crash #","Train #","Wind #","Bird #","Stream #","Door Creak #","Scream #","Punch #","Footsteps #","Door Slam #","Car Start #","Aircraft #","Gun Shot #",
@@ -34,7 +38,7 @@ internal static class MT32Strings
         "Jam-25 (Loop)","Jam-26 (Loop)","Jam-27 (Loop)","Jam-28 (Loop)","Jam-29 (Loop)","Jam-30 (Loop)","Jam-31 (Loop)","Jam-32 (Loop)","Jam-33 (Loop)","Jam-34 (Loop)","Jam-35 (Loop)","Jam-36 (Loop)",
         "Jam-37 (Loop)","Jam-38 (Loop)","Jam-39 (Loop)","Jam-40 (Loop)","Shot-1","Shot-2","Shot-3","Shot-4","Shot-5","Shot-6","Shot-7","Shot-8","Shot-9","Shot-10","Shot-11","Shot-12","Shot-13","Shot-14",
         "Shot-15","Shot-16","Shot-17","Shot-18","Shot-19","Shot-20","Shot-21","Shot-22","Shot-23","Shot-24","Shot-25","Shot-26","Alto Sax","Shakuhachi","Marimba","Dog Bark"
-    };  //This sample bank is only available on CM-32L or MUNT with a CM-32L compatible ROM loaded
+    };
 
     public static readonly string[] partialParameterNames =
     {
@@ -98,18 +102,22 @@ internal static class MT32Strings
 
     public const string EMPTY = "[empty]";
 
+    /// <summary>
+    /// Returns note & octave name from integer value where 0 = C-1 and 120 = C9
+    /// </summary>
     public static string PitchNote(int pitchValue)
     {
-        //returns note & octave name from integer value where 0 = C-1 and 120 = C9
         LogicTools.ValidateRange("Pitch Value", pitchValue, 0, 127, autoCorrect: false);
         int octave = (pitchValue - 12) / 12;
         int noteValue = pitchValue % 12;
         return noteName[noteValue] + octave.ToString();
     }
 
+    /// <summary>
+    /// Returns bias point note name where 0-63 = &lt; A1 to &lt; C4 and 64-128 =&gt; A1 to &gt; C4
+    /// </summary>
     public static string BiasPoint(int biasPointValue)
     {
-        //returns bias point note name where 0-63 = <A1 to <C4 and 64-128 = >A1 to >C4
         LogicTools.ValidateRange("Bias Point Value", biasPointValue, 0, 127, autoCorrect: false);
         string biasPt = ">";
         if (biasPointValue < 64)
@@ -130,9 +138,11 @@ internal static class MT32Strings
         return keyfollowRatio[keyfollowValue];
     }
 
+    /// <summary>
+    /// Create 4-character string representing active partials with numbers and muted partials with an underscore character
+    /// </summary>
     public static string PartialStatus(bool[] partialMuteStatus)
     {
-        //create 4-character string representing active partials with numbers and muted partials with an underscore character
         string partialStatusList = "";
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {
@@ -171,9 +181,12 @@ internal static class MT32Strings
         return waveform[waveformValue];
     }
 
+    /// <summary>
+    /// Produces appropriate string for non-numeric UI values
+    /// </summary>
     public static string PartialParameterValueText(int parameterNo, int parameterValue)
     {
-        switch (parameterNo) //produce appropriate string for non-numeric UI values
+        switch (parameterNo)
         {
             case 0x00:
                 return PitchNote(parameterValue);
@@ -194,20 +207,27 @@ internal static class MT32Strings
                 return BiasPoint(parameterValue);
 
             default:
-                return parameterValue.ToString();                           //if no text is provided then make numeric value into string
+                //if no text is provided then make numeric value into string
+                return parameterValue.ToString();
         }
     }
 
+    /// <summary>
+    /// Produces appropriate string for non-numeric UI values
+    /// </summary>
     public static string PatchParameterValueText(int parameterNo, int parameterValue)
     {
-        switch (parameterNo) //produce appropriate string for non-numeric UI values
+        switch (parameterNo)
         {
             case 0x05:
-                return (parameterValue + 1).ToString();                     //assign mode
+                //assign mode
+                return (parameterValue + 1).ToString();
             case 0x06:
-                return OnOffStatus(LogicTools.IntToBool(parameterValue));   //reverb status
+                //reverb status
+                return OnOffStatus(LogicTools.IntToBool(parameterValue));
             default:
-                return parameterValue.ToString();                           //if no text is provided then make numeric value into string
+                //if no text is provided then make numeric value into string
+                return parameterValue.ToString();
         }
     }
 }

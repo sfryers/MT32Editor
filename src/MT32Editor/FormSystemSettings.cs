@@ -1,12 +1,17 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Form gives access to MT-32 system area parameters. <br/>
+/// Allows configuration of master volume, master tuning, reverb, MIDI channels and partial reserve settings.
+/// </summary>
 public partial class FormSystemSettings : Form
 {
-    //
     // MT32Edit: FormSystemSettings
     // S.Fryers Aug 2023
-    // Form gives access to MT-32 system area parameters- allows configuration of master volume, master tuning, reverb, MIDI channels and partial reserve settings.
-    //
+    // Form gives access to MT-32 system area parameters -
+    // allows configuration of master volume, master tuning, reverb, MIDI channels and
+    // partial reserve settings.
+
     private readonly SystemLevel system = new SystemLevel();
 
     private readonly SaveFileDialog saveSystemDialog = new SaveFileDialog();
@@ -111,7 +116,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 4 channel: " + numericUpDownMIDIPart4.Value.ToString());
+            MT32SysEx.SendText($"Part 4 channel: {numericUpDownMIDIPart4.Value.ToString()}");
         }
 
         SetRadioButtons();

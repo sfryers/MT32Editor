@@ -1,17 +1,25 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Plot graphs to represent MT-32 pitch, filter and amplitude envelopes
+/// </summary>
 internal class EnvelopeGraph
 {
-    //
     // MT32Edit: EnvelopeGraph Class
     // S.Fryers Feb 2023
     // Plot graphs to represent MT-32 pitch, filter and amplitude envelopes
-    //
-    private readonly int xStart = 0;                 //top edge of graph box
 
-    private readonly int yStart = 0;                 //left edge of graph box
-    private readonly int xWidth = 250;      //width of graph box
-    private readonly int yHeight = 100;     //height of graph box
+    //top edge of graph box
+    private readonly int xStart = 0;
+
+    //left edge of graph box
+    private readonly int yStart = 0;
+
+    //width of graph box
+    private readonly int xWidth = 250;
+
+    //height of graph box
+    private readonly int yHeight = 100;
 
     private readonly Pen yellowPen = new Pen(Color.Yellow, 2);
     private readonly Pen bluePen = new Pen(Color.LightBlue, 2);
@@ -46,25 +54,31 @@ internal class EnvelopeGraph
         {
             if (timbre.GetPartialMuteStatus()[partial])
             {
-                continue;           //don't draw muted partials
+                //don't draw muted partials
+                continue;
             }
             else if (partial == activePartial)
             {
-                continue;                    //don't draw active partial yet
+                //don't draw active partial yet
+                continue;
             }
             else if (!drawAllPartials)
             {
-                continue;                            //don't draw partials unless drawAllPartials is true
+                //don't draw partials unless drawAllPartials is true
+                continue;
             }
 
-            DrawEnvelope(envelope, timbre, graphType, partial, highlight: false, label: false);      //draw background partial
+            //draw background partial
+            DrawEnvelope(envelope, timbre, graphType, partial, highlight: false, label: false);
         }
         if (timbre.GetPartialMuteStatus()[activePartial])
         {
-            return;           //don't draw muted active partial
+            //don't draw muted active partial
+            return;
         }
 
-        DrawEnvelope(envelope, timbre, graphType, activePartial, highlight: true, label: showLabels);     //draw active partial last
+        //draw active partial last
+        DrawEnvelope(envelope, timbre, graphType, activePartial, highlight: true, label: showLabels);
 
         void DrawEnvelope(Graphics envelope, TimbreStructure timbre, int graphType, int partial, bool highlight, bool label)
         {
@@ -162,7 +176,8 @@ internal class EnvelopeGraph
         Pen env = greyPen;
         Pen sust = greyPen;
 
-        if (highlight) //only draw axes and vertical gridlines for the highlighted partial
+        //only draw axes and vertical gridlines for the highlighted partial
+        if (highlight)
         {
             env = yellowPen;
             sust = bluePen;
@@ -174,6 +189,7 @@ internal class EnvelopeGraph
             envelope.DrawLine(whitePen, xStart + T[4, p], yStart + yHeight, xStart + T[4, p], yStart + (100 - LSus[p]));    //draw L4 vertical
             envelope.DrawLine(whitePen, xStart + TSus[p], yStart + yHeight, xStart + TSus[p], yStart + (100 - LSus[p]));    //draw key off vertical
         }
+
         //plot envelope
         envelope.DrawLine(env, xStart, yStart + yHeight, xStart + T[1, p], yStart + (100 - L[1, p]));                        //draw start to T1/L1
         envelope.DrawLine(env, xStart + T[1, p], yStart + (100 - L[1, p]), xStart + T[2, p], yStart + (100 - L[2, p]));     //draw T1/L1 to T2/L2
@@ -196,7 +212,8 @@ internal class EnvelopeGraph
         Pen sust = greyPen;
         Pen rel = greyPen;
 
-        if (highlight)  //only draw axes and vertical gridlines for the highlighted partial
+        //only draw axes and vertical gridlines for the highlighted partial
+        if (highlight)
         {
             env = yellowPen;
             sust = bluePen;
@@ -210,6 +227,7 @@ internal class EnvelopeGraph
             envelope.DrawLine(whitePen, xStart + TSus[p], yStart + (yHeight / 2), xStart + TSus[p], yStart + (50 - LSus[p]));   //draw key off vertical
             envelope.DrawLine(whitePen, xStart + T[4, p], yStart + (yHeight / 2), xStart + T[4, p], yStart + (50 - LRel[p]));   //draw release vertical
         }
+
         //plot envelope
         envelope.DrawLine(env, xStart, yStart + (50 - L[0, p]), xStart + T[1, p], yStart + (50 - L[1, p]));                     //draw L0 to T1/L1
         envelope.DrawLine(env, xStart + T[1, p], yStart + (50 - L[1, p]), xStart + T[2, p], yStart + (50 - L[2, p]));           //draw T1/L1 to T2/L2

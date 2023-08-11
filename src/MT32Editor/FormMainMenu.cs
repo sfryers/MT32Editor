@@ -2,15 +2,17 @@
 
 namespace MT32Edit;
 
+/// <summary>
+/// Primary form for MT-32 Editor application, serving as menu bar and MDI
+/// container for the memory bank editor, patch editor, rhythm editor and timbre editor forms.
+/// </summary>
 public partial class FormMainMenu : Form
 {
-    // MT-32 Editor
-    // A patch/timbre editor and SysEx librarian for Roland MT-32/CM-32L and compatible synthesizers, including the MUNT software emulator.
-    // S.Fryers
-    // sfryers@hotmail.com
+    // MT-32 Editor A patch/timbre editor and SysEx librarian for Roland MT-32/CM-32L and compatible
+    // synthesizers, including the MUNT software emulator. S.Fryers sfryers@hotmail.com
     //
-    // MT32Edit: FormMainMenu
-    // Primary form for MT-32 Editor application, serving as menu bar and MDI container for the memory bank editor, patch editor, rhythm editor and timbre editor forms.
+    // MT32Edit: FormMainMenu Primary form for MT-32 Editor application, serving as menu bar and MDI
+    // container for the memory bank editor, patch editor, rhythm editor and timbre editor forms.
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -186,7 +188,8 @@ public partial class FormMainMenu : Form
         void InitialiseMidiInConnection()
         {
             int inDeviceNo = 0;
-            midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());                                    //List available MIDI In devices in combo box
+            //List available MIDI In devices in combo box
+            midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());
             if (midiInToolStripMenuItem.Items.Count == 0)
             {
                 return;
@@ -196,7 +199,8 @@ public partial class FormMainMenu : Form
             {
                 if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0])
                 {
-                    inDeviceNo = device;      //Set active MIDI In device
+                    //Set active MIDI In device
+                    inDeviceNo = device;
                 }
             }
             midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
@@ -209,7 +213,8 @@ public partial class FormMainMenu : Form
         void InitialiseMidiOutConnection()
         {
             int outDeviceNo = 0;
-            midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());                                  //List available MIDI Out devices in combo box
+            //List available MIDI Out devices in combo box
+            midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());
             if (midiOutToolStripMenuItem.Items.Count == 0)
             {
                 return;
@@ -219,7 +224,8 @@ public partial class FormMainMenu : Form
             {
                 if (Midi.GetOutputDeviceName(device).ToString() == midiDeviceNames[1])
                 {
-                    outDeviceNo = device;    //Set active MIDI Out device
+                    //Set active MIDI Out device
+                    outDeviceNo = device;
                 }
             }
             midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
@@ -232,13 +238,13 @@ public partial class FormMainMenu : Form
 
     private void MidiInError(string midiInDeviceName)
     {
-        MessageBox.Show("Error: Cannot open MIDI In device '" + midiInDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
+        MessageBox.Show($"Error: Cannot open MIDI In device '{midiInDeviceName}'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
         midiInError = true;
     }
 
     private void MidiOutError(string midiOutDeviceName)
     {
-        MessageBox.Show("Error: Cannot open MIDI Out device '" + midiOutDeviceName + "'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
+        MessageBox.Show($"Error: Cannot open MIDI Out device '{midiOutDeviceName}'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
         midiOutError = true;
     }
 
@@ -254,7 +260,8 @@ public partial class FormMainMenu : Form
     {
         if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
         {
-            MidiInError(midiInToolStripMenuItem.Text); //assign new MIDI In device
+            //assign new MIDI In device
+            MidiInError(midiInToolStripMenuItem.Text);
         }
 
         ConfigFile.Save();

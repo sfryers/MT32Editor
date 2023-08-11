@@ -1,13 +1,16 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
+/// </summary>
 public partial class FormRhythmEditor : Form
 {
-    //
     // MT32Edit: FormRhythmEditor
     // S.Fryers Aug 2023
     // Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
-    //
-    private const int bankOffset = 2; //Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
+
+    //Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
+    private const int bankOffset = 2;
 
     private readonly MT32State memoryState = new MT32State();
     private DateTime lastGlobalUpdate = DateTime.Now;
@@ -47,9 +50,11 @@ public partial class FormRhythmEditor : Form
         ScaleListViewColumns();
     }
 
+    /// <summary>
+    /// Scale listView to form size
+    /// </summary>
     private void ScaleListView()
     {
-        //Scale listView to form size
         listViewRhythmBank.Width = Width - 30;
         listViewRhythmBank.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
     }
@@ -87,7 +92,10 @@ public partial class FormRhythmEditor : Form
         SelectKeyInListView(selectedKey);
     }
 
-    private void PopulateRhythmFormParameters(int keyNo) //update controls with selected patch parameter values
+    /// <summary>
+    /// Updates controls with selected patch parameter values
+    /// </summary>
+    private void PopulateRhythmFormParameters(int keyNo)
     {
         int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
         int selectedKey = keyNo;
@@ -160,9 +168,11 @@ public partial class FormRhythmEditor : Form
         switch (MessageBox.Show("Unsaved changes will be lost!", "MT-32 Rhythm Bank Editor", MessageBoxButtons.OKCancel))
         {
             case DialogResult.OK:
-                break;              //Allow form to close
+                //Allow form to close
+                break;
             case DialogResult.Cancel:
-                e.Cancel = true;    //Cancel form close request
+                //Cancel form close request
+                e.Cancel = true;
                 break;
         }
     }
@@ -179,7 +189,7 @@ public partial class FormRhythmEditor : Form
     {
         if (listViewRhythmBank.SelectedIndices.Count > 0)
         {
-            PopulateRhythmFormParameters(listViewRhythmBank.SelectedIndices[0] + RhythmConstants.KEY_OFFSET); //(selectedKey);
+            PopulateRhythmFormParameters(listViewRhythmBank.SelectedIndices[0] + RhythmConstants.KEY_OFFSET);
         }
     }
 
@@ -345,15 +355,18 @@ public partial class FormRhythmEditor : Form
                 int keyNo = bankNo + RhythmConstants.KEY_OFFSET;
                 if (memoryState.rhythmEditorActive)
                 {
-                    return;    // only proceed if focus is not on rhythm editor
+                    // only proceed if focus is not on rhythm editor
+                    return;
                 }
 
                 if (numericUpDownKeyNo.Value == keyNo)
                 {
-                    return; // patch is already selected
+                    // patch is already selected
+                    return;
                 }
 
-                numericUpDownKeyNo.Value = keyNo;              // focus on selected rhythm key
+                // focus on selected rhythm key
+                numericUpDownKeyNo.Value = keyNo;
                 memoryState.returnFocusToMemoryBankList = true;
                 return;
             }
@@ -362,7 +375,8 @@ public partial class FormRhythmEditor : Form
 
     private void CheckForMemoryStateUpdates()
     {
-        if (lastGlobalUpdate < memoryState.GetUpdateTime()) //only refresh if memoryState has recently been updated
+        //only refresh if memoryState has recently been updated
+        if (lastGlobalUpdate < memoryState.GetUpdateTime())
         {
             ConsoleMessage.SendLine("Updating Rhythm Bank List");
             DoFullRefresh();
@@ -382,7 +396,8 @@ public partial class FormRhythmEditor : Form
         if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
         {
             ConsoleMessage.SendLine("Updating Memory Timbre Names List");
-            RefreshTimbreNamesList(); //ensure that memory timbre name changes are synchronised across comboBox and listView
+            //ensure that memory timbre name changes are synchronised across comboBox and listView
+            RefreshTimbreNamesList();
             comboBoxTimbreName.Text = newTimbreName;
         }
     }

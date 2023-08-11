@@ -1,12 +1,13 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Basic filename/filepath tools
+/// </summary>
 internal static class FileTools
 {
-    //
     // MT32Edit: FileTools class (static)
     // S.Fryers Mar 2023
     // Basic filename/filepath tools
-    //
     public static string AskUserForFilePath()
     {
         FolderBrowserDialog selectFolder = new FolderBrowserDialog();
@@ -25,17 +26,22 @@ internal static class FileTools
         }
     }
 
+    /// <summary>
+    /// If fileName already exists, add a bracketed unique sequential number before the filename extension.
+    /// </summary>
     public static string EnsureUniqueFilename(string fileName)
     {
-        //if fileName already exists, add a bracketed unique sequential number before the filename extension.
         string fileExtension = ParseTools.RightOfChar(fileName, '.');
-        fileName = ParseTools.LeftOfChar(fileName, '.');                  //remove file extension
+
+        //remove file extension
+        fileName = ParseTools.LeftOfChar(fileName, '.');
         fileName = ParseTools.RemoveTrailingSpaces(fileName);
         string originalFileName = fileName;
         int counter = 1;
         while (File.Exists(fileName + "." + fileExtension))
         {
-            fileName = originalFileName + "(" + counter.ToString() + ")"; //append bracketed number
+            //append bracketed number
+            fileName = originalFileName + "(" + counter.ToString() + ")";
             counter++;
         }
         fileName += "." + fileExtension;

@@ -1,10 +1,7 @@
 namespace MT32Edit;
 
-//
-// MT32Edit: FormPatchEditor
-// S.Fryers Aug 2023
-// Form showing visual representation of MT-32's 128 patch banks- allows custom patches to be configured
-//
+// MT32Edit: FormPatchEditor S.Fryers Aug 2023 Form showing visual representation of MT-32's 128
+// patch banks- allows custom patches to be configured
 public partial class FormPatchEditor : Form
 {
     private readonly MT32State memoryState = new MT32State();
@@ -48,16 +45,20 @@ public partial class FormPatchEditor : Form
         ScaleListViewColumns();
     }
 
+    /// <summary>
+    /// Scales listView to form size
+    /// </summary>
     private void ScaleListView()
     {
-        //Scale listView to form size
         listViewPatches.Width = Width - 30;
         listViewPatches.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
     }
 
+    /// <summary>
+    /// Sets column widths to fill the available space
+    /// </summary>
     private void ScaleListViewColumns()
     {
-        //Set column widths to fill the available space
         int listWidth = listViewPatches.Width;
         listViewPatches.Columns[0].Width = (int)(listWidth * 0.10);
         listViewPatches.Columns[1].Width = (int)(listWidth * 0.19);
@@ -76,9 +77,13 @@ public partial class FormPatchEditor : Form
         listViewPatches.Select();
     }
 
-    private void PopulatePatchFormParameters(int patchNo) //update controls with selected patch parameter values
+    /// <summary>
+    /// Updates controls with selected patch parameter values
+    /// </summary>
+    private void PopulatePatchFormParameters(int patchNo)
     {
-        sendSysEx = false; //prevent every updated form control from triggering a separate sysex message
+        //prevent every updated form control from triggering a separate sysex message
+        sendSysEx = false;
         int selectedPatch = patchNo;
         memoryState.SetSelectedPatchNo(selectedPatch);
         Patch memoryPatch = memoryState.GetPatch(patchNo);
@@ -107,7 +112,8 @@ public partial class FormPatchEditor : Form
 
     private void AddListViewColumnItems(int patchNo)
     {
-        ListViewItem item = new ListViewItem((patchNo + 1).ToString()); //number patch list starting from 1
+        //number patch list starting from 1
+        ListViewItem item = new ListViewItem((patchNo + 1).ToString());
         Patch memoryPatch = memoryState.GetPatch(patchNo);
         item.SubItems.Add(memoryPatch.GetTimbreGroupType());
         item.SubItems.Add(memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup()));
@@ -115,7 +121,8 @@ public partial class FormPatchEditor : Form
         item.SubItems.Add(memoryPatch.GetFineTune().ToString());
         item.SubItems.Add(memoryPatch.GetBenderRange().ToString());
         item.SubItems.Add(MT32Strings.OnOffStatus(memoryPatch.GetReverbEnabled()));
-        item.SubItems.Add((memoryPatch.GetAssignMode() + 1).ToString()); //modes are internally numbered 0-3, but show 1-4 in UI.
+        //modes are internally numbered 0-3, but show 1-4 in UI.
+        item.SubItems.Add((memoryPatch.GetAssignMode() + 1).ToString());
         listViewPatches.Items.Add(item);
     }
 
@@ -170,9 +177,11 @@ public partial class FormPatchEditor : Form
         switch (MessageBox.Show("Unsaved changes will be lost!", "MT-32 Patch Editor", MessageBoxButtons.OKCancel))
         {
             case DialogResult.OK:
-                break;              //Allow form to close
+                //Allow form to close
+                break;
             case DialogResult.Cancel:
-                e.Cancel = true;    //Cancel form close request
+                //Cancel form close request
+                e.Cancel = true;
                 break;
         }
     }
@@ -192,9 +201,13 @@ public partial class FormPatchEditor : Form
         comboBoxTimbreName.Invalidate();
     }
 
-    private void listViewPatches_SelectedIndexChanged(object sender, EventArgs e)   //patch selection changed- populate controls with new patch parameters
+    /// <summary>
+    /// Patch selection changed -> populate controls with new patch parameters
+    /// </summary>
+    private void listViewPatches_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (listViewPatches.SelectedIndices.Count > 0)                              //don't attempt to read from an empty listview
+        //don't attempt to read from an empty listview
+        if (listViewPatches.SelectedIndices.Count > 0)
         {
             int selectedPatch = listViewPatches.SelectedIndices[0];
             PopulatePatchFormParameters(selectedPatch);
@@ -202,7 +215,10 @@ public partial class FormPatchEditor : Form
         RefreshTimbreNamesList();
     }
 
-    private void numericUpDownPatchNo_ValueChanged(object sender, EventArgs e) //update controls with selected patch parameter values
+    /// <summary>
+    /// Updates controls with selected patch parameter values
+    /// </summary>
+    private void numericUpDownPatchNo_ValueChanged(object sender, EventArgs e)
     {
         int selectedPatch = (int)numericUpDownPatchNo.Value - 1;
         memoryState.SetSelectedPatchNo(selectedPatch);
@@ -243,7 +259,10 @@ public partial class FormPatchEditor : Form
         ScaleListView();
     }
 
-    private void comboBoxTimbreGroup_SelectionChangeCommitted(object sender, EventArgs e) //timbre group changed- populate timbre list with names from selected bank
+    /// <summary>
+    /// Timbre group changed -> populate timbre list with names from selected bank
+    /// </summary>
+    private void comboBoxTimbreGroup_SelectionChangeCommitted(object sender, EventArgs e)
     {
         int selectedPatch = memoryState.GetSelectedPatchNo();
         Patch memoryPatch = memoryState.GetPatch(selectedPatch);
@@ -382,15 +401,18 @@ public partial class FormPatchEditor : Form
             {
                 if (memoryState.patchEditorActive)
                 {
-                    return;             // only proceed if focus is not on patch editor
+                    // only proceed if focus is not on patch editor
+                    return;
                 }
 
                 if (numericUpDownPatchNo.Value == patchNo + 1)
                 {
-                    return; // patch is already selected
+                    // patch is already selected
+                    return;
                 }
 
-                numericUpDownPatchNo.Value = patchNo + 1;              // focus on selected patch
+                // focus on selected patch
+                numericUpDownPatchNo.Value = patchNo + 1;
                 memoryState.returnFocusToMemoryBankList = true;
                 return;
             }
@@ -399,7 +421,8 @@ public partial class FormPatchEditor : Form
 
     private void CheckForMemoryStateUpdates()
     {
-        if (lastGlobalUpdate < memoryState.GetUpdateTime()) //only refresh if memoryState has recently been updated
+        //only refresh if memoryState has recently been updated
+        if (lastGlobalUpdate < memoryState.GetUpdateTime())
         {
             ConsoleMessage.SendLine("Updating Patch List");
             DoFullRefresh(memoryState.GetSelectedPatchNo());
@@ -418,7 +441,8 @@ public partial class FormPatchEditor : Form
 
         if (comboBoxTimbreName.Text != newTimbreName)
         {
-            RefreshTimbreNamesList(); //ensure that memory timbre name changes are synchronised across comboBox and listView
+            //ensure that memory timbre name changes are synchronised across comboBox and listView
+            RefreshTimbreNamesList();
             comboBoxTimbreName.Text = newTimbreName;
         }
     }

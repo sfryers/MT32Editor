@@ -1,15 +1,20 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Data structure representing user-accessible timbre memory areas of MT-32, as per published
+/// Roland MIDI implementation.
+/// </summary>
 public class TimbreStructure
 {
-    //
-    // MT32Edit: TimbreStructure class
-    // S.Fryers Apr 2023
-    // Data structure representing user-accessible timbre memory areas of MT-32, as per published Roland MIDI implementation.
-    //
-    public const int PARTIALS = 4;                  //each timbre consists of (up to) 4 partials
+    // MT32Edit: TimbreStructure class S.Fryers Apr 2023 Data structure representing user-accessible
+    // timbre memory areas of MT-32, as per published Roland MIDI implementation.
 
-    public const int PARAMETERS = 58;              //each partial contains 58 (0x3A) parameters
+    //each timbre consists of (up to) 4 partials
+    public const int PARTIALS = 4;
+
+    //each partial contains 58 (0x3A) parameters
+    public const int PARAMETERS = 58;
+
     private string timbreName = string.Empty;
     private int part12Structure;
     private int part34Structure;
@@ -28,12 +33,16 @@ public class TimbreStructure
         if (createAudibleTimbre)
         {
             timbreName = "New Timbre";
-            partialMuteStatus = new bool[] { false, true, true, true }; //false = not muted, true = muted
+
+            //false = not muted, true = muted
+            partialMuteStatus = new bool[] { false, true, true, true };
         }
         else
         {
             timbreName = ParseTools.MakeNCharsLong(MT32Strings.EMPTY, 10);
-            partialMuteStatus = new bool[] { true, true, true, true }; //all partials muted
+
+            //all partials muted
+            partialMuteStatus = new bool[] { true, true, true, true };
         }
         part12Structure = 0;
         part34Structure = 0;
@@ -151,13 +160,19 @@ public class TimbreStructure
         return MT32Strings.partialParameterNames[parameterNo];
     }
 
-    public byte GetSysExParameter(int partialNo, int parameterNo) //return parameter byte value
+    /// <summary>
+    /// Returns parameter byte value
+    /// </summary>
+    public byte GetSysExParameter(int partialNo, int parameterNo)
     {
         ValidatePartialNo(partialNo);
         return partial[partialNo, parameterNo];
     }
 
-    public void SetSysExParameter(int partialNo, int parameterNo, int value) //set parameter byte value, restricting value to valid range
+    /// <summary>
+    /// Set parameter byte value, restricting value to valid range
+    /// </summary>
+    public void SetSysExParameter(int partialNo, int parameterNo, int value)
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);
@@ -191,10 +206,15 @@ public class TimbreStructure
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);
-        return partial[partialNo, parameterNo] - PartialConstants.offset[parameterNo]; //return parameter value with appropriate offset for UI controls that permit negative values
+
+        //return parameter value with appropriate offset for UI controls that permit negative values
+        return partial[partialNo, parameterNo] - PartialConstants.offset[parameterNo];
     }
 
-    public void SetUIParameter(int partialNo, int parameterNo, int value) //set parameter UI value, restricting input range and applying correct offset value
+    /// <summary>
+    /// Set parameter UI value, restricting input range and applying correct offset value
+    /// </summary>
+    public void SetUIParameter(int partialNo, int parameterNo, int value)
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);

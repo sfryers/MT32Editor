@@ -1,12 +1,14 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Data structure representing user-accessible memory areas of MT-32, as per published MIDI implementation.
+/// </summary>
 public class MT32State
 {
-    //
     // MT32Edit: MT32State class
     // S.Fryers Mar 2023
-    // Data structure representing user-accessible memory areas of MT-32, as per published MIDI implementation.
-    //
+    // Data structure representing user-accessible
+    // memory areas of MT-32, as per published MIDI implementation.
     private SystemLevel system = new SystemLevel();
 
     private Patch[] patchArray = new Patch[128];

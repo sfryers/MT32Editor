@@ -2,19 +2,22 @@
 
 namespace MT32Edit;
 
+/// <summary>
+/// Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)
+/// </summary>
 internal static class TimbreFile
 {
-    //
-    // MT32Edit: TimbreFile class (static)
-    // S.Fryers Apr 2023
-    // Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)
-    // Valid .timbre files consist of:
-    //      bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "
-    //      bytes 40-49: 10-character ASCII timbre name string
-    //      bytes 50-53: 2x partial structures, partial mute status (encoded as 4 boolean values rather than the single byte value used in the SysEx format), sustain status,
-    //      bytes 54-285: 58 parameter byte values for each of the four partials in order.
+    // MT32Edit: TimbreFile class (static) S.Fryers Apr 2023 Load/save MT-32 timbre data files
+    // from/to local filesystem (using proprietary binary .timbre format) Valid .timbre files
+    // consist of: bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "
+    // bytes 40-49: 10-character ASCII timbre name string bytes 50-53: 2x partial structures,
+    // partial mute status (encoded as 4 boolean values rather than the single byte value used in
+    // the SysEx format), sustain status, bytes 54-285: 58 parameter byte values for each of the
+    // four partials in order.
 
-    private const int VALID_FILE_LENGTH = 286; // Total size of valid .timbre file is 286 bytes.
+    // Total size of valid .timbre file is 286 bytes.
+    private const int VALID_FILE_LENGTH = 286;
+
     private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
     public static string Load(TimbreStructure timbre)
@@ -69,7 +72,9 @@ internal static class TimbreFile
             timbreFile.Read(timbreData, 0, timbreData.Length);
             timbre.SetPart12Structure(timbreData[0]);
             timbre.SetPart34Structure(timbreData[1]);
-            timbre.SetSustainStatus(!LogicTools.IntToBool(timbreData[3])); //use inverse value
+
+            //use inverse value
+            timbre.SetSustainStatus(!LogicTools.IntToBool(timbreData[3]));
         }
 
         void LoadPartials()
@@ -135,7 +140,8 @@ internal static class TimbreFile
             string timbreName = ParseTools.RemoveTrailingSpaces(timbreArray[timbreNo].GetTimbreName());
             if (timbreName == MT32Strings.EMPTY)
             {
-                continue; //skip empty timbres
+                //skip empty timbres
+                continue;
             }
 
             string timbreFileName = CreateBatchTimbreFilename(timbreNo);
@@ -199,7 +205,8 @@ internal static class TimbreFile
 
     private static void SaveTimbreFileContents(TimbreStructure timbre, FileStream file)
     {
-        string fileHeader = "MT-32 Editor v1 timbre definition file: "; //40 character header
+        //40 character header
+        string fileHeader = "MT-32 Editor v1 timbre definition file: ";
         file.Write(Encoding.ASCII.GetBytes(fileHeader), 0, 40);
         SaveTimbreParameters(timbre, file);
         SavePartials(timbre, file);
@@ -227,7 +234,9 @@ internal static class TimbreFile
         file.Write(timbreNameASCIIChars, 0, 10);
         file.Write(timbreData, 0, timbreData.Length);
         int sumOfSysExValues = ParseTools.CharacterSum(timbreNameASCIIChars, 10) + timbreData[0] + timbreData[1] + timbreData[2] + timbreData[3];
-        return sumOfSysExValues; //sum of individual parameter values- required to calculate checksum
+
+        //sum of individual parameter values- required to calculate checksum
+        return sumOfSysExValues;
     }
 
     public static int SavePartials(TimbreStructure timbre, FileStream file)

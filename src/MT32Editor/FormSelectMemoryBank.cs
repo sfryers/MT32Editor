@@ -1,12 +1,14 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Simple form allowing selection of a memory bank to copy preset timbre into
+/// </summary>
 public partial class FormSelectMemoryBank : Form
 {
-    //
     // MT32Edit: FormSelectMemoryBank
     // S.Fryers Apr 2023
     // Simple form allowing selection of a memory bank to copy preset timbre into
-    //
+
     private const int MEMORY_GROUP = 2;
 
     private readonly MT32State memoryState = new MT32State();
@@ -26,7 +28,8 @@ public partial class FormSelectMemoryBank : Form
         string[] memoryTimbreNames = memoryState.GetTimbreNames().GetAll(MEMORY_GROUP);
         for (int timbreNo = 0; timbreNo < memoryTimbreNames.Length; timbreNo++)
         {
-            memoryTimbreNames[timbreNo] = (timbreNo + 1).ToString() + ":   " + memoryTimbreNames[timbreNo]; //prefix timbre names with numbered list starting from 1
+            //prefix timbre names with numbered list starting from 1
+            memoryTimbreNames[timbreNo] = (timbreNo + 1).ToString() + ":   " + memoryTimbreNames[timbreNo];
         }
         comboBoxMemoryBank.DataSource = memoryTimbreNames;
         comboBoxMemoryBank.Text = memoryState.GetTimbreNames().Get(0, MEMORY_GROUP);
@@ -59,7 +62,7 @@ public partial class FormSelectMemoryBank : Form
     {
         if (buttonOK.Text == "Replace")
         {
-            switch (MessageBox.Show("This memory slot is already occupied. Overwrite " + memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, MEMORY_GROUP) + " with preset timbre " + presetTimbreName + "?", "Confirm timbre replacement", MessageBoxButtons.OKCancel))
+            switch (MessageBox.Show($"This memory slot is already occupied. Overwrite {memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, MEMORY_GROUP)} with preset timbre {presetTimbreName}?", "Confirm timbre replacement", MessageBoxButtons.OKCancel))
             {
                 case DialogResult.OK:
                     break;

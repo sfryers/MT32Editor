@@ -1,12 +1,15 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
+/// </summary>
 public partial class FormMemoryBankEditor : Form
 {
-    //
     // MT32Edit: FormMemoryBankEditor
     // S.Fryers Aug 2023
-    // Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
-    //
+    // Form showing visual representation of
+    // MT-32's 64 memory banks- allows custom timbres to be mapped
+
     private readonly MT32State memoryState = new MT32State();
 
     private readonly FormTimbreEditor timbreEditor;
@@ -74,7 +77,8 @@ public partial class FormMemoryBankEditor : Form
     private void AddListViewColumnItems(int timbreNo)
     {
         ListViewItem item;
-        item = new ListViewItem((timbreNo + 1).ToString());         //enumerate memory bank list starting from 1
+        //enumerate memory bank list starting from 1
+        item = new ListViewItem((timbreNo + 1).ToString());
         if (memoryState.GetMemoryTimbre(timbreNo) == null)
         {
             item.SubItems.Add(memoryState.GetTimbreNames().Get(timbreNo, 2));
@@ -87,16 +91,21 @@ public partial class FormMemoryBankEditor : Form
         listViewTimbres.Items.Add(item);
     }
 
-    private void PopulateTimbreFormParameters(int selectedTimbre)   //update controls with selected timbre parameter values
+    /// <summary>
+    /// Updates controls with selected timbre parameter values
+    /// </summary>
+    private void PopulateTimbreFormParameters(int selectedTimbre)
     {
-        numericUpDownTimbreNo.Value = selectedTimbre + 1;           //numericUpDown range is 1-64
+        //numericUpDown range is 1-64
+        numericUpDownTimbreNo.Value = selectedTimbre + 1;
         labelTimbreName.Text = GetMemoryTimbreName(selectedTimbre);
         MT32SysEx.PreviewTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
     }
 
     private void numericUpDownTimbreNo_ValueChanged(object sender, EventArgs e)
     {
-        int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;  //selectedTimbre range is 0-63
+        //selectedTimbre range is 0-63
+        int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
         string timbreName = GetMemoryTimbreName(selectedTimbre);
         memoryState.SetSelectedMemoryTimbre(selectedTimbre);
         labelTimbreName.Text = timbreName;
@@ -173,7 +182,8 @@ public partial class FormMemoryBankEditor : Form
     {
         if (listViewTimbres.SelectedIndices.Count > 0)
         {
-            PopulateTimbreFormParameters(listViewTimbres.SelectedIndices[0]); //don't attempt to read from an empty listview
+            //don't attempt to read from an empty listview
+            PopulateTimbreFormParameters(listViewTimbres.SelectedIndices[0]);
         }
     }
 
@@ -234,7 +244,8 @@ public partial class FormMemoryBankEditor : Form
         Patch patchData = memoryState.GetPatch(selectedPatchNo);
         if (patchData.GetTimbreGroupType() == "Memory")
         {
-            FindTimbre(); //focus memory bank editor on selected memory patch and enable timbre editor
+            //focus memory bank editor on selected memory patch and enable timbre editor
+            FindTimbre();
         }
         else
         {
@@ -260,7 +271,8 @@ public partial class FormMemoryBankEditor : Form
         Rhythm rhythmBank = memoryState.GetRhythm(bankNo);
         if (rhythmBank.GetTimbreGroupType() == "Memory")
         {
-            FindTimbre(); //focus rhythm bank editor on selected memory patch and enable timbre editor
+            //focus rhythm bank editor on selected memory patch and enable timbre editor
+            FindTimbre();
         }
         else
         {
@@ -298,7 +310,8 @@ public partial class FormMemoryBankEditor : Form
         TimbreStructure timbre = memoryState.GetMemoryTimbre(selectedTimbre);
         TimbreNames timbreNames = new TimbreNames();
         string timbreName = timbre.GetTimbreName();
-        if (lastGlobalUpdate < timbre.GetUpdateTime()) //refresh listview if memoryState has recently been updated
+        //refresh listview if memoryState has recently been updated
+        if (lastGlobalUpdate < timbre.GetUpdateTime())
         {
             PopulateMemoryBankListView(selectedTimbre);
             lastGlobalUpdate = DateTime.Now;

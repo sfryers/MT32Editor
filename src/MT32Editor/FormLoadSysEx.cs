@@ -1,13 +1,15 @@
 ﻿namespace MT32Edit;
 
+/// <summary>
+/// Simple form containing loading bar to display during timbre data upload Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
+/// </summary>
 public partial class FormLoadSysEx : Form
 {
-    //
     // MT32Edit: FormLoadSysEx
     // S.Fryers Mar 2023
-    // Simple form containing loading bar to display during timbre data upload
-    // Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
-    //
+    // Simple form containing loading bar to display
+    // during timbre data upload Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
+
     private readonly MT32State memoryState;
 
     private int timbreNo = 0;
@@ -16,7 +18,13 @@ public partial class FormLoadSysEx : Form
     private const int PATCHES_PER_BLOCK = 32;
     private const int RHYTHM_BANKS_PER_BLOCK = 42;
     private const int MT32_DELAY = 50;
-    private int stepNo = 0; //Step 0 = load system area, step 1 = load patches, step 2 = load timbres, step 3 = load rhythm bank area.
+
+    // Step 0 = load system area,
+    // step 1 = load patches,
+    // step 2 = load timbres,
+    // step 3 = load rhythm bank area.
+    private int stepNo = 0;
+
     private readonly bool clearMemory;
 
     public FormLoadSysEx(MT32State inputMemoryState, bool clearMemoryState)

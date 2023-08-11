@@ -12,7 +12,7 @@ public partial class FormAbout : Form
         releaseDate = date;
     }
 
-    private void buttonClose_Click(object sender, EventArgs e)
+    private void ButtonClose_Click(object sender, EventArgs e)
     {
         Close();
     }
@@ -23,7 +23,7 @@ public partial class FormAbout : Form
         labelReleaseDate.Text = releaseDate;
     }
 
-    private void linkLabelProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void LinkLabelProject_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         linkLabelProject.LinkVisited = true;
         Clipboard.SetText("https://github.com/sfryers/MT32Editor");
