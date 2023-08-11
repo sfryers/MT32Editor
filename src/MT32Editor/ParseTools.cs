@@ -57,12 +57,11 @@ internal static class ParseTools
 
     public static string RemoveTrailingSpaces(string str)
     {
-        while (RightMost(str, 1) == " ")
+        if (string.IsNullOrEmpty(str))
         {
-            // remove any trailing space characters
-            str = LeftMost(str, str.Length - 1);
+            return string.Empty;
         }
-        return str;
+        return str.TrimEnd();
     }
 
     public static string RemoveLeadingSpaces(string str)
