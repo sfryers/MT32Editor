@@ -1,5 +1,4 @@
-﻿using NAudio.Midi;
-using System.Text;
+﻿using System.Text;
 
 namespace MT32Edit;
 
@@ -11,6 +10,7 @@ internal static class MT32SysEx
     // Tools to create and send MT32-compatible system exclusive messages
     //
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
+
     public const byte MANUFACTURER_ID = 0x41;       //Manufacturer ID (Roland)
     public const byte DEVICE_ID = 0x10;             //Default device ID - might be helpful to allow user to alter this value in a future release
     public const byte MODEL_ID = 0x16;              //Model ID for MT-32
@@ -50,7 +50,7 @@ internal static class MT32SysEx
 
     public static byte[] PatchAddress(int patchNo)          //calculate address of specific patch memory area
     {
-        int[] Addr = new int[2];   
+        int[] Addr = new int[2];
         Addr[0] = 0x00;
         Addr[1] = patchNo * 8;
         Addr = WrapBytes(Addr);
@@ -96,7 +96,7 @@ internal static class MT32SysEx
         sysExData[1] = (byte)system.GetReverbMode();
         sysExData[2] = (byte)system.GetReverbTime();
         sysExData[3] = (byte)system.GetReverbLevel();
-        for (int partNo = 0; partNo < 9; partNo++) 
+        for (int partNo = 0; partNo < 9; partNo++)
         {
             sysExData[partNo + 4] = (byte)system.GetPartialReserve(partNo);
             sysExData[partNo + 13] = (byte)system.GetSysExMidiChannel(partNo);
@@ -192,14 +192,14 @@ internal static class MT32SysEx
     }
 
     public static void UpdatePartialStructures(int partial1Structure, int partial2Structure)    //send updated partial structures to device
-    {  
+    {
         byte[] sysExAddr = { 0x04, 0x00, 0x0A };                        //temporary timbre area, partial mute status
         byte[] sysExData = { (byte)partial1Structure, (byte)partial2Structure };
         SendMessage(sysExAddr, sysExData);
     }
 
     public static void UpdatePartialMuteStatus(bool[] partialMuteStatus, int activePartialNo)
-    {           
+    {
         byte[] sysExAddr = { 0x04, 0x00, 0x0C };                        //temporary timbre area, partial mute status
         byte[] sysExData = { PartialMuteValue(partialMuteStatus) };
         SendMessage(sysExAddr, sysExData);                              //send updated partial mute status to device
@@ -338,7 +338,7 @@ internal static class MT32SysEx
     public static void SendTimbre(int timbreNo, TimbreStructure timbre, byte[] sysExAddress)
     {
         byte[] sysExData = new byte[246];
-        byte[] timbreName = Encoding.ASCII.GetBytes(ParseTools.MakeNCharsLong(timbre.GetTimbreName(),10));
+        byte[] timbreName = Encoding.ASCII.GetBytes(ParseTools.MakeNCharsLong(timbre.GetTimbreName(), 10));
         for (int i = 0; i < 10; i++)
         {
             sysExData[i] = timbreName[i];

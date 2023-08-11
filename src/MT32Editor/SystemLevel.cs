@@ -1,5 +1,4 @@
-﻿
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public class SystemLevel
 {
@@ -10,6 +9,7 @@ public class SystemLevel
     // Note that temporary memory areas are not implemented, except for the Part 1 timbre temp area which is used by the Timbre Editor form.
     //
     private int masterTune = 63;
+
     private int masterLevel = 85;
     private int reverbType = 0;
     private int reverbTime = 5;
@@ -40,8 +40,8 @@ public class SystemLevel
     }
 
     public int GetMasterLevel()
-    { 
-        return masterLevel; 
+    {
+        return masterLevel;
     }
 
     public void SetMasterTune(int tune, bool autoCorrect = false)
@@ -107,7 +107,7 @@ public class SystemLevel
     public void SetSysExMidiChannel(int partNo, int midiChannelNo, bool autoCorrect = false) // permitted channel range 0-15
     {
         partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect);
-        midiChannel[partNo] = LogicTools.ValidateRange("MIDI Channel No.", midiChannelNo, minPermitted: 0, maxPermitted: 15, autoCorrect);         
+        midiChannel[partNo] = LogicTools.ValidateRange("MIDI Channel No.", midiChannelNo, minPermitted: 0, maxPermitted: 15, autoCorrect);
     }
 
     public int GetSysExMidiChannel(int partNo)
@@ -130,7 +130,7 @@ public class SystemLevel
     {
         partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect);
         midiChannelNo = LogicTools.ValidateRange("MIDI Channel No.", midiChannelNo, minPermitted: 1, maxPermitted: 16, autoCorrect);
-        midiChannel[partNo] = midiChannelNo - 1; 
+        midiChannel[partNo] = midiChannelNo - 1;
     }
 
     public int GetUIMidiChannel(int partNo)

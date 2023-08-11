@@ -1,6 +1,4 @@
-﻿using System.Drawing.Imaging;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public class TimbreNames
 {
@@ -10,6 +8,7 @@ public class TimbreNames
     // Data class containing names of MT-32 memory timbres and an interface to static read-only class PresetTimbreNames.
     //
     private const string EMPTY = MT32Strings.EMPTY;
+
     private readonly string[] memoryGroup =               {
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
@@ -29,12 +28,15 @@ public class TimbreNames
             case 0:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
                 return PresetTimbreNames.GetPresetA(timbreNo);
+
             case 1:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
                 return PresetTimbreNames.GetPresetB(timbreNo);
+
             case 2:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
                 return memoryGroup[timbreNo];
+
             case 3:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
                 if (timbreNo == 63) return "[none]";
@@ -53,10 +55,13 @@ public class TimbreNames
         {
             case 0:
                 return PresetTimbreNames.GetAllPresetA();
+
             case 1:
                 return PresetTimbreNames.GetAllPresetB();
+
             case 2:
                 return memoryGroup;
+
             default:
                 return PresetTimbreNames.GetAllRhythm();
         }
@@ -68,7 +73,7 @@ public class TimbreNames
         memoryGroup[timbreNo] = ParseTools.RemoveTrailingSpaces(ParseTools.MakeNCharsLong(timbreName, 10));
     }
 
-    public void ResetMemoryTimbreName(int timbreNo) 
+    public void ResetMemoryTimbreName(int timbreNo)
     {
         LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
         memoryGroup[timbreNo] = MT32Strings.EMPTY;

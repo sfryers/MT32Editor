@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-
+﻿using System.Runtime.InteropServices;
 
 namespace MT32Edit;
 
@@ -17,11 +14,10 @@ public partial class FormMainMenu : Form
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool AllocConsole();
 
-    static extern bool AllocConsole();
-
-    const string VERSION_NO = "v0.9.5a";
-    const string RELEASE_DATE = "August 2023";
+    private const string VERSION_NO = "v0.9.5a";
+    private const string RELEASE_DATE = "August 2023";
 
     private bool midiInError = false;
     private bool midiOutError = false;
@@ -91,7 +87,7 @@ public partial class FormMainMenu : Form
         int xMargin = (int)(23 * DPIScale());
         int yMargin = (int)(44 * DPIScale());
 
-        menuStrip.Width = Width; 
+        menuStrip.Width = Width;
         midiInToolStripMenuItem.Width = (int)(200 * DPIScale());
         midiOutToolStripMenuItem.Width = (int)(200 * DPIScale());
 
@@ -106,7 +102,7 @@ public partial class FormMainMenu : Form
             memoryBankEditor.Left = 0;
             memoryBankEditor.Top = 0;
             memoryBankEditor.Width = (Width / 8);
-            if (Height > memoryBankEditor.MinimumSize.Height) memoryBankEditor.Height = Height -  yMargin;
+            if (Height > memoryBankEditor.MinimumSize.Height) memoryBankEditor.Height = Height - yMargin;
         }
 
         void ScaleTimbreEditor()
@@ -114,7 +110,7 @@ public partial class FormMainMenu : Form
             if (timbreEditor == null || memoryBankEditor == null) return;
             timbreEditor.Left = memoryBankEditor.Width + 1;
             timbreEditor.Top = 0;
-            if (Height > timbreEditor.MinimumSize.Height) timbreEditor.Height = Height -  yMargin;
+            if (Height > timbreEditor.MinimumSize.Height) timbreEditor.Height = Height - yMargin;
         }
 
         void ScalePatchEditor()
@@ -124,7 +120,7 @@ public partial class FormMainMenu : Form
             patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             patchEditor.Top = 0;
             patchEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
-            if (Height > patchEditor.MinimumSize.Height) patchEditor.Height = Height -  yMargin;
+            if (Height > patchEditor.MinimumSize.Height) patchEditor.Height = Height - yMargin;
         }
 
         void ScaleRhythmEditor()
@@ -134,7 +130,7 @@ public partial class FormMainMenu : Form
             rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             rhythmEditor.Top = 0;
             rhythmEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
-            if (Height > rhythmEditor.MinimumSize.Height) rhythmEditor.Height = Height -  yMargin;
+            if (Height > rhythmEditor.MinimumSize.Height) rhythmEditor.Height = Height - yMargin;
         }
     }
 
@@ -259,6 +255,7 @@ public partial class FormMainMenu : Form
             {
                 case DialogResult.OK:
                     break;
+
                 case DialogResult.Cancel:
                     return;
             }
@@ -376,6 +373,7 @@ public partial class FormMainMenu : Form
         Midi.hardwareMT32 = false;
         hardwareMT32ConnectedToolStripMenuItem.Checked = false;
     }
+
     private void MT32Connected()
     {
         Midi.hardwareMT32 = true;

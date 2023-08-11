@@ -8,6 +8,7 @@ public partial class FormRhythmEditor : Form
     // Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
     //
     private const int bankOffset = 2; //Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
+
     private readonly MT32State memoryState = new MT32State();
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool thisFormIsActive = false;
@@ -281,7 +282,6 @@ public partial class FormRhythmEditor : Form
         if (comboBoxTimbreGroup.Text == "Memory") SyncMemoryTimbreNames();
         if (memoryState.returnFocusToRhythmEditor) ReturnFocusToRhythmEditor();
     }
-
 
     private void FindMemoryTimbreInRhythmList(int selectedTimbreNo)
     {

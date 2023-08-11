@@ -7,7 +7,7 @@ internal static class MT32Strings
     // S.Fryers Apr 2023
     // Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
     //
-    public static readonly string[] bank1SampleNames = 
+    public static readonly string[] bank1SampleNames =
     {
         "Ac. Bass Drum","Ac. Snare Drum","El. Snare Drum","Electric Tom","Closed Hihat","Open Hihat","Crash Cymbal","Crash Cymbal (loop)","Ride cymbal","Rim Shot","Hand Clap","Muted Conga","Conga","Bongo","Cowbell",
         "Tambourine", "Agogo Bell","Claves","Timbale","Cabasa","Keypress","Perc Organ","Trombone","Trumpet","Breath Noise (loop)","Clarinet","Flute","Pan Pipes","Shakuhachi","Alto Sax",
@@ -22,7 +22,7 @@ internal static class MT32Strings
         "Perc. loop 1","Perc. loop 2","Orch&Perc loop","Wind&Perc loop","Guitar & Bass loop","Orchestra loop","Perc. loop 3","Bass & Perc. loop","Bass & Snare loop"
     };
 
-    public static readonly string[] bank2SampleNames = 
+    public static readonly string[] bank2SampleNames =
     {
         "Laugh #","Applause #","Windchime #","Crash #","Train #","Wind #","Bird #","Stream #","Door Creak #","Scream #","Punch #","Footsteps #","Door Slam #","Car Start #","Aircraft #","Gun Shot #",
         "Horse #","Thunder #","Bubble #","Heartbeat #","Engine #","Tyre Screech #","Siren #","Helicopter #","Dog Bark #","Car Pass #","Male Voice #","Machine Gun #","Starship #","Laugh (Loop) #",
@@ -36,7 +36,7 @@ internal static class MT32Strings
         "Shot-15","Shot-16","Shot-17","Shot-18","Shot-19","Shot-20","Shot-21","Shot-22","Shot-23","Shot-24","Shot-25","Shot-26","Alto Sax","Shakuhachi","Marimba","Dog Bark"
     };  //This sample bank is only available on CM-32L or MUNT with a CM-32L compatible ROM loaded
 
-    public static readonly string[] partialParameterNames = 
+    public static readonly string[] partialParameterNames =
     {
         "Pitch", "Fine Pitch", "Pitch KF", "Pitch Bend", "Waveform", "PCM Sample No.", "Pulse Width", "PW Velo. Sens.", "Pitch Env Depth", "P.Env Velo Sens", "P.Env Time KF",
         "P.Env Time 1", "P.Env Time 2", "P.Env Time 3", "P.Env Time 4", "P.Env Level 0", "P.Env Level 1", "P.Env Level 2", "P.Env Sust Lvl", "P.Env Rel Lvl",
@@ -61,9 +61,10 @@ internal static class MT32Strings
     public static readonly string[] waveform = { "Square", "Saw" };
 
     public static readonly string[] onOff = { "Off", "On" };
-    
+
     public static readonly string[] partialConfig = { "(SS)     ", "(S(SR))", "(PS)     ", "(P(SR))", "(S(PR))", "(PP)     ", "(P(PR))", "(S)(S)   ", "(P)(P)  ", "(SS)R ", "(PS)R ", "(SP)R ", "(PP)R " };
-    public static readonly string[] partialConfig12Desc =   { 
+
+    public static readonly string[] partialConfig12Desc =   {
                                                             "(Partial 1 [Synth] + Partial 2 [Synth]) → Mono Out",
                                                             "(Partial 1 [Synth] + Partial 2 [Synth] → Ring Mod.) + Partial 1 [Synth] → Mono Out",
                                                             "(Partial 1 [PCM] + Partial 2 [Synth]) → Mono Out",
@@ -72,12 +73,13 @@ internal static class MT32Strings
                                                             "(Partial 1 [PCM] + Partial 2 [PCM]) → Mono Out",
                                                             "(Partial 1 [PCM] + Partial 2 [PCM] → Ring Mod.) + Partial 1 [PCM] → Mono Out",
                                                             "(Partial 1 [Synth] → Left Channel) (Partial 2 [Synth] → Right Channel) → Stereo Out",
-                                                            "(Partial 1 [PCM] → Left Channel) (Partial 2 [PCM] → Right Channel) → Stereo Out", 
-                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) → Ring Mod. → Mono Out", 
-                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) → Ring Mod. → Mono Out", 
-                                                            "(Partial 1 [Synth] + Partial 2 [PCM]) → Ring Mod. → Mono Out", 
-                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) → Ring Mod. → Mono Out" 
+                                                            "(Partial 1 [PCM] → Left Channel) (Partial 2 [PCM] → Right Channel) → Stereo Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) → Ring Mod. → Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) → Ring Mod. → Mono Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [PCM]) → Ring Mod. → Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) → Ring Mod. → Mono Out"
                                                             };
+
     public static readonly string[] partialConfig34Desc = {
                                                             "(Partial 3 [Synth] + Partial 4 [Synth]) → Mono Out",
                                                             "(Partial 3 [Synth] + Partial 4 [Synth] → Ring Mod.) + Partial 3 [Synth] → Mono Out",
@@ -121,11 +123,11 @@ internal static class MT32Strings
         return keyfollowRatio[keyfollowValue];
     }
 
-    public static string PartialStatus(bool[] partialMuteStatus)  
+    public static string PartialStatus(bool[] partialMuteStatus)
     {
         //create 4-character string representing active partials with numbers and muted partials with an underscore character
         string partialStatusList = "";
-        for (int partialNo = 0; partialNo < 4; partialNo++) 
+        for (int partialNo = 0; partialNo < 4; partialNo++)
         {
             if (partialMuteStatus[partialNo]) partialStatusList += "_";
             else partialStatusList += (partialNo + 1).ToString();
@@ -152,17 +154,22 @@ internal static class MT32Strings
         {
             case 0x00:
                 return PitchNote(parameterValue);
+
             case 0x02:
             case 0x19:
                 return Keyfollow(parameterValue);
+
             case 0x03:
                 return OnOffStatus(LogicTools.IntToBool(parameterValue));
+
             case 0x04:
                 return WaveformType(parameterValue);
+
             case 0x1A:
             case 0x2B:
             case 0x2D:
                 return BiasPoint(parameterValue);
+
             default:
                 return parameterValue.ToString();                           //if no text is provided then make numeric value into string
         }

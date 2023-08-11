@@ -1,5 +1,4 @@
-﻿
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public partial class FormMemoryBankEditor : Form
 {
@@ -9,6 +8,7 @@ public partial class FormMemoryBankEditor : Form
     // Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
     //
     private readonly MT32State memoryState = new MT32State();
+
     private readonly FormTimbreEditor timbreEditor;
     private TimbreStructure? copiedTimbre;
     private DateTime lastGlobalUpdate = DateTime.Now;
@@ -111,6 +111,7 @@ public partial class FormMemoryBankEditor : Form
         {
             case DialogResult.OK:
                 break;
+
             case DialogResult.Cancel:
                 return;
         }
@@ -130,6 +131,7 @@ public partial class FormMemoryBankEditor : Form
         {
             case DialogResult.OK:
                 break;
+
             case DialogResult.Cancel:
                 return;
         }
@@ -173,6 +175,7 @@ public partial class FormMemoryBankEditor : Form
             {
                 case DialogResult.OK:
                     break;
+
                 case DialogResult.Cancel:
                     return;
             }

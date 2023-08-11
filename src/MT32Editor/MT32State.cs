@@ -8,6 +8,7 @@ public class MT32State
     // Data structure representing user-accessible memory areas of MT-32, as per published MIDI implementation.
     //
     private SystemLevel system = new SystemLevel();
+
     private Patch[] patchArray = new Patch[128];
     private Rhythm[] rhythmBank = new Rhythm[85];
     private TimbreStructure[] memoryTimbre = new TimbreStructure[64];
@@ -124,13 +125,13 @@ public class MT32State
     }
 
     public void SetPatchArray(Patch[] patchArrayInput)
-    { 
-        patchArray = patchArrayInput; 
+    {
+        patchArray = patchArrayInput;
     }
 
-    public Patch[] GetPatchArray() 
-    { 
-        return patchArray; 
+    public Patch[] GetPatchArray()
+    {
+        return patchArray;
     }
 
     public Patch GetPatch(int patchNo)
@@ -173,8 +174,8 @@ public class MT32State
     }
 
     public SystemLevel GetSystem()
-    { 
-        return system; 
+    {
+        return system;
     }
 
     public void SetSystem(SystemLevel systemInput)
@@ -222,7 +223,7 @@ public class MT32State
     public void SetSelectedKey(int keyNo)
     {
         ValidateKeyNo(keyNo);
-        selectedKey = keyNo; 
+        selectedKey = keyNo;
     }
 
     public int GetSelectedKey()

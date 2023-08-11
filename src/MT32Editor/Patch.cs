@@ -8,6 +8,7 @@ public class Patch
     // Data structure representing user-accessible patch memory areas of MT-32, as per published MIDI implementation.
     //
     private int timbreGroup = 0;
+
     private readonly string[] timbreGroupType = { "Preset A", "Preset B", "Memory", "Rhythm" };
     private readonly string[] assignModeType = { "Single Assign", "Multi Assign", "First In, First Out", "First In, Last Out" };
     private int timbreNo = 0;
@@ -51,21 +52,28 @@ public class Patch
         {
             case 0:
                 return timbreGroup;
+
             case 1:
                 return timbreNo;
+
             case 2:
                 return keyShift + keyShiftOffset;
+
             case 3:
                 return fineTune + fineTuneOffset;
+
             case 4:
                 return benderRange;
+
             case 5:
                 return assignMode;
+
             case 6:
                 if (reverbEnabled) return 1;
                 else return 0;
             case 7:
                 return 0;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return 0;
@@ -78,21 +86,28 @@ public class Patch
         {
             case 0:
                 return timbreGroup;
+
             case 1:
                 return timbreNo;
+
             case 2:
                 return keyShift;
+
             case 3:
                 return fineTune;
+
             case 4:
                 return benderRange;
+
             case 5:
                 return assignMode;
+
             case 6:
                 if (reverbEnabled) return 1;
                 else return 0;
             case 7:
                 return 0;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return 0;
@@ -106,27 +121,35 @@ public class Patch
             case 0:
                 SetTimbreGroup(parameterValue, autoCorrect);
                 return;
+
             case 1:
                 SetTimbreNo(parameterValue, autoCorrect);
                 return;
+
             case 2:
                 SetKeyShift(parameterValue, autoCorrect);
                 return;
+
             case 3:
                 SetFineTune(parameterValue, autoCorrect);
                 return;
+
             case 4:
                 SetBenderRange(parameterValue, autoCorrect);
                 return;
+
             case 5:
                 SetAssignMode(parameterValue, autoCorrect);
                 return;
+
             case 6:
                 if (parameterValue == 1) SetReverbEnabled(true);
                 else SetReverbEnabled(false);
                 return;
+
             case 7:
                 return;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return;
@@ -140,27 +163,35 @@ public class Patch
             case 0:
                 SetTimbreGroup(parameterValue, autoCorrect);
                 return;
+
             case 1:
                 SetTimbreNo(parameterValue, autoCorrect);
                 return;
+
             case 2:
                 SetKeyShift(parameterValue - keyShiftOffset, autoCorrect);
                 return;
+
             case 3:
                 SetFineTune(parameterValue - fineTuneOffset, autoCorrect);
                 return;
+
             case 4:
                 SetBenderRange(parameterValue, autoCorrect);
                 return;
+
             case 5:
                 SetAssignMode(parameterValue, autoCorrect);
                 return;
+
             case 6:
                 if (parameterValue == 1) SetReverbEnabled(true);
                 else SetReverbEnabled(false);
                 return;
+
             case 7:
                 return;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return;
@@ -232,9 +263,9 @@ public class Patch
         assignMode = LogicTools.ValidateRange("Assign Mode", assignModeValue, minPermitted: 0, maxPermitted: 3, autoCorrect);
     }
 
-    public int GetAssignMode() 
+    public int GetAssignMode()
     {
-        return assignMode; 
+        return assignMode;
     }
 
     public string GetAssignModeType()

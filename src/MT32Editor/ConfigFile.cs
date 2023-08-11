@@ -1,5 +1,4 @@
-﻿
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 internal static class ConfigFile
 {
@@ -49,7 +48,7 @@ internal static class ConfigFile
             fs.WriteLine("Midi Out = [" + Midi.GetOutputDeviceName(Midi.OutDeviceIndex) + "]");
             fs.Close();
         }
-        catch 
+        catch
         {
             MessageBox.Show("Couldn't create MT32Edit.ini: Check that you have read/write access to the folder that MT32Edit.exe is running from. Application settings have not been saved.", "MT-32 Editor");
         }

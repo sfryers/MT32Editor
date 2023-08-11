@@ -1,5 +1,3 @@
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace MT32Edit;
 
 public partial class FormTimbreEditor : Form
@@ -10,6 +8,7 @@ public partial class FormTimbreEditor : Form
     // Form provides visual access to all MT-32 timbre parameters- allows timbres to be created, edited and previewed through a connected MT32-compatible MIDI device.
     //
     private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
+
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
     private readonly byte[] partialClipboard = new byte[58];
     private int activePartial = 0;
@@ -37,6 +36,7 @@ public partial class FormTimbreEditor : Form
     }
 
     public static TimbreStructure returnTimbre = new TimbreStructure(createAudibleTimbre: false);
+
     public TimbreStructure TimbreData
     {
         get { return timbre; }
@@ -223,19 +223,23 @@ public partial class FormTimbreEditor : Form
                 case 0:
                     radioButtonPCMBank1.Checked = true;
                     break;
+
                 case 1:
                     waveType = 1;
                     radioButtonPCMBank1.Checked = true;
                     break;
+
                 case 2:
                     bankNo = 1;
                     radioButtonPCMBank2.Checked = true;
                     break;
+
                 case 3:
                     waveType = 1;
                     bankNo = 1;
                     radioButtonPCMBank2.Checked = true;
                     break;
+
                 default:
                     break;
             }
@@ -296,6 +300,7 @@ public partial class FormTimbreEditor : Form
             {
                 case DialogResult.OK:
                     break;
+
                 case DialogResult.Cancel:
                     return;
             }
@@ -317,6 +322,7 @@ public partial class FormTimbreEditor : Form
     {
         QuickSaveTimbre(timbre);
     }
+
     private void QuickSaveTimbre(TimbreStructure timbre)
     {
         string action = "Overwrite";
@@ -326,6 +332,7 @@ public partial class FormTimbreEditor : Form
             case DialogResult.OK:
                 TimbreFile.Save(timbre, saveTimbreDialog);
                 break;
+
             case DialogResult.Cancel:
                 break;
         }
@@ -358,6 +365,7 @@ public partial class FormTimbreEditor : Form
             case DialogResult.OK:
                 InitialiseTimbreParameters(editExisting: false);
                 break;
+
             case DialogResult.Cancel:
                 break;
         }
@@ -433,6 +441,7 @@ public partial class FormTimbreEditor : Form
             case 11: //structure nos. with S on left hand side
                 ShowOnlyLASynthControls();
                 break;
+
             default:
                 ShowOnlyPCMControls();
                 break;
@@ -453,6 +462,7 @@ public partial class FormTimbreEditor : Form
             case 10: //structure nos. with S on right hand side
                 ShowOnlyLASynthControls();
                 break;
+
             default:
                 ShowOnlyPCMControls();
                 break;
@@ -577,7 +587,7 @@ public partial class FormTimbreEditor : Form
         if (radioButtonPartial3.Checked) selectedPartial = 2;
         if (radioButtonPartial4.Checked) selectedPartial = 3;
         if (initialisationComplete) sendSysEx = false;
-        UpdatePartialSliders(); //update UI controls with new values 
+        UpdatePartialSliders(); //update UI controls with new values
         if (selectedPartial != activePartial) MT32SysEx.SendText("Editing partial " + (selectedPartial + 1).ToString());
         activePartial = selectedPartial;
         labelPartialWarning.Visible = false;                                    //hide warning if currently displayed
@@ -587,14 +597,17 @@ public partial class FormTimbreEditor : Form
                 checkBoxPartial1.Checked = true;
                 SetControlsforLeftPartial(comboBoxPart12Struct.SelectedIndex);
                 break;
+
             case 1:
                 checkBoxPartial2.Checked = true;
                 SetControlsforRightPartial(comboBoxPart12Struct.SelectedIndex);
                 break;
+
             case 2:
                 checkBoxPartial3.Checked = true;
                 SetControlsforLeftPartial(comboBoxPart34Struct.SelectedIndex);
                 break;
+
             case 3:
                 checkBoxPartial4.Checked = true;
                 SetControlsforRightPartial(comboBoxPart34Struct.SelectedIndex);
@@ -629,24 +642,27 @@ public partial class FormTimbreEditor : Form
         changesMade = true;
     }
 
-    private void checkBoxPartial1_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 1 
+    private void checkBoxPartial1_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 1
     {
         timbre.SetPartialMuteStatus(0, !checkBoxPartial1.Checked);              //set mute status to inverse of checkbox status
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
+
     private void checkBoxPartial2_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 2
     {
         timbre.SetPartialMuteStatus(1, !checkBoxPartial2.Checked);              //set mute status to inverse of checkbox status
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
+
     private void checkBoxPartial3_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 3
     {
         timbre.SetPartialMuteStatus(2, !checkBoxPartial3.Checked);              //set mute status to inverse of checkbox status
         ConfigurePartialWarnings(activePartial);
         changesMade = true;
     }
+
     private void checkBoxPartial4_CheckedChanged(object sender, EventArgs e)    //enable or disable Partial 4
     {
         timbre.SetPartialMuteStatus(3, !checkBoxPartial4.Checked);              //set mute status to inverse of checkbox status
@@ -844,6 +860,7 @@ public partial class FormTimbreEditor : Form
         UpdatePartialValueFromSliderValue(0x13, trackBarPitchEnvReleaseLevel);  //send Pitch Envelope Release Level value to device
         UpdatePitchGraph();
     }
+
     private void trackBarLFORate_ValueChanged(object sender, EventArgs e)
     {
         UpdatePartialValueFromSliderValue(0x14, trackBarLFORate);               //send Pitch LFO Rate value to device

@@ -15,8 +15,8 @@ internal static class ConsoleMessage
     }
 
     public static void Disable()
-    {  
-        consoleEnabled = false; 
+    {
+        consoleEnabled = false;
     }
 
     public static bool Enabled()
@@ -25,13 +25,13 @@ internal static class ConsoleMessage
     }
 
     public static void SendString(string message, ConsoleColor color = ConsoleColor.Gray)
-    { 
+    {
         if (consoleEnabled)
         {
             Console.ForegroundColor = color;
             Console.Write(message);
             Console.ForegroundColor = ConsoleColor.Gray;
-        }     
+        }
     }
 
     public static void SendLine(string message, ConsoleColor color = ConsoleColor.Gray)

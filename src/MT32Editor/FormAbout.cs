@@ -2,8 +2,8 @@
 
 public partial class FormAbout : Form
 {
-    readonly string versionNo = "";
-    readonly string releaseDate = "";
+    private readonly string versionNo = "";
+    private readonly string releaseDate = "";
 
     public FormAbout(string version, string date)
     {

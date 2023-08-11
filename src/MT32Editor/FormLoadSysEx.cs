@@ -9,12 +9,13 @@ public partial class FormLoadSysEx : Form
     // Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
     //
     private readonly MT32State memoryState;
+
     private int timbreNo = 0;
     private int patchNo = 0;
     private int keyNo = 24;
-    const int PATCHES_PER_BLOCK = 32;
-    const int RHYTHM_BANKS_PER_BLOCK = 42;
-    const int MT32_DELAY = 50;
+    private const int PATCHES_PER_BLOCK = 32;
+    private const int RHYTHM_BANKS_PER_BLOCK = 42;
+    private const int MT32_DELAY = 50;
     private int stepNo = 0; //Step 0 = load system area, step 1 = load patches, step 2 = load timbres, step 3 = load rhythm bank area.
     private readonly bool clearMemory;
 
@@ -39,20 +40,25 @@ public partial class FormLoadSysEx : Form
             case 0:
                 if (!clearMemory) SendSystemArea();
                 break;
+
             case 1:
                 if (!clearMemory && patchNo < 128) SendNextPatchBlock();
                 else stepNo++;
                 break;
+
             case 2:
                 if (!clearMemory && keyNo < 104) SendNextRhythmBankBlock();
                 else stepNo++;
                 break;
+
             case 3:
                 stepNo++;
                 break;
+
             case 4:
                 stepNo++;
                 break;
+
             default:
                 if (timbreNo < 64) SendNextMemoryTimbre();
                 else Finish();

@@ -1,5 +1,4 @@
 ﻿using NAudio.Midi;
-using System.Windows.Forms;
 
 namespace MT32Edit;
 
@@ -11,6 +10,7 @@ internal static class Midi
     // Simple tools to interface with NAudio Midi library.
     //
     public static int OutDeviceIndex = -1;
+
     public static int InDeviceIndex = -1;
     public static bool hardwareMT32 = true;
     public static MidiIn? In = null;
@@ -54,7 +54,7 @@ internal static class Midi
             {
                 Out.Send(e.RawMessage); //send MIDI In data to MIDI Out
             }
-            catch 
+            catch
             {
                 ConsoleMessage.SendLine("Error opening MIDI Out device.");
                 Out = null;
@@ -74,7 +74,7 @@ internal static class Midi
             In = new MidiIn(InDeviceIndex); //open new MIDI In connection
             In.MessageReceived += InputMessageReceived;
             In.ErrorReceived += InputErrorReceived;
-            In.Start(); //MIDI handler will start and continue running in background 
+            In.Start(); //MIDI handler will start and continue running in background
             return true;
         }
         catch { return false; }
@@ -146,7 +146,7 @@ internal static class Midi
 
     public static void CloseInputDevice()
     {
-        if (In != null) 
+        if (In != null)
         {
             try
             {
@@ -190,12 +190,12 @@ internal static class Midi
         }
     }
 
-public static void SendProgramChange(int patchNo, int channelNo)
+    public static void SendProgramChange(int patchNo, int channelNo)
     {
         byte status = (byte)(0xC0 + channelNo); //program change
         if (patchNo < 0 || patchNo > 127) return;
         byte programNo = (byte)patchNo;
-        byte[] message = {status, programNo};
+        byte[] message = { status, programNo };
         try
         {
             if (Out != null) Out.SendBuffer(message);

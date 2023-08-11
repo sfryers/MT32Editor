@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 internal class EnvelopeGraph
 {
@@ -10,6 +8,7 @@ internal class EnvelopeGraph
     // Plot graphs to represent MT-32 pitch, filter and amplitude envelopes
     //
     private readonly int xStart = 0;                 //top edge of graph box
+
     private readonly int yStart = 0;                 //left edge of graph box
     private readonly int xWidth = 250;      //width of graph box
     private readonly int yHeight = 100;     //height of graph box
@@ -24,10 +23,13 @@ internal class EnvelopeGraph
     private readonly Font font = new Font("Segoe UI", 8, FontStyle.Regular);
 
     // Time (x) axis values
-    private readonly int[,] T   = new int[6, 4]; 
+    private readonly int[,] T = new int[6, 4];
+
     private readonly int[] TSus = new int[4];
+
     // Level (y) axis values
-    private readonly int[,] L   = new int[5, 4]; 
+    private readonly int[,] L = new int[5, 4];
+
     private readonly int[] LSus = new int[4];
     private readonly int[] LRel = new int[4];
 
@@ -57,12 +59,15 @@ internal class EnvelopeGraph
                 case 0:
                     DrawPitchEnvelope(envelope, timbre, partial, highlight, label);
                     break;
+
                 case 1:
                     DrawTVFEnvelope(envelope, timbre, partial, highlight, label);
                     break;
+
                 case 2:
                     DrawTVAEnvelope(envelope, timbre, partial, highlight, label);
                     break;
+
                 default:
                     break;
             }
@@ -96,29 +101,29 @@ internal class EnvelopeGraph
     private void DrawPitchLabels(Graphics envelope, int partial)
     {
         int p = partial;
-        envelope.DrawString("L0",      font, whiteBrush, xStart - 20,           yStart + (50 - L[0, p]) - 7,  StringFormat.GenericTypographic);
-        envelope.DrawString("L1",      font, whiteBrush, xStart + T[1, p] - 5,  yStart + (50 - L[1, p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("L2",      font, whiteBrush, xStart + T[2, p] - 5,  yStart + (50 - L[2, p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("L0", font, whiteBrush, xStart - 20, yStart + (50 - L[0, p]) - 7, StringFormat.GenericTypographic);
+        envelope.DrawString("L1", font, whiteBrush, xStart + T[1, p] - 5, yStart + (50 - L[1, p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("L2", font, whiteBrush, xStart + T[2, p] - 5, yStart + (50 - L[2, p]) - 20, StringFormat.GenericTypographic);
         envelope.DrawString("Sustain", font, whiteBrush, xStart + TSus[p] - 42, yStart + (50 - LSus[p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("Release", font, whiteBrush, xStart + T[4, p] - 5,  yStart + (50 - LRel[p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("T1",      font, whiteBrush, xStart + T[1, p] - 5,  yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T2",      font, whiteBrush, xStart + T[2, p] - 5,  yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T3",      font, whiteBrush, xStart + T[3, p] - 5,  yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T4",      font, whiteBrush, xStart + T[4, p] - 5,  yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("Release", font, whiteBrush, xStart + T[4, p] - 5, yStart + (50 - LRel[p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("T1", font, whiteBrush, xStart + T[1, p] - 5, yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T2", font, whiteBrush, xStart + T[2, p] - 5, yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T3", font, whiteBrush, xStart + T[3, p] - 5, yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T4", font, whiteBrush, xStart + T[4, p] - 5, yStart + (yHeight / 2) + 5, StringFormat.GenericTypographic);
     }
 
     private void DrawTVATVFLabels(Graphics envelope, int partial)
     {
         int p = partial;
-        envelope.DrawString("L1",      font, whiteBrush, xStart + T[1, p] - 5,  yStart + (100 - L[1, p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("L2",      font, whiteBrush, xStart + T[2, p] - 5,  yStart + (100 - L[2, p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("L3",      font, whiteBrush, xStart + T[3, p] - 5,  yStart + (100 - L[3, p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("L1", font, whiteBrush, xStart + T[1, p] - 5, yStart + (100 - L[1, p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("L2", font, whiteBrush, xStart + T[2, p] - 5, yStart + (100 - L[2, p]) - 20, StringFormat.GenericTypographic);
+        envelope.DrawString("L3", font, whiteBrush, xStart + T[3, p] - 5, yStart + (100 - L[3, p]) - 20, StringFormat.GenericTypographic);
         envelope.DrawString("Sustain", font, whiteBrush, xStart + TSus[p] - 35, yStart + (100 - LSus[p]) - 20, StringFormat.GenericTypographic);
-        envelope.DrawString("T1",      font, whiteBrush, xStart + T[1, p] - 5,  yStart + yHeight + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T2",      font, whiteBrush, xStart + T[2, p] - 5,  yStart + yHeight + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T3",      font, whiteBrush, xStart + T[3, p] - 5,  yStart + yHeight + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T4",      font, whiteBrush, xStart + T[4, p] - 5,  yStart + yHeight + 5, StringFormat.GenericTypographic);
-        envelope.DrawString("T5",      font, whiteBrush, xStart + T[5, p] - 5,  yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T1", font, whiteBrush, xStart + T[1, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T2", font, whiteBrush, xStart + T[2, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T3", font, whiteBrush, xStart + T[3, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T4", font, whiteBrush, xStart + T[4, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T5", font, whiteBrush, xStart + T[5, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
     }
 
     private void PlotTVATVFGraph(Graphics envelope, int partial, bool highlight)
@@ -138,8 +143,8 @@ internal class EnvelopeGraph
         {
             env = yellowPen;
             sust = bluePen;
-            envelope.DrawLine(whitePen, xStart, yStart + yHeight, xStart + xWidth, yStart + yHeight);                       //draw x-axis  
-            envelope.DrawLine(whitePen, xStart, yStart, xStart, yStart + yHeight);                                          //draw y-axis  
+            envelope.DrawLine(whitePen, xStart, yStart + yHeight, xStart + xWidth, yStart + yHeight);                       //draw x-axis
+            envelope.DrawLine(whitePen, xStart, yStart, xStart, yStart + yHeight);                                          //draw y-axis
             envelope.DrawLine(whitePen, xStart + T[1, p], yStart + yHeight, xStart + T[1, p], yStart + (100 - L[1, p]));    //draw L1 vertical
             envelope.DrawLine(whitePen, xStart + T[2, p], yStart + yHeight, xStart + T[2, p], yStart + (100 - L[2, p]));    //draw L2 vertical
             envelope.DrawLine(whitePen, xStart + T[3, p], yStart + yHeight, xStart + T[3, p], yStart + (100 - L[3, p]));    //draw L3 vertical
@@ -147,15 +152,15 @@ internal class EnvelopeGraph
             envelope.DrawLine(whitePen, xStart + TSus[p], yStart + yHeight, xStart + TSus[p], yStart + (100 - LSus[p]));    //draw key off vertical
         }
         //plot envelope
-        envelope.DrawLine(env,  xStart, yStart + yHeight, xStart + T[1, p], yStart + (100 - L[1,p]));                        //draw start to T1/L1
-        envelope.DrawLine(env,  xStart + T[1, p], yStart + (100 - L[1, p]), xStart + T[2, p], yStart + (100 - L[2, p]));     //draw T1/L1 to T2/L2
-        envelope.DrawLine(env,  xStart + T[2, p], yStart + (100 - L[2, p]), xStart + T[3, p], yStart + (100 - L[3, p]));     //draw T2/L2 to T3/T4
-        envelope.DrawLine(env,  xStart + T[3, p], yStart + (100 - L[3, p]), xStart + T[4, p], yStart + (100 - LSus[p]));     //draw T3/L3 to T4/Sustain
+        envelope.DrawLine(env, xStart, yStart + yHeight, xStart + T[1, p], yStart + (100 - L[1, p]));                        //draw start to T1/L1
+        envelope.DrawLine(env, xStart + T[1, p], yStart + (100 - L[1, p]), xStart + T[2, p], yStart + (100 - L[2, p]));     //draw T1/L1 to T2/L2
+        envelope.DrawLine(env, xStart + T[2, p], yStart + (100 - L[2, p]), xStart + T[3, p], yStart + (100 - L[3, p]));     //draw T2/L2 to T3/T4
+        envelope.DrawLine(env, xStart + T[3, p], yStart + (100 - L[3, p]), xStart + T[4, p], yStart + (100 - LSus[p]));     //draw T3/L3 to T4/Sustain
         envelope.DrawLine(sust, xStart + T[4, p], yStart + (100 - LSus[p]), xStart + TSus[p], yStart + (100 - LSus[p]));    //draw Sust horizontal
-        envelope.DrawLine(env,  xStart + TSus[p], yStart + (100 - LSus[p]), xStart + T[5, p], yStart + 100);                 //draw Sust/T5 to End
+        envelope.DrawLine(env, xStart + TSus[p], yStart + (100 - LSus[p]), xStart + T[5, p], yStart + 100);                 //draw Sust/T5 to End
     }
 
-    private void PlotPitchGraph(Graphics envelope,int partial, bool highlight)
+    private void PlotPitchGraph(Graphics envelope, int partial, bool highlight)
     {
         int p = partial;
         T[1, p] = (T[1, p] * (xWidth / 5)) / 100;
@@ -173,9 +178,9 @@ internal class EnvelopeGraph
             env = yellowPen;
             sust = bluePen;
             rel = redPen;
-            envelope.DrawLine(whitePen, xStart, yStart + (yHeight / 2), xStart + xWidth, yStart + (yHeight / 2));               //draw x-axis  
+            envelope.DrawLine(whitePen, xStart, yStart + (yHeight / 2), xStart + xWidth, yStart + (yHeight / 2));               //draw x-axis
             envelope.DrawLine(whitePen, xStart, yStart, xStart, yStart + yHeight);                                              //draw y-axis
-            envelope.DrawLine(whitePen, xStart, yStart + (yHeight / 2), xStart, yStart + (50 - L[0, p]));                       //draw L0 vertical         
+            envelope.DrawLine(whitePen, xStart, yStart + (yHeight / 2), xStart, yStart + (50 - L[0, p]));                       //draw L0 vertical
             envelope.DrawLine(whitePen, xStart + T[1, p], yStart + (yHeight / 2), xStart + T[1, p], yStart + (50 - L[1, p]));   //draw L1 vertical
             envelope.DrawLine(whitePen, xStart + T[2, p], yStart + (yHeight / 2), xStart + T[2, p], yStart + (50 - L[2, p]));   //draw L2 vertical
             envelope.DrawLine(whitePen, xStart + T[3, p], yStart + (yHeight / 2), xStart + T[3, p], yStart + (50 - LSus[p]));   //draw Sust vertical
@@ -183,12 +188,12 @@ internal class EnvelopeGraph
             envelope.DrawLine(whitePen, xStart + T[4, p], yStart + (yHeight / 2), xStart + T[4, p], yStart + (50 - LRel[p]));   //draw release vertical
         }
         //plot envelope
-        envelope.DrawLine(env,  xStart,           yStart + (50 - L[0, p]), xStart + T[1, p], yStart + (50 - L[1, p]));                     //draw L0 to T1/L1
-        envelope.DrawLine(env,  xStart + T[1, p], yStart + (50 - L[1, p]), xStart + T[2, p], yStart + (50 - L[2, p]));           //draw T1/L1 to T2/L2
-        envelope.DrawLine(env,  xStart + T[2, p], yStart + (50 - L[2, p]), xStart + T[3, p], yStart + (50 - LSus[p]));           //draw T2/L2 to T3/Sust. L
+        envelope.DrawLine(env, xStart, yStart + (50 - L[0, p]), xStart + T[1, p], yStart + (50 - L[1, p]));                     //draw L0 to T1/L1
+        envelope.DrawLine(env, xStart + T[1, p], yStart + (50 - L[1, p]), xStart + T[2, p], yStart + (50 - L[2, p]));           //draw T1/L1 to T2/L2
+        envelope.DrawLine(env, xStart + T[2, p], yStart + (50 - L[2, p]), xStart + T[3, p], yStart + (50 - LSus[p]));           //draw T2/L2 to T3/Sust. L
         envelope.DrawLine(sust, xStart + T[3, p], yStart + (50 - LSus[p]), xStart + TSus[p], yStart + (50 - LSus[p]));          //draw Sust horizontal
-        envelope.DrawLine(env,  xStart + TSus[p], yStart + (50 - LSus[p]), xStart + T[4, p], yStart + (50 - LRel[p]));           //draw Sust/T4 to End
-        envelope.DrawLine(rel,  xStart + T[4, p], yStart + (50 - LRel[p]), xStart + xWidth,  yStart + (50 - LRel[p]));            //draw end horizontal
+        envelope.DrawLine(env, xStart + TSus[p], yStart + (50 - LSus[p]), xStart + T[4, p], yStart + (50 - LRel[p]));           //draw Sust/T4 to End
+        envelope.DrawLine(rel, xStart + T[4, p], yStart + (50 - LRel[p]), xStart + xWidth, yStart + (50 - LRel[p]));            //draw end horizontal
     }
 
     private void SetTimeValues(int activePartial, int T1, int T2, int T3, int T4, int T5, int TSustain)

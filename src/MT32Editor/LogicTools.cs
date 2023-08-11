@@ -20,8 +20,8 @@ internal static class LogicTools
     }
 
     public static bool DivisibleBy(int value, int divisor)
-    { 
-        return value % divisor == 0; 
+    {
+        return value % divisor == 0;
     }
 
     public static int ValidateRange(string parameterName, int value, int minPermitted, int maxPermitted, bool autoCorrect) //check if value is within permitted range, then either change it or throw an exception

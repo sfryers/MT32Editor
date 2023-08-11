@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.Text;
 
 namespace MT32Edit;
 
@@ -15,8 +14,8 @@ internal static class TimbreFile
     //      bytes 50-53: 2x partial structures, partial mute status (encoded as 4 boolean values rather than the single byte value used in the SysEx format), sustain status,
     //      bytes 54-285: 58 parameter byte values for each of the four partials in order.
 
-    const int VALID_FILE_LENGTH = 286; // Total size of valid .timbre file is 286 bytes.
-    const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
+    private const int VALID_FILE_LENGTH = 286; // Total size of valid .timbre file is 286 bytes.
+    private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
     public static string Load(TimbreStructure timbre)
     {
@@ -48,7 +47,6 @@ internal static class TimbreFile
         MT32SysEx.blockMT32text = false;
         timbreFile.Close();
         MT32SysEx.SendText("Loaded " + timbre.GetTimbreName());
-
 
         return loadTimbreDialog.FileName;
 

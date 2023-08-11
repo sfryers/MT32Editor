@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 internal static class PresetTimbreNames
 {
@@ -49,7 +43,7 @@ internal static class PresetTimbreNames
     public static string GetPresetA(int timbreNo)
     {
         if (timbreNo < 0 || timbreNo > 63) OutOfRangeException(timbreNo);
-        return presetGroupA[timbreNo]; 
+        return presetGroupA[timbreNo];
     }
 
     public static string GetPresetB(int timbreNo)

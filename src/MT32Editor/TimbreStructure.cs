@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public class TimbreStructure
 {
@@ -10,6 +8,7 @@ public class TimbreStructure
     // Data structure representing user-accessible timbre memory areas of MT-32, as per published Roland MIDI implementation.
     //
     public const int PARTIALS = 4;                  //each timbre consists of (up to) 4 partials
+
     public const int PARAMETERS = 58;              //each partial contains 58 (0x3A) parameters
     private string timbreName = string.Empty;
     private int part12Structure;
@@ -70,12 +69,12 @@ public class TimbreStructure
     }
 
     public void SetTimbreName(string name)
-    { 
+    {
         timbreName = ParseTools.MakeNCharsLong(name, 10);
     }
 
-    public int GetPart12Structure() 
-    { 
+    public int GetPart12Structure()
+    {
         return part12Structure;
     }
 
@@ -88,9 +87,9 @@ public class TimbreStructure
     {
         part12Structure = ValidateStructureNo(structure, autoCorrect);
     }
+
     public void SetPart34Structure(int structure, bool autoCorrect = false)
     {
-        
         part34Structure = ValidateStructureNo(structure, autoCorrect);
     }
 

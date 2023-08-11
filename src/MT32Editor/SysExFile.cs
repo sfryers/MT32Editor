@@ -10,7 +10,7 @@ internal static class SysExFile
     // Tools to load/save MT-32 System Exclusive data files from/to local filesystem
     //
 
-    const int NO_OF_SYSTEM_PARAMS = 0x17;
+    private const int NO_OF_SYSTEM_PARAMS = 0x17;
 
     public static void Load(OpenFileDialog loadSysExDialog, MT32State memoryState)
     {
@@ -36,7 +36,7 @@ internal static class SysExFile
             memoryState.ResetAll();
             MT32SysEx.blockSysExMessages = true;
             int fileDataValue = 0;
-            
+
             while (fileDataValue != -1)
             {
                 fileDataValue = file.ReadByte();
@@ -93,7 +93,7 @@ internal static class SysExFile
             ConsoleMessage.SendLine("Processing data block, " + sysExDataBlock.Length.ToString() + " bytes.");
             int[] sysExAddress = new int[3];
             int[] sysExData = new int[sysExDataBlock.Length - 7];
-            for (int i = 4; i < 7; i++) 
+            for (int i = 4; i < 7; i++)
             {
                 sysExAddress[i - 4] = (byte)sysExDataBlock[i];      //get memory address bytes
             }
@@ -110,22 +110,27 @@ internal static class SysExFile
                         ExtractRhythmData(sysExData, sysExAddress);
                     }
                     break;
+
                 case 0x05:
                     ConsoleMessage.SendLine("[PATCH] ", ConsoleColor.Cyan);
                     ExtractPatchData(sysExData, sysExAddress);
                     break;
+
                 case 0x08:
                     ConsoleMessage.SendLine("[TIMBRE] ", ConsoleColor.Blue);
                     ExtractTimbreData(sysExData, sysExAddress);
                     break;
+
                 case 0x10:
                     ConsoleMessage.SendLine("[SYSTEM] ", ConsoleColor.Red);
                     ExtractSystemData(sysExData, sysExAddress);
                     break;
+
                 case 0x20:
                     ConsoleMessage.SendLine("[TEXT] ", ConsoleColor.Yellow);
                     ExtractTextData(sysExData);
                     break;
+
                 default:
                     break;
             }
@@ -183,7 +188,7 @@ internal static class SysExFile
             for (int part = 0; part < 9; part++)
             {
                 systemData[part + 4] = systemConfig.GetPartialReserve(part);
-                systemData [part + 13] = systemConfig.GetSysExMidiChannel(part);
+                systemData[part + 13] = systemConfig.GetSysExMidiChannel(part);
             }
             systemData[22] = systemConfig.GetMasterLevel();
             return systemData;
@@ -209,7 +214,7 @@ internal static class SysExFile
         {
             if (!LogicTools.DivisibleBy(sysExData.Length, 8)) //ignore block if patch data array length is not divisible by 8
             {
-                ConsoleMessage.SendLine("Patch data (length " + sysExData.Length +") incomplete, ignoring.", ConsoleColor.Red);
+                ConsoleMessage.SendLine("Patch data (length " + sysExData.Length + ") incomplete, ignoring.", ConsoleColor.Red);
                 return;
             }
             //one 256-byte SysEx block can contain up to 32 patches
@@ -270,18 +275,22 @@ internal static class SysExFile
                     ConsoleMessage.SendLine("Timbre data found, only 1 partial defined.", ConsoleColor.Red);
                     noOfPartials = 1;
                     break;
+
                 case >= TWO_PARTIALS and < THREE_PARTIALS:
                     ConsoleMessage.SendLine("Timbre data found, only 2 partials defined.", ConsoleColor.Red);
                     noOfPartials = 2;
                     break;
+
                 case >= THREE_PARTIALS and < FOUR_PARTIALS:
                     ConsoleMessage.SendLine("Timbre data found, only 3 partials defined.", ConsoleColor.Red);
                     noOfPartials = 3;
                     break;
+
                 case >= FOUR_PARTIALS:
                     ConsoleMessage.SendLine("Timbre data found, all partials defined.", ConsoleColor.Red);
                     noOfPartials = 4;
                     break;
+
                 default:
                     ConsoleMessage.SendLine("Timbre data incomplete, ignoring.", ConsoleColor.Red);
                     return;
@@ -381,7 +390,7 @@ internal static class SysExFile
             if (channels)
             {
                 byte[] sysExAddr = { 0x10, 0x00, 0x0D };
-                byte[] sysExData = systemConfig.GetMidiChannelSysExValues(); 
+                byte[] sysExData = systemConfig.GetMidiChannelSysExValues();
                 SaveMultipleSysExValues(sysExAddr, sysExData);
             }
             if (level)
@@ -424,7 +433,7 @@ internal static class SysExFile
         if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error or cancelled dialogue
         if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user didn't select a file
         FileStream sysExFile;
-        
+
         try
         {
             sysExFile = (FileStream)saveDialog.OpenFile();

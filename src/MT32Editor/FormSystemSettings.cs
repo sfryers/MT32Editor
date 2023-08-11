@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public partial class FormSystemSettings : Form
 {
@@ -10,6 +8,7 @@ public partial class FormSystemSettings : Form
     // Form gives access to MT-32 system area parameters- allows configuration of master volume, master tuning, reverb, MIDI channels and partial reserve settings.
     //
     private readonly SystemLevel system = new SystemLevel();
+
     private readonly SaveFileDialog saveSystemDialog = new SaveFileDialog();
     private bool sendSysEx = false;
 
@@ -218,7 +217,6 @@ public partial class FormSystemSettings : Form
         if (sendSysEx) MT32SysEx.SendSystemParameters(system);
         labelReverbLevelValue.Text = trackBarReverbLevel.Value.ToString();
         if (sendSysEx) MT32SysEx.SendText("Reverb Level: " + trackBarReverbLevel.Value.ToString());
-
     }
 
     private void trackBarReverbRate_ValueChanged(object sender, EventArgs e)

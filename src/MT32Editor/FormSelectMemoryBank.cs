@@ -7,9 +7,10 @@ public partial class FormSelectMemoryBank : Form
     // S.Fryers Apr 2023
     // Simple form allowing selection of a memory bank to copy preset timbre into
     //
-    const int MEMORY_GROUP = 2;
-    readonly MT32State memoryState = new MT32State();
-    readonly string presetTimbreName = "none";
+    private const int MEMORY_GROUP = 2;
+
+    private readonly MT32State memoryState = new MT32State();
+    private readonly string presetTimbreName = "none";
 
     public FormSelectMemoryBank(MT32State memoryStateInput, string timbreNameInput)
     {
@@ -56,6 +57,7 @@ public partial class FormSelectMemoryBank : Form
             {
                 case DialogResult.OK:
                     break;
+
                 case DialogResult.Cancel:
                     return;
             }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 public class Rhythm
 {
@@ -10,6 +8,7 @@ public class Rhythm
     // Data structure representing user-accessible rhythm areas of MT-32, as per published MIDI implementation.
     //
     private int timbreGroup = 1;
+
     private readonly string[] timbreGroupType = { "Memory", "Rhythm" };
     private int timbreNo = 0;
     private int panPot = 0;
@@ -42,10 +41,13 @@ public class Rhythm
         {
             case 0:
                 return (timbreGroup * 64) + timbreNo;
+
             case 1:
                 return outputLevel;
+
             case 2:
                 return panPot + RhythmConstants.PANPOT_OFFSET;
+
             case 3:
                 if (reverbEnabled) return 1;
                 else return 0;
@@ -62,16 +64,20 @@ public class Rhythm
             case 0:
                 SetTimbreNoAndGroup(parameterValue, autoCorrect);
                 return;
+
             case 1:
                 SetOutputLevel(parameterValue, autoCorrect);
                 return;
+
             case 2:
                 SetPanPot(parameterValue, autoCorrect);
                 return;
+
             case 3:
                 if (parameterValue == 1) SetReverbEnabled(true);
                 else SetReverbEnabled(false);
                 return;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return;
@@ -85,16 +91,20 @@ public class Rhythm
             case 0:
                 SetTimbreNoAndGroup(parameterValue, autoCorrect);
                 return;
+
             case 1:
                 SetOutputLevel(parameterValue, autoCorrect);
                 return;
+
             case 2:
                 SetPanPot(parameterValue - RhythmConstants.PANPOT_OFFSET, autoCorrect);
                 return;
+
             case 3:
                 if (parameterValue == 1) SetReverbEnabled(true);
                 else SetReverbEnabled(false);
                 return;
+
             default:
                 InvalidParameterNo(parameterNo);
                 return;
@@ -114,11 +124,11 @@ public class Rhythm
             SetTimbreGroup(0);
             SetTimbreNo(parameterValue);
         }
-        else 
+        else
         {
             SetTimbreGroup(1);
             SetTimbreNo(parameterValue - 64);
-        }          
+        }
     }
 
     public int GetTimbreGroup()
