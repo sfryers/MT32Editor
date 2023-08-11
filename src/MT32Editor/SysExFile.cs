@@ -440,7 +440,7 @@ internal static class SysExFile
             return;
         }
 
-        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             //user left filename blank
             return;
