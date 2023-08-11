@@ -251,7 +251,7 @@ internal static class SysExFile
             }
             string textMessage = Encoding.ASCII.GetString(textChars).Substring(0, textLength);
             int messageNo = 1;
-            if (memoryState.GetSystem().GetMessage(0) == "")
+            if (string.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0)))
             {
                 messageNo = 0;
             }
