@@ -12,14 +12,25 @@ internal static class ConfigFile
     public static string[] Load()
     {
         string[] midiDevices = { "", "" };
-        if (!File.Exists(fileName)) return midiDevices; //return blank device names if no config file found
+        if (!File.Exists(fileName))
+        {
+            return midiDevices; //return blank device names if no config file found
+        }
+
         StreamReader fs = new StreamReader(fileName);
         while (!fs.EndOfStream)
         {
             string? fileLine = fs.ReadLine();
-            if (fileLine == null) continue;
+            if (fileLine == null)
+            {
+                continue;
+            }
+
             fileLine = ParseTools.RemoveLeadingSpaces(fileLine);
-            if (ParseTools.LeftMost(fileLine, 1) == "#") continue;
+            if (ParseTools.LeftMost(fileLine, 1) == "#")
+            {
+                continue;
+            }
             else if (ParseTools.LeftMost(fileLine, 7) == "Midi In")
             {
                 fileLine = ParseTools.RightOfChar(fileLine, '[');
@@ -41,7 +52,11 @@ internal static class ConfigFile
     {
         try
         {
-            if (!File.Exists(fileName)) File.Create(fileName).Dispose(); //create new config file if it doesn't already exist
+            if (!File.Exists(fileName))
+            {
+                File.Create(fileName).Dispose(); //create new config file if it doesn't already exist
+            }
+
             StreamWriter fs = new StreamWriter(fileName, false);
             fs.WriteLine("##### MT-32 Timbre Editor configuration settings #####");
             fs.WriteLine("Midi In = [" + Midi.GetInputDeviceName(Midi.InDeviceIndex) + "]");

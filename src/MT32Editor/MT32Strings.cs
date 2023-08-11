@@ -112,8 +112,15 @@ internal static class MT32Strings
         //returns bias point note name where 0-63 = <A1 to <C4 and 64-128 = >A1 to >C4
         LogicTools.ValidateRange("Bias Point Value", biasPointValue, 0, 127, autoCorrect: false);
         string biasPt = ">";
-        if (biasPointValue < 64) biasPt = "<" + PitchNote(biasPointValue + 21);
-        else biasPt += PitchNote(biasPointValue - 43);
+        if (biasPointValue < 64)
+        {
+            biasPt = "<" + PitchNote(biasPointValue + 21);
+        }
+        else
+        {
+            biasPt += PitchNote(biasPointValue - 43);
+        }
+
         return biasPt;
     }
 
@@ -129,22 +136,38 @@ internal static class MT32Strings
         string partialStatusList = "";
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {
-            if (partialMuteStatus[partialNo]) partialStatusList += "_";
-            else partialStatusList += (partialNo + 1).ToString();
+            if (partialMuteStatus[partialNo])
+            {
+                partialStatusList += "_";
+            }
+            else
+            {
+                partialStatusList += (partialNo + 1).ToString();
+            }
         }
         return partialStatusList;
     }
 
     public static string OnOffStatus(bool statusIsOn)
     {
-        if (statusIsOn) return onOff[1];
-        else return onOff[0];
+        if (statusIsOn)
+        {
+            return onOff[1];
+        }
+        else
+        {
+            return onOff[0];
+        }
     }
 
     public static string WaveformType(int waveformValue)
     {
         LogicTools.ValidateRange("Waveform Type", waveformValue, 0, 3, autoCorrect: false);
-        if (waveformValue > 1) waveformValue -= 2;
+        if (waveformValue > 1)
+        {
+            waveformValue -= 2;
+        }
+
         return waveform[waveformValue];
     }
 

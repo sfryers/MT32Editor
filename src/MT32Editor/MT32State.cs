@@ -77,9 +77,20 @@ public class MT32State
     public void SetUpdateTime()
     {
         timeOfLastFullUpdate = DateTime.Now;
-        for (int patchNo = 0; patchNo < 128; patchNo++) patchArray[patchNo].SetUpdateTime();
-        for (int timbreNo = 0; timbreNo < 64; timbreNo++) memoryTimbre[timbreNo].SetUpdateTime();
-        for (int bankNo = 0; bankNo < 84; bankNo++) rhythmBank[bankNo].SetUpdateTime();
+        for (int patchNo = 0; patchNo < 128; patchNo++)
+        {
+            patchArray[patchNo].SetUpdateTime();
+        }
+
+        for (int timbreNo = 0; timbreNo < 64; timbreNo++)
+        {
+            memoryTimbre[timbreNo].SetUpdateTime();
+        }
+
+        for (int bankNo = 0; bankNo < 84; bankNo++)
+        {
+            rhythmBank[bankNo].SetUpdateTime();
+        }
     }
 
     private void ValidateTimbreNo(int timbreNo)

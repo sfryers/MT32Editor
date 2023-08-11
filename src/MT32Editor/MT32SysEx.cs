@@ -34,7 +34,11 @@ internal static class MT32SysEx
     {
         byte checkSum = (byte)(sumOfSysExValues % 0x80);    //round to 7-bit value
         checkSum = (byte)(0x80 - checkSum);                 //invert
-        if (checkSum == 0x80) checkSum = 0x00;
+        if (checkSum == 0x80)
+        {
+            checkSum = 0x00;
+        }
+
         return checkSum;
     }
 
@@ -70,7 +74,11 @@ internal static class MT32SysEx
 
     public static byte[] MemoryTimbreAddress(int timbreNo)  //calculate address of specific memory timbre
     {
-        if (timbreNo < 0 || timbreNo > 63) timbreNo = 0;
+        if (timbreNo < 0 || timbreNo > 63)
+        {
+            timbreNo = 0;
+        }
+
         byte[] Addr = new byte[2];
         Addr[0] = Convert.ToByte(timbreNo * 2);
         Addr[1] = 0x00;
@@ -108,7 +116,10 @@ internal static class MT32SysEx
     public static void SendPatchBlock(Patch[] patchData, int firstPatchNo, int lastPatchNo)
     {
         //send multiple patches to device
-        for (int patchNo = firstPatchNo; patchNo < lastPatchNo + 1; patchNo++) SendPatchData(patchData, patchNo);
+        for (int patchNo = firstPatchNo; patchNo < lastPatchNo + 1; patchNo++)
+        {
+            SendPatchData(patchData, patchNo);
+        }
     }
 
     public static void SendPatchData(Patch[] patchData, int patchNo)
@@ -178,13 +189,20 @@ internal static class MT32SysEx
             sysExData[parameterNo] = t.GetSysExParameter(partialNo, parameterNo);
         }
         SendMessage(sysExAddr, sysExData);
-        if (Midi.hardwareMT32) Thread.Sleep(50);    //avoid buffer overflow on hardware MT-32
+        if (Midi.hardwareMT32)
+        {
+            Thread.Sleep(50);    //avoid buffer overflow on hardware MT-32
+        }
     }
 
     public static void SendPCMBankNo(int partialNo, int sysExValue) //send parameter change to device and show text on device display
     {
         string bankNo = "1";
-        if (sysExValue > 1) bankNo = "2";
+        if (sysExValue > 1)
+        {
+            bankNo = "2";
+        }
+
         byte[] sysExAddr = TempPartialAddress(parameter: 0x04, partialNo);
         byte[] sysExData = { (byte)sysExValue };
         SendMessage(sysExAddr, sysExData);
@@ -218,7 +236,10 @@ internal static class MT32SysEx
         foreach (bool partialMuted in partialMuteStatus)        //convert boolean bits representing individual partial mute states into byte value for sysex message
         {
             sum <<= 1;
-            if (!partialMuted) sum |= 1;
+            if (!partialMuted)
+            {
+                sum |= 1;
+            }
         }
         Array.Reverse(partialMuteStatus);                       //order left to right
         return sum;
@@ -226,7 +247,11 @@ internal static class MT32SysEx
 
     public static void SendText(string textMessage)             //send text string of exactly 20 characters to MT-32 LED matrix display
     {
-        if (blockMT32text || !sendTextToMT32) return;
+        if (blockMT32text || !sendTextToMT32)
+        {
+            return;
+        }
+
         textMessage = ParseTools.MakeNCharsLong(textMessage, 20);
         byte[] sysExAddr = { 0x20, 0x00, 0x00 };                // start of text display register
         byte[] sysExData = Encoding.ASCII.GetBytes(textMessage);
@@ -302,14 +327,21 @@ internal static class MT32SysEx
 
     private static void SendSysExData(byte[] sysExMessage)  //Send sysex data package to active MIDI Out device
     {
-        if (blockSysExMessages) return;
+        if (blockSysExMessages)
+        {
+            return;
+        }
+
         uploadInProgress = true;
         Midi.CloseInputDevice();        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
         //Midi.CloseOutputDevice();
         try
         {
             //Midi.Out = new MidiOut(Midi.OutDeviceIndex);
-            if (Midi.Out != null) Midi.Out.SendBuffer(sysExMessage);
+            if (Midi.Out != null)
+            {
+                Midi.Out.SendBuffer(sysExMessage);
+            }
             //Midi.Out.Dispose();
         }
         catch
@@ -332,7 +364,10 @@ internal static class MT32SysEx
     {
         byte[] sysExAddress = { 0x04, 0x00, 0x00 }; //timbre temp area 1
         SendTimbre(timbreNo, timbre, sysExAddress);
-        if (Midi.hardwareMT32) Thread.Sleep(100);
+        if (Midi.hardwareMT32)
+        {
+            Thread.Sleep(100);
+        }
     }
 
     public static void SendTimbre(int timbreNo, TimbreStructure timbre, byte[] sysExAddress)
@@ -347,8 +382,15 @@ internal static class MT32SysEx
         sysExData[10] = (byte)timbre.GetPart12Structure();
         sysExData[11] = (byte)timbre.GetPart34Structure();
         sysExData[12] = PartialMuteValue(timbre.GetPartialMuteStatus());
-        if (timbre.GetSustainStatus()) sysExData[13] = 0;
-        else sysExData[13] = 1;
+        if (timbre.GetSustainStatus())
+        {
+            sysExData[13] = 0;
+        }
+        else
+        {
+            sysExData[13] = 1;
+        }
+
         int byteNo = 14;
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {

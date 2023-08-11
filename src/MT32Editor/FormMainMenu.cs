@@ -36,7 +36,11 @@ public partial class FormMainMenu : Form
         AllocConsole();
         Console.WriteLine("Welcome to MT32 Editor " + VERSION_NO);
         InitialiseMidiConnections();
-        if (midiInError || midiOutError) return;
+        if (midiInError || midiOutError)
+        {
+            return;
+        }
+
         OpenTimbreEditor();
         OpenMemoryBankEditor();
         OpenRhythmEditor();
@@ -98,39 +102,67 @@ public partial class FormMainMenu : Form
 
         void ScaleMemoryBankEditor()
         {
-            if (memoryBankEditor == null) return;
+            if (memoryBankEditor == null)
+            {
+                return;
+            }
+
             memoryBankEditor.Left = 0;
             memoryBankEditor.Top = 0;
             memoryBankEditor.Width = (Width / 8);
-            if (Height > memoryBankEditor.MinimumSize.Height) memoryBankEditor.Height = Height - yMargin;
+            if (Height > memoryBankEditor.MinimumSize.Height)
+            {
+                memoryBankEditor.Height = Height - yMargin;
+            }
         }
 
         void ScaleTimbreEditor()
         {
-            if (timbreEditor == null || memoryBankEditor == null) return;
+            if (timbreEditor == null || memoryBankEditor == null)
+            {
+                return;
+            }
+
             timbreEditor.Left = memoryBankEditor.Width + 1;
             timbreEditor.Top = 0;
-            if (Height > timbreEditor.MinimumSize.Height) timbreEditor.Height = Height - yMargin;
+            if (Height > timbreEditor.MinimumSize.Height)
+            {
+                timbreEditor.Height = Height - yMargin;
+            }
         }
 
         void ScalePatchEditor()
         {
-            if (patchEditor == null || timbreEditor == null || memoryBankEditor == null) return;
+            if (patchEditor == null || timbreEditor == null || memoryBankEditor == null)
+            {
+                return;
+            }
+
             patchEditor.Left = (Width * 68) / 100;
             patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             patchEditor.Top = 0;
             patchEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
-            if (Height > patchEditor.MinimumSize.Height) patchEditor.Height = Height - yMargin;
+            if (Height > patchEditor.MinimumSize.Height)
+            {
+                patchEditor.Height = Height - yMargin;
+            }
         }
 
         void ScaleRhythmEditor()
         {
-            if (rhythmEditor == null || timbreEditor == null || memoryBankEditor == null) return;
+            if (rhythmEditor == null || timbreEditor == null || memoryBankEditor == null)
+            {
+                return;
+            }
+
             rhythmEditor.Left = (Width * 68) / 100;
             rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             rhythmEditor.Top = 0;
             rhythmEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
-            if (Height > rhythmEditor.MinimumSize.Height) rhythmEditor.Height = Height - yMargin;
+            if (Height > rhythmEditor.MinimumSize.Height)
+            {
+                rhythmEditor.Height = Height - yMargin;
+            }
         }
     }
 
@@ -155,26 +187,46 @@ public partial class FormMainMenu : Form
         {
             int inDeviceNo = 0;
             midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());                                    //List available MIDI In devices in combo box
-            if (midiInToolStripMenuItem.Items.Count == 0) return;
+            if (midiInToolStripMenuItem.Items.Count == 0)
+            {
+                return;
+            }
+
             for (int device = 0; device <= Midi.CountInputDevices(); device++)
             {
-                if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0]) inDeviceNo = device;      //Set active MIDI In device
+                if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0])
+                {
+                    inDeviceNo = device;      //Set active MIDI In device
+                }
             }
             midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
-            if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text);
+            if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
+            {
+                MidiInError(midiInToolStripMenuItem.Text);
+            }
         }
 
         void InitialiseMidiOutConnection()
         {
             int outDeviceNo = 0;
             midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());                                  //List available MIDI Out devices in combo box
-            if (midiOutToolStripMenuItem.Items.Count == 0) return;
+            if (midiOutToolStripMenuItem.Items.Count == 0)
+            {
+                return;
+            }
+
             for (int device = 0; device <= Midi.CountOutputDevices(); device++)
             {
-                if (Midi.GetOutputDeviceName(device).ToString() == midiDeviceNames[1]) outDeviceNo = device;    //Set active MIDI Out device
+                if (Midi.GetOutputDeviceName(device).ToString() == midiDeviceNames[1])
+                {
+                    outDeviceNo = device;    //Set active MIDI Out device
+                }
             }
             midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
-            if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text);
+            if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
+            {
+                MidiOutError(midiOutToolStripMenuItem.Text);
+            }
         }
     }
 
@@ -192,19 +244,29 @@ public partial class FormMainMenu : Form
 
     private void FormMainMenu_Load(object sender, EventArgs e)
     {
-        if (midiInError || midiOutError) Close();
+        if (midiInError || midiOutError)
+        {
+            Close();
+        }
     }
 
     private void midiInToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
     {
-        if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex)) MidiInError(midiInToolStripMenuItem.Text); //assign new MIDI In device
+        if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
+        {
+            MidiInError(midiInToolStripMenuItem.Text); //assign new MIDI In device
+        }
+
         ConfigFile.Save();
         ConsoleMessage.SendLine("Config file saved");
     }
 
     private void midiOutToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
     {
-        if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex)) MidiOutError(midiOutToolStripMenuItem.Text); ; //assign new MIDI Out device
+        if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
+        {
+            MidiOutError(midiOutToolStripMenuItem.Text);
+        }; //assign new MIDI Out device
         CheckForEmulator();
         ConfigFile.Save();
         ConsoleMessage.SendLine("Config file saved");
@@ -261,7 +323,11 @@ public partial class FormMainMenu : Form
             }
         }
         string status = TimbreFile.Load(timbreData);
-        if (status == "Cancelled" || status == "#Error!") return;
+        if (status == "Cancelled" || status == "#Error!")
+        {
+            return;
+        }
+
         saveTimbreDialog.FileName = status;
         saveTimbreFileToolStripMenuItem.Enabled = true;
         timbreName = timbreData.GetTimbreName();
@@ -279,7 +345,10 @@ public partial class FormMainMenu : Form
         saveTimbreDialog.Filter = "Timbre file|*.timbre";
         saveTimbreDialog.FileName = timbreName;
         saveTimbreDialog.Title = "Save Timbre File";
-        if (saveTimbreDialog.ShowDialog() == DialogResult.OK) TimbreFile.Save(memoryTimbre, saveTimbreDialog);
+        if (saveTimbreDialog.ShowDialog() == DialogResult.OK)
+        {
+            TimbreFile.Save(memoryTimbre, saveTimbreDialog);
+        }
     }
 
     private void saveTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -337,35 +406,66 @@ public partial class FormMainMenu : Form
         {
             DisableTimbreEditor();
         }
-        else EnableTimbreEditor();
-        if (memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY) saveTimbreFileToolStripMenuItem.Enabled = false;
-        else saveTimbreFileToolStripMenuItem.Enabled = true;
-        if (midiInError || midiOutError) Close();
+        else
+        {
+            EnableTimbreEditor();
+        }
+
+        if (memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY)
+        {
+            saveTimbreFileToolStripMenuItem.Enabled = false;
+        }
+        else
+        {
+            saveTimbreFileToolStripMenuItem.Enabled = true;
+        }
+
+        if (midiInError || midiOutError)
+        {
+            Close();
+        }
     }
 
     private void DisableTimbreEditor()
     {
-        if ((timbreEditor == null) || !timbreEditor.Enabled) return;
+        if ((timbreEditor == null) || !timbreEditor.Enabled)
+        {
+            return;
+        }
+
         timbreEditor.Enabled = false;
         ConsoleMessage.SendLine("Disabling timbre editor");
     }
 
     private void EnableTimbreEditor()
     {
-        if ((timbreEditor == null) || timbreEditor.Enabled) return;
+        if ((timbreEditor == null) || timbreEditor.Enabled)
+        {
+            return;
+        }
+
         timbreEditor.Enabled = true;
         ConsoleMessage.SendLine("Enabling timbre editor");
     }
 
     private void hardwareMT32ConnectedToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (Midi.hardwareMT32) EmulatorConnected();
-        else MT32Connected();
+        if (Midi.hardwareMT32)
+        {
+            EmulatorConnected();
+        }
+        else
+        {
+            MT32Connected();
+        }
     }
 
     private void CheckForEmulator()
     {
-        if (Midi.Out != null && !midiOutError && Midi.GetOutputDeviceName(midiOutToolStripMenuItem.SelectedIndex) == "MT-32 Synth Emulator") EmulatorConnected();
+        if (Midi.Out != null && !midiOutError && Midi.GetOutputDeviceName(midiOutToolStripMenuItem.SelectedIndex) == "MT-32 Synth Emulator")
+        {
+            EmulatorConnected();
+        }
     }
 
     private void EmulatorConnected()

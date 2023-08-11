@@ -19,8 +19,16 @@ internal static class SysExFile
         loadSysExDialog.Title = "Load SysEx File";
         loadSysExDialog.CheckFileExists = true;
         loadSysExDialog.CheckPathExists = true;
-        if (loadSysExDialog.ShowDialog() != DialogResult.OK) return; //file error or dialogue cancelled
-        if (loadSysExDialog.FileName == "") return; //No file specified, abort loading process
+        if (loadSysExDialog.ShowDialog() != DialogResult.OK)
+        {
+            return; //file error or dialogue cancelled
+        }
+
+        if (loadSysExDialog.FileName == "")
+        {
+            return; //No file specified, abort loading process
+        }
+
         FileStream file = (FileStream)loadSysExDialog.OpenFile();
         MT32SysEx.blockMT32text = true;
         ReadSysExFile();
@@ -40,7 +48,10 @@ internal static class SysExFile
             while (fileDataValue != -1)
             {
                 fileDataValue = file.ReadByte();
-                if (fileDataValue == MT32SysEx.START_OF_DATA_BLOCK) ReadSysExDataBlock();
+                if (fileDataValue == MT32SysEx.START_OF_DATA_BLOCK)
+                {
+                    ReadSysExDataBlock();
+                }
             }
             ConsoleMessage.SendLine("End of SysEx File", ConsoleColor.Red);
             MT32SysEx.blockSysExMessages = false;
@@ -61,7 +72,11 @@ internal static class SysExFile
                 }
                 if (fileDataValue == MT32SysEx.END_OF_DATA_BLOCK)
                 {
-                    if (filePointer < 2) return;
+                    if (filePointer < 2)
+                    {
+                        return;
+                    }
+
                     Array.Resize(ref sysExDataBlock, filePointer - 1); //remove checksum from end of array
                     ProcessSysExDataBlock(sysExDataBlock);
                     return;
@@ -138,15 +153,26 @@ internal static class SysExFile
 
         bool IsMT32ResetCommand(int[] sysExData)
         {
-            if (sysExData.Length != 5) return false;
-            if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) || (sysExData[1] != MT32SysEx.DEVICE_ID) || (sysExData[2] != MT32SysEx.MODEL_ID) || (sysExData[3] != MT32SysEx.TX) || (sysExData[4] != MT32SysEx.RESET)) return false;
+            if (sysExData.Length != 5)
+            {
+                return false;
+            }
+
+            if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) || (sysExData[1] != MT32SysEx.DEVICE_ID) || (sysExData[2] != MT32SysEx.MODEL_ID) || (sysExData[3] != MT32SysEx.TX) || (sysExData[4] != MT32SysEx.RESET))
+            {
+                return false;
+            }
+
             return true;
         }
 
         void DoReset()
         {
             MT32SysEx.SendMT32Reset();
-            if (MT32SysEx.allowReset) memoryState.ResetAll();
+            if (MT32SysEx.allowReset)
+            {
+                memoryState.ResetAll();
+            }
         }
 
         void ExtractSystemData(int[] sysExData, int[] sysExAddress)
@@ -156,7 +182,11 @@ internal static class SysExFile
                 ConsoleMessage.SendLine("System data address invalid, ignoring.");
                 return;
             }
-            if (sysExData.Length + sysExAddress[2] > NO_OF_SYSTEM_PARAMS) Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS - sysExAddress[2]); //remove any superfluous sysEx data values
+            if (sysExData.Length + sysExAddress[2] > NO_OF_SYSTEM_PARAMS)
+            {
+                Array.Resize(ref sysExData, NO_OF_SYSTEM_PARAMS - sysExAddress[2]); //remove any superfluous sysEx data values
+            }
+
             int[] systemData = GetCurrentSystemAreaStateAsArray();
             for (int parameterNo = 0; parameterNo < sysExData.Length; parameterNo++)
             {
@@ -197,7 +227,11 @@ internal static class SysExFile
         void ExtractTextData(int[] sysExData)
         {
             int textLength = sysExData.Length;
-            if (textLength > 20) textLength = 20;
+            if (textLength > 20)
+            {
+                textLength = 20;
+            }
+
             byte[] textChars = new byte[textLength];
             for (int charNo = 0; charNo < textLength; charNo++)
             {
@@ -205,7 +239,11 @@ internal static class SysExFile
             }
             string textMessage = Encoding.ASCII.GetString(textChars).Substring(0, textLength);
             int messageNo = 1;
-            if (memoryState.GetSystem().GetMessage(0) == "") messageNo = 0;
+            if (memoryState.GetSystem().GetMessage(0) == "")
+            {
+                messageNo = 0;
+            }
+
             memoryState.GetSystem().SetMessage(messageNo, textMessage);
             ConsoleMessage.SendLine("Message " + (messageNo + 1).ToString() + " = [" + textMessage + "]");
         }
@@ -249,7 +287,11 @@ internal static class SysExFile
             int byteNo = 0;
             for (int bankNo = startingbankNo; bankNo < (noOfKeys + startingbankNo); bankNo++)
             {
-                if (bankNo > 83) break; //avoid array overflow
+                if (bankNo > 83)
+                {
+                    break; //avoid array overflow
+                }
+
                 for (int parameterNo = 0; parameterNo < 4; parameterNo++)
                 {
                     memoryState.GetRhythm(bankNo).SetParameterSysExValue(parameterNo, sysExData[byteNo], autoCorrect: true);
@@ -309,8 +351,16 @@ internal static class SysExFile
 
             int GetTimbreNo(int[] sysExAddress)
             {
-                if (sysExAddress[2] != 0) return -1; //address suggests incomplete timbre data, ignore.
-                if (!LogicTools.DivisibleBy(sysExAddress[1], 2)) return -1; //odd value suggests incomplete timbre data, ignore;
+                if (sysExAddress[2] != 0)
+                {
+                    return -1; //address suggests incomplete timbre data, ignore.
+                }
+
+                if (!LogicTools.DivisibleBy(sysExAddress[1], 2))
+                {
+                    return -1; //odd value suggests incomplete timbre data, ignore;
+                }
+
                 return sysExAddress[1] / 2;
             }
 
@@ -336,8 +386,14 @@ internal static class SysExFile
 
                 for (int partialNo = 0; partialNo < noOfPartials; partialNo++)
                 {
-                    if ((sysExData[12] & (1 << partialNo)) != 0) memoryTimbre.SetPartialMuteStatus(partialNo, false);
-                    else memoryTimbre.SetPartialMuteStatus(partialNo, true);
+                    if ((sysExData[12] & (1 << partialNo)) != 0)
+                    {
+                        memoryTimbre.SetPartialMuteStatus(partialNo, false);
+                    }
+                    else
+                    {
+                        memoryTimbre.SetPartialMuteStatus(partialNo, true);
+                    }
 
                     for (int parameterNo = 0; parameterNo < MT32SysEx.PARAMETER_COUNT; parameterNo++)
                     {
@@ -353,9 +409,21 @@ internal static class SysExFile
     {
         saveDialog.Title = "Save SysEx File";
         saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-        if (saveDialog.FileName == "" || saveDialog.FileName == null) saveDialog.FileName = "New MT32 system settings file.syx";
-        if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error
-        if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user left filename blank
+        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        {
+            saveDialog.FileName = "New MT32 system settings file.syx";
+        }
+
+        if (saveDialog.ShowDialog() != DialogResult.OK)
+        {
+            return; //file error
+        }
+
+        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        {
+            return; //user left filename blank
+        }
+
         FileStream sysExFile;
         try
         {
@@ -366,8 +434,15 @@ internal static class SysExFile
             MessageBox.Show("Could not write SysEx file. Please ensure you have write access to the selected folder path.", "MT-32 Editor");
             return;
         }
-        if (messages) SaveMessage(sysExFile, systemConfig, 0);
-        if (level && tuning && reverb && channels && reserve) SaveAllSystemData(sysExFile, systemConfig);
+        if (messages)
+        {
+            SaveMessage(sysExFile, systemConfig, 0);
+        }
+
+        if (level && tuning && reverb && channels && reserve)
+        {
+            SaveAllSystemData(sysExFile, systemConfig);
+        }
         else
         {   //if not all options are selected, save separate SysEx block for each set of parameters
             if (tuning)
@@ -399,7 +474,11 @@ internal static class SysExFile
                 SaveSingleSysExValue(sysExAddr, systemConfig.GetMasterLevel());
             }
         }
-        if (messages) SaveMessage(sysExFile, systemConfig, 1);
+        if (messages)
+        {
+            SaveMessage(sysExFile, systemConfig, 1);
+        }
+
         sysExFile.Close();
         MessageBox.Show("Saved system settings to " + saveDialog.FileName, "MT-32 System Settings");
 
@@ -430,8 +509,16 @@ internal static class SysExFile
 
     public static void Save(MT32State memoryState, SaveFileDialog saveDialog)
     {
-        if (saveDialog.ShowDialog() != DialogResult.OK) return; //file error or cancelled dialogue
-        if (saveDialog.FileName == "" || saveDialog.FileName == null) return; //user didn't select a file
+        if (saveDialog.ShowDialog() != DialogResult.OK)
+        {
+            return; //file error or cancelled dialogue
+        }
+
+        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        {
+            return; //user didn't select a file
+        }
+
         FileStream sysExFile;
 
         try
@@ -504,7 +591,11 @@ internal static class SysExFile
             for (int blockNo = 0; blockNo < 2; blockNo++)
             {
                 byte[] sysExAddr = { 0x03, 0x01, 0x10 };
-                if (blockNo == 1) sysExAddr[1] = 0x03;
+                if (blockNo == 1)
+                {
+                    sysExAddr[1] = 0x03;
+                }
+
                 int sumOfSysExValues = 0;
                 SaveSysExHeader(sysExFile);
                 sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);

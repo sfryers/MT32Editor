@@ -11,9 +11,18 @@ internal static class FileTools
     {
         FolderBrowserDialog selectFolder = new FolderBrowserDialog();
         DialogResult result = selectFolder.ShowDialog();
-        if (result != DialogResult.OK) return "#Error!";
-        else if (string.IsNullOrWhiteSpace(selectFolder.SelectedPath)) return "Cancelled";
-        else return selectFolder.SelectedPath;
+        if (result != DialogResult.OK)
+        {
+            return "#Error!";
+        }
+        else if (string.IsNullOrWhiteSpace(selectFolder.SelectedPath))
+        {
+            return "Cancelled";
+        }
+        else
+        {
+            return selectFolder.SelectedPath;
+        }
     }
 
     public static string EnsureUniqueFilename(string fileName)

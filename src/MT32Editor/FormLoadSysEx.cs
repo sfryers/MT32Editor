@@ -24,10 +24,21 @@ public partial class FormLoadSysEx : Form
         InitializeComponent();
         MT32SysEx.blockSysExMessages = true;
         clearMemory = clearMemoryState;
-        if (clearMemory) Text = "Clearing Memory Timbres";
+        if (clearMemory)
+        {
+            Text = "Clearing Memory Timbres";
+        }
+
         memoryState = inputMemoryState;
-        if (Midi.hardwareMT32) timer.Interval = MT32_DELAY;
-        else timer.Interval = 1;
+        if (Midi.hardwareMT32)
+        {
+            timer.Interval = MT32_DELAY;
+        }
+        else
+        {
+            timer.Interval = 1;
+        }
+
         progressBar.Maximum = 66 + (88 / RHYTHM_BANKS_PER_BLOCK) + (128 / PATCHES_PER_BLOCK);
         MT32SysEx.blockSysExMessages = false;
         timer.Start();
@@ -38,17 +49,35 @@ public partial class FormLoadSysEx : Form
         switch (stepNo)
         {
             case 0:
-                if (!clearMemory) SendSystemArea();
+                if (!clearMemory)
+                {
+                    SendSystemArea();
+                }
+
                 break;
 
             case 1:
-                if (!clearMemory && patchNo < 128) SendNextPatchBlock();
-                else stepNo++;
+                if (!clearMemory && patchNo < 128)
+                {
+                    SendNextPatchBlock();
+                }
+                else
+                {
+                    stepNo++;
+                }
+
                 break;
 
             case 2:
-                if (!clearMemory && keyNo < 104) SendNextRhythmBankBlock();
-                else stepNo++;
+                if (!clearMemory && keyNo < 104)
+                {
+                    SendNextRhythmBankBlock();
+                }
+                else
+                {
+                    stepNo++;
+                }
+
                 break;
 
             case 3:
@@ -60,8 +89,15 @@ public partial class FormLoadSysEx : Form
                 break;
 
             default:
-                if (timbreNo < 64) SendNextMemoryTimbre();
-                else Finish();
+                if (timbreNo < 64)
+                {
+                    SendNextMemoryTimbre();
+                }
+                else
+                {
+                    Finish();
+                }
+
                 break;
         }
 
@@ -108,8 +144,14 @@ public partial class FormLoadSysEx : Form
 
     private void UpdateProgressBarTimbreStatus(int timbreNo)
     {
-        if (clearMemory) labelLoadProgress.Text = "Clearing timbre memory " + (timbreNo + 1).ToString() + " of 64";
-        else labelLoadProgress.Text = "Loading " + memoryState.GetMemoryTimbre(timbreNo).GetTimbreName() + " (" + timbreNo.ToString() + " of 64)";
+        if (clearMemory)
+        {
+            labelLoadProgress.Text = "Clearing timbre memory " + (timbreNo + 1).ToString() + " of 64";
+        }
+        else
+        {
+            labelLoadProgress.Text = "Loading " + memoryState.GetMemoryTimbre(timbreNo).GetTimbreName() + " (" + timbreNo.ToString() + " of 64)";
+        }
     }
 
     private void UpdateProgressBarPatchStatus(int patchNo)

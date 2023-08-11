@@ -23,14 +23,22 @@ internal static class Midi
 
     public static string GetInputDeviceName(int deviceNo)
     {
-        if (deviceNo < 0 || deviceNo >= MidiIn.NumberOfDevices) return "none";
+        if (deviceNo < 0 || deviceNo >= MidiIn.NumberOfDevices)
+        {
+            return "none";
+        }
+
         string deviceName = MidiIn.DeviceInfo(deviceNo).ProductName;
         return deviceName;
     }
 
     public static string GetOutputDeviceName(int deviceNo)
     {
-        if (deviceNo < 0 || deviceNo >= MidiOut.NumberOfDevices) return "none";
+        if (deviceNo < 0 || deviceNo >= MidiOut.NumberOfDevices)
+        {
+            return "none";
+        }
+
         string deviceName = MidiOut.DeviceInfo(deviceNo).ProductName;
         return deviceName;
     }
@@ -48,8 +56,13 @@ internal static class Midi
     public static void InputMessageReceived(object sender, MidiInMessageEventArgs e)
     //echo any note data received from MIDI In port thru to MIDI Out port
     {
-        if (MT32SysEx.uploadInProgress) return; // only echo data if a sysEx upload is not in progress
+        if (MT32SysEx.uploadInProgress)
+        {
+            return; // only echo data if a sysEx upload is not in progress
+        }
+
         if (Out != null)
+        {
             try
             {
                 Out.Send(e.RawMessage); //send MIDI In data to MIDI Out
@@ -59,6 +72,7 @@ internal static class Midi
                 ConsoleMessage.SendLine("Error opening MIDI Out device.");
                 Out = null;
             }
+        }
     }
 
     public static bool OpenInputDevice(int device)
@@ -83,7 +97,11 @@ internal static class Midi
     public static bool ReopenInputDevice()
     {
         //restart Midi In monitoring
-        if (InDeviceIndex < 0) return false;
+        if (InDeviceIndex < 0)
+        {
+            return false;
+        }
+
         try
         {
             //reopen MIDI In connection if a device is selected
@@ -98,7 +116,11 @@ internal static class Midi
 
     public static bool OpenOutputDevice(int device)
     {
-        if (Out != null) Out.Dispose(); //close any existing MIDI Out connection
+        if (Out != null)
+        {
+            Out.Dispose(); //close any existing MIDI Out connection
+        }
+
         OutDeviceIndex = device;
         try                             //test for errors
         {
@@ -167,7 +189,10 @@ internal static class Midi
         LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
         try
         {
-            if (Out != null) Out.Send(MidiMessage.StartNote(note, 120, midiChannel + 1).RawData);
+            if (Out != null)
+            {
+                Out.Send(MidiMessage.StartNote(note, 120, midiChannel + 1).RawData);
+            }
         }
         catch
         {
@@ -181,7 +206,10 @@ internal static class Midi
         LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
         try
         {
-            if (Out != null) Out.Send(MidiMessage.StopNote(note, 120, midiChannel + 1).RawData);
+            if (Out != null)
+            {
+                Out.Send(MidiMessage.StopNote(note, 120, midiChannel + 1).RawData);
+            }
         }
         catch
         {
@@ -193,12 +221,19 @@ internal static class Midi
     public static void SendProgramChange(int patchNo, int channelNo)
     {
         byte status = (byte)(0xC0 + channelNo); //program change
-        if (patchNo < 0 || patchNo > 127) return;
+        if (patchNo < 0 || patchNo > 127)
+        {
+            return;
+        }
+
         byte programNo = (byte)patchNo;
         byte[] message = { status, programNo };
         try
         {
-            if (Out != null) Out.SendBuffer(message);
+            if (Out != null)
+            {
+                Out.SendBuffer(message);
+            }
         }
         catch
         {

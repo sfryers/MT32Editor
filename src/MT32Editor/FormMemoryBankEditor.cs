@@ -75,8 +75,15 @@ public partial class FormMemoryBankEditor : Form
     {
         ListViewItem item;
         item = new ListViewItem((timbreNo + 1).ToString());         //enumerate memory bank list starting from 1
-        if (memoryState.GetMemoryTimbre(timbreNo) == null) item.SubItems.Add(memoryState.GetTimbreNames().Get(timbreNo, 2));
-        else item.SubItems.Add(memoryState.GetMemoryTimbre(timbreNo).GetTimbreName());
+        if (memoryState.GetMemoryTimbre(timbreNo) == null)
+        {
+            item.SubItems.Add(memoryState.GetTimbreNames().Get(timbreNo, 2));
+        }
+        else
+        {
+            item.SubItems.Add(memoryState.GetMemoryTimbre(timbreNo).GetTimbreName());
+        }
+
         listViewTimbres.Items.Add(item);
     }
 
@@ -95,7 +102,11 @@ public partial class FormMemoryBankEditor : Form
         labelTimbreName.Text = timbreName;
         SelectTimbreInListView(selectedTimbre);
         SynchroniseTimbreEditor(selectedTimbre);
-        if (timbreName == MT32Strings.EMPTY) timbreName = "New Timbre";
+        if (timbreName == MT32Strings.EMPTY)
+        {
+            timbreName = "New Timbre";
+        }
+
         MT32SysEx.SendText("Editing " + timbreName);
     }
 
@@ -106,7 +117,11 @@ public partial class FormMemoryBankEditor : Form
 
     private void buttonClearTimbre_Click(object sender, EventArgs e)
     {
-        if (labelTimbreName.Text == MT32Strings.EMPTY) return;
+        if (labelTimbreName.Text == MT32Strings.EMPTY)
+        {
+            return;
+        }
+
         switch (MessageBox.Show("Clear selected memory timbre?", "", MessageBoxButtons.OKCancel))
         {
             case DialogResult.OK:
@@ -156,7 +171,10 @@ public partial class FormMemoryBankEditor : Form
 
     private void listViewTimbres_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (listViewTimbres.SelectedIndices.Count > 0) PopulateTimbreFormParameters(listViewTimbres.SelectedIndices[0]); //don't attempt to read from an empty listview
+        if (listViewTimbres.SelectedIndices.Count > 0)
+        {
+            PopulateTimbreFormParameters(listViewTimbres.SelectedIndices[0]); //don't attempt to read from an empty listview
+        }
     }
 
     private void buttonCopyTimbre_Click(object sender, EventArgs e)
@@ -188,10 +206,24 @@ public partial class FormMemoryBankEditor : Form
     private void timer_Tick(object sender, EventArgs e)
     {
         int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
-        if (memoryState.patchEditorActive) selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
-        else if (memoryState.rhythmEditorActive) selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
-        if (memoryState.returnFocusToMemoryBankList) ReturnFocusToMemoryBankList();
-        else SynchroniseTimbreEditor(selectedTimbre);
+        if (memoryState.patchEditorActive)
+        {
+            selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
+        }
+        else if (memoryState.rhythmEditorActive)
+        {
+            selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
+        }
+
+        if (memoryState.returnFocusToMemoryBankList)
+        {
+            ReturnFocusToMemoryBankList();
+        }
+        else
+        {
+            SynchroniseTimbreEditor(selectedTimbre);
+        }
+
         RefreshMemoryBankListView(selectedTimbre);
     }
 
@@ -200,14 +232,24 @@ public partial class FormMemoryBankEditor : Form
         int requiredTimbreNo = selectedTimbreNo;
         int selectedPatchNo = memoryState.GetSelectedPatchNo();
         Patch patchData = memoryState.GetPatch(selectedPatchNo);
-        if (patchData.GetTimbreGroupType() == "Memory") FindTimbre(); //focus memory bank editor on selected memory patch and enable timbre editor
-        else memoryState.SetTimbreIsEditable(false);
+        if (patchData.GetTimbreGroupType() == "Memory")
+        {
+            FindTimbre(); //focus memory bank editor on selected memory patch and enable timbre editor
+        }
+        else
+        {
+            memoryState.SetTimbreIsEditable(false);
+        }
+
         return requiredTimbreNo;
 
         void FindTimbre()
         {
             requiredTimbreNo = patchData.GetTimbreNo();
-            if (requiredTimbreNo != selectedTimbreNo) SetTimbreAsEditable(requiredTimbreNo);
+            if (requiredTimbreNo != selectedTimbreNo)
+            {
+                SetTimbreAsEditable(requiredTimbreNo);
+            }
         }
     }
 
@@ -216,14 +258,24 @@ public partial class FormMemoryBankEditor : Form
         int requiredTimbreNo = selectedTimbreNo;
         int bankNo = memoryState.GetSelectedBank();
         Rhythm rhythmBank = memoryState.GetRhythm(bankNo);
-        if (rhythmBank.GetTimbreGroupType() == "Memory") FindTimbre(); //focus rhythm bank editor on selected memory patch and enable timbre editor
-        else memoryState.SetTimbreIsEditable(false);
+        if (rhythmBank.GetTimbreGroupType() == "Memory")
+        {
+            FindTimbre(); //focus rhythm bank editor on selected memory patch and enable timbre editor
+        }
+        else
+        {
+            memoryState.SetTimbreIsEditable(false);
+        }
+
         return requiredTimbreNo;
 
         void FindTimbre()
         {
             requiredTimbreNo = rhythmBank.GetTimbreNo();
-            if (requiredTimbreNo != selectedTimbreNo) SetTimbreAsEditable(requiredTimbreNo);
+            if (requiredTimbreNo != selectedTimbreNo)
+            {
+                SetTimbreAsEditable(requiredTimbreNo);
+            }
         }
     }
 
@@ -253,7 +305,10 @@ public partial class FormMemoryBankEditor : Form
         }
         timbreNames.SetMemoryTimbreName(timbreName, selectedTimbre);
         labelTimbreName.Text = timbreNames.Get(selectedTimbre, 2);
-        if (listViewTimbres.SelectedIndices.Count > 0) listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
+        if (listViewTimbres.SelectedIndices.Count > 0)
+        {
+            listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
+        }
     }
 
     private void FormMemoryBankEditor_Resize(object sender, EventArgs e)

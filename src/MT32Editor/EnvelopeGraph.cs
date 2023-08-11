@@ -44,12 +44,26 @@ internal class EnvelopeGraph
         envelope.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         for (int partial = 0; partial < 4; partial++)
         {
-            if (timbre.GetPartialMuteStatus()[partial]) continue;           //don't draw muted partials
-            else if (partial == activePartial) continue;                    //don't draw active partial yet
-            else if (!drawAllPartials) continue;                            //don't draw partials unless drawAllPartials is true
+            if (timbre.GetPartialMuteStatus()[partial])
+            {
+                continue;           //don't draw muted partials
+            }
+            else if (partial == activePartial)
+            {
+                continue;                    //don't draw active partial yet
+            }
+            else if (!drawAllPartials)
+            {
+                continue;                            //don't draw partials unless drawAllPartials is true
+            }
+
             DrawEnvelope(envelope, timbre, graphType, partial, highlight: false, label: false);      //draw background partial
         }
-        if (timbre.GetPartialMuteStatus()[activePartial]) return;           //don't draw muted active partial
+        if (timbre.GetPartialMuteStatus()[activePartial])
+        {
+            return;           //don't draw muted active partial
+        }
+
         DrawEnvelope(envelope, timbre, graphType, activePartial, highlight: true, label: showLabels);     //draw active partial last
 
         void DrawEnvelope(Graphics envelope, TimbreStructure timbre, int graphType, int partial, bool highlight, bool label)
@@ -79,7 +93,10 @@ internal class EnvelopeGraph
         SetTimeValues(partial, timbre.GetUIParameter(partial, 0x0B), timbre.GetUIParameter(partial, 0x0C), timbre.GetUIParameter(partial, 0x0D), timbre.GetUIParameter(partial, 0x0E), 0, 0);
         SetLevelValues(partial, timbre.GetUIParameter(partial, 0x0F), timbre.GetUIParameter(partial, 0x10), timbre.GetUIParameter(partial, 0x11), 0, timbre.GetUIParameter(partial, 0x12), timbre.GetUIParameter(partial, 0x13));
         PlotPitchGraph(envelope, partial, highlight);
-        if (label) DrawPitchLabels(envelope, partial);
+        if (label)
+        {
+            DrawPitchLabels(envelope, partial);
+        }
     }
 
     private void DrawTVAEnvelope(Graphics envelope, TimbreStructure timbre, int partial, bool highlight, bool label)
@@ -87,7 +104,10 @@ internal class EnvelopeGraph
         SetTimeValues(partial, timbre.GetUIParameter(partial, 0x31), timbre.GetUIParameter(partial, 0x32), timbre.GetUIParameter(partial, 0x33), timbre.GetUIParameter(partial, 0x34), timbre.GetUIParameter(partial, 0x35), 0);
         SetLevelValues(partial, 0, timbre.GetUIParameter(partial, 0x36), timbre.GetUIParameter(partial, 0x37), timbre.GetUIParameter(partial, 0x38), timbre.GetUIParameter(partial, 0x39), 0);
         PlotTVATVFGraph(envelope, partial, highlight);
-        if (label) DrawTVATVFLabels(envelope, partial);
+        if (label)
+        {
+            DrawTVATVFLabels(envelope, partial);
+        }
     }
 
     private void DrawTVFEnvelope(Graphics envelope, TimbreStructure timbre, int partial, bool highlight, bool label)
@@ -95,7 +115,10 @@ internal class EnvelopeGraph
         SetTimeValues(partial, timbre.GetUIParameter(partial, 0x20), timbre.GetUIParameter(partial, 0x21), timbre.GetUIParameter(partial, 0x22), timbre.GetUIParameter(partial, 0x23), timbre.GetUIParameter(partial, 0x24), 0);
         SetLevelValues(partial, 0, timbre.GetUIParameter(partial, 0x25), timbre.GetUIParameter(partial, 0x26), timbre.GetUIParameter(partial, 0x27), timbre.GetUIParameter(partial, 0x28), 0);
         PlotTVATVFGraph(envelope, partial, highlight);
-        if (label) DrawTVATVFLabels(envelope, partial);
+        if (label)
+        {
+            DrawTVATVFLabels(envelope, partial);
+        }
     }
 
     private void DrawPitchLabels(Graphics envelope, int partial)

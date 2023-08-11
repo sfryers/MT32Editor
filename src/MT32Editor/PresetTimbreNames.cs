@@ -42,19 +42,31 @@ internal static class PresetTimbreNames
 
     public static string GetPresetA(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63) OutOfRangeException(timbreNo);
+        if (timbreNo < 0 || timbreNo > 63)
+        {
+            OutOfRangeException(timbreNo);
+        }
+
         return presetGroupA[timbreNo];
     }
 
     public static string GetPresetB(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63) OutOfRangeException(timbreNo);
+        if (timbreNo < 0 || timbreNo > 63)
+        {
+            OutOfRangeException(timbreNo);
+        }
+
         return presetGroupB[timbreNo];
     }
 
     public static string GetRhythm(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63) OutOfRangeException(timbreNo);
+        if (timbreNo < 0 || timbreNo > 63)
+        {
+            OutOfRangeException(timbreNo);
+        }
+
         return rhythmGroup[timbreNo];
     }
 

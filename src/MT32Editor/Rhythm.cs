@@ -49,8 +49,15 @@ public class Rhythm
                 return panPot + RhythmConstants.PANPOT_OFFSET;
 
             case 3:
-                if (reverbEnabled) return 1;
-                else return 0;
+                if (reverbEnabled)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
             default:
                 InvalidParameterNo(parameterNo);
                 return 0;
@@ -74,8 +81,15 @@ public class Rhythm
                 return;
 
             case 3:
-                if (parameterValue == 1) SetReverbEnabled(true);
-                else SetReverbEnabled(false);
+                if (parameterValue == 1)
+                {
+                    SetReverbEnabled(true);
+                }
+                else
+                {
+                    SetReverbEnabled(false);
+                }
+
                 return;
 
             default:
@@ -101,8 +115,15 @@ public class Rhythm
                 return;
 
             case 3:
-                if (parameterValue == 1) SetReverbEnabled(true);
-                else SetReverbEnabled(false);
+                if (parameterValue == 1)
+                {
+                    SetReverbEnabled(true);
+                }
+                else
+                {
+                    SetReverbEnabled(false);
+                }
+
                 return;
 
             default:

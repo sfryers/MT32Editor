@@ -910,9 +910,19 @@ internal static class PresetTimbres
     public static TimbreStructure Get(int timbreNo, int bankNo = -1)
     {
         LogicTools.ValidateRange("Bank No.", bankNo, -1, 1, autoCorrect: false);
-        if (bankNo == -1) LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 127, autoCorrect: false);
-        else LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
-        if (bankNo == 1) timbreNo += 64;
+        if (bankNo == -1)
+        {
+            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 127, autoCorrect: false);
+        }
+        else
+        {
+            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+        }
+
+        if (bankNo == 1)
+        {
+            timbreNo += 64;
+        }
 
         TimbreStructure timbre = new TimbreStructure(false);
         if (timbreNo < 64)
@@ -929,8 +939,15 @@ internal static class PresetTimbres
 
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {
-            if ((presetTimbreData[timbreNo, 2] & (1 << partialNo)) != 0) timbre.SetPartialMuteStatus(partialNo, false);
-            else timbre.SetPartialMuteStatus(partialNo, true);
+            if ((presetTimbreData[timbreNo, 2] & (1 << partialNo)) != 0)
+            {
+                timbre.SetPartialMuteStatus(partialNo, false);
+            }
+            else
+            {
+                timbre.SetPartialMuteStatus(partialNo, true);
+            }
+
             for (byte parameterNo = 0; parameterNo < 58; parameterNo++)
             {
                 timbre.SetSysExParameter(partialNo, parameterNo, presetTimbreData[timbreNo, (partialNo * 58) + parameterNo + 4]);

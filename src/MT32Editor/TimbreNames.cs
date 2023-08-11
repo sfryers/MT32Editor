@@ -39,12 +39,25 @@ public class TimbreNames
 
             case 3:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
-                if (timbreNo == 63) return "[none]";
-                else return PresetTimbreNames.GetRhythm(timbreNo);
+                if (timbreNo == 63)
+                {
+                    return "[none]";
+                }
+                else
+                {
+                    return PresetTimbreNames.GetRhythm(timbreNo);
+                }
+
             default:
                 LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 127, autoCorrect: false);
-                if (timbreNo < 64) return PresetTimbreNames.GetPresetA(timbreNo);
-                else return PresetTimbreNames.GetPresetB(timbreNo - 64);
+                if (timbreNo < 64)
+                {
+                    return PresetTimbreNames.GetPresetA(timbreNo);
+                }
+                else
+                {
+                    return PresetTimbreNames.GetPresetB(timbreNo - 64);
+                }
         }
     }
 

@@ -52,7 +52,11 @@ public partial class FormTimbreEditor : Form
             changesMade = false;
             MT32SysEx.blockSysExMessages = false;
         }
-        if (initialisationComplete) timer.Interval = 100; //increase timer polling rate after form initialisation is completed.
+        if (initialisationComplete)
+        {
+            timer.Interval = 100; //increase timer polling rate after form initialisation is completed.
+        }
+
         initialisationComplete = true;
     }
 
@@ -72,15 +76,26 @@ public partial class FormTimbreEditor : Form
             SetAllControlValues();
         }
         int bankNo = timbre.GetPCMBankNo(0);
-        if (bankNo == 0) radioButtonPCMBank1.Checked = true;
-        else radioButtonPCMBank2.Checked = true;
+        if (bankNo == 0)
+        {
+            radioButtonPCMBank1.Checked = true;
+        }
+        else
+        {
+            radioButtonPCMBank2.Checked = true;
+        }
+
         UpdatePCMSampleList(bankNo);
     }
 
     private void InitialiseTimbreParameters(bool editExisting)
     {
         radioButtonPCMBank1.Select();
-        if (!editExisting) CreateDefaultTimbre();
+        if (!editExisting)
+        {
+            CreateDefaultTimbre();
+        }
+
         timer.Interval = 2000;
         timer.Enabled = true;
         timer.Start();
@@ -123,15 +138,36 @@ public partial class FormTimbreEditor : Form
         checkBoxPartial3.Checked = !timbre.GetPartialMuteStatus()[2];
         checkBoxPartial4.Checked = !timbre.GetPartialMuteStatus()[3];
         checkBoxSustain.Checked = timbre.GetSustainStatus();
-        if (checkBoxPartial1.Checked) labelPartialWarning.Visible = false;
-        else labelPartialWarning.Visible = true;
+        if (checkBoxPartial1.Checked)
+        {
+            labelPartialWarning.Visible = false;
+        }
+        else
+        {
+            labelPartialWarning.Visible = true;
+        }
 
         void SetPartialRadioButton(int partialNo)
         {
-            if (partialNo == 0) radioButtonPartial1.Checked = true;
-            if (partialNo == 1) radioButtonPartial2.Checked = true;
-            if (partialNo == 2) radioButtonPartial3.Checked = true;
-            if (partialNo == 3) radioButtonPartial4.Checked = true;
+            if (partialNo == 0)
+            {
+                radioButtonPartial1.Checked = true;
+            }
+
+            if (partialNo == 1)
+            {
+                radioButtonPartial2.Checked = true;
+            }
+
+            if (partialNo == 2)
+            {
+                radioButtonPartial3.Checked = true;
+            }
+
+            if (partialNo == 3)
+            {
+                radioButtonPartial4.Checked = true;
+            }
         }
     }
 
@@ -258,8 +294,14 @@ public partial class FormTimbreEditor : Form
 
         void CheckIfCurrentPartialIsEnabled()
         {
-            if (timbre.GetPartialMuteStatus()[activePartial]) SetWarning();
-            else ClearWarning();
+            if (timbre.GetPartialMuteStatus()[activePartial])
+            {
+                SetWarning();
+            }
+            else
+            {
+                ClearWarning();
+            }
         }
 
         void SetWarning()
@@ -281,7 +323,10 @@ public partial class FormTimbreEditor : Form
             {
                 labelNoActivePartials.Visible = true;
             }
-            else labelNoActivePartials.Visible = false;
+            else
+            {
+                labelNoActivePartials.Visible = false;
+            }
         }
     }
 
@@ -306,7 +351,11 @@ public partial class FormTimbreEditor : Form
             }
         }
         string status = TimbreFile.Load(timbre);
-        if (status == "Cancelled" || status == "#Error!") return;
+        if (status == "Cancelled" || status == "#Error!")
+        {
+            return;
+        }
+
         saveTimbreDialog.FileName = status;
         MT32SysEx.blockMT32text = true;
         sendSysEx = false;
@@ -326,7 +375,11 @@ public partial class FormTimbreEditor : Form
     private void QuickSaveTimbre(TimbreStructure timbre)
     {
         string action = "Overwrite";
-        if (!File.Exists(saveTimbreDialog.FileName)) action = "Save";
+        if (!File.Exists(saveTimbreDialog.FileName))
+        {
+            action = "Save";
+        }
+
         switch (MessageBox.Show(action + " file " + saveTimbreDialog.FileName + "?", "MT-32 Editor", MessageBoxButtons.OKCancel))
         {
             case DialogResult.OK:
@@ -378,10 +431,21 @@ public partial class FormTimbreEditor : Form
 
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
-        if (changesMade == false) return;
+        if (changesMade == false)
+        {
+            return;
+        }
+
         string message = "";
-        if (timbreToBeReturnedtoParentForm) message = "Close editor without saving .timbre file?";
-        else message = "Close editor without saving changes?";
+        if (timbreToBeReturnedtoParentForm)
+        {
+            message = "Close editor without saving .timbre file?";
+        }
+        else
+        {
+            message = "Close editor without saving changes?";
+        }
+
         timbreToBeReturnedtoParentForm = true;
         switch (MessageBox.Show(message, "MT-32 Editor", MessageBoxButtons.YesNo))
         {
@@ -398,7 +462,11 @@ public partial class FormTimbreEditor : Form
     private void textBoxTimbreName_TextChanged(object sender, EventArgs e)
     {
         timbre.SetTimbreName(textBoxTimbreName.Text);
-        if (sendSysEx) MT32SysEx.SendTimbreName(textBoxTimbreName.Text);
+        if (sendSysEx)
+        {
+            MT32SysEx.SendTimbreName(textBoxTimbreName.Text);
+        }
+
         changesMade = true;
     }
 
@@ -406,26 +474,54 @@ public partial class FormTimbreEditor : Form
     {
         //send Partial 1 & 2 structure type value to device
         timbre.SetPart12Structure(comboBoxPart12Struct.SelectedIndex);
-        if (sendSysEx) MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
-        if (sendSysEx) MT32SysEx.SendText("P1&2 Struct: " + MT32Strings.partialConfig[comboBoxPart12Struct.SelectedIndex]);
+        if (sendSysEx)
+        {
+            MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
+        }
+
+        if (sendSysEx)
+        {
+            MT32SysEx.SendText("P1&2 Struct: " + MT32Strings.partialConfig[comboBoxPart12Struct.SelectedIndex]);
+        }
+
         changesMade = true;
         UpdatePartialStructureImages();
         toolTipParameterValue.SetToolTip(comboBoxPart12Struct, MT32Strings.partialConfig12Desc[comboBoxPart12Struct.SelectedIndex]);
-        if (activePartial == 0) SetControlsforLeftPartial(comboBoxPart12Struct.SelectedIndex);
-        else if (activePartial == 1) SetControlsforRightPartial(comboBoxPart12Struct.SelectedIndex);
+        if (activePartial == 0)
+        {
+            SetControlsforLeftPartial(comboBoxPart12Struct.SelectedIndex);
+        }
+        else if (activePartial == 1)
+        {
+            SetControlsforRightPartial(comboBoxPart12Struct.SelectedIndex);
+        }
     }
 
     private void comboBoxPart34Struct_SelectedIndexChanged(object sender, EventArgs e)
     {
         //send Partial 3 & 4 structure type value to device
         timbre.SetPart34Structure(comboBoxPart34Struct.SelectedIndex);
-        if (sendSysEx) MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
-        if (sendSysEx) MT32SysEx.SendText("P3&4 Struct: " + MT32Strings.partialConfig[comboBoxPart34Struct.SelectedIndex]);
+        if (sendSysEx)
+        {
+            MT32SysEx.UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
+        }
+
+        if (sendSysEx)
+        {
+            MT32SysEx.SendText("P3&4 Struct: " + MT32Strings.partialConfig[comboBoxPart34Struct.SelectedIndex]);
+        }
+
         changesMade = true;
         UpdatePartialStructureImages();
         toolTipParameterValue.SetToolTip(comboBoxPart34Struct, MT32Strings.partialConfig34Desc[comboBoxPart34Struct.SelectedIndex]);
-        if (activePartial == 2) SetControlsforLeftPartial(comboBoxPart34Struct.SelectedIndex);
-        else if (activePartial == 3) SetControlsforRightPartial(comboBoxPart34Struct.SelectedIndex);
+        if (activePartial == 2)
+        {
+            SetControlsforLeftPartial(comboBoxPart34Struct.SelectedIndex);
+        }
+        else if (activePartial == 3)
+        {
+            SetControlsforRightPartial(comboBoxPart34Struct.SelectedIndex);
+        }
     }
 
     private void SetControlsforLeftPartial(int structureType)
@@ -482,12 +578,22 @@ public partial class FormTimbreEditor : Form
     private void DrawStructureList(object sender, DrawItemEventArgs e, bool isPartial12, bool droppedDown)
     {
         //custom comboBox draw method- creates vertical divider between structure type and structure description
-        if (e.Index < 0) return;
+        if (e.Index < 0)
+        {
+            return;
+        }
+
         e.DrawBackground();
         string partialConfigType = (e.Index + 1).ToString() + ": " + MT32Strings.partialConfig[e.Index].ToString();
         string partialConfigDescription;
-        if (isPartial12) partialConfigDescription = MT32Strings.partialConfig12Desc[e.Index];
-        else partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
+        if (isPartial12)
+        {
+            partialConfigDescription = MT32Strings.partialConfig12Desc[e.Index];
+        }
+        else
+        {
+            partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
+        }
 
         int xLeft = e.Bounds.Location.X;
         int xMid = (int)(58 * UIScale);
@@ -582,13 +688,37 @@ public partial class FormTimbreEditor : Form
     private void SelectPartial()
     {   //select which partial number to edit
         int selectedPartial = 0;
-        if (radioButtonPartial1.Checked) selectedPartial = 0;
-        if (radioButtonPartial2.Checked) selectedPartial = 1;
-        if (radioButtonPartial3.Checked) selectedPartial = 2;
-        if (radioButtonPartial4.Checked) selectedPartial = 3;
-        if (initialisationComplete) sendSysEx = false;
+        if (radioButtonPartial1.Checked)
+        {
+            selectedPartial = 0;
+        }
+
+        if (radioButtonPartial2.Checked)
+        {
+            selectedPartial = 1;
+        }
+
+        if (radioButtonPartial3.Checked)
+        {
+            selectedPartial = 2;
+        }
+
+        if (radioButtonPartial4.Checked)
+        {
+            selectedPartial = 3;
+        }
+
+        if (initialisationComplete)
+        {
+            sendSysEx = false;
+        }
+
         UpdatePartialSliders(); //update UI controls with new values
-        if (selectedPartial != activePartial) MT32SysEx.SendText("Editing partial " + (selectedPartial + 1).ToString());
+        if (selectedPartial != activePartial)
+        {
+            MT32SysEx.SendText("Editing partial " + (selectedPartial + 1).ToString());
+        }
+
         activePartial = selectedPartial;
         labelPartialWarning.Visible = false;                                    //hide warning if currently displayed
         switch (activePartial)                                                  //make selected partial active
@@ -613,7 +743,10 @@ public partial class FormTimbreEditor : Form
                 SetControlsforRightPartial(comboBoxPart34Struct.SelectedIndex);
                 break;
         }
-        if (initialisationComplete) sendSysEx = true;
+        if (initialisationComplete)
+        {
+            sendSysEx = true;
+        }
     }
 
     private void buttonCopyPartial_Click(object sender, EventArgs e)
@@ -678,7 +811,10 @@ public partial class FormTimbreEditor : Form
     private void checkBoxSustain_CheckedChanged(object sender, EventArgs e)
     {
         timbre.SetSustainStatus(checkBoxSustain.Checked);
-        if (sendSysEx) MT32SysEx.SendSustainValue(timbre.GetSustainStatus());   //send sustain on/off value to device
+        if (sendSysEx)
+        {
+            MT32SysEx.SendSustainValue(timbre.GetSustainStatus());   //send sustain on/off value to device
+        }
     }
 
     ////////////////////////////////////////////////////// Update partial 1-4 parameters ////////////////////////////////////////////////////
@@ -686,7 +822,11 @@ public partial class FormTimbreEditor : Form
     {
         int parameterValue = slider.Value;
         timbre.SetUIParameter(activePartial, parameterNo, parameterValue);
-        if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, parameterNo, parameterValue);     //send value to device register and send text to device screen
+        if (sendSysEx)
+        {
+            MT32SysEx.SendPartialParameter(activePartial, parameterNo, parameterValue);     //send value to device register and send text to device screen
+        }
+
         toolTipParameterValue.SetToolTip(slider, MT32Strings.partialParameterNames[parameterNo] + " = " + MT32Strings.PartialParameterValueText(parameterNo, parameterValue));
         changesMade = true;
     }
@@ -710,16 +850,28 @@ public partial class FormTimbreEditor : Form
     {
         int pitchBendState = LogicTools.BoolToInt(checkBoxPitchBend.Checked);
         timbre.SetUIParameter(activePartial, 0x03, pitchBendState);
-        if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, 0x03, pitchBendState); //send Pitch bend on/off value to device
+        if (sendSysEx)
+        {
+            MT32SysEx.SendPartialParameter(activePartial, 0x03, pitchBendState); //send Pitch bend on/off value to device
+        }
+
         changesMade = true;
     }
 
     private void comboBoxWaveform_SelectedValueChanged(object sender, EventArgs e)
     {
         int waveFormState = comboBoxWaveform.SelectedIndex;
-        if (timbre.GetPCMBankNo(activePartial) == 1) waveFormState += 2;
+        if (timbre.GetPCMBankNo(activePartial) == 1)
+        {
+            waveFormState += 2;
+        }
+
         timbre.SetUIParameter(activePartial, 0x04, waveFormState);
-        if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);   //send Waveform type to device
+        if (sendSysEx)
+        {
+            MT32SysEx.SendPartialParameter(activePartial, 0x04, waveFormState);   //send Waveform type to device
+        }
+
         changesMade = true;
     }
 
@@ -735,12 +887,24 @@ public partial class FormTimbreEditor : Form
 
     private void SetPCMBank()
     {
-        if (!radioButtonPCMBank1.Enabled) return;
+        if (!radioButtonPCMBank1.Enabled)
+        {
+            return;
+        }
+
         int bankNo = 0;
-        if (radioButtonPCMBank2.Checked) bankNo = 1;
+        if (radioButtonPCMBank2.Checked)
+        {
+            bankNo = 1;
+        }
+
         int sysExValue = comboBoxWaveform.SelectedIndex + (bankNo * 2);
         timbre.SetUIParameter(activePartial, 0x04, sysExValue);
-        if (sendSysEx) MT32SysEx.SendPCMBankNo(activePartial, sysExValue);
+        if (sendSysEx)
+        {
+            MT32SysEx.SendPCMBankNo(activePartial, sysExValue);
+        }
+
         UpdatePCMSampleList(bankNo);
         changesMade = true;
     }
@@ -748,7 +912,11 @@ public partial class FormTimbreEditor : Form
     private void comboBoxPCMSample_EnabledChanged(object sender, EventArgs e)
     {
         int bankNo = 0;
-        if (radioButtonPCMBank2.Checked) bankNo = 1;
+        if (radioButtonPCMBank2.Checked)
+        {
+            bankNo = 1;
+        }
+
         UpdatePCMSampleList(bankNo);
     }
 
@@ -756,8 +924,15 @@ public partial class FormTimbreEditor : Form
     {
         MT32SysEx.blockMT32text = true;
         comboBoxPCMSample.Items.Clear();
-        if (bankNo == 0) comboBoxPCMSample.Items.AddRange(MT32Strings.bank1SampleNames);
-        else comboBoxPCMSample.Items.AddRange(MT32Strings.bank2SampleNames);
+        if (bankNo == 0)
+        {
+            comboBoxPCMSample.Items.AddRange(MT32Strings.bank1SampleNames);
+        }
+        else
+        {
+            comboBoxPCMSample.Items.AddRange(MT32Strings.bank2SampleNames);
+        }
+
         comboBoxPCMSample.Invalidate();
         int sampleNo = timbre.GetUIParameter(activePartial, 0x05);
         string sampleName = GetSampleName();
@@ -768,8 +943,15 @@ public partial class FormTimbreEditor : Form
         string GetSampleName()
         {
             string sampleName;
-            if (bankNo == 1) sampleName = MT32Strings.bank2SampleNames[sampleNo];
-            else sampleName = MT32Strings.bank1SampleNames[sampleNo];
+            if (bankNo == 1)
+            {
+                sampleName = MT32Strings.bank2SampleNames[sampleNo];
+            }
+            else
+            {
+                sampleName = MT32Strings.bank1SampleNames[sampleNo];
+            }
+
             return sampleName;
         }
     }
@@ -778,7 +960,11 @@ public partial class FormTimbreEditor : Form
     {
         int sampleNo = comboBoxPCMSample.SelectedIndex;
         timbre.SetUIParameter(activePartial, 0x05, sampleNo);
-        if (sendSysEx) MT32SysEx.SendPartialParameter(activePartial, 0x05, sampleNo);            //send PCM sample type to device
+        if (sendSysEx)
+        {
+            MT32SysEx.SendPartialParameter(activePartial, 0x05, sampleNo);            //send PCM sample type to device
+        }
+
         changesMade = true;
     }
 
@@ -1095,7 +1281,10 @@ public partial class FormTimbreEditor : Form
 
     private void RefreshGraphs()
     {
-        if (this.Enabled && thisFormIsActive) UpdateAllGraphs();
+        if (this.Enabled && thisFormIsActive)
+        {
+            UpdateAllGraphs();
+        }
     }
 
     private void checkBoxShowLabels_CheckedChanged(object sender, EventArgs e)
@@ -1119,7 +1308,11 @@ public partial class FormTimbreEditor : Form
     private void groupBoxTVF_Paint(object sender, PaintEventArgs e)
     {
         //plot TVF envelope
-        if (labelTVFDisabled.Visible) return;
+        if (labelTVFDisabled.Visible)
+        {
+            return;
+        }
+
         Graphics envelope = groupBoxTVF.CreateGraphics();
         EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale), (int)(30 * UIScale));
         graph.Plot(envelope, timbre, 1, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);

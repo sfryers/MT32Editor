@@ -28,7 +28,10 @@ internal static class TimbreFile
         OpenFileDialog loadTimbreDialog = new OpenFileDialog();
 
         SetUpFileDialog(loadTimbreDialog);
-        if (loadTimbreDialog.FileName == "") return "Cancelled";
+        if (loadTimbreDialog.FileName == "")
+        {
+            return "Cancelled";
+        }
 
         //load data from file
         FileStream timbreFile = (FileStream)loadTimbreDialog.OpenFile();
@@ -84,7 +87,10 @@ internal static class TimbreFile
             {
                 timbre.SetPartialMuteStatus(partialNo, false);
             }
-            else timbre.SetPartialMuteStatus(partialNo, true);
+            else
+            {
+                timbre.SetPartialMuteStatus(partialNo, true);
+            }
         }
 
         void LoadPartialParameters(int partialNo)
@@ -99,7 +105,11 @@ internal static class TimbreFile
 
     public static void Save(TimbreStructure timbre, SaveFileDialog saveDialog)
     {
-        if (saveDialog.FileName == "" || saveDialog.FileName == null) return;
+        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        {
+            return;
+        }
+
         try
         {
             FileStream file = (FileStream)saveDialog.OpenFile();
@@ -114,31 +124,59 @@ internal static class TimbreFile
     public static void SaveAll(TimbreStructure[] timbreArray)
     {
         string filePath = FileTools.AskUserForFilePath();
-        if (filePath == "#Error!" || filePath == "Cancelled") return;
+        if (filePath == "#Error!" || filePath == "Cancelled")
+        {
+            return;
+        }
+
         int fileCount = 0;
         for (int timbreNo = 0; timbreNo < 64; timbreNo++)
         {
             string timbreName = ParseTools.RemoveTrailingSpaces(timbreArray[timbreNo].GetTimbreName());
-            if (timbreName == MT32Strings.EMPTY) continue; //skip empty timbres
+            if (timbreName == MT32Strings.EMPTY)
+            {
+                continue; //skip empty timbres
+            }
+
             string timbreFileName = CreateBatchTimbreFilename(timbreNo);
             timbreFileName = RemoveInvalidCharacters(timbreFileName);
-            if (SaveTimbreFile(timbreArray[timbreNo], filePath + Path.DirectorySeparatorChar + timbreFileName)) fileCount++;
-            else return;
+            if (SaveTimbreFile(timbreArray[timbreNo], filePath + Path.DirectorySeparatorChar + timbreFileName))
+            {
+                fileCount++;
+            }
+            else
+            {
+                return;
+            }
         }
-        if (fileCount == 0) MessageBox.Show("Couldn't save any timbre files- memory timbre slots are all empty.", "MT-32 Editor");
-        else MessageBox.Show(fileCount.ToString() + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
+        if (fileCount == 0)
+        {
+            MessageBox.Show("Couldn't save any timbre files- memory timbre slots are all empty.", "MT-32 Editor");
+        }
+        else
+        {
+            MessageBox.Show(fileCount.ToString() + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
+        }
 
         string CreateBatchTimbreFilename(int timbreNo)
         {
             string timbreNumber = timbreNo.ToString();
-            if (timbreNumber.Length == 1) timbreNumber = "0" + timbreNumber;
+            if (timbreNumber.Length == 1)
+            {
+                timbreNumber = "0" + timbreNumber;
+            }
+
             return timbreNumber + " - " + timbreArray[timbreNo].GetTimbreName() + ".timbre";
         }
 
         string RemoveInvalidCharacters(string timbreFileName)
         {
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            foreach (char c in invalid) timbreFileName = timbreFileName.Replace(c.ToString(), "");
+            foreach (char c in invalid)
+            {
+                timbreFileName = timbreFileName.Replace(c.ToString(), "");
+            }
+
             return timbreFileName;
         }
 
@@ -177,8 +215,15 @@ internal static class TimbreFile
         timbreData[0] = (byte)timbre.GetPart12Structure();
         timbreData[1] = (byte)timbre.GetPart34Structure();
         timbreData[2] = MT32SysEx.PartialMuteValue(partialStatus);
-        if (timbre.GetSustainStatus()) timbreData[3] = 0;
-        else timbreData[3] = 1;
+        if (timbre.GetSustainStatus())
+        {
+            timbreData[3] = 0;
+        }
+        else
+        {
+            timbreData[3] = 1;
+        }
+
         file.Write(timbreNameASCIIChars, 0, 10);
         file.Write(timbreData, 0, timbreData.Length);
         int sumOfSysExValues = ParseTools.CharacterSum(timbreNameASCIIChars, 10) + timbreData[0] + timbreData[1] + timbreData[2] + timbreData[3];

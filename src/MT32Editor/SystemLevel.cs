@@ -158,7 +158,10 @@ public class SystemLevel
     {
         for (int partNo = 0; partNo < 9; partNo++)
         {
-            if (midiChannel[partNo] != alternativeMidiChannel[partNo]) return false;
+            if (midiChannel[partNo] != alternativeMidiChannel[partNo])
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -167,7 +170,10 @@ public class SystemLevel
     {
         for (int partNo = 0; partNo < 9; partNo++)
         {
-            if (midiChannel[partNo] != defaultMidiChannel[partNo]) return false;
+            if (midiChannel[partNo] != defaultMidiChannel[partNo])
+            {
+                return false;
+            }
         }
         return true;
     }

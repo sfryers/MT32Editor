@@ -118,7 +118,10 @@ public class TimbreStructure
         ValidatePartialNo(partial);
         bool initialStatus = partialMuteStatus[partial];
         partialMuteStatus[partial] = newStatus;
-        if (newStatus != initialStatus) MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partial);
+        if (newStatus != initialStatus)
+        {
+            MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partial);
+        }
     }
 
     public void FlipPartialMuteStatus(int partial, bool autoCorrect = false)
@@ -158,16 +161,29 @@ public class TimbreStructure
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);
-        if (value < 0) partial[partialNo, parameterNo] = 0;
-        else if (value > PartialConstants.maxValue[parameterNo]) partial[partialNo, parameterNo] = PartialConstants.maxValue[parameterNo];
-        else partial[partialNo, parameterNo] = (byte)value;
+        if (value < 0)
+        {
+            partial[partialNo, parameterNo] = 0;
+        }
+        else if (value > PartialConstants.maxValue[parameterNo])
+        {
+            partial[partialNo, parameterNo] = PartialConstants.maxValue[parameterNo];
+        }
+        else
+        {
+            partial[partialNo, parameterNo] = (byte)value;
+        }
     }
 
     public int GetPCMBankNo(int partialNo)
     {
         ValidatePartialNo(partialNo);
         int bankNo = 0;
-        if (partial[partialNo, 0x04] > 1) bankNo = 1;
+        if (partial[partialNo, 0x04] > 1)
+        {
+            bankNo = 1;
+        }
+
         return bankNo;
     }
 
@@ -182,9 +198,18 @@ public class TimbreStructure
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);
-        if (value + PartialConstants.offset[parameterNo] < 0) partial[partialNo, parameterNo] = 0;
-        else if (value > PartialConstants.maxValue[parameterNo] + PartialConstants.offset[parameterNo]) partial[partialNo, parameterNo] = PartialConstants.maxValue[parameterNo];
-        else partial[partialNo, parameterNo] = (byte)(value + PartialConstants.offset[parameterNo]);
+        if (value + PartialConstants.offset[parameterNo] < 0)
+        {
+            partial[partialNo, parameterNo] = 0;
+        }
+        else if (value > PartialConstants.maxValue[parameterNo] + PartialConstants.offset[parameterNo])
+        {
+            partial[partialNo, parameterNo] = PartialConstants.maxValue[parameterNo];
+        }
+        else
+        {
+            partial[partialNo, parameterNo] = (byte)(value + PartialConstants.offset[parameterNo]);
+        }
     }
 
     public byte[] CopyPartial(int partialNo)

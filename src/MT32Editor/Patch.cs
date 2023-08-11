@@ -69,8 +69,15 @@ public class Patch
                 return assignMode;
 
             case 6:
-                if (reverbEnabled) return 1;
-                else return 0;
+                if (reverbEnabled)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
             case 7:
                 return 0;
 
@@ -103,8 +110,15 @@ public class Patch
                 return assignMode;
 
             case 6:
-                if (reverbEnabled) return 1;
-                else return 0;
+                if (reverbEnabled)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
             case 7:
                 return 0;
 
@@ -143,8 +157,15 @@ public class Patch
                 return;
 
             case 6:
-                if (parameterValue == 1) SetReverbEnabled(true);
-                else SetReverbEnabled(false);
+                if (parameterValue == 1)
+                {
+                    SetReverbEnabled(true);
+                }
+                else
+                {
+                    SetReverbEnabled(false);
+                }
+
                 return;
 
             case 7:
@@ -185,8 +206,15 @@ public class Patch
                 return;
 
             case 6:
-                if (parameterValue == 1) SetReverbEnabled(true);
-                else SetReverbEnabled(false);
+                if (parameterValue == 1)
+                {
+                    SetReverbEnabled(true);
+                }
+                else
+                {
+                    SetReverbEnabled(false);
+                }
+
                 return;
 
             case 7:

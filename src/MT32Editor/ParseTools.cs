@@ -25,8 +25,14 @@ internal static class ParseTools
 
     public static string Plural(int noOfItems) //helps format text for plural instances- returns string "s" if input value is exactly 1, otherwise returns null string
     {
-        if (noOfItems == 1) return "";
-        else return "s";
+        if (noOfItems == 1)
+        {
+            return "";
+        }
+        else
+        {
+            return "s";
+        }
     }
 
     public static string TrimToLength(string str, int desiredLength)
@@ -87,7 +93,10 @@ internal static class ParseTools
         while (LeftMost(str, 1) != character.ToString() && str.Length > 1)
         {
             str = RightMost(str, str.Length - 1);
-            if (str.Length == 1) return "";
+            if (str.Length == 1)
+            {
+                return "";
+            }
         }
         return RightMost(str, str.Length - 1);
     }
@@ -97,7 +106,10 @@ internal static class ParseTools
         while (RightMost(str, 1) != character.ToString() && str.Length > 1)
         {
             str = LeftMost(str, str.Length - 1);
-            if (str.Length == 1) return "";
+            if (str.Length == 1)
+            {
+                return "";
+            }
         }
         return LeftMost(str, str.Length - 1);
     }
