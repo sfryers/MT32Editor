@@ -429,7 +429,7 @@ internal static class SysExFile
     {
         saveDialog.Title = "Save SysEx File";
         saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             saveDialog.FileName = "New MT32 system settings file.syx";
         }
