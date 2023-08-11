@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MT32Edit", "MT32Edit.csproj", "{91101697-5521-4E04-9612-A4D03A434477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MT32Edit", "src/MT32Edit/MT32Edit.csproj", "{91101697-5521-4E04-9612-A4D03A434477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
