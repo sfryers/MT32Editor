@@ -24,7 +24,7 @@ internal static class SysExFile
             return; //file error or dialogue cancelled
         }
 
-        if (loadSysExDialog.FileName == "")
+        if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
         {
             return; //No file specified, abort loading process
         }
@@ -537,7 +537,7 @@ internal static class SysExFile
             return;
         }
 
-        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             //user didn't select a file
             return;

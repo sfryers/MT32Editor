@@ -31,11 +31,10 @@ internal static class FileTools
     /// </summary>
     public static string EnsureUniqueFilename(string fileName)
     {
-        string fileExtension = ParseTools.RightOfChar(fileName, '.');
+        string fileExtension = Path.GetExtension(fileName);
 
         //remove file extension
-        fileName = ParseTools.LeftOfChar(fileName, '.');
-        fileName = ParseTools.RemoveTrailingSpaces(fileName);
+        fileName = Path.GetFileNameWithoutExtension(fileName);
         string originalFileName = fileName;
         int counter = 1;
         while (File.Exists(fileName + "." + fileExtension))

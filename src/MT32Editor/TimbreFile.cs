@@ -31,7 +31,7 @@ internal static class TimbreFile
         OpenFileDialog loadTimbreDialog = new OpenFileDialog();
 
         SetUpFileDialog(loadTimbreDialog);
-        if (loadTimbreDialog.FileName == "")
+        if (string.IsNullOrWhiteSpace(loadTimbreDialog.FileName))
         {
             return "Cancelled";
         }
@@ -110,7 +110,7 @@ internal static class TimbreFile
 
     public static void Save(TimbreStructure timbre, SaveFileDialog saveDialog)
     {
-        if (saveDialog.FileName == "" || saveDialog.FileName == null)
+        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             return;
         }
