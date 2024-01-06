@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NAudio.Midi" Version="2.1.0" />
+    <PackageReference Include="NAudio.Midi" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
