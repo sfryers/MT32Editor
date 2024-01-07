@@ -2,6 +2,19 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.6a - 7th January 2024
+  Bug Fixes:
+    - SysEx message with missing checksum byte no longer causes unhandled exception.
+    - MT32Edit.ini is now explicitly saved in the same directory as the application.
+    - PCM sample no. 117 is now correctly named 'Timpani' instead of '[none]'.
+    - Edit Preset -> Select Memory Bank: drop-down list no longer duplicates numeric index for bank no. 64.
+    - Save button in Timbre Editor is now always enabled.
+    - Pressing Save button when a new timbre is being edited, or when a different timbre has been selected from the Memory Bank Editor, 
+      now activates the Save Timbre As dialogue rather than attempting to save to the previously used filename.
+  Miscellaneous:
+    - Merged github pull requests from maximilien-noal, with improvements to code style, comments, namespaces etc.
+    - x86 binary included in release.
+
 v0.9.5a - 2nd August 2023
   Bug Fixes:
     - TVA Bias Level 2 control is now correctly labeled "Level 2" instead of "Level 1".
