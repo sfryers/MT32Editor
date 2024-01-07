@@ -57,7 +57,7 @@ Timbre Editor
 
 The timbre editor occupies the central part of the application window. This area displays all of the parameters which make up the selected timbre. Altering the controls changes the sound of the current timbre accordingly. You can preview the current timbre using a MIDI input device set to channel 2 (or whichever MIDI channel Part 1 of your MT-32 is set to receive messages on).
 
-An MT-32 timbre consists of up to four separate tones, called 'partials', each with 58 parameters which define the partial's pitch, filter (TVF) and amplitude (TVA) envelopes. Enable and disable each partial using the four numbered checkboxes, and select the partial to be edited using the drop-down box.
+An MT-32 timbre consists of up to four separate tones, called 'partials', each with 58 parameters which define the partial's pitch, filter (TVF) and amplitude (TVA) envelopes. Enable and disable each partial using the four numbered checkboxes, and select the partial to be edited using the four radio buttons.
 
 Each partial is made up of either a synthesised tone (saw or square wave), or a sampled (PCM) tone. Partials 1/2 and 3/4 are grouped together in pairs, with one of 13 possible partial structures defining their make-up. Some structures are monophonic, others place one partial on the left stereo channel and the other on the right stereo channel. Other structures utilise a ring modulation effect, allowing one partial to modulate the other's tone. Select the desired partial structures using the two drop-down boxes- "S" denotes a synthesised tone, "P" denotes a PCM tone and "R" denotes a ring modulator. 
 
