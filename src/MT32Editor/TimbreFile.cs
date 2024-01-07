@@ -5,15 +5,19 @@ namespace MT32Edit;
 /// <summary>
 /// Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)
 /// </summary>
+/// 
+/// <remarks> 
+/// Valid .timbre files consist of: bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "
+/// bytes 40-49: 10-character ASCII timbre name string bytes 50-53: 2x partial structures,
+/// partial mute status (encoded as 4 boolean values rather than the single byte value used in
+/// the SysEx format), sustain status, bytes 54-285: 58 parameter byte values for each of the
+/// four partials in order.
+/// </remarks>
+/// 
 internal static class TimbreFile
 {
-    // MT32Edit: TimbreFile class (static) S.Fryers Apr 2023 Load/save MT-32 timbre data files
-    // from/to local filesystem (using proprietary binary .timbre format) Valid .timbre files
-    // consist of: bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "
-    // bytes 40-49: 10-character ASCII timbre name string bytes 50-53: 2x partial structures,
-    // partial mute status (encoded as 4 boolean values rather than the single byte value used in
-    // the SysEx format), sustain status, bytes 54-285: 58 parameter byte values for each of the
-    // four partials in order.
+    // MT32Edit: TimbreFile class (static)
+    // S.Fryers Apr 2023
 
     // Total size of valid .timbre file is 286 bytes.
     private const int VALID_FILE_LENGTH = 286;
@@ -161,7 +165,7 @@ internal static class TimbreFile
         }
         else
         {
-            MessageBox.Show(fileCount.ToString() + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
+            MessageBox.Show(fileCount + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
         }
 
         string CreateBatchTimbreFilename(int timbreNo)

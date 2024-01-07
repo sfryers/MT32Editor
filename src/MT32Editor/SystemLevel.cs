@@ -10,10 +10,8 @@
 
 public class SystemLevel
 {
-    // MT32Edit: SystemLevel class S.Fryers Mar 2023 Data structure representing user-accessible
-    // system memory areas of MT-32, as per published MIDI implementation. Note that temporary
-    // memory areas are not implemented, except for the Part 1 timbre temp area which is used by the
-    // Timbre Editor form.
+    // MT32Edit: SystemLevel class
+    // S.Fryers Mar 2023 
     private int masterTune = 63;
 
     private int masterLevel = 85;

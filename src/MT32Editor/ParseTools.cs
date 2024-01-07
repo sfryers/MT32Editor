@@ -6,8 +6,7 @@
 internal static class ParseTools
 {
     // MT32Edit: ParseTools class (static)
-    // S.Fryers Mar 2023
-    // Simple tools for parsing text strings
+    // S.Fryers Jan 2024
     
     /// <summary>
     /// Ensures string is precisely the desiredLength by adding spaces or removing excess characters from right hand side
@@ -123,7 +122,7 @@ internal static class ParseTools
     }
 
     /// <summary>
-    /// Return all characters to right of specified character, if it exists
+    /// Return all characters to left of specified character, if it exists
     /// </summary>
     public static string LeftOfChar(string str, char character)
     {

@@ -1,19 +1,16 @@
 namespace MT32Edit;
 
 /// <summary>
-/// Form provides visual access to all MT-32 timbre
-/// parameters- allows timbres to be created, edited and previewed through a connected
-/// MT32-compatible MIDI device.
+/// Form provides visual access to all MT-32 timbre parameters,
+/// allowing timbres to be created, edited and previewed through 
+/// a connected MT32-compatible MIDI device.
 /// </summary>
 public partial class FormTimbreEditor : Form
 {
     // MT32Edit: FormTimbreEditor
-    // S.Fryers Aug 2023
-    // Form provides visual access to all MT-32 timbre
-    // parameters- allows timbres to be created, edited and previewed through a connected
-    // MT32-compatible MIDI device.
-    private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
+    // S.Fryers Jan 2024
 
+    private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
     private readonly byte[] partialClipboard = new byte[58];
     private int activePartial = 0;
@@ -25,6 +22,7 @@ public partial class FormTimbreEditor : Form
     private int part12Image = -1;
     private int part34Image = -1;
     private readonly float UIScale = 1;
+    private bool allowQuickSave = false;
 
     public FormTimbreEditor(float DPIScale)
     {
@@ -55,6 +53,8 @@ public partial class FormTimbreEditor : Form
         {
             MT32SysEx.blockSysExMessages = true;
             SetAllControlValues();
+            allowQuickSave = false;
+            saveTimbreDialog.FileName = "";
             changesMade = false;
             MT32SysEx.blockSysExMessages = false;
         }
@@ -115,6 +115,7 @@ public partial class FormTimbreEditor : Form
             //Set all timbre and partial parameters to default values;
             timbre.SetDefaultTimbreParameters(createAudibleTimbre: false);
             sendSysEx = true;
+            allowQuickSave = true;
             initialisationComplete = true;
         }
     }
@@ -388,11 +389,15 @@ public partial class FormTimbreEditor : Form
 
     private void QuickSaveTimbre(TimbreStructure timbre)
     {
-        string action = "Overwrite";
-        if (!File.Exists(saveTimbreDialog.FileName))
+        if (!allowQuickSave)
         {
-            action = "Save";
+            saveTimbreDialog.FileName = "";
+            SaveTimbreAs(timbre);
+            return;
         }
+
+        string action = "Save";
+        if (File.Exists(saveTimbreDialog.FileName)) action = "Overwrite";
 
         switch (MessageBox.Show(action + " file " + saveTimbreDialog.FileName + "?", "MT-32 Editor", MessageBoxButtons.OKCancel))
         {
@@ -415,9 +420,9 @@ public partial class FormTimbreEditor : Form
         saveTimbreDialog.Filter = "Timbre file|*.timbre";
         saveTimbreDialog.FileName = textBoxTimbreName.Text;
         saveTimbreDialog.Title = "Save Timbre File";
-        saveTimbreDialog.ShowDialog();
-        buttonQuickSaveTimbre.Enabled = true;
+        if (saveTimbreDialog.ShowDialog() == DialogResult.Cancel) return;
         TimbreFile.Save(timbre, saveTimbreDialog);
+        allowQuickSave = true;
     }
 
     private void buttonReset_Click(object sender, EventArgs e)
@@ -445,7 +450,7 @@ public partial class FormTimbreEditor : Form
 
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
-        if (changesMade == false)
+        if (!changesMade)
         {
             return;
         }
@@ -1172,7 +1177,7 @@ public partial class FormTimbreEditor : Form
 
     private void trackBarTVFDepthKeyfollow_ValueChanged(object sender, EventArgs e)
     {
-       //send TVF Envelope Depth Keyfollow value to device
+        //send TVF Envelope Depth Keyfollow value to device
         UpdatePartialValueFromSliderValue(0x1E, trackBarTVFDepthKeyfollow);
     }
 

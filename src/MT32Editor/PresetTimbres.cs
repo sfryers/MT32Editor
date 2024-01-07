@@ -7,7 +7,7 @@ internal static class PresetTimbres
 {
     // MT32Edit: PresetTimbres class (static)
     // S.Fryers Mar 2023
-    // Read-only class containing complete parameter data for all 128 MT-32 factory preset timbres
+
     private static readonly byte[,] presetTimbreData = new byte[,]
     {
         {   //Preset 0: AcouPiano1

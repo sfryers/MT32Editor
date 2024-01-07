@@ -2096,7 +2096,6 @@
             // 
             buttonQuickSaveTimbre.AccessibleDescription = "Save timbre data";
             buttonQuickSaveTimbre.AccessibleName = "Save timbre data";
-            buttonQuickSaveTimbre.Enabled = false;
             buttonQuickSaveTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonQuickSaveTimbre.Image = (Image)resources.GetObject("buttonQuickSaveTimbre.Image");
             buttonQuickSaveTimbre.Location = new Point(94, 144);

@@ -7,7 +7,7 @@ public class Patch
 {
     // MT32Edit: Patch class
     // S.Fryers Mar 2023
-    // Data structure representing user-accessible patch memory areas of MT-32, as per published MIDI implementation.
+
     private int timbreGroup = 0;
 
     private readonly string[] timbreGroupType = { "Preset A", "Preset B", "Memory", "Rhythm" };

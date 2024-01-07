@@ -7,8 +7,6 @@ public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
     // S.Fryers Aug 2023
-    // Form showing visual representation of
-    // MT-32's 64 memory banks- allows custom timbres to be mapped
 
     private readonly MT32State memoryState = new MT32State();
 

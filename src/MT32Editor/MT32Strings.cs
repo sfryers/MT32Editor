@@ -6,8 +6,8 @@
 internal static class MT32Strings
 {
     // MT32Edit: MT32Strings class (static)
-    // S.Fryers Apr 2023
-    // Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
+    // S.Fryers Jan 2024
+
     public static readonly string[] bank1SampleNames =
     {
         "Ac. Bass Drum","Ac. Snare Drum","El. Snare Drum","Electric Tom","Closed Hihat","Open Hihat","Crash Cymbal","Crash Cymbal (loop)","Ride cymbal","Rim Shot","Hand Clap","Muted Conga","Conga","Bongo","Cowbell",
@@ -19,7 +19,7 @@ internal static class MT32Strings
         "Crash Cymbal (loop)","Ride cymbal (loop)","Ride cymbal 2 (loop)","Rim (loop)","Hand clap (loop)","Bongo (loop)","Conga (loop)","Muted conga (loop)","Cowbell (loop)","Tambourine (loop)",
         "Agogo (loop)","Woodblock (loop)","Timbales (loop)","Maracas (loop)","Sticks (loop)","Perc Organ (loop)","Trombone (loop)","Trumpet (loop)","Clarinet (loop)","Piccolo (loop)","Pan Pipe (loop)",
         "Breath Noise (loop)","Alto Sax (loop)","Baritone Sax (loop)","Xylophone (loop)","Glockenspiel (loop)","Marimba (loop)","Tubular Bells (loop)","Fingered Bass (loop)","Slap Bass (loop)",
-        "Acoustic Bass (loop)","Nylon Guitar (loop)","Steel Guitar (loop)","Pizzicato (loop)","Harp (loop)","Bowed string (loop)","String Ensemble (loop)","[null]","Orchestra Hit (loop)","Flute (loop)",
+        "Acoustic Bass (loop)","Nylon Guitar (loop)","Steel Guitar (loop)","Pizzicato (loop)","Harp (loop)","Bowed string (loop)","String Ensemble (loop)","Timpani","Orchestra Hit (loop)","Flute (loop)",
         "Perc. loop 1","Perc. loop 2","Orch&Perc loop","Wind&Perc loop","Guitar & Bass loop","Orchestra loop","Perc. loop 3","Bass & Perc. loop","Bass & Snare loop"
     };
 
@@ -110,11 +110,11 @@ internal static class MT32Strings
         LogicTools.ValidateRange("Pitch Value", pitchValue, 0, 127, autoCorrect: false);
         int octave = (pitchValue - 12) / 12;
         int noteValue = pitchValue % 12;
-        return noteName[noteValue] + octave.ToString();
+        return noteName[noteValue] + octave;
     }
 
     /// <summary>
-    /// Returns bias point note name where 0-63 = &lt; A1 to &lt; C4 and 64-128 =&gt; A1 to &gt; C4
+    /// Returns bias point note name where 0-63 = <A1 to <C4 and 64-128 = >A1 to >C4
     /// </summary>
     public static string BiasPoint(int biasPointValue)
     {
@@ -152,7 +152,7 @@ internal static class MT32Strings
             }
             else
             {
-                partialStatusList += (partialNo + 1).ToString();
+                partialStatusList += (partialNo + 1);
             }
         }
         return partialStatusList;

@@ -1,7 +1,13 @@
 ﻿namespace MT32Edit;
-
+/// <summary>
+/// Form to display app information, version number
+/// and release date
+/// </summary>
 public partial class FormAbout : Form
 {
+    // MT32Edit: FormAbout
+    // S.Fryers Apr 2023
+
     private readonly string versionNo = "";
     private readonly string releaseDate = "";
 

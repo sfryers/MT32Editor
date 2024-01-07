@@ -1,14 +1,14 @@
 ﻿namespace MT32Edit;
 
 /// <summary>
-/// Simple form containing loading bar to display during timbre data upload Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
+/// Simple form to display loading bar during timbre data upload. 
+/// Includes 50ms delay timer to avoid buffer overflows on hardware MT-32.
 /// </summary>
 public partial class FormLoadSysEx : Form
 {
     // MT32Edit: FormLoadSysEx
     // S.Fryers Mar 2023
-    // Simple form containing loading bar to display
-    // during timbre data upload Includes 50ms delay timer to avoid buffer overflows on hardware MT-32
+
 
     private readonly MT32State memoryState;
 

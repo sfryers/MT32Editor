@@ -7,7 +7,7 @@ internal static class LogicTools
 {
     // MT32Edit: LogicTools class (static)
     // S.Fryers Mar 2023
-    // Simple tools for boolean logic and data validation.
+
     public static int BoolToInt(bool flag)
     {
         if (flag)

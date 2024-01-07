@@ -7,7 +7,6 @@ public partial class FormSelectMemoryBank : Form
 {
     // MT32Edit: FormSelectMemoryBank
     // S.Fryers Apr 2023
-    // Simple form allowing selection of a memory bank to copy preset timbre into
 
     private const int MEMORY_GROUP = 2;
 
@@ -26,12 +25,13 @@ public partial class FormSelectMemoryBank : Form
     {
         labelSelectMemoryBank.Text = "Select memory bank slot for " + presetTimbreName + ":";
         string[] memoryTimbreNames = memoryState.GetTimbreNames().GetAll(MEMORY_GROUP);
+        string[] enumeratedTimbreNames = new string[memoryTimbreNames.Length];
         for (int timbreNo = 0; timbreNo < memoryTimbreNames.Length; timbreNo++)
         {
             //prefix timbre names with numbered list starting from 1
-            memoryTimbreNames[timbreNo] = (timbreNo + 1).ToString() + ":   " + memoryTimbreNames[timbreNo];
+            enumeratedTimbreNames[timbreNo] = (timbreNo + 1).ToString() + ":   " + memoryTimbreNames[timbreNo]; 
         }
-        comboBoxMemoryBank.DataSource = memoryTimbreNames;
+        comboBoxMemoryBank.DataSource = enumeratedTimbreNames;
         comboBoxMemoryBank.Text = memoryState.GetTimbreNames().Get(0, MEMORY_GROUP);
     }
 

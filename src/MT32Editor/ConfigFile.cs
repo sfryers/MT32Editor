@@ -1,23 +1,30 @@
-﻿namespace MT32Edit;
+﻿using System.Reflection;
+
+namespace MT32Edit;
 
 /// <summary>
 /// Saves and load system parameters from .ini file
 /// </summary>
 internal static class ConfigFile
 {
-    // MT32Edit: ConfigFile class (static) S.Fryers Mar 2023 Save and load system parameters from
-    // .ini file
-    public static readonly string fileName = "MT32Edit.ini";
+    // MT32Edit: ConfigFile class (static)
+    // S.Fryers Jan 2024
+
+    private static readonly string applicationPath = Path.GetDirectoryName(Application.ExecutablePath);
+    private static readonly string iniFileLocation = Path.Combine(applicationPath, "MT32Edit.ini");
 
     public static string[] Load()
     {
         string[] midiDevices = { "", "" };
-        if (!File.Exists(fileName))
+        if (!File.Exists(iniFileLocation))
         {
-            return midiDevices; //return blank device names if no config file found
+            //return blank device names if no config file found
+            Console.WriteLine("ini file not found- using default MIDI devices.");
+            return midiDevices; 
         }
 
-        StreamReader fs = new StreamReader(fileName);
+        StreamReader fs = new StreamReader(iniFileLocation);
+        Console.WriteLine($"Loading MIDI device settings from {iniFileLocation}");
         while (!fs.EndOfStream)
         {
             string? fileLine = fs.ReadLine();
@@ -52,12 +59,13 @@ internal static class ConfigFile
     {
         try
         {
-            if (!File.Exists(fileName))
-            {
-                File.Create(fileName).Dispose(); //create new config file if it doesn't already exist
+            //create new config file if it doesn't already exist
+            if (!File.Exists(iniFileLocation))
+            { 
+                File.Create(iniFileLocation).Dispose(); 
             }
-
-            StreamWriter fs = new StreamWriter(fileName, false);
+            ConsoleMessage.SendLine($"Saving MIDI device settings to {iniFileLocation}");
+            StreamWriter fs = new StreamWriter(iniFileLocation, false);
             fs.WriteLine("##### MT-32 Timbre Editor configuration settings #####");
             fs.WriteLine("Midi In = [" + Midi.GetInputDeviceName(Midi.InDeviceIndex) + "]");
             fs.WriteLine("Midi Out = [" + Midi.GetOutputDeviceName(Midi.OutDeviceIndex) + "]");
@@ -65,7 +73,7 @@ internal static class ConfigFile
         }
         catch
         {
-            MessageBox.Show("Couldn't create MT32Edit.ini: Check that you have read/write access to the folder that MT32Edit.exe is running from. Application settings have not been saved.", "MT-32 Editor");
+            MessageBox.Show("Couldn't create MT32Edit.ini: Check that you have read/write access to the folder that MT32Edit.exe is running from. MIDI device settings have not been saved.", "MT-32 Editor");
         }
     }
 }

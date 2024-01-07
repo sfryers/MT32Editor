@@ -7,7 +7,7 @@ internal static class FileTools
 {
     // MT32Edit: FileTools class (static)
     // S.Fryers Mar 2023
-    // Basic filename/filepath tools
+
     public static string AskUserForFilePath()
     {
         FolderBrowserDialog selectFolder = new FolderBrowserDialog();

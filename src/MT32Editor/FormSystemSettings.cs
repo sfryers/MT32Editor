@@ -7,13 +7,9 @@
 public partial class FormSystemSettings : Form
 {
     // MT32Edit: FormSystemSettings
-    // S.Fryers Aug 2023
-    // Form gives access to MT-32 system area parameters -
-    // allows configuration of master volume, master tuning, reverb, MIDI channels and
-    // partial reserve settings.
+    // S.Fryers Jan 2024
 
     private readonly SystemLevel system = new SystemLevel();
-
     private readonly SaveFileDialog saveSystemDialog = new SaveFileDialog();
     private bool sendSysEx = false;
 
@@ -68,7 +64,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 1 channel: " + numericUpDownMIDIPart1.Value.ToString());
+            MT32SysEx.SendText($"Part 1 channel: {numericUpDownMIDIPart1.Value}");
         }
 
         SetRadioButtons();
@@ -84,7 +80,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 2 channel: " + numericUpDownMIDIPart2.Value.ToString());
+            MT32SysEx.SendText($"Part 2 channel: { numericUpDownMIDIPart2.Value}");
         }
 
         SetRadioButtons();
@@ -100,7 +96,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 3 channel: " + numericUpDownMIDIPart3.Value.ToString());
+            MT32SysEx.SendText($"Part 3 channel: { numericUpDownMIDIPart3.Value}");
         }
 
         SetRadioButtons();
@@ -116,7 +112,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText($"Part 4 channel: {numericUpDownMIDIPart4.Value.ToString()}");
+            MT32SysEx.SendText($"Part 4 channel: {numericUpDownMIDIPart4.Value}");
         }
 
         SetRadioButtons();
@@ -132,7 +128,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 5 channel: " + numericUpDownMIDIPart5.Value.ToString());
+            MT32SysEx.SendText($"Part 5 channel: {numericUpDownMIDIPart5.Value}");
         }
 
         SetRadioButtons();
@@ -148,7 +144,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 6 channel: " + numericUpDownMIDIPart6.Value.ToString());
+            MT32SysEx.SendText($"Part 6 channel: {numericUpDownMIDIPart6.Value}");
         }
 
         SetRadioButtons();
@@ -164,7 +160,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 7 channel: " + numericUpDownMIDIPart7.Value.ToString());
+            MT32SysEx.SendText($"Part 7 channel: {numericUpDownMIDIPart7.Value}");
         }
 
         SetRadioButtons();
@@ -180,7 +176,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Part 8 channel: " + numericUpDownMIDIPart8.Value.ToString());
+            MT32SysEx.SendText($"Part 8 channel: {numericUpDownMIDIPart8.Value}");
         }
 
         SetRadioButtons();
@@ -196,7 +192,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Rhythm channel: " + numericUpDownMIDIPartR.Value.ToString());
+            MT32SysEx.SendText($"Rhythm channel: {numericUpDownMIDIPartR.Value}");
         }
 
         SetRadioButtons();
@@ -212,7 +208,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.1 Reserve: " + numericUpDownPartReserve1.Value.ToString());
+            MT32SysEx.SendText($"Pt.1 Reserve: {numericUpDownPartReserve1.Value}");
         }
     }
 
@@ -226,7 +222,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.2 Reserve: " + numericUpDownPartReserve2.Value.ToString());
+            MT32SysEx.SendText($"Pt.2 Reserve: {numericUpDownPartReserve2.Value}");
         }
     }
 
@@ -240,7 +236,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.3 Reserve: " + numericUpDownPartReserve3.Value.ToString());
+            MT32SysEx.SendText($"Pt.3 Reserve: {numericUpDownPartReserve3.Value}");
         }
     }
 
@@ -254,7 +250,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.4 Reserve: " + numericUpDownPartReserve4.Value.ToString());
+            MT32SysEx.SendText($"Pt.4 Reserve: {numericUpDownPartReserve4.Value}");
         }
     }
 
@@ -268,7 +264,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.5 Reserve: " + numericUpDownPartReserve5.Value.ToString());
+            MT32SysEx.SendText($"Pt.5 Reserve: {numericUpDownPartReserve5.Value}");
         }
     }
 
@@ -282,7 +278,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.6 Reserve: " + numericUpDownPartReserve6.Value.ToString());
+            MT32SysEx.SendText($"Pt.6 Reserve: {numericUpDownPartReserve6.Value}");
         }
     }
 
@@ -296,7 +292,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.7 Reserve: " + numericUpDownPartReserve7.Value.ToString());
+            MT32SysEx.SendText($"Pt.7 Reserve: {numericUpDownPartReserve7.Value}");
         }
     }
 
@@ -310,7 +306,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.8 Reserve: " + numericUpDownPartReserve8.Value.ToString());
+            MT32SysEx.SendText($"Pt.8 Reserve: {numericUpDownPartReserve8.Value}");
         }
     }
 
@@ -324,7 +320,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Pt.R Reserve: " + numericUpDownPartReserveR.Value.ToString());
+            MT32SysEx.SendText($"Pt.R Reserve: {numericUpDownPartReserveR.Value}");
         }
     }
 
@@ -339,7 +335,7 @@ public partial class FormSystemSettings : Form
         labelMasterLevelValue.Text = trackBarMasterLevel.Value.ToString();
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Master Level: " + labelMasterLevelValue.Text);
+            MT32SysEx.SendText($"Master Level: {labelMasterLevelValue.Text}");
         }
     }
 
@@ -354,7 +350,7 @@ public partial class FormSystemSettings : Form
         labelMasterTuneValue.Text = system.GetMasterTuneFrequency();
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Master Tune: " + labelMasterTuneValue.Text);
+            MT32SysEx.SendText($"Master Tune: {labelMasterTuneValue.Text}");
         }
     }
 
@@ -368,7 +364,7 @@ public partial class FormSystemSettings : Form
 
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Reverb Type: " + comboBoxReverbType.Text);
+            MT32SysEx.SendText($"Reverb Type: {comboBoxReverbType.Text}");
         }
     }
 
@@ -383,7 +379,7 @@ public partial class FormSystemSettings : Form
         labelReverbLevelValue.Text = trackBarReverbLevel.Value.ToString();
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Reverb Level: " + trackBarReverbLevel.Value.ToString());
+            MT32SysEx.SendText($"Reverb Level: {trackBarReverbLevel.Value}");
         }
     }
 
@@ -398,7 +394,7 @@ public partial class FormSystemSettings : Form
         labelReverbRateValue.Text = trackBarReverbRate.Value.ToString();
         if (sendSysEx)
         {
-            MT32SysEx.SendText("Reverb Rate: " + trackBarReverbRate.Value.ToString());
+            MT32SysEx.SendText($"Reverb Rate: {trackBarReverbRate.Value}");
         }
     }
 

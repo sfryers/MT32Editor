@@ -7,9 +7,8 @@ public partial class FormRhythmEditor : Form
 {
     // MT32Edit: FormRhythmEditor
     // S.Fryers Aug 2023
-    // Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
 
-    //Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
+    // Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
     private const int bankOffset = 2;
 
     private readonly MT32State memoryState = new MT32State();
@@ -85,7 +84,6 @@ public partial class FormRhythmEditor : Form
         listViewRhythmBank.Items.Clear();
         for (int keyNo = 24; keyNo < 108; keyNo++)
         {
-            int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
             AddListViewColumnItems(keyNo);
         }
         int selectedKey = memoryState.GetSelectedKey();
@@ -157,7 +155,7 @@ public partial class FormRhythmEditor : Form
 
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
-        if (changesMade == true)
+        if (changesMade)
         {
             ShowUnsavedChangesDialogue(e);
         }
@@ -227,8 +225,6 @@ public partial class FormRhythmEditor : Form
     private void comboBoxTimbreName_SelectionChangeCommitted(object sender, EventArgs e)
     {
         int selectedKey = memoryState.GetSelectedKey();
-        int bankNo = selectedKey - RhythmConstants.KEY_OFFSET;
-        Rhythm rhythmData = memoryState.GetRhythm(bankNo);
         UpdateTimbreName();
         if (listViewRhythmBank.SelectedIndices.Count > 0)
         {
@@ -420,5 +416,10 @@ public partial class FormRhythmEditor : Form
     {
         thisFormIsActive = false;
         ConsoleMessage.SendLine("Rhythm editor inactive");
+    }
+
+    private void buttonPlayNote_Click(object sender, EventArgs e)
+    {
+
     }
 }

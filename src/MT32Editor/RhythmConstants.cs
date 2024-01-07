@@ -5,8 +5,8 @@
 /// </summary>
 internal static class RhythmConstants
 {
-    // MT32Edit: RhythmConstants class (static) S.Fryers Apr 2023
-    // Read-only data class containing default values for MT-32 rhythm parameters.
+    // MT32Edit: RhythmConstants class (static)
+    // S.Fryers Apr 2023
 
     //lowest MIDI note no. to which a rhythm timbre can be allocated
     public const int KEY_OFFSET = 24;

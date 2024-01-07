@@ -8,18 +8,19 @@ namespace MT32Edit;
 /// </summary>
 public partial class FormMainMenu : Form
 {
-    // MT-32 Editor A patch/timbre editor and SysEx librarian for Roland MT-32/CM-32L and compatible
-    // synthesizers, including the MUNT software emulator. S.Fryers sfryers@hotmail.com
+    // MT-32 Editor
+    // A patch/timbre editor and SysEx librarian for Roland MT-32/CM-32L and compatible
+    // synthesizers, including the MUNT software emulator.
+    // S.Fryers (sfryers@hotmail.com)
     //
-    // MT32Edit: FormMainMenu Primary form for MT-32 Editor application, serving as menu bar and MDI
-    // container for the memory bank editor, patch editor, rhythm editor and timbre editor forms.
+    // MT32Edit: FormMainMenu 
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool AllocConsole();
 
-    private const string VERSION_NO = "v0.9.5a";
-    private const string RELEASE_DATE = "August 2023";
+    private const string VERSION_NO = "v0.9.6a";
+    private const string RELEASE_DATE = "January 2024";
 
     private bool midiInError = false;
     private bool midiOutError = false;
@@ -528,4 +529,5 @@ public partial class FormMainMenu : Form
             MT32SysEx.allowReset = true;
         }
     }
+
 }

@@ -7,7 +7,6 @@ internal class EnvelopeGraph
 {
     // MT32Edit: EnvelopeGraph Class
     // S.Fryers Feb 2023
-    // Plot graphs to represent MT-32 pitch, filter and amplitude envelopes
 
     //top edge of graph box
     private readonly int xStart = 0;

@@ -6,9 +6,8 @@
 public class MT32State
 {
     // MT32Edit: MT32State class
-    // S.Fryers Mar 2023
-    // Data structure representing user-accessible
-    // memory areas of MT-32, as per published MIDI implementation.
+    // S.Fryers Jan 2024
+
     private SystemLevel system = new SystemLevel();
 
     private Patch[] patchArray = new Patch[128];
@@ -22,6 +21,7 @@ public class MT32State
     public bool returnFocusToPatchEditor = false;
     public bool returnFocusToRhythmEditor = false;
     public bool returnFocusToMemoryBankList = false;
+    public bool enableTimbreSaveButton = false;
     private bool timbreEditable = true;
     private int selectedPatch = 0;
     private int selectedMemoryTimbre = 0;

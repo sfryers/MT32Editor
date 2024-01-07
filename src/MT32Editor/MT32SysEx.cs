@@ -9,7 +9,6 @@ internal static class MT32SysEx
 {
     // MT32Edit: MT32SysEx class (static)
     // S.Fryers Mar 2023
-    // Tools to create and send MT32-compatible system exclusive messages
 
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
 
@@ -479,7 +478,6 @@ internal static class MT32SysEx
     /// </summary>
     public static void SendRhythmKey(Rhythm rhythmKey, int keyNo)
     {
-        int bankNo = keyNo - 24;
         byte[] sysExAddr = RhythmKeyAddress(keyNo);
         byte[] sysExData = new byte[4];
         for (int parameterNo = 0; parameterNo < 4; parameterNo++)

@@ -5,8 +5,8 @@
 /// </summary>
 internal static class ConsoleMessage
 {
-    // MT32Edit: ConsoleMessage class (static) S.Fryers Apr 2023 Filter and send debug/status
-    // messages to console
+    // MT32Edit: ConsoleMessage class (static)
+    // S.Fryers Apr 2023
     private static bool consoleEnabled = false;
 
     public static void Enable()

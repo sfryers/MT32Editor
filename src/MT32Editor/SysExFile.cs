@@ -7,8 +7,8 @@ namespace MT32Edit;
 /// </summary>
 internal static class SysExFile
 {
-    // MT32Edit: SysExFile class (static) S.Fryers Apr 2023 Tools to load/save MT-32 System
-    // Exclusive data files from/to local filesystem
+    // MT32Edit: SysExFile class (static)
+    // S.Fryers Jan 2024 
 
     private const int NO_OF_SYSTEM_PARAMS = 0x17;
 
@@ -108,7 +108,7 @@ internal static class SysExFile
                 ConsoleMessage.SendLine("non MT32-compatible data block found, ignoring.");
                 return;
             }
-            ConsoleMessage.SendLine("Processing data block, " + sysExDataBlock.Length.ToString() + " bytes.");
+            ConsoleMessage.SendLine("Processing data block, " + sysExDataBlock.Length + " bytes.");
             int[] sysExAddress = new int[3];
             int[] sysExData = new int[sysExDataBlock.Length - 7];
             for (int i = 4; i < 7; i++)
@@ -257,7 +257,7 @@ internal static class SysExFile
             }
 
             memoryState.GetSystem().SetMessage(messageNo, textMessage);
-            ConsoleMessage.SendLine("Message " + (messageNo + 1).ToString() + " = [" + textMessage + "]");
+            ConsoleMessage.SendLine("Message " + (messageNo + 1) + " = [" + textMessage + "]");
         }
 
         void ExtractPatchData(int[] sysExData, int[] sysExAddress)
@@ -272,7 +272,7 @@ internal static class SysExFile
             //one 256-byte SysEx block can contain up to 32 patches
             int startingPatchNo = ((sysExAddress[1] * 128) + sysExAddress[2]) / 8;
             int noOfPatches = sysExData.Length / 8;
-            ConsoleMessage.SendLine(noOfPatches.ToString() + " patches found.");
+            ConsoleMessage.SendLine(noOfPatches + " patches found.");
             int byteNo = 0;
             for (int patchNo = startingPatchNo; patchNo < (noOfPatches + startingPatchNo); patchNo++)
             {
@@ -282,7 +282,7 @@ internal static class SysExFile
                     byteNo++;
                 }
             }
-            ConsoleMessage.SendLine("Patch " + (startingPatchNo + 1).ToString() + "-" + (startingPatchNo + noOfPatches).ToString() + " data found, extracting...");
+            ConsoleMessage.SendLine("Patch " + (startingPatchNo + 1) + "-" + (startingPatchNo + noOfPatches) + " data found, extracting...");
         }
 
         void ExtractRhythmData(int[] sysExData, int[] sysExAddress)
@@ -298,9 +298,9 @@ internal static class SysExFile
             // one 256-byte SysEx block can contain up to 64 rhythm keys
             // Bank 0 is located at address {0x03, 0x01, 0x10}
             int startingbankNo = ((sysExAddress[1] * 128) + sysExAddress[2] - 144) / 4;
-            ConsoleMessage.SendLine("Address " + sysExAddress[0].ToString() + " " + sysExAddress[1].ToString() + " " + sysExAddress[2].ToString() + ": Bank No " + (startingbankNo + 1).ToString());
+            ConsoleMessage.SendLine("Address " + sysExAddress[0] + " " + sysExAddress[1] + " " + sysExAddress[2] + ": Bank No " + (startingbankNo + 1));
             int noOfKeys = sysExData.Length / 4;
-            ConsoleMessage.SendLine(noOfKeys.ToString() + " keys found.");
+            ConsoleMessage.SendLine(noOfKeys + " keys found.");
             int byteNo = 0;
             for (int bankNo = startingbankNo; bankNo < (noOfKeys + startingbankNo); bankNo++)
             {
@@ -315,7 +315,7 @@ internal static class SysExFile
                     byteNo++;
                 }
             }
-            ConsoleMessage.SendLine("Data for keys " + (startingbankNo + 24).ToString() + "-" + (startingbankNo + noOfKeys + 23).ToString() + " found, extracting...");
+            ConsoleMessage.SendLine("Data for keys " + (startingbankNo + 24) + "-" + (startingbankNo + noOfKeys + 23) + " found, extracting...");
         }
 
         void ExtractTimbreData(int[] sysExData, int[] sysExAddress)
@@ -323,10 +323,10 @@ internal static class SysExFile
             //check whether timbre data contains data for some or all partials
             int noOfPartials;
             int dataLength = sysExData.Length;
-            const int ONE_PARTIAL = 71;
-            const int TWO_PARTIALS = 129;
-            const int THREE_PARTIALS = 187;
-            const int FOUR_PARTIALS = 245;
+            const int ONE_PARTIAL = 72;
+            const int TWO_PARTIALS = 130;
+            const int THREE_PARTIALS = 188;
+            const int FOUR_PARTIALS = 246;
 
             switch (dataLength)
             {
@@ -364,7 +364,7 @@ internal static class SysExFile
 
             string timbreName = ExtractTimbreName(sysExData);
             SetTimbreParameters();
-            ConsoleMessage.SendLine("Timbre #" + (timbreNo + 1).ToString() + " data found, extracting " + timbreName + "...", ConsoleColor.Blue);
+            ConsoleMessage.SendLine("Timbre #" + (timbreNo + 1) + " data found, extracting " + timbreName + "...", ConsoleColor.Blue);
 
             int GetTimbreNo(int[] sysExAddress)
             {

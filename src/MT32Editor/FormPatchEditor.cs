@@ -1,7 +1,12 @@
 namespace MT32Edit;
 
-// MT32Edit: FormPatchEditor S.Fryers Aug 2023 Form showing visual representation of MT-32's 128
-// patch banks- allows custom patches to be configured
+/// <summary>
+/// Form showing visual representation of MT-32's 128
+/// patch banks- allows custom patches to be configured
+/// </summary>
+
+// MT32Edit: FormPatchEditor
+// S.Fryers Aug 2023 
 public partial class FormPatchEditor : Form
 {
     private readonly MT32State memoryState = new MT32State();

@@ -267,6 +267,7 @@
             buttonPlayNote.TabIndex = 58;
             toolTipParameterValue.SetToolTip(buttonPlayNote, "Play selected sound on device");
             buttonPlayNote.UseVisualStyleBackColor = true;
+            buttonPlayNote.Click += buttonPlayNote_Click;
             buttonPlayNote.MouseDown += buttonPlayNote_MouseDown;
             buttonPlayNote.MouseUp += buttonPlayNote_MouseUp;
             // 

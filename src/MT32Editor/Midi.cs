@@ -9,7 +9,7 @@ internal static class Midi
 {
     // MT32Edit: Midi class (static)
     // S.Fryers Apr 2023
-    // Simple tools to interface with NAudio MIDI library.
+
     public static int OutDeviceIndex = -1;
 
     public static int InDeviceIndex = -1;

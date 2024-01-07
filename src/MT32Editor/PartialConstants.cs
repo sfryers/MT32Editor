@@ -1,21 +1,21 @@
 ﻿namespace MT32Edit;
 
 /// <summary>
-/// Read-only data class containing
-/// default and maximum values for MT-32 partial parameters, plus offset values to transpose SysEx
-/// byte values to human-readable ones <br/> (eg. valid SysEx data range for parameter 1, Fine Pitch, is
-/// 0-100. However this represents a value in the UI of -50 to +50, hence an offset value of 50 is
-/// used for this parameter).
+/// Read-only data class containing default and maximum values for MT-32 partial parameters, 
+/// plus offset values to transpose SysEx byte values to human-readable ones.
 /// </summary>
+/// 
+/// <remarks> For example, the valid SysEx data range for parameter 1, Fine Pitch, is 0-100. 
+/// However this represents a value in the UI of -50 to +50, hence an offset value of 50 is
+/// used for this parameter.
+/// </remarks>
+
+
 internal static class PartialConstants
 
 // MT32Edit: PartialConstants class (static)
 // S.Fryers Feb 2023
-// Read-only data class containing
-// default and maximum values for MT-32 partial parameters, plus offset values to transpose SysEx
-// byte values to human-readable ones (eg. valid SysEx data range for parameter 1, Fine Pitch, is
-// 0-100. However this represents a value in the UI of -50 to +50, hence an offset value of 50 is
-// used for this parameter).
+
 {
     /// <summary>
     /// Maximum value MT-32 will accept for each parameter
