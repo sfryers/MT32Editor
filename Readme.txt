@@ -5,19 +5,20 @@ The term 'SysEx' refers to MIDI System Exclusive message files, which normally c
 
 COMPATIBILITY:
 
-- This software should run on any Windows 7, 8, 8.1, 10 or 11 PC which has the .NET 6.0 runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed. A monitor with at least 1080p resolution is recommended.
+- This software should run on any Windows 8, 8.1, 10 or 11 PC which has the .NET 6.0 runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed. A monitor with at least 1080p resolution is recommended. The software does not work with Windows 7 32-bit edition, but will reportedly run on the 64-bit edition.
 - A MIDI input device and an MT-32 compatible MIDI output device is strongly recommended but not required (SysEx files can still be loaded and edited without a connected MIDI device, but you will not hear any sounds).
 - SysEx (.syx) files created with this software can be uploaded to an MT-32 device using external software such as MIDI-OX, MIDI Tools, MUNT or any MIDI sequencer/DAW with built-in SysEx functionality.
 
 LICENCE:
 
-This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available at GitHub (https://github.com/sfryers/MT32Editor). The only external dependency is the NAudio.Midi library, which can be imported using NuGet in Visual Studio(https://www.nuget.org/packages/NAudio.Midi/2.1.0/).
+This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available at GitHub (https://github.com/sfryers/MT32Editor). The only external dependency is the NAudio.Midi library, which can be imported using NuGet in Visual Studio (https://www.nuget.org/packages/NAudio.Midi/2.1.0/).
 
 This software and its author are in no way linked to or endorsed by the Roland Corporation.
 
 FEATURES:
 
-- Load, save and edit standard MT-32 SysEx files.
+- Load, save and edit standard MT-32 SysEx (.syx) files.
+- Load MT-32 SysEx data from MIDI (.mid) files.
 - Edit all MT-32 system parameters
 - Edit all MT-32 timbre parameters
 - Edit all MT-32 patch parameters
@@ -26,9 +27,8 @@ FEATURES:
 - Load and save individual timbres as .timbre files
 
 LIMITATIONS:
-- The application will likely ignore SysEx files which contain incomplete timbre or patch data.
-- Loading/saving data for timbre temp area and patch temp area has not been implemented (the timbre editor does make use of timbre temp area 1).
-- The application currently sends some duplicate and/or unnecessary SysEx data. This doesn't cause any performance issues and will be rectified in the v1.0 release.
+- The application may ignore otherwise valid MT-32 SysEx data if it is formatted in an unconventional way (eg. data blocks which don't align with normal timbre/patch starting addresses)
+- Loading/saving data for timbre temp area and patch temp area has intentionally not been implemented (the timbre editor does make use of timbre temp area 1).
 
 LAYOUT:
 
@@ -42,12 +42,18 @@ View Menu - switch between Patch Editor and Rhythm Editor view.
 
 Options Menu 
 	- System area settings (allows setting master volume, master tune, reverb, midi channels and partial reserve values).
+	- Autosave every 5 minutes (when enabled, regularly saves the current state to a file named autosave.syx in the same folder as the main applicaton).
+	- Ignore system config messages when loading SysEx file (will not load any new MIDI channel assignments, partial reserve settings, master tune, master level or reverb settings). 
+	- Exclude system config messages when saving SysEx file (will not save any of the above). Note- if you ONLY wish to save system area settings, use the Save option in the System area settings window.
         - Hardware MT-32 connected (when enabled, adds 50ms delay between large sysex messages to prevent buffer overflow errors on original hardware).
 	- Send info to MT-32 display (when enabled, sends messages to device's matrix display to show parameter changes etc).
 	- Allow MT-32 reset from SysEx (when enabled, will pass any MT-32 reset messages found whilst loading a SysEx file directly to the connected MIDI Out device).
-	- Verbose console messages (when enabled, sends status messages to Windows console).
+	- Show console (show or hide the console window).
+	- Verbose console messages (when enabled, sends status messages to the console window).
 
-MIDI In/MIDI Out - select MIDI input and output devices. A settings file MT32Edit.ini will be created in the same folder as the application- ensure you have write access to the folder where the application is stored.
+A settings file named MT32Edit.ini will be created in the same folder as the application- ensure you have write access to the folder where the application is stored.
+
+MIDI In/MIDI Out - select MIDI input and output devices. 
 
 Memory Bank Editor
 

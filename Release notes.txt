@@ -2,6 +2,30 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.7a - 24th February 2024
+  Bug Fixes:
+    - Tooltips for TVA L1-3/T1-5/Sustain trackbars now show correct parameter names.
+    - All tooltips now activate properly even if parameter value has not yet been changed.
+    - Changing Timbre Group in rhythm bank editor from Rhythm to Memory and back to Rhythm no longer results in incorrect timbre name in rhythm key list.
+    - Selecting 'Clear all memory timbres' no longer causes upload window to get stuck.
+    - Save All Timbres option now saves timbre files in selected folder rather than application folder.
+    - Save All Timbres option now numbers timbres starting from 1 instead of 0.
+  New Features:
+    - App can now read MT-32 SysEx data from .mid files (all other MIDI data is ignored).
+    - Improved parsing of SysEx files- can now read timbres which are split across multiple SysEx blocks.
+    - App shows pop-up message when an opened file does not contain any valid MT-32 SysEx data. 
+    - App can now open .syx, .mid and .timbre files at start-up (either by entering a command line parameter, [right click]->[Open with]->[Choose another app], or by drag-and-dropping a file on to the MT-32 Editor icon).
+    - Current memory state will be retained if an attempt is made to open a file containing no valid MT-32 SysEx data.
+    - MT-32 text message data is displayed in upload window during SysEx upload process.
+    - Name of currently loaded file is shown in window title bar.
+    - Added option to show/hide console window added.
+    - Added option to ignore system settings when loading or saving a SysEx file.
+    - Added option to autosave every 5 minutes (creates autosave.syx in application folder).
+    - Status of options menu is saved to MT32Edit.ini and restored in next session.
+    - Empty memory timbres are no longer included in saved SysEx files.
+  Miscellaneous:
+    - Some minor code style improvements, eg. to string formatting. Some methods moved to new classes.
+
 v0.9.6a - 7th January 2024
   Bug Fixes:
     - SysEx message with missing checksum byte no longer causes unhandled exception.
