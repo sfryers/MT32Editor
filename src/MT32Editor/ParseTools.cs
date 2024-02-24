@@ -7,7 +7,7 @@ internal static class ParseTools
 {
     // MT32Edit: ParseTools class (static)
     // S.Fryers Jan 2024
-    
+   
     /// <summary>
     /// Ensures string is precisely the desiredLength by adding spaces or removing excess characters from right hand side
     /// </summary>
@@ -19,7 +19,7 @@ internal static class ParseTools
     }
 
     /// <summary>
-    /// Adds spaces to end of string to pad it to the desiredLength
+    /// Adds spaces to end of str to pad it to the desiredLength
     /// </summary>
     public static string PadWithSpace(string str, int desiredLength)
     {
@@ -37,13 +37,32 @@ internal static class ParseTools
     {
         if (noOfItems == 1)
         {
-            return "";
+            return string.Empty;
         }
         else
         {
             return "s";
         }
     }
+
+    /// <summary>
+    /// Returns asterisk character for window title bar if changes have been made
+    /// </summary>
+    public static string UnsavedEdits(bool changesMade)
+    {
+        if (changesMade)
+        { 
+            return "*";  
+        }
+        else
+        { 
+            return string.Empty; 
+        }
+    }
+
+    /// <summary>
+    /// Trims str to desiredLength
+    /// </summary>
 
     public static string TrimToLength(string str, int desiredLength)
     {
@@ -54,23 +73,37 @@ internal static class ParseTools
         return str;
     }
 
+    /// <summary>
+    /// Removes any trailing space or null characters from str
+    /// </summary>
+
     public static string RemoveTrailingSpaces(string str)
     {
         if (string.IsNullOrEmpty(str))
         {
             return string.Empty;
         }
+        str = ReplaceNullsWithSpaces(str);
         return str.TrimEnd();
     }
 
+    /// <summary>
+    /// Removes any leading space or null characters from str
+    /// </summary>
+
     public static string RemoveLeadingSpaces(string str)
     {
+        str = ReplaceNullsWithSpaces(str);
         while (LeftMost(str, 1) == " ")
         {
-            // remove any trailing space characters
             str = RightMost(str, str.Length - 1);
         }
         return str;
+    }
+
+    public static string ReplaceNullsWithSpaces(string str)
+    {
+        return str.Replace("\0", " ");
     }
 
     /// <summary>
@@ -115,7 +148,7 @@ internal static class ParseTools
             str = RightMost(str, str.Length - 1);
             if (str.Length == 1)
             {
-                return "";
+                return string.Empty;
             }
         }
         return RightMost(str, str.Length - 1);
@@ -131,7 +164,7 @@ internal static class ParseTools
             str = LeftMost(str, str.Length - 1);
             if (str.Length == 1)
             {
-                return "";
+                return string.Empty;
             }
         }
         return LeftMost(str, str.Length - 1);
@@ -148,5 +181,44 @@ internal static class ParseTools
             sum += asciiValue[charNo];
         }
         return sum;
+    }
+
+    /// <summary>
+    /// Return true if line ends with string "true", 
+    /// false if line ends with string "false",
+    /// Any other value returns null.
+    /// Function is not case sensitive.
+    /// </summary>
+
+    public static bool? StringToBool(string str)
+    {
+        if (RightMost(str.ToLower(), true.ToString().Length) == true.ToString().ToLower())
+        {
+            return true;
+        }
+        else if (RightMost(str.ToLower(), false.ToString().Length) == false.ToString().ToLower())
+        {
+            return false;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if fileName extension is .syx or .mid, 
+    /// Any other value returns false.
+    /// Function is not case sensitive.
+    /// </summary>
+    public static bool IsSysExOrMidi(string? fileName)
+    {
+        if (fileName is null)
+        {
+            return false;
+        }
+        string extension = Path.GetExtension(fileName).ToLower();
+        //return true if file extension is .syx or .mid
+        return (extension == FileTools.SYSEX_FILE || extension == FileTools.MIDI_FILE);
     }
 }

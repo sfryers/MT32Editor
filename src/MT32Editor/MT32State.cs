@@ -6,7 +6,7 @@
 public class MT32State
 {
     // MT32Edit: MT32State class
-    // S.Fryers Jan 2024
+    // S.Fryers Feb 2024
 
     private SystemLevel system = new SystemLevel();
 
@@ -14,7 +14,6 @@ public class MT32State
     private Rhythm[] rhythmBank = new Rhythm[85];
     private TimbreStructure[] memoryTimbre = new TimbreStructure[64];
     private readonly TimbreNames timbreName = new TimbreNames();
-    private readonly string[] mt32Message = new string[10];
     private DateTime timeOfLastFullUpdate = DateTime.Now;
     public bool patchEditorActive = false;
     public bool rhythmEditorActive = false;
@@ -22,18 +21,15 @@ public class MT32State
     public bool returnFocusToRhythmEditor = false;
     public bool returnFocusToMemoryBankList = false;
     public bool enableTimbreSaveButton = false;
+    public bool changesMade = false;
     private bool timbreEditable = true;
     private int selectedPatch = 0;
     private int selectedMemoryTimbre = 0;
     private int selectedKey = 24;
-    private readonly bool changesMade = false;
-    private readonly bool sendSysEx = false;
-    private readonly int channelNo = 1;
 
     public MT32State()
     {
         ResetAll();
-        changesMade = false;
     }
 
     public void ResetAll()
@@ -43,6 +39,7 @@ public class MT32State
         InitialiseRhythmBank();
         system.SetMessage(0, "");
         system.SetMessage(1, "");
+        changesMade = false;
     }
 
     private void InitialisePatchArray()
@@ -194,22 +191,6 @@ public class MT32State
     public void SetSystem(SystemLevel systemInput)
     {
         system = systemInput;
-    }
-
-    public string[] GetMessages()
-    {
-        return mt32Message;
-    }
-
-    public string GetMessage(int messageNo)
-    {
-        return mt32Message[messageNo];
-    }
-
-    public void SetMessage(string messageInput, int messageNo)
-    {
-        messageInput = ParseTools.TrimToLength(messageInput, 20);
-        mt32Message[messageNo] = messageInput;
     }
 
     public bool TimbreIsEditable()

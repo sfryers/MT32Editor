@@ -6,10 +6,10 @@
 public partial class FormAbout : Form
 {
     // MT32Edit: FormAbout
-    // S.Fryers Apr 2023
+    // S.Fryers Feb 2024
 
-    private readonly string versionNo = "";
-    private readonly string releaseDate = "";
+    private string versionNo = string.Empty;
+    private string releaseDate = string.Empty;
 
     public FormAbout(string version, string date)
     {

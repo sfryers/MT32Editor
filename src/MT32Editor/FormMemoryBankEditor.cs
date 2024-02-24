@@ -6,7 +6,7 @@
 public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
-    // S.Fryers Aug 2023
+    // S.Fryers Feb 2024
 
     private readonly MT32State memoryState = new MT32State();
 
@@ -124,19 +124,11 @@ public partial class FormMemoryBankEditor : Form
 
     private void buttonClearTimbre_Click(object sender, EventArgs e)
     {
-        if (labelTimbreName.Text == MT32Strings.EMPTY)
+        if (labelTimbreName.Text == MT32Strings.EMPTY || !UITools.AskUserToConfirm("Clear selected memory timbre?", "MT-32 Editor"))
         {
             return;
         }
 
-        switch (MessageBox.Show("Clear selected memory timbre?", "", MessageBoxButtons.OKCancel))
-        {
-            case DialogResult.OK:
-                break;
-
-            case DialogResult.Cancel:
-                return;
-        }
         int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
         string timbreName = memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName();
         memoryState.SetMemoryTimbre(new TimbreStructure(createAudibleTimbre: false), selectedTimbre); //replace selected timbre with blank timbre
@@ -149,13 +141,9 @@ public partial class FormMemoryBankEditor : Form
 
     private void buttonClearAll_Click(object sender, EventArgs e)
     {
-        switch (MessageBox.Show("Clear all memory timbres?", "", MessageBoxButtons.OKCancel))
-        {
-            case DialogResult.OK:
-                break;
-
-            case DialogResult.Cancel:
-                return;
+        if (!UITools.AskUserToConfirm("Clear all memory timbres?", "MT-32 Editor"))
+        { 
+            return; 
         }
         memoryState.SetMemoryTimbreArray(new TimbreStructure[64]);
         InitialiseMemoryTimbreArray();
@@ -163,7 +151,7 @@ public partial class FormMemoryBankEditor : Form
         memoryState.SetSelectedMemoryTimbre(0);
         PopulateMemoryBankListView(0);
         SynchroniseTimbreEditor(0);
-        Form loadSysEx = new FormLoadSysEx(memoryState, clearMemoryState: true);
+        Form loadSysEx = new FormLoadSysEx(memoryState, requestClearMemory: true);
         loadSysEx.ShowDialog();
         MT32SysEx.PreviewTimbre(0, memoryState.GetMemoryTimbre(0));
     }
@@ -195,20 +183,22 @@ public partial class FormMemoryBankEditor : Form
     private void buttonPasteTimbre_Click(object sender, EventArgs e)
     {
         int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
-        if (labelTimbreName.Text != MT32Strings.EMPTY)
+        if (copiedTimbre is null)
         {
-            switch (MessageBox.Show("Overwrite " + memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName() + " with copied timbre " + copiedTimbre.GetTimbreName() + "?", "", MessageBoxButtons.OKCancel))
-            {
-                case DialogResult.OK:
-                    break;
-
-                case DialogResult.Cancel:
-                    return;
-            }
+            return;
+        }
+        if (labelTimbreName.Text != MT32Strings.EMPTY && CancelOverwrite())
+        {
+            return;
         }
         memoryState.SetMemoryTimbre(copiedTimbre.Clone(), selectedTimbre);
         PopulateMemoryBankListView(selectedTimbre);
         SynchroniseTimbreEditor(selectedTimbre);
+
+        bool CancelOverwrite()
+        {
+            return !UITools.AskUserToConfirm($"Overwrite {memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName()} with copied timbre {copiedTimbre.GetTimbreName()}?", "MT-32 Editor");
+        }
     }
 
     private void timer_Tick(object sender, EventArgs e)

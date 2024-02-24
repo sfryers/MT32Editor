@@ -8,14 +8,15 @@ namespace MT32Edit;
 internal static class Midi
 {
     // MT32Edit: Midi class (static)
-    // S.Fryers Apr 2023
+    // S.Fryers Feb 2024
 
     public static int OutDeviceIndex = -1;
-
     public static int InDeviceIndex = -1;
-    public static bool hardwareMT32 = true;
+    public static bool hardwareMT32Connected = true;
     public static MidiIn? In = null;
     public static MidiOut? Out = null;
+
+    public const string MUNT_DEVICE_NAME = "MT-32 Synth Emulator";
 
     public static void InputErrorReceived(object sender, MidiInMessageEventArgs e)
     {
@@ -79,10 +80,19 @@ internal static class Midi
 
     public static bool OpenInputDevice(int device)
     {
-        if (In != null) //close any existing MIDI In connection
+        if (In is not null) 
         {
-            In.Stop();
-            In.Dispose();
+            try
+            {
+                //close any existing MIDI In connection
+                In.Stop();
+                In.Dispose();
+            }
+            catch
+            {
+                ConsoleMessage.SendLine("Error- MIDI device disconnected.");
+                return false;
+            }
         }
         InDeviceIndex = device;
         try
@@ -150,6 +160,18 @@ internal static class Midi
             deviceList.Add(MidiOut.DeviceInfo(device).ProductName);
         }
         return deviceList.ToArray();
+    }
+
+    public static bool EmulatorPresent(int deviceIndex)
+    {
+        if (Out is not null && GetOutputDeviceName(deviceIndex) == MUNT_DEVICE_NAME)
+        {
+            return true;
+        }
+        else
+        { 
+            return false; 
+        }
     }
 
     public static void CloseOutputDevice()

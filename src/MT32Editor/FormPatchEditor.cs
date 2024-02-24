@@ -6,16 +6,15 @@ namespace MT32Edit;
 /// </summary>
 
 // MT32Edit: FormPatchEditor
-// S.Fryers Aug 2023 
+// S.Fryers Feb 2024
 public partial class FormPatchEditor : Form
 {
-    private readonly MT32State memoryState = new MT32State();
-    private readonly SaveFileDialog saveSysExDialog = new SaveFileDialog();
+    private MT32State memoryState = new MT32State();
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool changesMade = false;
     private bool sendSysEx = false;
     private bool thisFormIsActive = true;
-    private readonly float UIScale = 1;
+    private float UIScale;
 
     public FormPatchEditor(float DPIScale, MT32State inputMemoryState)
     {
@@ -99,6 +98,9 @@ public partial class FormPatchEditor : Form
         trackBarBenderRange.Value = memoryPatch.GetBenderRange();
         trackBarFineTune.Value = memoryPatch.GetFineTune();
         trackBarKeyShift.Value = memoryPatch.GetKeyShift();
+        SetBendRangeToolTip();
+        SetFineTuneToolTip();
+        SetKeyShiftToolTip();
         comboBoxAssignMode.SelectedIndex = memoryPatch.GetAssignMode();
         radioButtonReverbOn.Checked = memoryPatch.GetReverbEnabled();
         radioButtonReverbOff.Checked = !memoryPatch.GetReverbEnabled();
@@ -141,7 +143,7 @@ public partial class FormPatchEditor : Form
         int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(0);
         Midi.SendProgramChange(patchNo, midiChannel);
         Patch memoryPatch = memoryState.GetPatch(patchNo);
-        MT32SysEx.SendText("Patch " + (patchNo + 1).ToString() + "|" + memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup()));
+        MT32SysEx.SendText($"Patch {patchNo + 1}|{memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup())}");
     }
 
     private void SendPatchParameterChange(int patchNo, int parameterNo)
@@ -173,21 +175,7 @@ public partial class FormPatchEditor : Form
     {
         if (changesMade)
         {
-            ShowUnsavedChangesDialogue(e);
-        }
-    }
-
-    private void ShowUnsavedChangesDialogue(FormClosingEventArgs e)
-    {
-        switch (MessageBox.Show("Unsaved changes will be lost!", "MT-32 Patch Editor", MessageBoxButtons.OKCancel))
-        {
-            case DialogResult.OK:
-                //Allow form to close
-                break;
-            case DialogResult.Cancel:
-                //Cancel form close request
-                e.Cancel = true;
-                break;
+            e.Cancel = !UITools.AskUserToConfirm("Unsaved changes will be lost!", "MT-32 Editor");
         }
     }
 
@@ -259,6 +247,21 @@ public partial class FormPatchEditor : Form
         }
     }
 
+    private void SetKeyShiftToolTip()
+    {
+        toolTipParameterValue.SetToolTip(trackBarKeyShift, $"Key Shift = {trackBarKeyShift.Value}");
+    }
+
+    private void SetFineTuneToolTip()
+    {
+        toolTipParameterValue.SetToolTip(trackBarFineTune, $"Fine Tune = {trackBarFineTune.Value}");
+    }
+
+    private void SetBendRangeToolTip()
+    {
+        toolTipParameterValue.SetToolTip(trackBarBenderRange, $"Bend Range ={trackBarBenderRange.Value}");
+    }
+
     private void FormPatchEditor_Resize(object sender, EventArgs e)
     {
         ScaleListView();
@@ -308,8 +311,7 @@ public partial class FormPatchEditor : Form
         {
             listViewPatches.SelectedItems[0].SubItems[3].Text = trackBarKeyShift.Value.ToString();
         }
-
-        toolTipParameterValue.SetToolTip(trackBarKeyShift, "Key Shift = " + trackBarKeyShift.Value.ToString());
+        SetKeyShiftToolTip();
         SendPatchParameterChange(selectedPatch, 0x02);
         changesMade = true;
     }
@@ -323,7 +325,7 @@ public partial class FormPatchEditor : Form
             listViewPatches.SelectedItems[0].SubItems[4].Text = trackBarFineTune.Value.ToString();
         }
 
-        toolTipParameterValue.SetToolTip(trackBarFineTune, "Fine tune = " + trackBarFineTune.Value.ToString());
+        SetFineTuneToolTip();
         SendPatchParameterChange(selectedPatch, 0x03);
         changesMade = true;
     }
@@ -337,7 +339,7 @@ public partial class FormPatchEditor : Form
             listViewPatches.SelectedItems[0].SubItems[5].Text = trackBarBenderRange.Value.ToString();
         }
 
-        toolTipParameterValue.SetToolTip(trackBarBenderRange, "Bend range = " + trackBarBenderRange.Value.ToString());
+        SetBendRangeToolTip();
         SendPatchParameterChange(selectedPatch, 0x04);
         changesMade = true;
     }
@@ -429,7 +431,7 @@ public partial class FormPatchEditor : Form
         //only refresh if memoryState has recently been updated
         if (lastGlobalUpdate < memoryState.GetUpdateTime())
         {
-            ConsoleMessage.SendLine("Updating Patch List");
+            ConsoleMessage.SendVerboseLine("Updating Patch List");
             DoFullRefresh(memoryState.GetSelectedPatchNo());
             lastGlobalUpdate = DateTime.Now;
         }

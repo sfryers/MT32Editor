@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Diagnostics.Eventing.Reader;
+
+namespace MT32Edit;
 
 /// <summary>
 /// Simple tools for boolean logic and data validation.
@@ -81,6 +83,30 @@ internal static class LogicTools
         if (value < minPermitted || value > maxPermitted)
         {
             throw new ArgumentOutOfRangeException(parameterName, parameterName + " value " + value + " is outside of the permitted range (" + minPermitted + " to " + maxPermitted + ")");
+        }
+    }
+
+    public static int GetRadioButtonValue(bool a, bool b, bool c, bool d)
+    {
+        if (a)
+        { 
+            return 0;
+        }
+        else if (b)
+        {
+            return 1;
+        }
+        else if (c)
+        {
+            return 2;
+        }
+        else if (d)
+        {
+            return 3;   
+        }
+        else
+        { 
+            return -1;
         }
     }
 }

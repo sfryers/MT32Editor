@@ -34,11 +34,13 @@
             labelLoadProgress = new Label();
             timer = new System.Windows.Forms.Timer(components);
             buttonClose = new Button();
+            labelMT32Text1 = new Label();
+            labelMT32Text2 = new Label();
             SuspendLayout();
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(12, 12);
+            progressBar.Location = new Point(12, 38);
             progressBar.MarqueeAnimationSpeed = 30;
             progressBar.Maximum = 72;
             progressBar.Name = "progressBar";
@@ -49,7 +51,7 @@
             // 
             labelLoadProgress.AutoSize = true;
             labelLoadProgress.ForeColor = SystemColors.Control;
-            labelLoadProgress.Location = new Point(12, 48);
+            labelLoadProgress.Location = new Point(12, 74);
             labelLoadProgress.Name = "labelLoadProgress";
             labelLoadProgress.Size = new Size(120, 15);
             labelLoadProgress.TabIndex = 1;
@@ -62,7 +64,7 @@
             // 
             // buttonClose
             // 
-            buttonClose.Location = new Point(280, 42);
+            buttonClose.Location = new Point(280, 68);
             buttonClose.Name = "buttonClose";
             buttonClose.Size = new Size(44, 26);
             buttonClose.TabIndex = 2;
@@ -71,12 +73,34 @@
             buttonClose.Visible = false;
             buttonClose.Click += buttonClose_Click;
             // 
+            // labelMT32Text1
+            // 
+            labelMT32Text1.AutoSize = true;
+            labelMT32Text1.ForeColor = SystemColors.ControlLightLight;
+            labelMT32Text1.Location = new Point(12, 9);
+            labelMT32Text1.Name = "labelMT32Text1";
+            labelMT32Text1.Size = new Size(42, 15);
+            labelMT32Text1.TabIndex = 3;
+            labelMT32Text1.Text = "[none]";
+            // 
+            // labelMT32Text2
+            // 
+            labelMT32Text2.AutoSize = true;
+            labelMT32Text2.ForeColor = SystemColors.ControlLightLight;
+            labelMT32Text2.Location = new Point(159, 9);
+            labelMT32Text2.Name = "labelMT32Text2";
+            labelMT32Text2.Size = new Size(42, 15);
+            labelMT32Text2.TabIndex = 4;
+            labelMT32Text2.Text = "[none]";
+            // 
             // FormLoadSysEx
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(48, 48, 48);
-            ClientSize = new Size(336, 72);
+            ClientSize = new Size(336, 103);
+            Controls.Add(labelMT32Text2);
+            Controls.Add(labelMT32Text1);
             Controls.Add(buttonClose);
             Controls.Add(labelLoadProgress);
             Controls.Add(progressBar);
@@ -85,7 +109,7 @@
             MaximizeBox = false;
             Name = "FormLoadSysEx";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Uploading SysEx File";
+            Text = "Uploading SysEx Data";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -96,5 +120,7 @@
         private Label labelLoadProgress;
         private System.Windows.Forms.Timer timer;
         private Button buttonClose;
+        private Label labelMT32Text1;
+        private Label labelMT32Text2;
     }
 }

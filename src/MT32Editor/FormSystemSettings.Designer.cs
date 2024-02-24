@@ -654,6 +654,7 @@
             textBoxMessage2.Size = new Size(180, 23);
             textBoxMessage2.TabIndex = 18;
             toolTip.SetToolTip(textBoxMessage2, "Enter a custom message to be shown on MT-32 display after loading SysEx file");
+            textBoxMessage2.Click += textBoxMessage2_Click;
             textBoxMessage2.TextChanged += textBoxMessage2_TextChanged;
             // 
             // label1
@@ -684,6 +685,7 @@
             textBoxMessage1.Size = new Size(175, 23);
             textBoxMessage1.TabIndex = 0;
             toolTip.SetToolTip(textBoxMessage1, "Enter a custom message to be shown on MT-32 display when loading SysEx file");
+            textBoxMessage1.Click += textBoxMessage1_Click;
             textBoxMessage1.TextChanged += textBoxMessage1_TextChanged;
             // 
             // buttonSave

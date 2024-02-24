@@ -8,6 +8,10 @@ internal class EnvelopeGraph
     // MT32Edit: EnvelopeGraph Class
     // S.Fryers Feb 2023
 
+    public const int PITCH_GRAPH = 0;
+    public const int TVF_GRAPH = 1;
+    public const int TVA_GRAPH = 2;
+
     //top edge of graph box
     private readonly int xStart = 0;
 
@@ -83,15 +87,15 @@ internal class EnvelopeGraph
         {
             switch (graphType)
             {
-                case 0:
+                case PITCH_GRAPH:
                     DrawPitchEnvelope(envelope, timbre, partial, highlight, label);
                     break;
 
-                case 1:
+                case TVF_GRAPH:
                     DrawTVFEnvelope(envelope, timbre, partial, highlight, label);
                     break;
 
-                case 2:
+                case TVA_GRAPH:
                     DrawTVAEnvelope(envelope, timbre, partial, highlight, label);
                     break;
 

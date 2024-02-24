@@ -6,18 +6,18 @@
 public partial class FormRhythmEditor : Form
 {
     // MT32Edit: FormRhythmEditor
-    // S.Fryers Aug 2023
+    // S.Fryers Jan 2024
 
     // Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
     private const int bankOffset = 2;
 
-    private readonly MT32State memoryState = new MT32State();
+    private MT32State memoryState = new MT32State();
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool thisFormIsActive = false;
     private bool changesMade = false;
     private int pressedKey = -1;
     private bool sendSysEx = false;
-    private readonly float UIScale = 1;
+    private float UIScale;
 
     public FormRhythmEditor(float DPIScale, MT32State inputMemoryState)
     {
@@ -73,7 +73,7 @@ public partial class FormRhythmEditor : Form
 
     private void SelectKeyInListView(int keyNo)
     {
-        ConsoleMessage.SendLine("Key No." + keyNo.ToString());
+        ConsoleMessage.SendVerboseLine("Key No." + keyNo.ToString());
         listViewRhythmBank.Items[keyNo - RhythmConstants.KEY_OFFSET].Selected = true;
         listViewRhythmBank.Items[keyNo - RhythmConstants.KEY_OFFSET].EnsureVisible();
         listViewRhythmBank.Select();
@@ -104,6 +104,8 @@ public partial class FormRhythmEditor : Form
         comboBoxTimbreName.Text = memoryState.GetTimbreNames().Get(rhythmKey.GetTimbreNo(), rhythmKey.GetTimbreGroup() + bankOffset); //get timbre name from timbre no. and timbre group
         trackBarLevel.Value = rhythmKey.GetOutputLevel();
         trackBarPanPot.Value = rhythmKey.GetPanPot();
+        SetLevelToolTip();
+        SetPanPotToolTip();
         radioButtonReverbOn.Checked = rhythmKey.GetReverbEnabled();
         radioButtonReverbOff.Checked = !rhythmKey.GetReverbEnabled();
         sendSysEx = true;
@@ -153,25 +155,21 @@ public partial class FormRhythmEditor : Form
         comboBoxTimbreName.Text = memoryState.GetTimbreNames().Get(rhythmData.GetTimbreNo(), rhythmData.GetTimbreGroup());
     }
 
+    private void SetPanPotToolTip()
+    {
+        toolTipParameterValue.SetToolTip(trackBarPanPot, $"Pan = {trackBarPanPot.Value}");
+    }
+
+    private void SetLevelToolTip()
+    {
+        toolTipParameterValue.SetToolTip(trackBarLevel, $"Level = {trackBarLevel.Value}");
+    }
+
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
         if (changesMade)
         {
-            ShowUnsavedChangesDialogue(e);
-        }
-    }
-
-    private void ShowUnsavedChangesDialogue(FormClosingEventArgs e)
-    {
-        switch (MessageBox.Show("Unsaved changes will be lost!", "MT-32 Rhythm Bank Editor", MessageBoxButtons.OKCancel))
-        {
-            case DialogResult.OK:
-                //Allow form to close
-                break;
-            case DialogResult.Cancel:
-                //Cancel form close request
-                e.Cancel = true;
-                break;
+            e.Cancel = !UITools.AskUserToConfirm("Unsaved changes will be lost!", "MT-32 Editor");
         }
     }
 
@@ -211,7 +209,7 @@ public partial class FormRhythmEditor : Form
         if (listViewRhythmBank.SelectedIndices.Count > 0)
         {
             listViewRhythmBank.SelectedItems[0].SubItems[2].Text = rhythmData.GetTimbreGroupType();
-            listViewRhythmBank.SelectedItems[0].SubItems[3].Text = memoryState.GetTimbreNames().Get(rhythmData.GetTimbreNo(), rhythmData.GetTimbreGroup());
+            listViewRhythmBank.SelectedItems[0].SubItems[3].Text = memoryState.GetTimbreNames().Get(rhythmData.GetTimbreNo(), rhythmData.GetTimbreGroup() + bankOffset);
         }
         PopulateRhythmFormParameters(selectedKey);
         if (sendSysEx)
@@ -270,7 +268,7 @@ public partial class FormRhythmEditor : Form
             SendBank(selectedKey);
         }
 
-        toolTipParameterValue.SetToolTip(trackBarPanPot, "Pan = " + trackBarPanPot.Value.ToString());
+        SetPanPotToolTip();
         changesMade = true;
     }
 
@@ -284,7 +282,7 @@ public partial class FormRhythmEditor : Form
             listViewRhythmBank.SelectedItems[0].SubItems[6].Text = trackBarLevel.Value.ToString();
         }
 
-        toolTipParameterValue.SetToolTip(trackBarLevel, "Level = " + trackBarLevel.Value.ToString());
+        SetLevelToolTip();
         if (sendSysEx)
         {
             SendBank(selectedKey);
@@ -318,7 +316,6 @@ public partial class FormRhythmEditor : Form
         {
             Midi.StopRhythmNote(pressedKey, midiChannel);
         }
-
         pressedKey = -1;
     }
 
@@ -374,7 +371,7 @@ public partial class FormRhythmEditor : Form
         //only refresh if memoryState has recently been updated
         if (lastGlobalUpdate < memoryState.GetUpdateTime())
         {
-            ConsoleMessage.SendLine("Updating Rhythm Bank List");
+            ConsoleMessage.SendVerboseLine("Updating Rhythm Bank List");
             DoFullRefresh();
             lastGlobalUpdate = DateTime.Now;
         }
@@ -391,7 +388,7 @@ public partial class FormRhythmEditor : Form
 
         if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
         {
-            ConsoleMessage.SendLine("Updating Memory Timbre Names List");
+            ConsoleMessage.SendVerboseLine("Updating Memory Timbre Names List");
             //ensure that memory timbre name changes are synchronised across comboBox and listView
             RefreshTimbreNamesList();
             comboBoxTimbreName.Text = newTimbreName;
@@ -409,17 +406,10 @@ public partial class FormRhythmEditor : Form
         thisFormIsActive = true;
         memoryState.rhythmEditorActive = true;
         memoryState.patchEditorActive = false;
-        ConsoleMessage.SendLine("Rhythm editor active");
     }
 
     private void FormRhythmEditor_Leave(object sender, EventArgs e)
     {
         thisFormIsActive = false;
-        ConsoleMessage.SendLine("Rhythm editor inactive");
-    }
-
-    private void buttonPlayNote_Click(object sender, EventArgs e)
-    {
-
     }
 }

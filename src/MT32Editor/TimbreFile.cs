@@ -17,37 +17,63 @@ namespace MT32Edit;
 internal static class TimbreFile
 {
     // MT32Edit: TimbreFile class (static)
-    // S.Fryers Apr 2023
-
-    // Total size of valid .timbre file is 286 bytes.
-    private const int VALID_FILE_LENGTH = 286;
+    // S.Fryers Feb 2024
 
     private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
+    // Total size of valid .timbre file is 286 bytes.
+    private static readonly int VALID_FILE_LENGTH = TIMBRE_FILE_HEADER.Length + MT32SysEx.PARTIAL_ADDRESS_OFFSET + (MT32SysEx.PARAMETER_COUNT * 4);
+
+    /// <summary>
+    /// Loads timbre data into the provided TimbreStructure. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
+    /// Overloaded method: if no filename is provided, then a file browser window will be opened
+    /// </summary>
+
     public static string Load(TimbreStructure timbre)
     {
-        byte[] header = new byte[40];
-        byte[] timbreNameBytes = new byte[10];
-        byte[] timbreData = new byte[4];
-        byte[] parameterValue = new byte[58];
-        MT32SysEx.blockMT32text = true;
-
         OpenFileDialog loadTimbreDialog = new OpenFileDialog();
 
         SetUpFileDialog(loadTimbreDialog);
-        if (string.IsNullOrWhiteSpace(loadTimbreDialog.FileName))
+        string fileName = loadTimbreDialog.FileName;
+        loadTimbreDialog.Dispose();
+        if (string.IsNullOrWhiteSpace(fileName))
         {
             return "Cancelled";
         }
 
+        return Load(timbre, fileName);
+
+        void SetUpFileDialog(OpenFileDialog loadTimbreDialog)
+        {
+            loadTimbreDialog.Filter = "Timbre file|*.timbre";
+            loadTimbreDialog.Title = "Load Timbre File";
+            loadTimbreDialog.CheckFileExists = true;
+            loadTimbreDialog.CheckPathExists = true;
+            loadTimbreDialog.ShowDialog();
+        }
+    }
+
+    /// <summary>
+    /// Loads timbre data into the provided TimbreStructure. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
+    /// Overloaded method: if no filename is provided, then a file browser window will be opened
+    /// </summary>
+
+    public static string Load(TimbreStructure timbre, string fileName)
+    {
+        byte[] header = new byte[40];
+        byte[] timbreNameBytes = new byte[10];
+        byte[] timbreData = new byte[4];
+        byte[] parameterValue = new byte[MT32SysEx.PARAMETER_COUNT];
+        MT32SysEx.blockMT32text = true;
+
         //load data from file
-        FileStream timbreFile = (FileStream)loadTimbreDialog.OpenFile();
+        FileStream timbreFile = File.OpenRead(fileName);
         timbreFile.Read(header, 0, header.Length);
         if (timbreFile.Length != VALID_FILE_LENGTH || Encoding.ASCII.GetString(header) != TIMBRE_FILE_HEADER)
         {
             //incorrect file length or invalid header: stop loading
             timbreFile.Close();
-            MessageBox.Show(loadTimbreDialog.FileName + " is not a valid timbre file.", "Unable to load timbre");
+            MessageBox.Show($"{fileName} is not a valid timbre file.", "Unable to load timbre");
             return "#Error!";
         }
         MT32SysEx.blockSysExMessages = true;
@@ -58,16 +84,9 @@ internal static class TimbreFile
         timbreFile.Close();
         MT32SysEx.SendText("Loaded " + timbre.GetTimbreName());
 
-        return loadTimbreDialog.FileName;
-
-        void SetUpFileDialog(OpenFileDialog loadTimbreDialog)
-        {
-            loadTimbreDialog.Filter = "Timbre file|*.timbre";
-            loadTimbreDialog.Title = "Load Timbre File";
-            loadTimbreDialog.CheckFileExists = true;
-            loadTimbreDialog.CheckPathExists = true;
-            loadTimbreDialog.ShowDialog();
-        }
+        string timbreFileName = Path.GetFileName(fileName);
+        
+        return timbreFileName;
 
         void LoadTimbreParameters()
         {
@@ -112,13 +131,16 @@ internal static class TimbreFile
         }
     }
 
+    /// <summary>
+    /// Saves timbre data to existing file
+    /// </summary>
+
     public static void Save(TimbreStructure timbre, SaveFileDialog saveDialog)
     {
         if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             return;
         }
-
         try
         {
             FileStream file = (FileStream)saveDialog.OpenFile();
@@ -130,10 +152,49 @@ internal static class TimbreFile
         }
     }
 
+    /// <summary>
+    /// Saves timbre data to file selected by user
+    /// </summary>
+
+    public static bool SaveAs(TimbreStructure timbre, SaveFileDialog saveTimbreDialog, string fileName)
+    {
+        saveTimbreDialog.Filter = "Timbre file|*.timbre";
+        saveTimbreDialog.FileName = fileName;
+        saveTimbreDialog.Title = "Save Timbre File";
+        if (saveTimbreDialog.ShowDialog() == DialogResult.Cancel)
+        {
+            return false;
+        }
+        Save(timbre, saveTimbreDialog);
+        return true;
+    }
+
+    public static bool QuickSave(TimbreStructure timbre, SaveFileDialog saveTimbreDialog, string timbreName, bool allowQuickSave)
+    {
+        if (!allowQuickSave)
+        {
+            saveTimbreDialog.FileName = string.Empty;
+            return SaveAs(timbre, saveTimbreDialog, timbreName);
+        }
+
+        string action = "Save";
+        if (File.Exists(saveTimbreDialog.FileName)) action = "Overwrite";
+        if (UITools.AskUserToConfirm($"{action} file {saveTimbreDialog.FileName}?", "MT-32 Editor"))
+        {
+            Save(timbre, saveTimbreDialog);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Saves multiple timbre files, one per item from the provided timbreArray
+    /// </summary>
+
     public static void SaveAll(TimbreStructure[] timbreArray)
     {
         string filePath = FileTools.AskUserForFilePath();
-        if (filePath == "#Error!" || filePath == "Cancelled")
+        if (!FileTools.Success(filePath))
         {
             return;
         }
@@ -149,8 +210,8 @@ internal static class TimbreFile
             }
 
             string timbreFileName = CreateBatchTimbreFilename(timbreNo);
-            timbreFileName = RemoveInvalidCharacters(timbreFileName);
-            if (SaveTimbreFile(timbreArray[timbreNo], filePath + Path.DirectorySeparatorChar + timbreFileName))
+            timbreFileName = FileTools.RemoveInvalidFileNameCharacters(timbreFileName);
+            if (SaveTimbreFile(timbreArray[timbreNo], Path.Combine(filePath, timbreFileName)))
             {
                 fileCount++;
             }
@@ -165,29 +226,18 @@ internal static class TimbreFile
         }
         else
         {
-            MessageBox.Show(fileCount + " timbre file" + ParseTools.Plural(fileCount) + " saved to " + filePath, "MT-32 Editor");
+            MessageBox.Show($"{fileCount} timbre file{ParseTools.Plural(fileCount)} saved to {filePath}", "MT-32 Editor");
         }
 
         string CreateBatchTimbreFilename(int timbreNo)
         {
-            string timbreNumber = timbreNo.ToString();
+            string timbreNumber = (timbreNo + 1).ToString();
             if (timbreNumber.Length == 1)
             {
-                timbreNumber = "0" + timbreNumber;
+                timbreNumber = $"0{timbreNumber}";
             }
 
-            return timbreNumber + " - " + timbreArray[timbreNo].GetTimbreName() + ".timbre";
-        }
-
-        string RemoveInvalidCharacters(string timbreFileName)
-        {
-            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            foreach (char c in invalid)
-            {
-                timbreFileName = timbreFileName.Replace(c.ToString(), "");
-            }
-
-            return timbreFileName;
+            return $"{timbreNumber} - {timbreArray[timbreNo].GetTimbreName()}{FileTools.TIMBRE_FILE}";
         }
 
         bool SaveTimbreFile(TimbreStructure timbre, string timbreFileName)
@@ -210,8 +260,8 @@ internal static class TimbreFile
     private static void SaveTimbreFileContents(TimbreStructure timbre, FileStream file)
     {
         //40 character header
-        string fileHeader = "MT-32 Editor v1 timbre definition file: ";
-        file.Write(Encoding.ASCII.GetBytes(fileHeader), 0, 40);
+        ConsoleMessage.SendLine($"Saving {file.Name}");
+        file.Write(Encoding.ASCII.GetBytes(TIMBRE_FILE_HEADER), 0, TIMBRE_FILE_HEADER.Length);
         SaveTimbreParameters(timbre, file);
         SavePartials(timbre, file);
         file.Close();

@@ -122,22 +122,22 @@ public class TimbreStructure
         return partialMuteStatus;
     }
 
-    public void SetPartialMuteStatus(int partial, bool newStatus, bool autoCorrect = false)
+    public void SetPartialMuteStatus(int partialNo, bool newStatus, bool autoCorrect = false)
     {
-        ValidatePartialNo(partial);
-        bool initialStatus = partialMuteStatus[partial];
-        partialMuteStatus[partial] = newStatus;
+        ValidatePartialNo(partialNo);
+        bool initialStatus = partialMuteStatus[partialNo];
+        partialMuteStatus[partialNo] = newStatus;
         if (newStatus != initialStatus)
         {
-            MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partial);
+            MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partialNo);
         }
     }
 
-    public void FlipPartialMuteStatus(int partial, bool autoCorrect = false)
+    public void FlipPartialMuteStatus(int partialNo, bool autoCorrect = false)
     {
-        ValidatePartialNo(partial);
-        partialMuteStatus[partial] ^= true;
-        MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partial);
+        ValidatePartialNo(partialNo);
+        partialMuteStatus[partialNo] ^= true;
+        MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partialNo);
     }
 
     public bool GetSustainStatus()

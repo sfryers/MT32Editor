@@ -88,6 +88,6 @@ internal static class PresetTimbreNames
 
     private static void OutOfRangeException(int timbreNo)
     {
-        throw new ArgumentOutOfRangeException("Timbre No.", "Specified Timbre No. (" + timbreNo + ") is outside of the permitted range (0 to 63)");
+        throw new ArgumentOutOfRangeException("Timbre No.", $"Specified Timbre No. ({timbreNo}) is outside of the permitted range (0 to 63)");
     }
 }

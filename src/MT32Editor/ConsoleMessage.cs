@@ -6,41 +6,77 @@
 internal static class ConsoleMessage
 {
     // MT32Edit: ConsoleMessage class (static)
-    // S.Fryers Apr 2023
-    private static bool consoleEnabled = false;
+    // S.Fryers Jan 2024
+    private static bool verboseEnabled = false; //Determines whether messages are sent to console.
+    private static bool consoleVisible = false; //Determines whether entire console is visible or not.
 
-    public static void Enable()
+    public static void EnableVerbose()
     {
-        consoleEnabled = true;
+        verboseEnabled = true;
     }
 
-    public static void Disable()
+    public static void DisableVerbose()
     {
-        consoleEnabled = false;
+        verboseEnabled = false;
     }
 
-    public static bool Enabled()
+    public static bool Verbose()
     {
-        return consoleEnabled;
+        return verboseEnabled;
+    }
+
+    public static void SetVerbose(bool state)
+    {
+        verboseEnabled = state;
+    }
+
+    public static void Show()
+    {
+        consoleVisible = true;
+    }
+
+    public static void Hide()
+    {
+        consoleVisible = false;
+    }
+
+    public static bool Visible()
+    {
+        return consoleVisible;
+    }
+
+    public static void SetVisibility(bool state)
+    {
+        consoleVisible = state;
     }
 
     public static void SendString(string message, ConsoleColor color = ConsoleColor.Gray)
     {
-        if (consoleEnabled)
+        Console.ForegroundColor = color;
+        Console.Write(message);
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
+
+    public static void SendVerboseString(string message, ConsoleColor color = ConsoleColor.Gray)
+    {
+        if (verboseEnabled)
         {
-            Console.ForegroundColor = color;
-            Console.Write(message);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            SendString(message, color);
         }
     }
 
     public static void SendLine(string message, ConsoleColor color = ConsoleColor.Gray)
     {
-        if (consoleEnabled)
+        Console.ForegroundColor = color;
+        Console.WriteLine(message);
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
+
+    public static void SendVerboseLine(string message, ConsoleColor color = ConsoleColor.Gray)
+    {
+        if (verboseEnabled)
         {
-            Console.ForegroundColor = color;
-            Console.WriteLine(message);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            SendLine(message, color);
         }
     }
 }

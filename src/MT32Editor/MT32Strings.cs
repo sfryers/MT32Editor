@@ -1,4 +1,5 @@
-﻿namespace MT32Edit;
+﻿using System.Text;
+namespace MT32Edit;
 
 /// <summary>
 /// Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
@@ -47,8 +48,8 @@ internal static class MT32Strings
         "Pitch LFO Rate", "Pitch LFO Depth", "P.LFO Mod Sens",
         "TVF Cutoff", "TVF Resonance", "TVF Keyfollow", "TVF Bias Pt", "TVF Bias Lvl", "TVF Env Depth", "TVF Velo Sens", "TVF Depth KF", "TVF Time KF",
         "TVF Env Time 1", "TVF Env Time 2", "TVF Env Time 3", "TVF Env Time 4", "TVF Env Time 5", "TVF Env Lvl 1", "TVF Env Lvl 2", "TVF Env Lvl 3", "TVF Sust Lvl",
-        "TVA Level", "TVA Velo Sens", "TVA Bias Pt.1", "TVA Bias Lvl 1", "TVA Bias Pt.2", "TVA Bias Lvl 2", "TVA Time KF", "TVA Velo KF", "TVA Env Time 1", "TVA Env Time 2",
-        "TVA Env Time 2", "TVA Env Time 3", "TVA Env Time 4", "TVA Env Time 5", "TVA Env Lvl 1", "TVA Env Lvl 2", "TVA Env Lvl 3", "TVA Sust Lvl"
+        "TVA Level", "TVA Velo Sens", "TVA Bias Pt.1", "TVA Bias Lvl 1", "TVA Bias Pt.2", "TVA Bias Lvl 2", "TVA Time KF", "TVA Velo KF",
+        "TVA Env Time 1", "TVA Env Time 2", "TVA Env Time 3", "TVA Env Time 4", "TVA Env Time 5", "TVA Env Lvl 1", "TVA Env Lvl 2", "TVA Env Lvl 3", "TVA Sust Lvl"
     };
 
     public static readonly string[] patchParameterNames =
@@ -119,17 +120,19 @@ internal static class MT32Strings
     public static string BiasPoint(int biasPointValue)
     {
         LogicTools.ValidateRange("Bias Point Value", biasPointValue, 0, 127, autoCorrect: false);
-        string biasPt = ">";
+        StringBuilder biasPt = new StringBuilder();
+        biasPt.Append(">");
         if (biasPointValue < 64)
         {
-            biasPt = "<" + PitchNote(biasPointValue + 21);
+            biasPt.Append("<");
+            biasPt.Append(PitchNote(biasPointValue + 21));
         }
         else
         {
-            biasPt += PitchNote(biasPointValue - 43);
+            biasPt.Append(PitchNote(biasPointValue - 43));
         }
 
-        return biasPt;
+        return biasPt.ToString();
     }
 
     public static string Keyfollow(int keyfollowValue)
@@ -139,25 +142,28 @@ internal static class MT32Strings
     }
 
     /// <summary>
-    /// Create 4-character string representing active partials with numbers and muted partials with an underscore character
+    /// Returns a 4-character string representing active partials with numbers and muted partials with an underscore character
     /// </summary>
     public static string PartialStatus(bool[] partialMuteStatus)
     {
-        string partialStatusList = "";
+        StringBuilder partialStatusList = new StringBuilder();
         for (int partialNo = 0; partialNo < 4; partialNo++)
         {
             if (partialMuteStatus[partialNo])
             {
-                partialStatusList += "_";
+                partialStatusList.Append("_");
             }
             else
             {
-                partialStatusList += (partialNo + 1);
+                partialStatusList.Append(partialNo + 1);
             }
         }
-        return partialStatusList;
+        return partialStatusList.ToString();
     }
 
+    /// <summary>
+    /// Returns 'On' if statusIsOn, else returns 'Off'
+    /// </summary>
     public static string OnOffStatus(bool statusIsOn)
     {
         if (statusIsOn)
@@ -170,6 +176,9 @@ internal static class MT32Strings
         }
     }
 
+    /// <summary>
+    /// Returns 'Saw' or 'Square'
+    /// </summary>
     public static string WaveformType(int waveformValue)
     {
         LogicTools.ValidateRange("Waveform Type", waveformValue, 0, 3, autoCorrect: false);
@@ -213,7 +222,7 @@ internal static class MT32Strings
     }
 
     /// <summary>
-    /// Produces appropriate string for non-numeric UI values
+    /// Produces an appropriate string for any parameter which needs to display a non-numeric value in the UI
     /// </summary>
     public static string PatchParameterValueText(int parameterNo, int parameterValue)
     {
@@ -228,6 +237,38 @@ internal static class MT32Strings
             default:
                 //if no text is provided then make numeric value into string
                 return parameterValue.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Returns a string containing the name of a MT-32 PCM sample
+    /// </summary>
+    public static string GetSampleName(int bankNo, int sampleNo)
+    {
+        string sampleName;
+        if (bankNo == 0)
+        {
+            sampleName = bank1SampleNames[sampleNo];
+        }
+        else
+        {
+            sampleName = bank2SampleNames[sampleNo];
+        }
+        return sampleName;
+    }
+
+    /// <summary>
+    /// Returns an array containing the names of all MT-32 PCM samples within the specified bankNo
+    /// </summary>
+    public static string[] GetAllSampleNames(int bankNo)
+    {
+        if (bankNo == 0)
+        {
+            return bank1SampleNames;
+        }
+        else
+        {
+            return bank2SampleNames;
         }
     }
 }

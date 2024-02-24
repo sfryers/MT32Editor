@@ -6,11 +6,13 @@
 public class TimbreNames
 {
     // MT32Edit: TimbreNames class (static)
-    // S.Fryers Apr 2023
+    // S.Fryers Feb 2024
 
     private const string EMPTY = MT32Strings.EMPTY;
+    private const string TIMBRE = "Timbre No.";
+    private const string GROUP = "Group No.";
 
-    private readonly string[] memoryGroup =               {
+    private readonly string[] memoryGroup =      {
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
@@ -21,51 +23,37 @@ public class TimbreNames
                                                  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY
                                                  }; //64 members
 
-    public string Get(int timbreNo, int group = -1)
+    public string Get(int timbreNo, int groupNo = -1)
     {
-        LogicTools.ValidateRange("Group No.", group, -1, 3, autoCorrect: false);
-        switch (group)
+        LogicTools.ValidateRange(GROUP, groupNo, -1, 3, autoCorrect: false);
+        switch (groupNo)
         {
             case 0:
-                LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+                LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
                 return PresetTimbreNames.GetPresetA(timbreNo);
 
             case 1:
-                LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+                LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
                 return PresetTimbreNames.GetPresetB(timbreNo);
 
             case 2:
-                LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+                LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
                 return memoryGroup[timbreNo];
 
             case 3:
-                LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
-                if (timbreNo == 63)
-                {
-                    return "[none]";
-                }
-                else
-                {
-                    return PresetTimbreNames.GetRhythm(timbreNo);
-                }
+                LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
+                return timbreNo == 63 ? "[none]" : PresetTimbreNames.GetRhythm(timbreNo);
 
             default:
-                LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 127, autoCorrect: false);
-                if (timbreNo < 64)
-                {
-                    return PresetTimbreNames.GetPresetA(timbreNo);
-                }
-                else
-                {
-                    return PresetTimbreNames.GetPresetB(timbreNo - 64);
-                }
+                LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 127, autoCorrect: false);
+                return timbreNo < 64 ? PresetTimbreNames.GetPresetA(timbreNo) : PresetTimbreNames.GetPresetB(timbreNo - 64);
         }
     }
 
-    public string[] GetAll(int group)
+    public string[] GetAll(int groupNo)
     {
-        LogicTools.ValidateRange("Group No.", group, 0, 3, autoCorrect: false);
-        switch (group)
+        LogicTools.ValidateRange(GROUP, groupNo, 0, 3, autoCorrect: false);
+        switch (groupNo)
         {
             case 0:
                 return PresetTimbreNames.GetAllPresetA();
@@ -83,13 +71,13 @@ public class TimbreNames
 
     public void SetMemoryTimbreName(string timbreName, int timbreNo)
     {
-        LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+        LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
         memoryGroup[timbreNo] = ParseTools.RemoveTrailingSpaces(ParseTools.MakeNCharsLong(timbreName, 10));
     }
 
     public void ResetMemoryTimbreName(int timbreNo)
     {
-        LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+        LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
         memoryGroup[timbreNo] = MT32Strings.EMPTY;
     }
 

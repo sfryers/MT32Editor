@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MT32Edit;
 
@@ -19,38 +20,74 @@ public partial class FormMainMenu : Form
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool AllocConsole();
 
-    private const string VERSION_NO = "v0.9.6a";
-    private const string RELEASE_DATE = "January 2024";
+    [DllImport("kernel32.dll")]
+    private static extern IntPtr GetConsoleWindow();
+
+    [DllImport("user32.dll")]
+    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    private const string VERSION_NO = "v0.9.7a (x64)";
+    private const string RELEASE_DATE = "February 2024";
+
+    private const int CONSOLE_HIDE = 0;
+    private const int CONSOLE_SHOW = 5;
 
     private bool midiInError = false;
     private bool midiOutError = false;
     private readonly MT32State memoryState = new MT32State();
-    private FormMemoryBankEditor memoryBankEditor;
-    private FormTimbreEditor timbreEditor;
-    private FormPatchEditor patchEditor;
-    private FormRhythmEditor rhythmEditor;
-    private readonly OpenFileDialog loadSysExDialog = new OpenFileDialog();
-    private readonly SaveFileDialog saveSysExDialog = new SaveFileDialog();
+    private FormMemoryBankEditor? memoryBankEditor;
+    private FormTimbreEditor? timbreEditor;
+    private FormPatchEditor? patchEditor;
+    private FormRhythmEditor? rhythmEditor;
+
     private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
+    private string titleBarFileName = "Untitled";
+    private string? loadedSysExFileName;
+    private bool moveFocusToMemoryBankEditor = false;
 
     public FormMainMenu(string[] args)
     {
         InitializeComponent();
         AllocConsole();
-        Console.WriteLine("Welcome to MT32 Editor " + VERSION_NO);
-        InitialiseMidiConnections();
+        Console.WriteLine($"Welcome to MT32 Editor {VERSION_NO}");
+        ReadConfigFile();
         if (midiInError || midiOutError)
         {
             return;
         }
-
         OpenTimbreEditor();
         OpenMemoryBankEditor();
         OpenRhythmEditor();
         OpenPatchEditor();
         ScaleUIElements();
-        MT32SysEx.SendText("MT32 Editor " + ParseTools.TrimToLength(VERSION_NO, 8));
+        MT32SysEx.SendText($"MT32 Editor {ParseTools.TrimToLength(VERSION_NO, 8)}");
         timer.Start();
+        ProcessShellArguments(args);
+    }
+
+    private void ProcessShellArguments(string[] args)
+    {
+        if (args.Length == 0 || !File.Exists(args[0]))
+        {
+            //cancel- no arguments provided or first argument is not a valid filename
+            return;
+        }
+        string fileName = args[0];
+        switch (Path.GetExtension(fileName).ToLower())
+        {
+            case FileTools.MIDI_FILE:
+            case FileTools.SYSEX_FILE:
+                LoadSysExFile.Load(memoryState, fileName);
+                UpdateUIFollowingSysExLoad(fileName);
+                break;
+            case FileTools.TIMBRE_FILE:
+                TimbreStructure timbreData = memoryState.GetMemoryTimbre(0);
+                TimbreFile.Load(timbreData, fileName);
+                UpdateUIFollowingTimbreLoad(timbreData, fileName, 0);
+                break;
+            default:
+                break;
+        }
     }
 
     private float DPIScale()
@@ -84,6 +121,10 @@ public partial class FormMainMenu : Form
 
     private void OpenMemoryBankEditor()
     {
+        if (timbreEditor is null)
+        {
+            return;
+        }
         memoryBankEditor = new FormMemoryBankEditor(DPIScale(), memoryState, timbreEditor);
         memoryBankEditor.MdiParent = this;
         memoryBankEditor.Show();
@@ -105,11 +146,10 @@ public partial class FormMainMenu : Form
 
         void ScaleMemoryBankEditor()
         {
-            if (memoryBankEditor == null)
+            if (memoryBankEditor is null)
             {
                 return;
             }
-
             memoryBankEditor.Left = 0;
             memoryBankEditor.Top = 0;
             memoryBankEditor.Width = (Width / 8);
@@ -121,11 +161,10 @@ public partial class FormMainMenu : Form
 
         void ScaleTimbreEditor()
         {
-            if (timbreEditor == null || memoryBankEditor == null)
+            if (timbreEditor is null || memoryBankEditor is null)
             {
                 return;
             }
-
             timbreEditor.Left = memoryBankEditor.Width + 1;
             timbreEditor.Top = 0;
             if (Height > timbreEditor.MinimumSize.Height)
@@ -136,11 +175,10 @@ public partial class FormMainMenu : Form
 
         void ScalePatchEditor()
         {
-            if (patchEditor == null || timbreEditor == null || memoryBankEditor == null)
+            if (patchEditor is null || timbreEditor is null || memoryBankEditor is null)
             {
                 return;
             }
-
             patchEditor.Left = (Width * 68) / 100;
             patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             patchEditor.Top = 0;
@@ -153,11 +191,10 @@ public partial class FormMainMenu : Form
 
         void ScaleRhythmEditor()
         {
-            if (rhythmEditor == null || timbreEditor == null || memoryBankEditor == null)
+            if (rhythmEditor is null || timbreEditor is null || memoryBankEditor is null)
             {
                 return;
             }
-
             rhythmEditor.Left = (Width * 68) / 100;
             rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
             rhythmEditor.Top = 0;
@@ -174,17 +211,39 @@ public partial class FormMainMenu : Form
         ScaleUIElements();
     }
 
-    private void InitialiseMidiConnections()
+    private void ReadConfigFile()
     {
-        string[] midiDeviceNames = ConfigFile.Load();
+        string[] configFile = ConfigFile.Load();
         InitialiseMidiInConnection();
         InitialiseMidiOutConnection();
+        ConfigureConsole();
+        SetOptionMenuFlags();
         if (midiInError || midiOutError)
         {
             Close();
             return;
         }
-        CheckForEmulator();
+
+        void ConfigureConsole()
+        {
+            if (ConsoleMessage.Visible())
+            {
+                ShowWindow(GetConsoleWindow(), CONSOLE_SHOW);
+            }
+            else
+            {
+                ShowWindow(GetConsoleWindow(), CONSOLE_HIDE);
+            }
+        }
+
+        void SetOptionMenuFlags()
+        {
+            showConsoleToolStripMenuItem.Checked = ConsoleMessage.Visible();
+            verboseConsoleMessagesToolStripMenuItem.Checked = ConsoleMessage.Verbose();
+            sendMessagesToMT32DisplayToolStripMenuItem.Checked = MT32SysEx.sendTextToMT32;
+            ignoreSysConfigOnLoadToolStripMenuItem.Checked = LoadSysExFile.ignoreSystemArea;
+            excludeSysConfigonSaveToolStripMenuItem.Checked = SaveSysExFile.excludeSystemArea;
+        }
 
         void InitialiseMidiInConnection()
         {
@@ -198,7 +257,7 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountInputDevices(); device++)
             {
-                if (Midi.GetInputDeviceName(device).ToString() == midiDeviceNames[0])
+                if (Midi.GetInputDeviceName(device).ToString() == configFile[0])
                 {
                     //Set active MIDI In device
                     inDeviceNo = device;
@@ -207,7 +266,7 @@ public partial class FormMainMenu : Form
             midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
             if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
             {
-                MidiInError(midiInToolStripMenuItem.Text);
+                midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
             }
         }
 
@@ -223,7 +282,7 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountOutputDevices(); device++)
             {
-                if (Midi.GetOutputDeviceName(device).ToString() == midiDeviceNames[1])
+                if (Midi.GetOutputDeviceName(device).ToString() == configFile[1])
                 {
                     //Set active MIDI Out device
                     outDeviceNo = device;
@@ -232,21 +291,13 @@ public partial class FormMainMenu : Form
             midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
             if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
             {
-                MidiOutError(midiOutToolStripMenuItem.Text);
+                midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
             }
+
+            SetMT32HardwareStatus(Midi.hardwareMT32Connected);
+            allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
+            hardwareMT32ConnectedToolStripMenuItem.Checked = Midi.hardwareMT32Connected;
         }
-    }
-
-    private void MidiInError(string midiInDeviceName)
-    {
-        MessageBox.Show($"Error: Cannot open MIDI In device '{midiInDeviceName}'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
-        midiInError = true;
-    }
-
-    private void MidiOutError(string midiOutDeviceName)
-    {
-        MessageBox.Show($"Error: Cannot open MIDI Out device '{midiOutDeviceName}'\nPlease close any conflicting MIDI applications and restart MT-32 Editor.\nThis program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
-        midiOutError = true;
     }
 
     private void FormMainMenu_Load(object sender, EventArgs e)
@@ -262,51 +313,81 @@ public partial class FormMainMenu : Form
         if (!midiInError && !Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
         {
             //assign new MIDI In device
-            MidiInError(midiInToolStripMenuItem.Text);
+            midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
         }
-
         ConfigFile.Save();
-        ConsoleMessage.SendLine("Config file saved");
     }
 
     private void midiOutToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
     {
         if (!midiOutError && !Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
         {
-            MidiOutError(midiOutToolStripMenuItem.Text);
-        }; //assign new MIDI Out device
+            //assign new MIDI Out device
+            midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
+        }
         CheckForEmulator();
         ConfigFile.Save();
-        ConsoleMessage.SendLine("Config file saved");
     }
 
     private void loadSysExFileToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        SysExFile.Load(loadSysExDialog, memoryState);
-        if (loadSysExDialog.FileName != "")
+        string fileName = LoadSysExFile.Load(memoryState);
+        if (!FileTools.Success(fileName))
         {
-            saveSysExDialog.FileName = loadSysExDialog.FileName;
-            saveSysExToolStripMenuItem.Enabled = true;
+            return;
         }
+        UpdateUIFollowingSysExLoad(fileName);
+    }
+
+    private void UpdateUIFollowingSysExLoad(string newFileName)
+    {
+        if (ParseTools.IsSysExOrMidi(newFileName))
+        {
+            loadedSysExFileName = newFileName;
+        }
+        else
+        {
+            saveTimbreDialog.FileName = newFileName;
+        }
+        Text = UITools.TitleBarText(newFileName, titleBarFileName, memoryState.GetSystem().GetMessage(0));
+        titleBarFileName = newFileName;
+        saveSysExToolStripMenuItem.Enabled = true;
     }
 
     private void saveSysExFileAsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        saveSysExDialog.FileName = "New SysEx file.syx";
-        SaveSysExFile();
+        string fileName;
+        if (loadedSysExFileName is null)
+        {
+            fileName = SaveSysExFile.SaveAs(memoryState);
+        }
+        else
+        {
+            fileName = SaveSysExFile.SaveAs(memoryState, loadedSysExFileName);
+        }
+        if (!FileTools.Success(fileName))
+        {
+            return;
+        }
+        UpdateUIFollowingSysExLoad(fileName);
     }
 
     private void saveSysExToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        SaveSysExFile();
-    }
-
-    private void SaveSysExFile()
-    {
-        saveSysExDialog.Title = "Save SysEx File";
-        saveSysExDialog.Filter = "MIDI System Exclusive message file|*.syx";
-        SysExFile.Save(memoryState, saveSysExDialog);
-        saveSysExToolStripMenuItem.Enabled = true;
+        string fileName;
+        if (loadedSysExFileName is not null && ParseTools.IsSysExOrMidi(loadedSysExFileName))
+        {
+            fileName = SaveSysExFile.Save(memoryState, loadedSysExFileName);
+        }
+        else
+        {
+            fileName = SaveSysExFile.SaveAs(memoryState);
+        }
+        if (!FileTools.Success(fileName))
+        {
+            return;
+        }
+        UpdateUIFollowingSysExLoad(fileName);
     }
 
     private void loadTimbreFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,32 +398,44 @@ public partial class FormMainMenu : Form
     private void LoadTimbre()
     {
         int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
-        string timbreName = memoryState.GetTimbreNames().Get(selectedTimbre, 2);
         TimbreStructure timbreData = memoryState.GetMemoryTimbre(selectedTimbre);
-        if (timbreName != MT32Strings.EMPTY)
-        {
-            switch (MessageBox.Show("Memory slot " + (selectedTimbre + 1).ToString() + " already contains a timbre. Replace " + timbreName + "?", "MT32 Editor", MessageBoxButtons.OKCancel))
-            {
-                case DialogResult.OK:
-                    break;
-
-                case DialogResult.Cancel:
-                    return;
-            }
-        }
-        string status = TimbreFile.Load(timbreData);
-        if (status == "Cancelled" || status == "#Error!")
+        string timbreName = timbreData.GetTimbreName();
+        if (timbreName != MT32Strings.EMPTY && UserCancels())
         {
             return;
         }
+        string fileName = TimbreFile.Load(timbreData);
+        if (!FileTools.Success(fileName))
+        {
+            return;
+        }
+        UpdateUIFollowingTimbreLoad(timbreData, fileName, selectedTimbre);
 
-        saveTimbreDialog.FileName = status;
+        bool UserCancels()
+        {
+            return !UITools.AskUserToConfirm($"Memory slot {selectedTimbre + 1} already contains a timbre. Replace {timbreName}?", "MT32 Editor");
+        }
+    }
+
+    private void UpdateUIFollowingTimbreLoad(TimbreStructure timbreData, string newFileName, int selectedTimbre)
+    {
+        string timbreName = timbreData.GetTimbreName();
+        saveTimbreDialog.FileName = Path.GetFileName(newFileName);
         saveTimbreFileToolStripMenuItem.Enabled = true;
-        timbreName = timbreData.GetTimbreName();
+        Text = UITools.TitleBarText(newFileName, titleBarFileName);
+        titleBarFileName = newFileName;
         memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, selectedTimbre);
         MT32SysEx.SendMemoryTimbre(selectedTimbre, timbreData);
         MT32SysEx.PreviewTimbre(selectedTimbre, timbreData);
-        memoryBankEditor.Select();
+        if (memoryBankEditor is not null && memoryBankEditor.Visible)
+        {
+            memoryBankEditor.Select();
+        }
+        else
+        {
+            // memoryBankEditor not loaded yet, flag to attempt again.
+            moveFocusToMemoryBankEditor = true;
+        }
     }
 
     private void SaveTimbre()
@@ -382,6 +475,10 @@ public partial class FormMainMenu : Form
 
     private void patchEditorToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (patchEditor is null || rhythmEditor is null)
+        {
+            return;
+        }
         patchEditor.Visible = true;
         patchEditorToolStripMenuItem.Checked = true;
         rhythmEditor.Visible = false;
@@ -390,6 +487,10 @@ public partial class FormMainMenu : Form
 
     private void rhythmEditorToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (patchEditor is null || rhythmEditor is null)
+        {
+            return;
+        }
         patchEditor.Visible = false;
         patchEditorToolStripMenuItem.Checked = false;
         rhythmEditor.Visible = true;
@@ -410,124 +511,112 @@ public partial class FormMainMenu : Form
 
     private void timer_Tick(object sender, EventArgs e)
     {
-        if ((memoryState.patchEditorActive || memoryState.rhythmEditorActive) && !memoryState.TimbreIsEditable())
+        if (timbreEditor is not null)
         {
-            DisableTimbreEditor();
-        }
-        else
-        {
-            EnableTimbreEditor();
+            timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
         }
 
-        if (memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY)
-        {
-            saveTimbreFileToolStripMenuItem.Enabled = false;
-        }
-        else
-        {
-            saveTimbreFileToolStripMenuItem.Enabled = true;
-        }
+        saveTimbreFileToolStripMenuItem.Enabled = !(memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY);
 
         if (midiInError || midiOutError)
         {
             Close();
         }
+
+        if (moveFocusToMemoryBankEditor && memoryBankEditor is not null && memoryBankEditor.Visible)
+        {
+            memoryBankEditor.Select();
+            moveFocusToMemoryBankEditor = false;
+        }
     }
 
-    private void DisableTimbreEditor()
+    private void timerAutoSave_Tick(object sender, EventArgs e)
     {
-        if ((timbreEditor == null) || !timbreEditor.Enabled)
+        if (SaveSysExFile.autoSave)
         {
-            return;
+            SaveSysExFile.Save(memoryState, FileTools.autoSaveFileLocation, checkBeforeOverwriting: false);
+            ConsoleMessage.SendLine("Autosaving...");
         }
-
-        timbreEditor.Enabled = false;
-        ConsoleMessage.SendLine("Disabling timbre editor");
-    }
-
-    private void EnableTimbreEditor()
-    {
-        if ((timbreEditor == null) || timbreEditor.Enabled)
-        {
-            return;
-        }
-
-        timbreEditor.Enabled = true;
-        ConsoleMessage.SendLine("Enabling timbre editor");
     }
 
     private void hardwareMT32ConnectedToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (Midi.hardwareMT32)
-        {
-            EmulatorConnected();
-        }
-        else
-        {
-            MT32Connected();
-        }
+        SetMT32HardwareStatus(!Midi.hardwareMT32Connected);
+        ConfigFile.Save();
     }
 
     private void CheckForEmulator()
     {
-        if (Midi.Out != null && !midiOutError && Midi.GetOutputDeviceName(midiOutToolStripMenuItem.SelectedIndex) == "MT-32 Synth Emulator")
+        if (!midiOutError && Midi.EmulatorPresent(midiOutToolStripMenuItem.SelectedIndex))
         {
-            EmulatorConnected();
+            SetMT32HardwareStatus(false);
         }
     }
 
-    private void EmulatorConnected()
+    private void SetMT32HardwareStatus(bool status)
     {
-        Midi.hardwareMT32 = false;
-        hardwareMT32ConnectedToolStripMenuItem.Checked = false;
-    }
-
-    private void MT32Connected()
-    {
-        Midi.hardwareMT32 = true;
-        hardwareMT32ConnectedToolStripMenuItem.Checked = true;
+        hardwareMT32ConnectedToolStripMenuItem.Checked = status;
+        Midi.hardwareMT32Connected = status;
     }
 
     private void sendMessagesToMT32DisplayToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (MT32SysEx.sendTextToMT32)
+        sendMessagesToMT32DisplayToolStripMenuItem.Checked = !MT32SysEx.sendTextToMT32;
+        MT32SysEx.sendTextToMT32 ^= true;
+        ConfigFile.Save();
+    }
+
+    private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (showConsoleToolStripMenuItem.Checked)
         {
-            sendMessagesToMT32DisplayToolStripMenuItem.Checked = false;
-            MT32SysEx.sendTextToMT32 = false;
+            ConsoleMessage.Hide();
+            ConsoleMessage.DisableVerbose();
+            verboseConsoleMessagesToolStripMenuItem.Checked = false;
+            ShowWindow(GetConsoleWindow(), CONSOLE_HIDE);
         }
         else
         {
-            sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
-            MT32SysEx.sendTextToMT32 = true;
+            ConsoleMessage.Show();
+            ShowWindow(GetConsoleWindow(), CONSOLE_SHOW);
         }
+        showConsoleToolStripMenuItem.Checked ^= true;
+        verboseConsoleMessagesToolStripMenuItem.Enabled = showConsoleToolStripMenuItem.Checked;
+        ConfigFile.Save();
     }
 
     private void verboseConsoleMessagesToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (ConsoleMessage.Enabled())
-        {
-            ConsoleMessage.Disable();
-            verboseConsoleMessagesToolStripMenuItem.Checked = false;
-        }
-        else
-        {
-            ConsoleMessage.Enable();
-            verboseConsoleMessagesToolStripMenuItem.Checked = true;
-        }
+        verboseConsoleMessagesToolStripMenuItem.Checked = !ConsoleMessage.Verbose();
+        ConsoleMessage.SetVerbose(verboseConsoleMessagesToolStripMenuItem.Checked);
+        ConfigFile.Save();
     }
 
     private void allowMT32ResetToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (MT32SysEx.allowReset)
-        {
-            allowMT32ResetToolStripMenuItem.Checked = false;
-            MT32SysEx.allowReset = false;
-        }
-        else
-        {
-            allowMT32ResetToolStripMenuItem.Checked = true;
-            MT32SysEx.allowReset = true;
-        }
+        allowMT32ResetToolStripMenuItem.Checked = !MT32SysEx.allowReset;
+        MT32SysEx.allowReset ^= true;
+        ConfigFile.Save();
     }
 
+    private void ignoreSysConfigOnLoadToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        ignoreSysConfigOnLoadToolStripMenuItem.Checked = !LoadSysExFile.ignoreSystemArea;
+        LoadSysExFile.ignoreSystemArea ^= true;
+        ConfigFile.Save();
+    }
+
+    private void excludeSysConfigonSaveToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        excludeSysConfigonSaveToolStripMenuItem.Checked = !SaveSysExFile.excludeSystemArea;
+        SaveSysExFile.excludeSystemArea ^= true;
+        ConfigFile.Save();
+    }
+
+    private void autosaveEvery5MinutesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        autosaveEvery5MinutesToolStripMenuItem.Checked = !SaveSysExFile.autoSave;
+        SaveSysExFile.autoSave ^= true;
+        ConfigFile.Save();
+    }
 }

@@ -7,8 +7,7 @@
 public partial class FormLoadSysEx : Form
 {
     // MT32Edit: FormLoadSysEx
-    // S.Fryers Mar 2023
-
+    // S.Fryers Feb 2024
 
     private readonly MT32State memoryState;
 
@@ -17,9 +16,8 @@ public partial class FormLoadSysEx : Form
     private int keyNo = 24;
     private const int PATCHES_PER_BLOCK = 32;
     private const int RHYTHM_BANKS_PER_BLOCK = 42;
-    private const int MT32_DELAY = 50;
 
-    // Step 0 = load system area,
+    // step 0 = load system area,
     // step 1 = load patches,
     // step 2 = load timbres,
     // step 3 = load rhythm bank area.
@@ -27,20 +25,20 @@ public partial class FormLoadSysEx : Form
 
     private readonly bool clearMemory;
 
-    public FormLoadSysEx(MT32State inputMemoryState, bool clearMemoryState)
+    public FormLoadSysEx(MT32State inputMemoryState, bool requestClearMemory)
     {
         InitializeComponent();
         MT32SysEx.blockSysExMessages = true;
-        clearMemory = clearMemoryState;
+        clearMemory = requestClearMemory;
         if (clearMemory)
         {
-            Text = "Clearing Memory Timbres";
+            labelLoadProgress.Text = "Clearing Memory Timbres";
         }
-
         memoryState = inputMemoryState;
-        if (Midi.hardwareMT32)
+        SetTextLabels();
+        if (Midi.hardwareMT32Connected)
         {
-            timer.Interval = MT32_DELAY;
+            timer.Interval = MT32SysEx.MT32_DELAY;
         }
         else
         {
@@ -52,16 +50,18 @@ public partial class FormLoadSysEx : Form
         timer.Start();
     }
 
+    private void SetTextLabels()
+    {
+        labelMT32Text1.Text = ParseTools.RemoveLeadingSpaces(memoryState.GetSystem().GetMessage(0));
+        labelMT32Text2.Text = ParseTools.RemoveLeadingSpaces(memoryState.GetSystem().GetMessage(1));
+    }
+
     private void timer_Tick(object sender, EventArgs e)
     {
         switch (stepNo)
         {
             case 0:
-                if (!clearMemory)
-                {
-                    SendSystemArea();
-                }
-
+                SendSystemArea();
                 break;
 
             case 1:
@@ -109,39 +109,6 @@ public partial class FormLoadSysEx : Form
                 break;
         }
 
-        void SendSystemArea()
-        {
-            labelLoadProgress.Text = "Loading system memory area";
-            MT32SysEx.SendSystemParameters(memoryState.GetSystem());
-            progressBar.Value++;
-            stepNo++;
-        }
-
-        void SendNextPatchBlock()
-        {
-            labelLoadProgress.Text = "Loading patch data";
-            MT32SysEx.SendPatchBlock(memoryState.GetPatchArray(), patchNo, patchNo + PATCHES_PER_BLOCK - 1);
-            UpdateProgressBarPatchStatus(patchNo);
-            patchNo += PATCHES_PER_BLOCK;
-            progressBar.Value++;
-        }
-
-        void SendNextRhythmBankBlock()
-        {
-            labelLoadProgress.Text = "Loading rhythm data";
-            MT32SysEx.SendRhythmKeyBlock(memoryState.GetRhythmBankArray(), keyNo, keyNo + RHYTHM_BANKS_PER_BLOCK - 1);
-            keyNo += RHYTHM_BANKS_PER_BLOCK;
-            progressBar.Value++;
-        }
-
-        void SendNextMemoryTimbre()
-        {
-            MT32SysEx.SendMemoryTimbre(timbreNo, memoryState.GetMemoryTimbre(timbreNo));
-            UpdateProgressBarTimbreStatus(timbreNo);
-            timbreNo++;
-            progressBar.Value++;
-        }
-
         void Finish()
         {
             labelLoadProgress.Text = "SysEx load completed";
@@ -150,21 +117,57 @@ public partial class FormLoadSysEx : Form
         }
     }
 
-    private void UpdateProgressBarTimbreStatus(int timbreNo)
+    private void SendSystemArea()
+    {
+        if (!clearMemory)
+        {
+            labelLoadProgress.Text = "Loading system memory area";
+            MT32SysEx.SendSystemParameters(memoryState.GetSystem());
+        }
+        progressBar.Value++;
+        stepNo++;
+    }
+
+    private void SendNextPatchBlock()
+    {
+        labelLoadProgress.Text = "Loading patch data";
+        MT32SysEx.SendPatchBlock(memoryState.GetPatchArray(), patchNo, patchNo + PATCHES_PER_BLOCK - 1);
+        UpdateProgressBarPatchStatus();
+        patchNo += PATCHES_PER_BLOCK;
+        progressBar.Value++;
+    }
+
+    private void SendNextRhythmBankBlock()
+    {
+        labelLoadProgress.Text = "Loading rhythm data";
+        MT32SysEx.SendRhythmKeyBlock(memoryState.GetRhythmBankArray(), keyNo, keyNo + RHYTHM_BANKS_PER_BLOCK - 1);
+        keyNo += RHYTHM_BANKS_PER_BLOCK;
+        progressBar.Value++;
+    }
+
+    private void SendNextMemoryTimbre()
+    {
+        MT32SysEx.SendMemoryTimbre(timbreNo, memoryState.GetMemoryTimbre(timbreNo));
+        UpdateProgressBarTimbreStatus();
+        timbreNo++;
+        progressBar.Value++;
+    }
+
+    private void UpdateProgressBarTimbreStatus()
     {
         if (clearMemory)
         {
-            labelLoadProgress.Text = "Clearing timbre memory " + (timbreNo + 1).ToString() + " of 64";
+            labelLoadProgress.Text = $"Clearing timbre memory {timbreNo + 1} of 64";
         }
         else
         {
-            labelLoadProgress.Text = "Loading " + memoryState.GetMemoryTimbre(timbreNo).GetTimbreName() + " (" + timbreNo.ToString() + " of 64)";
+            labelLoadProgress.Text = $"Loading {memoryState.GetMemoryTimbre(timbreNo).GetTimbreName()} ({timbreNo} of 64)";
         }
     }
 
-    private void UpdateProgressBarPatchStatus(int patchNo)
+    private void UpdateProgressBarPatchStatus()
     {
-        labelLoadProgress.Text = "Loading patches " + (patchNo + 1).ToString() + "-" + (patchNo + PATCHES_PER_BLOCK).ToString();
+        labelLoadProgress.Text = $"Loading patches {patchNo + 1}-{patchNo + PATCHES_PER_BLOCK}";
     }
 
     private void buttonClose_Click(object sender, EventArgs e)
