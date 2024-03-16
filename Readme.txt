@@ -48,6 +48,7 @@ Options Menu
         - Hardware MT-32 connected (when enabled, adds 50ms delay between large sysex messages to prevent buffer overflow errors on original hardware).
 	- Send info to MT-32 display (when enabled, sends messages to device's matrix display to show parameter changes etc).
 	- Allow MT-32 reset from SysEx (when enabled, will pass any MT-32 reset messages found whilst loading a SysEx file directly to the connected MIDI Out device).
+        - Dark mode (set user interface theme either to dark background with light text, or light background with dark text).
 	- Show console (show or hide the console window).
 	- Verbose console messages (when enabled, sends status messages to the console window).
 
@@ -97,6 +98,7 @@ I can't hear any sound:
 - Check that you don't have multiple partials with the exact same parameter settings, which can cause them to cancel each other out completely (or alternatively to sound at double the volume). Try moving the Fine pitch control a small amount to ensure the partials are not perfectly out of phase with one another.
 - Check that you have your MIDI input device connected to the selected MIDI In port.
 - Check that your MIDI input device is set to send on MIDI channel 2 (or whichever channel your MT-32 is using for Part 1).
+- Check in the system settings window that Part 1 and the Rhythm Part are assigned to an appropriate channel (2 and 10 by default). If any part is assigned a channel value of zero, it will be disabled.
 - Press the refresh button in the Timbre Editor to re-send the current timbre data to the connected MIDI device.
 
 Unexpected timbres are coming from my device:
@@ -105,6 +107,7 @@ Unexpected timbres are coming from my device:
 - If you're using MUNT, make sure MUNT is running before opening MT-32 Editor.
 - Press the refresh button in the Timbre Editor to re-send the current timbre data to the connected MIDI device.
 - If you've changed the MIDI Out port during the current session, you'll need to restart MT32 Editor to fully synchronise your MIDI device.
+- If you've changed the Unit No. in MT32Edit.ini from the default value of 17, only devices with a matching Unit No. value will respond to SysEx messages. Unless you're attempting to work with multiple hardware MT-32 devices, do not change the default value. Default Unit No. can be changed on a hardware MT-32 by pressing the [MASTER VOLUME] + [SOUND] buttons together. CM-32L and later devices have a fixed Unit No. of 17, which cannot be changed.
 
 My timbre sounds crackly/distorted:
 

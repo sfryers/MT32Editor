@@ -2,6 +2,27 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.8a - 16th March 2024
+  Bug Fixes:
+    - Saving over an existing SysEx file properly clears the file before writing new data. In previous versions, overwriting a file with a smaller one could cause invalid data to remain at the end of the file.
+    - System area messages in saved SysEx files now have correct checksum value.
+    - Blank MT-32 text messages are no longer saved to SysEx files.
+    - Text labels for Master Volume, Master Tune and Reverb Level controls are now updated properly when values are changed.
+    - Selecting 'Clear all memory timbres' no longer leaves custom timbre names showing in Patch and Rhythm Bank lists.
+    - Last Memory Timbre entry in Patch Editor->Timbre Name combobox now shows correctly.
+    - Last Memory Timbre entry in Patch Editor->Edit Preset combobox now shows correctly.
+    - Rhythm Bank Editor now includes key no. 108
+    - TVA/TVF Bias Pt. note range labels now show correctly again.
+    - Midi ports are now kept open until the user has confirmed they want to close the application.
+  New Features:
+    - Selectable dark or light UI theme.
+    - Parts 1-8 and R can now be disabled by assigning a MIDI channel value of 0 to the corresponding part.
+    - Warning message appears if Part 1 or Rhythm Part is assigned to MIDI channel value of 0.
+    - 'Unit No.' parameter has been added to MT32Edit.ini. This should normally be left at the default value of 17, except for when working with multiple hardware MT-32 devices. Any SysEx files saved when this value is set to a value other than 17 will not be recognised with other devices. This value is not shown in the UI and can only be changed by editing the .ini file.
+  Miscellaneous:
+    - Code improvements- added comments, removed redundant/duplicate code, increased use of constants, tightened access modifiers.
+    - Added further summary information to methods. 
+
 v0.9.7a - 24th February 2024
   Bug Fixes:
     - Tooltips for TVA L1-3/T1-5/Sustain trackbars now show correct parameter names.
