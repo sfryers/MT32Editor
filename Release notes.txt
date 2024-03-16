@@ -21,7 +21,8 @@ v0.9.8a - 16th March 2024
     - 'Unit No.' parameter has been added to MT32Edit.ini. This should normally be left at the default value of 17, except for when working with multiple hardware MT-32 devices. Any SysEx files saved when this value is set to a value other than 17 will not be recognised with other devices. This value is not shown in the UI and can only be changed by editing the .ini file.
   Miscellaneous:
     - Code improvements- added comments, removed redundant/duplicate code, increased use of constants, tightened access modifiers.
-    - Added further summary information to methods. 
+    - Added further summary information to methods.
+    - Reduced internal refresh rate from 100ms to 250ms to improve UI responsiveness on slow CPUs or in a Wine/Mono environment.
 
 v0.9.7a - 24th February 2024
   Bug Fixes:
