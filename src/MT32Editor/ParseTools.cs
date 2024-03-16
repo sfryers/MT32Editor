@@ -6,10 +6,10 @@
 internal static class ParseTools
 {
     // MT32Edit: ParseTools class (static)
-    // S.Fryers Jan 2024
+    // S.Fryers Mar 2024
    
     /// <summary>
-    /// Ensures string is precisely the desiredLength by adding spaces or removing excess characters from right hand side
+    /// Ensures str is precisely the desiredLength by adding spaces or removing excess characters from right hand side
     /// </summary>
     public static string MakeNCharsLong(string str, int desiredLength)
     {
@@ -33,7 +33,7 @@ internal static class ParseTools
     /// <summary>
     /// Helps format text for plural instances - returns string "s" if input value is exactly 1, otherwise returns null string
     /// </summary>
-    public static string Plural(int noOfItems)
+    public static string Pluralise(int noOfItems)
     {
         if (noOfItems == 1)
         {
@@ -63,7 +63,6 @@ internal static class ParseTools
     /// <summary>
     /// Trims str to desiredLength
     /// </summary>
-
     public static string TrimToLength(string str, int desiredLength)
     {
         if (str.Length > desiredLength)
@@ -76,7 +75,6 @@ internal static class ParseTools
     /// <summary>
     /// Removes any trailing space or null characters from str
     /// </summary>
-
     public static string RemoveTrailingSpaces(string str)
     {
         if (string.IsNullOrEmpty(str))
@@ -90,7 +88,6 @@ internal static class ParseTools
     /// <summary>
     /// Removes any leading space or null characters from str
     /// </summary>
-
     public static string RemoveLeadingSpaces(string str)
     {
         str = ReplaceNullsWithSpaces(str);
@@ -101,6 +98,9 @@ internal static class ParseTools
         return str;
     }
 
+    /// <summary>
+    /// Replaces any null characters in str with space characters
+    /// </summary>
     public static string ReplaceNullsWithSpaces(string str)
     {
         return str.Replace("\0", " ");
@@ -184,12 +184,11 @@ internal static class ParseTools
     }
 
     /// <summary>
-    /// Return true if line ends with string "true", 
+    /// Returns true if line ends with string "true", 
     /// false if line ends with string "false",
     /// Any other value returns null.
     /// Function is not case sensitive.
     /// </summary>
-
     public static bool? StringToBool(string str)
     {
         if (RightMost(str.ToLower(), true.ToString().Length) == true.ToString().ToLower())
@@ -204,21 +203,5 @@ internal static class ParseTools
         {
             return null;
         }
-    }
-
-    /// <summary>
-    /// Returns true if fileName extension is .syx or .mid, 
-    /// Any other value returns false.
-    /// Function is not case sensitive.
-    /// </summary>
-    public static bool IsSysExOrMidi(string? fileName)
-    {
-        if (fileName is null)
-        {
-            return false;
-        }
-        string extension = Path.GetExtension(fileName).ToLower();
-        //return true if file extension is .syx or .mid
-        return (extension == FileTools.SYSEX_FILE || extension == FileTools.MIDI_FILE);
     }
 }

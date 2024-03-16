@@ -7,7 +7,7 @@
 public partial class FormSystemSettings : Form
 {
     // MT32Edit: FormSystemSettings
-    // S.Fryers Feb 2024
+    // S.Fryers Mar 2024
 
     private readonly SystemLevel system = new SystemLevel();
 
@@ -16,6 +16,7 @@ public partial class FormSystemSettings : Form
         InitializeComponent();
         system = systemInput;
         SetSystemControls();
+        SetTheme();
     }
 
     private void SetSystemControls()
@@ -27,7 +28,9 @@ public partial class FormSystemSettings : Form
         labelMasterTuneValue.Text = system.GetMasterTuneFrequency();
         comboBoxReverbType.SelectedIndex = system.GetReverbMode();
         trackBarReverbLevel.Value = system.GetReverbLevel();
+        labelReverbLevelValue.Text = trackBarReverbLevel.Value.ToString();
         trackBarReverbRate.Value = system.GetReverbTime();
+        labelReverbRateValue.Text = trackBarReverbRate.Value.ToString();
         numericUpDownMIDIPart1.Value = system.GetUIMidiChannel(0);
         numericUpDownMIDIPart2.Value = system.GetUIMidiChannel(1);
         numericUpDownMIDIPart3.Value = system.GetUIMidiChannel(2);
@@ -50,6 +53,22 @@ public partial class FormSystemSettings : Form
         textBoxMessage2.Text = system.GetMessage(1);
         MT32SysEx.blockSysExMessages = false;
         MT32SysEx.SendSystemParameters(system);
+    }
+
+    private void SetTheme()
+    {
+        Label[] labels =    { 
+                            labelIncludeParameters, labelMasterLevel, labelMasterLevelValue, labelMasterTune, labelMasterTuneValue, 
+                            labelMessage1, labelMessage2, labelMidiOff, labelMidiRxChannel, labelPart1Channel, labelPart2Channel,
+                            labelPart3Channel, labelPart4Channel, labelPart5Channel, labelPart6Channel, labelPart7Channel, labelPart8Channel,
+                            labelPartialReserve, labelReverbLevel, labelReverbLevelValue, labelReverbRate, labelReverbRateValue, 
+                            labelReverbType, labelRhythmChannel
+                            };
+        CheckBox[] checkBoxes = {checkBoxMasterLevel, checkBoxMasterTune, checkBoxMIDIChannel, checkBoxPartialReserve, checkBoxReverb, checkBoxTextMessages};
+        RadioButton[] radioButtons = {radioButtonChannelCustom, radioButtonChannels1to8, radioButtonChannels2to9};
+        GroupBox[] groupBoxes = {groupBoxExportSystemSettings, groupBoxMessageSettings, groupBoxReverb};
+        
+        BackColor = UITools.SetThemeColours(titleLabel: null, labels, warningLabels:null, checkBoxes, groupBoxes, listView: null, radioButtons);
     }
 
     private void numericUpDownMIDIPart1_ValueChanged(object sender, EventArgs e)
@@ -191,6 +210,7 @@ public partial class FormSystemSettings : Form
     private void trackBarMasterLevel_ValueChanged(object sender, EventArgs e)
     {
         system.SetMasterLevel(trackBarMasterLevel.Value);
+        labelMasterLevelValue.Text = trackBarMasterLevel.Value.ToString();
         MT32SysEx.SendSystemParameters(system);
         MT32SysEx.SendText($"Master Level: {labelMasterLevelValue.Text}");
     }
@@ -198,6 +218,7 @@ public partial class FormSystemSettings : Form
     private void trackBarMasterTune_ValueChanged(object sender, EventArgs e)
     {
         system.SetMasterTune(trackBarMasterTune.Value);
+        labelMasterTuneValue.Text = system.GetMasterTuneFrequency();
         MT32SysEx.SendSystemParameters(system);
         MT32SysEx.SendText($"Master Tune: {labelMasterTuneValue.Text}");
     }
@@ -212,6 +233,7 @@ public partial class FormSystemSettings : Form
     private void trackBarReverbLevel_ValueChanged(object sender, EventArgs e)
     {
         system.SetReverbLevel(trackBarReverbLevel.Value);
+        labelReverbLevelValue.Text = trackBarReverbLevel.Value.ToString();
         MT32SysEx.SendSystemParameters(system);
         MT32SysEx.SendText($"Reverb Level: {trackBarReverbLevel.Value}");
     }

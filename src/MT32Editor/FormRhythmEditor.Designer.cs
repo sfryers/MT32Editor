@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            ListViewItem listViewItem1 = new ListViewItem("");
+            ListViewItem listViewItem2 = new ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRhythmEditor));
-            label9 = new Label();
-            label5 = new Label();
-            label4 = new Label();
+            labelReverb = new Label();
+            labelPan = new Label();
+            labelLevel = new Label();
             radioButtonReverbOff = new RadioButton();
             radioButtonReverbOn = new RadioButton();
             trackBarPanPot = new TrackBar();
             trackBarLevel = new TrackBar();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
+            labelTimbreName = new Label();
+            labelTimbreGroup = new Label();
+            labelKeyNo = new Label();
             comboBoxTimbreName = new ComboBox();
             numericUpDownKeyNo = new NumericUpDown();
             comboBoxTimbreGroup = new ComboBox();
@@ -54,42 +54,44 @@
             columnHeaderLevel = new ColumnHeader();
             toolTipParameterValue = new ToolTip(components);
             buttonPlayNote = new Button();
+            labelUnitNoWarning = new Label();
             labelHeading = new Label();
             timer = new System.Windows.Forms.Timer(components);
+            labelNoChannelAssigned = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarPanPot).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownKeyNo).BeginInit();
             SuspendLayout();
             // 
-            // label9
+            // labelReverb
             // 
-            label9.AutoSize = true;
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(174, 159);
-            label9.Name = "label9";
-            label9.Size = new Size(43, 15);
-            label9.TabIndex = 47;
-            label9.Text = "Reverb";
+            labelReverb.AutoSize = true;
+            labelReverb.ForeColor = SystemColors.Control;
+            labelReverb.Location = new Point(174, 159);
+            labelReverb.Name = "labelReverb";
+            labelReverb.Size = new Size(43, 15);
+            labelReverb.TabIndex = 47;
+            labelReverb.Text = "Reverb";
             // 
-            // label5
+            // labelPan
             // 
-            label5.AutoSize = true;
-            label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(240, 207);
-            label5.Name = "label5";
-            label5.Size = new Size(94, 15);
-            label5.TabIndex = 45;
-            label5.Text = "L         Pan         R";
+            labelPan.AutoSize = true;
+            labelPan.ForeColor = SystemColors.Control;
+            labelPan.Location = new Point(240, 207);
+            labelPan.Name = "labelPan";
+            labelPan.Size = new Size(94, 15);
+            labelPan.TabIndex = 45;
+            labelPan.Text = "L         Pan         R";
             // 
-            // label4
+            // labelLevel
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(119, 159);
-            label4.Name = "label4";
-            label4.Size = new Size(34, 15);
-            label4.TabIndex = 44;
-            label4.Text = "Level";
+            labelLevel.AutoSize = true;
+            labelLevel.ForeColor = SystemColors.Control;
+            labelLevel.Location = new Point(119, 159);
+            labelLevel.Name = "labelLevel";
+            labelLevel.Size = new Size(34, 15);
+            labelLevel.TabIndex = 44;
+            labelLevel.Text = "Level";
             // 
             // radioButtonReverbOff
             // 
@@ -142,35 +144,35 @@
             trackBarLevel.Value = 75;
             trackBarLevel.ValueChanged += trackBarLevel_ValueChanged;
             // 
-            // label3
+            // labelTimbreName
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(219, 95);
-            label3.Name = "label3";
-            label3.Size = new Size(79, 15);
-            label3.TabIndex = 38;
-            label3.Text = "Timbre Name";
+            labelTimbreName.AutoSize = true;
+            labelTimbreName.ForeColor = SystemColors.Control;
+            labelTimbreName.Location = new Point(219, 95);
+            labelTimbreName.Name = "labelTimbreName";
+            labelTimbreName.Size = new Size(79, 15);
+            labelTimbreName.TabIndex = 38;
+            labelTimbreName.Text = "Timbre Name";
             // 
-            // label2
+            // labelTimbreGroup
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(92, 95);
-            label2.Name = "label2";
-            label2.Size = new Size(80, 15);
-            label2.TabIndex = 37;
-            label2.Text = "Timbre Group";
+            labelTimbreGroup.AutoSize = true;
+            labelTimbreGroup.ForeColor = SystemColors.Control;
+            labelTimbreGroup.Location = new Point(92, 95);
+            labelTimbreGroup.Name = "labelTimbreGroup";
+            labelTimbreGroup.Size = new Size(80, 15);
+            labelTimbreGroup.TabIndex = 37;
+            labelTimbreGroup.Text = "Timbre Group";
             // 
-            // label1
+            // labelKeyNo
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(328, 46);
-            label1.Name = "label1";
-            label1.Size = new Size(48, 15);
-            label1.TabIndex = 36;
-            label1.Text = "Key No.";
+            labelKeyNo.AutoSize = true;
+            labelKeyNo.ForeColor = SystemColors.Control;
+            labelKeyNo.Location = new Point(328, 46);
+            labelKeyNo.Name = "labelKeyNo";
+            labelKeyNo.Size = new Size(48, 15);
+            labelKeyNo.TabIndex = 36;
+            labelKeyNo.Text = "Key No.";
             // 
             // comboBoxTimbreName
             // 
@@ -212,7 +214,7 @@
             listViewRhythmBank.ForeColor = SystemColors.Control;
             listViewRhythmBank.FullRowSelect = true;
             listViewRhythmBank.GridLines = true;
-            listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem1 });
+            listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem2 });
             listViewRhythmBank.Location = new Point(14, 305);
             listViewRhythmBank.MinimumSize = new Size(0, 28);
             listViewRhythmBank.MultiSelect = false;
@@ -270,12 +272,25 @@
             buttonPlayNote.MouseDown += buttonPlayNote_MouseDown;
             buttonPlayNote.MouseUp += buttonPlayNote_MouseUp;
             // 
+            // labelUnitNoWarning
+            // 
+            labelUnitNoWarning.AutoSize = true;
+            labelUnitNoWarning.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelUnitNoWarning.ForeColor = Color.Yellow;
+            labelUnitNoWarning.Location = new Point(15, 74);
+            labelUnitNoWarning.Name = "labelUnitNoWarning";
+            labelUnitNoWarning.Size = new Size(508, 15);
+            labelUnitNoWarning.TabIndex = 63;
+            labelUnitNoWarning.Text = "WARNING! Unit No. set to non-default value. To revert, edit/delete MT32Edit.ini and restart app.";
+            toolTipParameterValue.SetToolTip(labelUnitNoWarning, resources.GetString("labelUnitNoWarning.ToolTip"));
+            labelUnitNoWarning.Visible = false;
+            // 
             // labelHeading
             // 
             labelHeading.AutoSize = true;
             labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(17, 41);
+            labelHeading.Location = new Point(14, 41);
             labelHeading.Name = "labelHeading";
             labelHeading.Size = new Size(153, 21);
             labelHeading.TabIndex = 59;
@@ -287,6 +302,18 @@
             timer.Interval = 500;
             timer.Tick += timer_Tick;
             // 
+            // labelNoChannelAssigned
+            // 
+            labelNoChannelAssigned.AutoSize = true;
+            labelNoChannelAssigned.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelNoChannelAssigned.ForeColor = Color.Yellow;
+            labelNoChannelAssigned.Location = new Point(58, 277);
+            labelNoChannelAssigned.Name = "labelNoChannelAssigned";
+            labelNoChannelAssigned.Size = new Size(460, 15);
+            labelNoChannelAssigned.TabIndex = 60;
+            labelNoChannelAssigned.Text = "Rhythm part muted- no MIDI channel assigned. Open System Area Settings to resolve.";
+            labelNoChannelAssigned.Visible = false;
+            // 
             // FormRhythmEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -294,18 +321,20 @@
             BackColor = Color.FromArgb(24, 24, 24);
             ClientSize = new Size(533, 960);
             ControlBox = false;
+            Controls.Add(labelUnitNoWarning);
+            Controls.Add(labelNoChannelAssigned);
             Controls.Add(labelHeading);
             Controls.Add(buttonPlayNote);
-            Controls.Add(label9);
-            Controls.Add(label5);
-            Controls.Add(label4);
+            Controls.Add(labelReverb);
+            Controls.Add(labelPan);
+            Controls.Add(labelLevel);
             Controls.Add(radioButtonReverbOff);
             Controls.Add(radioButtonReverbOn);
             Controls.Add(trackBarPanPot);
             Controls.Add(trackBarLevel);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(labelTimbreName);
+            Controls.Add(labelTimbreGroup);
+            Controls.Add(labelKeyNo);
             Controls.Add(comboBoxTimbreName);
             Controls.Add(numericUpDownKeyNo);
             Controls.Add(comboBoxTimbreGroup);
@@ -331,16 +360,16 @@
         }
 
         #endregion
-        private Label label9;
-        private Label label5;
-        private Label label4;
+        private Label labelReverb;
+        private Label labelPan;
+        private Label labelLevel;
         private RadioButton radioButtonReverbOff;
         private RadioButton radioButtonReverbOn;
         private TrackBar trackBarPanPot;
         private TrackBar trackBarLevel;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private Label labelTimbreName;
+        private Label labelTimbreGroup;
+        private Label labelKeyNo;
         private ComboBox comboBoxTimbreName;
         private NumericUpDown numericUpDownKeyNo;
         private ComboBox comboBoxTimbreGroup;
@@ -356,5 +385,7 @@
         private Button buttonPlayNote;
         private Label labelHeading;
         private System.Windows.Forms.Timer timer;
+        private Label labelNoChannelAssigned;
+        private Label labelUnitNoWarning;
     }
 }

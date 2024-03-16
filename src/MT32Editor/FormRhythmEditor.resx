@@ -130,6 +130,13 @@
         SAYQbysyANpKWV4YAMDAAADu6odTmov4RwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="labelUnitNoWarning.ToolTip" xml:space="preserve">
+    <value>'Unit No.' parameter has been altered in MT32Edit.ini. 
+This should normally be left at the default value of 17, except for when working with multiple hardware MT-32 devices. 
+Any SysEx files saved when this value is set to a value other than 17 will not be recognised with other devices. 
+This value is not configurable in this user interface and can only be changed by editing or deleting the .ini file.
+</value>
+  </data>
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>193, 17</value>
   </metadata>

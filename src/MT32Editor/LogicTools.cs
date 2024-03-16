@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace MT32Edit;
+﻿namespace MT32Edit;
 
 /// <summary>
 /// Simple tools for boolean logic and data validation.
@@ -39,7 +37,16 @@ internal static class LogicTools
         return value % divisor == 0;
     }
 
-    public static int ValidateRange(string parameterName, int value, int minPermitted, int maxPermitted, bool autoCorrect) //check if value is within permitted range, then either change it or throw an exception
+    /// <summary>
+    /// Checks if an integer value is within the specified range. If autoCorrect is set to true, outlier values will be brought within range.
+    /// </summary>
+    /// <param name="parameterName"></param>
+    /// <param name="value"></param>
+    /// <param name="minPermitted"></param>
+    /// <param name="maxPermitted"></param>
+    /// <param name="autoCorrect"></param>
+    /// <returns>Either the original value, the closest value within the permitted range, or an out of range exception</returns>
+    public static int ValidateRange(string parameterName, int value, int minPermitted, int maxPermitted, bool autoCorrect)
     {
         if (autoCorrect)
         {
@@ -86,6 +93,14 @@ internal static class LogicTools
         }
     }
 
+    /// <summary>
+    /// Determines which of four boolean (radioButton) states is true.
+    /// </summary>
+    /// <returns>
+    /// Normally, a number between 0 and 3. If all input values are false, returns -1.
+    /// If more than one input value is true, returns a number corresponding to the lowest true value.
+    /// </returns>
+    /// 
     public static int GetRadioButtonValue(bool a, bool b, bool c, bool d)
     {
         if (a)

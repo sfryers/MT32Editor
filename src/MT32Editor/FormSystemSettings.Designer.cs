@@ -80,19 +80,20 @@
             labelMasterLevelValue = new Label();
             groupBoxMessageSettings = new GroupBox();
             textBoxMessage2 = new TextBox();
-            label1 = new Label();
+            labelMessage2 = new Label();
             labelMessage1 = new Label();
             textBoxMessage1 = new TextBox();
             toolTip = new ToolTip(components);
             buttonSave = new Button();
             groupBoxExportSystemSettings = new GroupBox();
-            label2 = new Label();
+            labelIncludeParameters = new Label();
             checkBoxTextMessages = new CheckBox();
             checkBoxPartialReserve = new CheckBox();
             checkBoxMIDIChannel = new CheckBox();
             checkBoxReverb = new CheckBox();
             checkBoxMasterTune = new CheckBox();
             checkBoxMasterLevel = new CheckBox();
+            labelMidiOff = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarMasterLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMasterTune).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReverbRate).BeginInit();
@@ -123,12 +124,12 @@
             // 
             // trackBarMasterLevel
             // 
+            trackBarMasterLevel.LargeChange = 10;
             trackBarMasterLevel.Location = new Point(49, 48);
             trackBarMasterLevel.Maximum = 100;
             trackBarMasterLevel.Name = "trackBarMasterLevel";
             trackBarMasterLevel.Orientation = Orientation.Vertical;
             trackBarMasterLevel.Size = new Size(45, 104);
-            trackBarMasterLevel.SmallChange = 10;
             trackBarMasterLevel.TabIndex = 0;
             trackBarMasterLevel.TickFrequency = 10;
             trackBarMasterLevel.TickStyle = TickStyle.Both;
@@ -338,7 +339,7 @@
             // 
             labelMidiRxChannel.AutoSize = true;
             labelMidiRxChannel.ForeColor = SystemColors.Control;
-            labelMidiRxChannel.Location = new Point(311, 30);
+            labelMidiRxChannel.Location = new Point(311, 20);
             labelMidiRxChannel.Name = "labelMidiRxChannel";
             labelMidiRxChannel.Size = new Size(77, 15);
             labelMidiRxChannel.TabIndex = 23;
@@ -348,7 +349,7 @@
             // 
             labelPartialReserve.AutoSize = true;
             labelPartialReserve.ForeColor = SystemColors.Control;
-            labelPartialReserve.Location = new Point(405, 30);
+            labelPartialReserve.Location = new Point(400, 20);
             labelPartialReserve.Name = "labelPartialReserve";
             labelPartialReserve.Size = new Size(80, 15);
             labelPartialReserve.TabIndex = 24;
@@ -446,7 +447,6 @@
             // 
             numericUpDownMIDIPart1.Location = new Point(325, 60);
             numericUpDownMIDIPart1.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart1.Name = "numericUpDownMIDIPart1";
             numericUpDownMIDIPart1.Size = new Size(43, 23);
             numericUpDownMIDIPart1.TabIndex = 27;
@@ -457,7 +457,6 @@
             // 
             numericUpDownMIDIPart2.Location = new Point(325, 89);
             numericUpDownMIDIPart2.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart2.Name = "numericUpDownMIDIPart2";
             numericUpDownMIDIPart2.Size = new Size(43, 23);
             numericUpDownMIDIPart2.TabIndex = 28;
@@ -468,7 +467,6 @@
             // 
             numericUpDownMIDIPart3.Location = new Point(325, 118);
             numericUpDownMIDIPart3.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart3.Name = "numericUpDownMIDIPart3";
             numericUpDownMIDIPart3.Size = new Size(43, 23);
             numericUpDownMIDIPart3.TabIndex = 29;
@@ -479,7 +477,6 @@
             // 
             numericUpDownMIDIPart6.Location = new Point(325, 205);
             numericUpDownMIDIPart6.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart6.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart6.Name = "numericUpDownMIDIPart6";
             numericUpDownMIDIPart6.Size = new Size(43, 23);
             numericUpDownMIDIPart6.TabIndex = 32;
@@ -490,7 +487,6 @@
             // 
             numericUpDownMIDIPart5.Location = new Point(325, 176);
             numericUpDownMIDIPart5.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart5.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart5.Name = "numericUpDownMIDIPart5";
             numericUpDownMIDIPart5.Size = new Size(43, 23);
             numericUpDownMIDIPart5.TabIndex = 31;
@@ -501,7 +497,6 @@
             // 
             numericUpDownMIDIPart4.Location = new Point(325, 147);
             numericUpDownMIDIPart4.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart4.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart4.Name = "numericUpDownMIDIPart4";
             numericUpDownMIDIPart4.Size = new Size(43, 23);
             numericUpDownMIDIPart4.TabIndex = 30;
@@ -512,7 +507,6 @@
             // 
             numericUpDownMIDIPartR.Location = new Point(325, 291);
             numericUpDownMIDIPartR.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPartR.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPartR.Name = "numericUpDownMIDIPartR";
             numericUpDownMIDIPartR.Size = new Size(43, 23);
             numericUpDownMIDIPartR.TabIndex = 35;
@@ -523,7 +517,6 @@
             // 
             numericUpDownMIDIPart8.Location = new Point(325, 262);
             numericUpDownMIDIPart8.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart8.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart8.Name = "numericUpDownMIDIPart8";
             numericUpDownMIDIPart8.Size = new Size(43, 23);
             numericUpDownMIDIPart8.TabIndex = 34;
@@ -534,7 +527,6 @@
             // 
             numericUpDownMIDIPart7.Location = new Point(325, 233);
             numericUpDownMIDIPart7.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart7.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownMIDIPart7.Name = "numericUpDownMIDIPart7";
             numericUpDownMIDIPart7.Size = new Size(43, 23);
             numericUpDownMIDIPart7.TabIndex = 33;
@@ -636,7 +628,7 @@
             // groupBoxMessageSettings
             // 
             groupBoxMessageSettings.Controls.Add(textBoxMessage2);
-            groupBoxMessageSettings.Controls.Add(label1);
+            groupBoxMessageSettings.Controls.Add(labelMessage2);
             groupBoxMessageSettings.Controls.Add(labelMessage1);
             groupBoxMessageSettings.Controls.Add(textBoxMessage1);
             groupBoxMessageSettings.Location = new Point(14, 425);
@@ -657,15 +649,15 @@
             textBoxMessage2.Click += textBoxMessage2_Click;
             textBoxMessage2.TextChanged += textBoxMessage2_TextChanged;
             // 
-            // label1
+            // labelMessage2
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(272, 25);
-            label1.Name = "label1";
-            label1.Size = new Size(62, 15);
-            label1.TabIndex = 17;
-            label1.Text = "Message 2";
+            labelMessage2.AutoSize = true;
+            labelMessage2.ForeColor = SystemColors.Control;
+            labelMessage2.Location = new Point(272, 25);
+            labelMessage2.Name = "labelMessage2";
+            labelMessage2.Size = new Size(62, 15);
+            labelMessage2.TabIndex = 17;
+            labelMessage2.Text = "Message 2";
             // 
             // labelMessage1
             // 
@@ -690,19 +682,21 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(80, 57);
+            buttonSave.BackColor = Color.FromArgb(224, 224, 224);
+            buttonSave.ForeColor = Color.Black;
+            buttonSave.Location = new Point(81, 57);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(45, 23);
+            buttonSave.Size = new Size(44, 23);
             buttonSave.TabIndex = 60;
             buttonSave.Text = "Save";
             toolTip.SetToolTip(buttonSave, "Create a SysEx file containing only these System settings");
-            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.UseVisualStyleBackColor = false;
             buttonSave.Click += buttonSave_Click;
             // 
             // groupBoxExportSystemSettings
             // 
             groupBoxExportSystemSettings.Controls.Add(buttonSave);
-            groupBoxExportSystemSettings.Controls.Add(label2);
+            groupBoxExportSystemSettings.Controls.Add(labelIncludeParameters);
             groupBoxExportSystemSettings.Controls.Add(checkBoxTextMessages);
             groupBoxExportSystemSettings.Controls.Add(checkBoxPartialReserve);
             groupBoxExportSystemSettings.Controls.Add(checkBoxMIDIChannel);
@@ -716,15 +710,15 @@
             groupBoxExportSystemSettings.TabStop = false;
             groupBoxExportSystemSettings.Text = "Save system settings";
             // 
-            // label2
+            // labelIncludeParameters
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(19, 27);
-            label2.Name = "label2";
-            label2.Size = new Size(111, 15);
-            label2.TabIndex = 59;
-            label2.Text = "Include parameters:";
+            labelIncludeParameters.AutoSize = true;
+            labelIncludeParameters.ForeColor = SystemColors.Control;
+            labelIncludeParameters.Location = new Point(19, 27);
+            labelIncludeParameters.Name = "labelIncludeParameters";
+            labelIncludeParameters.Size = new Size(111, 15);
+            labelIncludeParameters.TabIndex = 59;
+            labelIncludeParameters.Text = "Include parameters:";
             // 
             // checkBoxTextMessages
             // 
@@ -804,12 +798,23 @@
             checkBoxMasterLevel.Text = "Master level";
             checkBoxMasterLevel.UseVisualStyleBackColor = true;
             // 
+            // labelMidiOff
+            // 
+            labelMidiOff.AutoSize = true;
+            labelMidiOff.ForeColor = SystemColors.Control;
+            labelMidiOff.Location = new Point(322, 36);
+            labelMidiOff.Name = "labelMidiOff";
+            labelMidiOff.Size = new Size(50, 15);
+            labelMidiOff.TabIndex = 54;
+            labelMidiOff.Text = "(0 = off)";
+            // 
             // FormSystemSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(563, 597);
+            Controls.Add(labelMidiOff);
             Controls.Add(groupBoxExportSystemSettings);
             Controls.Add(groupBoxMessageSettings);
             Controls.Add(labelMasterLevelValue);
@@ -940,12 +945,12 @@
         private GroupBox groupBoxMessageSettings;
         private TextBox textBoxMessage2;
         private ToolTip toolTip;
-        private Label label1;
+        private Label labelMessage2;
         private Label labelMessage1;
         private TextBox textBoxMessage1;
         private GroupBox groupBoxExportSystemSettings;
         private Button buttonSave;
-        private Label label2;
+        private Label labelIncludeParameters;
         private CheckBox checkBoxTextMessages;
         private CheckBox checkBoxPartialReserve;
         private CheckBox checkBoxMIDIChannel;
@@ -954,5 +959,6 @@
         private CheckBox checkBoxMasterLevel;
         private Label labelReverbRateValue;
         private Label labelReverbLevelValue;
+        private Label labelMidiOff;
     }
 }

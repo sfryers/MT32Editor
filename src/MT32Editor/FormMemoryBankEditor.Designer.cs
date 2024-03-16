@@ -44,10 +44,10 @@
             labelHeading = new Label();
             timer = new System.Windows.Forms.Timer(components);
             labelTimbreName = new Label();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            labelCopy = new Label();
+            labelPaste = new Label();
+            labelClearSelected = new Label();
+            labelClearAll = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDownTimbreNo).BeginInit();
             SuspendLayout();
             // 
@@ -106,36 +106,39 @@
             // 
             buttonCopyTimbre.AccessibleDescription = "Copy timbre";
             buttonCopyTimbre.AccessibleName = "Copy timbre";
+            buttonCopyTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonCopyTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonCopyTimbre.Image = Properties.Resources.Copy;
-            buttonCopyTimbre.Location = new Point(17, 157);
+            buttonCopyTimbre.Location = new Point(17, 156);
             buttonCopyTimbre.Name = "buttonCopyTimbre";
-            buttonCopyTimbre.Size = new Size(27, 23);
+            buttonCopyTimbre.Size = new Size(27, 24);
             buttonCopyTimbre.TabIndex = 58;
             buttonCopyTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonCopyTimbre, "Copy the selected timbre");
-            buttonCopyTimbre.UseVisualStyleBackColor = true;
+            buttonCopyTimbre.UseVisualStyleBackColor = false;
             buttonCopyTimbre.Click += buttonCopyTimbre_Click;
             // 
             // buttonPasteTimbre
             // 
             buttonPasteTimbre.AccessibleDescription = "Paste timbre";
+            buttonPasteTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonPasteTimbre.Enabled = false;
             buttonPasteTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonPasteTimbre.Image = Properties.Resources.Paste;
-            buttonPasteTimbre.Location = new Point(92, 157);
+            buttonPasteTimbre.Location = new Point(92, 156);
             buttonPasteTimbre.Name = "buttonPasteTimbre";
-            buttonPasteTimbre.Size = new Size(25, 23);
+            buttonPasteTimbre.Size = new Size(25, 24);
             buttonPasteTimbre.TabIndex = 57;
             buttonPasteTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonPasteTimbre, "Paste timbre into the selected position");
-            buttonPasteTimbre.UseVisualStyleBackColor = true;
+            buttonPasteTimbre.UseVisualStyleBackColor = false;
             buttonPasteTimbre.Click += buttonPasteTimbre_Click;
             // 
             // buttonClearTimbre
             // 
             buttonClearTimbre.AccessibleDescription = "Clear timbre";
             buttonClearTimbre.AccessibleName = "Clear timbre";
+            buttonClearTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonClearTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonClearTimbre.Image = (Image)resources.GetObject("buttonClearTimbre.Image");
             buttonClearTimbre.Location = new Point(17, 186);
@@ -144,13 +147,14 @@
             buttonClearTimbre.TabIndex = 59;
             buttonClearTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonClearTimbre, "Clear the selected timbre");
-            buttonClearTimbre.UseVisualStyleBackColor = true;
+            buttonClearTimbre.UseVisualStyleBackColor = false;
             buttonClearTimbre.Click += buttonClearTimbre_Click;
             // 
             // buttonClearAll
             // 
             buttonClearAll.AccessibleDescription = "Clear All";
             buttonClearAll.AccessibleName = "Clear All";
+            buttonClearAll.BackColor = Color.FromArgb(224, 224, 224);
             buttonClearAll.ForeColor = SystemColors.ActiveCaptionText;
             buttonClearAll.Image = (Image)resources.GetObject("buttonClearAll.Image");
             buttonClearAll.Location = new Point(17, 216);
@@ -159,7 +163,7 @@
             buttonClearAll.TabIndex = 60;
             buttonClearAll.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonClearAll, "Clear all memory timbres");
-            buttonClearAll.UseVisualStyleBackColor = true;
+            buttonClearAll.UseVisualStyleBackColor = false;
             buttonClearAll.Click += buttonClearAll_Click;
             // 
             // labelHeading
@@ -189,45 +193,45 @@
             labelTimbreName.TabIndex = 63;
             labelTimbreName.Text = "[none]";
             // 
-            // label1
+            // labelCopy
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(45, 161);
-            label1.Name = "label1";
-            label1.Size = new Size(35, 15);
-            label1.TabIndex = 64;
-            label1.Text = "Copy";
+            labelCopy.AutoSize = true;
+            labelCopy.ForeColor = SystemColors.Control;
+            labelCopy.Location = new Point(45, 161);
+            labelCopy.Name = "labelCopy";
+            labelCopy.Size = new Size(35, 15);
+            labelCopy.TabIndex = 64;
+            labelCopy.Text = "Copy";
             // 
-            // label2
+            // labelPaste
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(117, 161);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 15);
-            label2.TabIndex = 65;
-            label2.Text = "Paste";
+            labelPaste.AutoSize = true;
+            labelPaste.ForeColor = SystemColors.Control;
+            labelPaste.Location = new Point(117, 161);
+            labelPaste.Name = "labelPaste";
+            labelPaste.Size = new Size(35, 15);
+            labelPaste.TabIndex = 65;
+            labelPaste.Text = "Paste";
             // 
-            // label3
+            // labelClearSelected
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(45, 191);
-            label3.Name = "label3";
-            label3.Size = new Size(121, 15);
-            label3.TabIndex = 66;
-            label3.Text = "Clear Selected Timbre";
+            labelClearSelected.AutoSize = true;
+            labelClearSelected.ForeColor = SystemColors.Control;
+            labelClearSelected.Location = new Point(45, 191);
+            labelClearSelected.Name = "labelClearSelected";
+            labelClearSelected.Size = new Size(121, 15);
+            labelClearSelected.TabIndex = 66;
+            labelClearSelected.Text = "Clear Selected Timbre";
             // 
-            // label4
+            // labelClearAll
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(45, 221);
-            label4.Name = "label4";
-            label4.Size = new Size(96, 15);
-            label4.TabIndex = 67;
-            label4.Text = "Clear All Timbres";
+            labelClearAll.AutoSize = true;
+            labelClearAll.ForeColor = SystemColors.Control;
+            labelClearAll.Location = new Point(45, 221);
+            labelClearAll.Name = "labelClearAll";
+            labelClearAll.Size = new Size(96, 15);
+            labelClearAll.TabIndex = 67;
+            labelClearAll.Text = "Clear All Timbres";
             // 
             // FormMemoryBankEditor
             // 
@@ -236,10 +240,10 @@
             BackColor = Color.FromArgb(32, 32, 32);
             ClientSize = new Size(226, 960);
             ControlBox = false;
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(labelClearAll);
+            Controls.Add(labelClearSelected);
+            Controls.Add(labelPaste);
+            Controls.Add(labelCopy);
             Controls.Add(labelTimbreName);
             Controls.Add(labelHeading);
             Controls.Add(buttonClearAll);
@@ -280,9 +284,9 @@
         private Label labelHeading;
         private System.Windows.Forms.Timer timer;
         private Label labelTimbreName;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label labelCopy;
+        private Label labelPaste;
+        private Label labelClearSelected;
+        private Label labelClearAll;
     }
 }

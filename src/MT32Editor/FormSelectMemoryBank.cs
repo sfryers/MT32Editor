@@ -19,6 +19,7 @@ public partial class FormSelectMemoryBank : Form
         memoryState = memoryStateInput;
         presetTimbreName = timbreNameInput;
         PopulateForm();
+        SetTheme();
     }
 
     private void PopulateForm()
@@ -33,6 +34,12 @@ public partial class FormSelectMemoryBank : Form
         }
         comboBoxMemoryBank.DataSource = enumeratedTimbreNames;
         comboBoxMemoryBank.Text = memoryState.GetTimbreNames().Get(0, MEMORY_GROUP);
+    }
+
+    private void SetTheme()
+    {
+        Label[] labels = { labelSelectMemoryBank };
+        BackColor = UITools.SetThemeColours(titleLabel: null, labels, warningLabels: null, checkBoxes: null, groupBoxes: null, listView: null, radioButtons: null);
     }
 
     private void ReplaceMemoryTimbre()

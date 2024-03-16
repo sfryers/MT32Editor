@@ -8,28 +8,32 @@ namespace MT32Edit;
 internal static class LoadSysExFile
 {
     // MT32Edit: LoadSysExFile class (static)
-    // S.Fryers Feb 2024 
+    // S.Fryers Mar 2024 
 
-    public static bool ignoreSystemArea = false;
+    /// <summary>
+    /// If true, ignores system area data when loading SysEx file
+    /// </summary>
+    public static bool ignoreSystemArea { get; set; } = false;
 
     private static bool validSysExDataFound = false;
     private static MT32State memoryState = new MT32State();
 
     // Define expected byte positions for each partial definition
     private const int FIRST_PARTIAL_START = MT32SysEx.PARTIAL_ADDRESS_OFFSET; //14
-    private const int SECOND_PARTIAL_START = MT32SysEx.PARTIAL_ADDRESS_OFFSET + MT32SysEx.PARAMETER_COUNT; //72
+    private const int SECOND_PARTIAL_START = MT32SysEx.PARTIAL_ADDRESS_OFFSET + MT32SysEx.NO_OF_PARTIAL_PARAMETERS; //72
     private const int FIRST_PARTIAL_END = SECOND_PARTIAL_START - 1; //71
-    private const int SECOND_PARTIAL_END = FIRST_PARTIAL_END + MT32SysEx.PARAMETER_COUNT; //129
-    private const int THIRD_PARTIAL_START = SECOND_PARTIAL_START + MT32SysEx.PARAMETER_COUNT; //130
-    private const int THIRD_PARTIAL_END = SECOND_PARTIAL_END + MT32SysEx.PARAMETER_COUNT; //187
-    private const int FOURTH_PARTIAL_START = THIRD_PARTIAL_START + MT32SysEx.PARAMETER_COUNT; //188
-    private const int FOURTH_PARTIAL_END = THIRD_PARTIAL_END + MT32SysEx.PARAMETER_COUNT - 1; //245
+    private const int SECOND_PARTIAL_END = FIRST_PARTIAL_END + MT32SysEx.NO_OF_PARTIAL_PARAMETERS; //129
+    private const int THIRD_PARTIAL_START = SECOND_PARTIAL_START + MT32SysEx.NO_OF_PARTIAL_PARAMETERS; //130
+    private const int THIRD_PARTIAL_END = SECOND_PARTIAL_END + MT32SysEx.NO_OF_PARTIAL_PARAMETERS; //187
+    private const int FOURTH_PARTIAL_START = THIRD_PARTIAL_START + MT32SysEx.NO_OF_PARTIAL_PARAMETERS; //188
+    private const int FOURTH_PARTIAL_END = THIRD_PARTIAL_END + MT32SysEx.NO_OF_PARTIAL_PARAMETERS - 1; //245
+
+    private const int INVALID = -1;
 
     /// <summary>
     /// Loads SysEx data into the currentMemoryState. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
     /// Overloaded method: if no filename is provided, then a file browser window will be opened
     /// </summary>
-
     public static string Load(MT32State currentMemoryState)
     {
         OpenFileDialog loadSysExDialog = new OpenFileDialog();
@@ -56,7 +60,6 @@ internal static class LoadSysExFile
     /// Loads SysEx data into the currentMemoryState. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
     /// Overloaded method: if no filename is provided, then a file browser window will be opened
     /// </summary>
-
     public static string Load(MT32State currentMemoryState, string fileName)
     {
         FileStream file = File.OpenRead(fileName);
@@ -167,8 +170,7 @@ internal static class LoadSysExFile
             return false;
         }
         if ((sysExDataBlock.Length < 8) || (sysExDataBlock[offsetBytes] != MT32SysEx.MANUFACTURER_ID) ||
-            (sysExDataBlock[offsetBytes + 1] != MT32SysEx.DEVICE_ID) || (sysExDataBlock[offsetBytes + 2] != MT32SysEx.MODEL_ID) ||
-            (sysExDataBlock[offsetBytes + 3] != MT32SysEx.TX))
+            (sysExDataBlock[offsetBytes + 2] != MT32SysEx.MODEL_ID) || (sysExDataBlock[offsetBytes + 3] != MT32SysEx.TX))
         {
             ConsoleMessage.SendVerboseLine("non MT32-compatible data block found, ignoring.");
             return false;
@@ -253,12 +255,10 @@ internal static class LoadSysExFile
         if (dataBlockLength > 127)
         {
             offsetBytes = 2;
-            //CheckDataBlockLength(dataBlockLength, sysExDataBlock[0] + sysExDataBlock[1]); 
         }
         else
         {
             offsetBytes = 1;
-            //CheckDataBlockLength(dataBlockLength, sysExDataBlock[0]);
         }
         ConsoleMessage.SendVerboseLine($"MIDI file- SysEx block length {dataBlockLength - offsetBytes}");
         return offsetBytes;
@@ -309,7 +309,6 @@ internal static class LoadSysExFile
         }
 
         if ((sysExData[0] != MT32SysEx.MANUFACTURER_ID) ||
-            (sysExData[1] != MT32SysEx.DEVICE_ID) ||
             (sysExData[2] != MT32SysEx.MODEL_ID) ||
             (sysExData[3] != MT32SysEx.TX) ||
             (sysExData[4] != MT32SysEx.RESET))
@@ -339,10 +338,10 @@ internal static class LoadSysExFile
             ConsoleMessage.SendVerboseLine("System data address invalid, ignoring.");
             return;
         }
-        if (sysExData.Length + sysExAddress[2] > MT32SysEx.NO_OF_SYSTEM_PARAMS)
+        if (sysExData.Length + sysExAddress[2] > MT32SysEx.NO_OF_SYSTEM_PARAMETERS)
         {
             //remove any superfluous sysEx data values
-            Array.Resize(ref sysExData, MT32SysEx.NO_OF_SYSTEM_PARAMS - sysExAddress[2]);
+            Array.Resize(ref sysExData, MT32SysEx.NO_OF_SYSTEM_PARAMETERS - sysExAddress[2]);
         }
 
         int[] systemData = GetCurrentSystemAreaStateAsArray();
@@ -367,7 +366,7 @@ internal static class LoadSysExFile
 
     private static int[] GetCurrentSystemAreaStateAsArray()
     {
-        int[] systemData = new int[MT32SysEx.NO_OF_SYSTEM_PARAMS];
+        int[] systemData = new int[MT32SysEx.NO_OF_SYSTEM_PARAMETERS];
         SystemLevel systemConfig = memoryState.GetSystem();
         systemData[0] = systemConfig.GetMasterTune();
         systemData[1] = systemConfig.GetReverbMode();
@@ -389,19 +388,14 @@ internal static class LoadSysExFile
         {
             textLength = 20;
         }
-
         byte[] textChars = new byte[textLength];
         for (int charNo = 0; charNo < textLength; charNo++)
         {
             textChars[charNo] = (byte)sysExData[charNo];
         }
         string textMessage = Encoding.ASCII.GetString(textChars).Substring(0, textLength);
-        int messageNo = 1;
-        if (string.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0)))
-        {
-            messageNo = 0;
-        }
-
+        bool message1Present = string.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0));
+        int messageNo = LogicTools.BoolToInt(!message1Present);
         memoryState.GetSystem().SetMessage(messageNo, textMessage);
         if (!string.IsNullOrWhiteSpace(textMessage))
         {
@@ -446,7 +440,7 @@ internal static class LoadSysExFile
         {
             for (int parameterNo = 0; parameterNo < 4; parameterNo++)
             {
-                memoryState.GetRhythm(bankNo).SetParameterSysExValue(parameterNo, sysExData[byteNo], autoCorrect: true);
+                memoryState.GetRhythmBank(bankNo).SetParameterSysExValue(parameterNo, sysExData[byteNo], autoCorrect: true);
                 byteNo++;
             }
         }
@@ -460,7 +454,7 @@ internal static class LoadSysExFile
         string timbreName;
         int startingAddress = GetStartPosition(sysExAddress);
 
-        if (startingAddress == -1)
+        if (startingAddress == INVALID)
         {
             ConsoleMessage.SendVerboseLine($"Start address {startingAddress} does not align with partial data structure, ignoring.", ConsoleColor.Red);
             return;
@@ -506,7 +500,7 @@ internal static class LoadSysExFile
         }
         SetPartialStatus(memoryTimbre, sysExData, startAddress);
 
-        if (lastPartial == -1 || firstPartial == -1)
+        if (lastPartial == INVALID || firstPartial == INVALID)
         {
             //data block does not contain any valid partial definitions
             return;
@@ -516,6 +510,23 @@ internal static class LoadSysExFile
         {
             SetPartialParameters(memoryTimbre, sysExData, firstPartial, partialNo, startAddress);
         }
+    }
+
+    private static string ExtractTimbreName(int[] sysExData)
+    {
+        int nameLength = 10;
+        if (sysExData.Length < nameLength)
+        {
+            nameLength = sysExData.Length;
+        }
+        byte[] timbreNameChars = new byte[10];
+        for (int i = 0; i < nameLength; i++)
+        {
+            timbreNameChars[i] = (byte)sysExData[i];
+        }
+        string timbreName = Encoding.ASCII.GetString(timbreNameChars).Substring(0, 10);
+        timbreName = ParseTools.RemoveTrailingSpaces(timbreName);
+        return timbreName;
     }
 
     private static void SetPartialStatus(TimbreStructure memoryTimbre, int[] sysExData, int startAddress)
@@ -528,7 +539,7 @@ internal static class LoadSysExFile
         memoryTimbre.SetPart34Structure(sysExData[11 - startAddress], autoCorrect: true);
         //need to invert value to get correct sustain state
         memoryTimbre.SetSustainStatus(!LogicTools.IntToBool(sysExData[13 - startAddress]));
-        for (int partialNo = 0; partialNo < 4; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
             if ((sysExData[12 - startAddress] & (1 << partialNo)) != 0)
             {
@@ -543,9 +554,9 @@ internal static class LoadSysExFile
 
     private static void SetPartialParameters(TimbreStructure memoryTimbre, int[] sysExData, int firstPartial, int partialNo, int startAddress)
     {
-        for (int parameterNo = 0; parameterNo < MT32SysEx.PARAMETER_COUNT; parameterNo++)
+        for (int parameterNo = 0; parameterNo < MT32SysEx.NO_OF_PARTIAL_PARAMETERS; parameterNo++)
         {
-            int byteNo = ((partialNo - firstPartial) * MT32SysEx.PARAMETER_COUNT) + parameterNo;
+            int byteNo = ((partialNo - firstPartial) * MT32SysEx.NO_OF_PARTIAL_PARAMETERS) + parameterNo;
             if (startAddress < MT32SysEx.PARTIAL_ADDRESS_OFFSET)
             {
                 byteNo += MT32SysEx.PARTIAL_ADDRESS_OFFSET - startAddress;
@@ -580,7 +591,7 @@ internal static class LoadSysExFile
             case FOURTH_PARTIAL_START:
                 return startPosition; //start address is a valid position
             default:
-                return -1; //start address does not align with structure- ignore block
+                return INVALID; //start address does not align with structure- ignore block
         }
     }
 
@@ -598,7 +609,7 @@ internal static class LoadSysExFile
             case FOURTH_PARTIAL_START:
                 return 3; //partial no. 4
             default:
-                return -1; //start address does not align with structure- ignore block
+                return INVALID; //start address does not align with structure- ignore block
         }
     }
 
@@ -616,24 +627,7 @@ internal static class LoadSysExFile
             case >= FIRST_PARTIAL_END:
                 return 0; //partial no. 1
             default:
-                return -1;
+                return INVALID;
         }
-    }
-
-    private static string ExtractTimbreName(int[] sysExData)
-    {
-        int nameLength = 10;
-        if (sysExData.Length < nameLength)
-        {
-            nameLength = sysExData.Length;
-        }
-        byte[] timbreNameChars = new byte[10];
-        for (int i = 0; i < nameLength; i++)
-        {
-            timbreNameChars[i] = (byte)sysExData[i];
-        }
-        string timbreName = Encoding.ASCII.GetString(timbreNameChars).Substring(0, 10);
-        timbreName = ParseTools.RemoveTrailingSpaces(timbreName);
-        return timbreName;
     }
 }

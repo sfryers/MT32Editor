@@ -58,22 +58,24 @@
             // 
             // buttonOK
             // 
+            buttonOK.BackColor = Color.FromArgb(224, 224, 224);
             buttonOK.Location = new Point(193, 44);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(71, 25);
             buttonOK.TabIndex = 3;
             buttonOK.Text = "OK";
-            buttonOK.UseVisualStyleBackColor = true;
+            buttonOK.UseVisualStyleBackColor = false;
             buttonOK.Click += buttonOK_Click;
             // 
             // buttonCancel
             // 
+            buttonCancel.BackColor = Color.FromArgb(224, 224, 224);
             buttonCancel.Location = new Point(193, 73);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(71, 26);
             buttonCancel.TabIndex = 4;
             buttonCancel.Text = "Cancel";
-            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.UseVisualStyleBackColor = false;
             buttonCancel.Click += buttonCancel_Click;
             // 
             // FormSelectMemoryBank

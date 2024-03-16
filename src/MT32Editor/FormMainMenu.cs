@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MT32Edit;
 
@@ -26,8 +25,8 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.7a (x64)";
-    private const string RELEASE_DATE = "February 2024";
+    private const string VERSION_NO = "v0.9.8a (x64)";
+    private const string RELEASE_DATE = "March 2024";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
@@ -61,6 +60,7 @@ public partial class FormMainMenu : Form
         OpenPatchEditor();
         ScaleUIElements();
         MT32SysEx.SendText($"MT32 Editor {ParseTools.TrimToLength(VERSION_NO, 8)}");
+        timer.Interval = UITools.UI_REFRESH_INTERVAL;
         timer.Start();
         ProcessShellArguments(args);
     }
@@ -243,6 +243,9 @@ public partial class FormMainMenu : Form
             sendMessagesToMT32DisplayToolStripMenuItem.Checked = MT32SysEx.sendTextToMT32;
             ignoreSysConfigOnLoadToolStripMenuItem.Checked = LoadSysExFile.ignoreSystemArea;
             excludeSysConfigonSaveToolStripMenuItem.Checked = SaveSysExFile.excludeSystemArea;
+            autosaveEvery5MinutesToolStripMenuItem.Checked = SaveSysExFile.autoSave;
+            darkModeToolStripMenuItem.Checked = UITools.DarkMode;
+            allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
         }
 
         void InitialiseMidiInConnection()
@@ -294,9 +297,9 @@ public partial class FormMainMenu : Form
                 midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
             }
 
-            SetMT32HardwareStatus(Midi.hardwareMT32Connected);
+            SetMT32HardwareStatus(MT32SysEx.hardwareMT32Connected);
             allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
-            hardwareMT32ConnectedToolStripMenuItem.Checked = Midi.hardwareMT32Connected;
+            hardwareMT32ConnectedToolStripMenuItem.Checked = MT32SysEx.hardwareMT32Connected;
         }
     }
 
@@ -341,7 +344,7 @@ public partial class FormMainMenu : Form
 
     private void UpdateUIFollowingSysExLoad(string newFileName)
     {
-        if (ParseTools.IsSysExOrMidi(newFileName))
+        if (FileTools.IsSysExOrMidi(newFileName))
         {
             loadedSysExFileName = newFileName;
         }
@@ -375,7 +378,7 @@ public partial class FormMainMenu : Form
     private void saveSysExToolStripMenuItem_Click(object sender, EventArgs e)
     {
         string fileName;
-        if (loadedSysExFileName is not null && ParseTools.IsSysExOrMidi(loadedSysExFileName))
+        if (loadedSysExFileName is not null && FileTools.IsSysExOrMidi(loadedSysExFileName))
         {
             fileName = SaveSysExFile.Save(memoryState, loadedSysExFileName);
         }
@@ -467,7 +470,7 @@ public partial class FormMainMenu : Form
         Close();
     }
 
-    private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
+    private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
     {
         Midi.CloseInputDevice();
         Midi.CloseOutputDevice();
@@ -541,7 +544,7 @@ public partial class FormMainMenu : Form
 
     private void hardwareMT32ConnectedToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        SetMT32HardwareStatus(!Midi.hardwareMT32Connected);
+        SetMT32HardwareStatus(!MT32SysEx.hardwareMT32Connected);
         ConfigFile.Save();
     }
 
@@ -556,7 +559,7 @@ public partial class FormMainMenu : Form
     private void SetMT32HardwareStatus(bool status)
     {
         hardwareMT32ConnectedToolStripMenuItem.Checked = status;
-        Midi.hardwareMT32Connected = status;
+        MT32SysEx.hardwareMT32Connected = status;
     }
 
     private void sendMessagesToMT32DisplayToolStripMenuItem_Click(object sender, EventArgs e)
@@ -617,6 +620,13 @@ public partial class FormMainMenu : Form
     {
         autosaveEvery5MinutesToolStripMenuItem.Checked = !SaveSysExFile.autoSave;
         SaveSysExFile.autoSave ^= true;
+        ConfigFile.Save();
+    }
+
+    private void darkModeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        darkModeToolStripMenuItem.Checked = !UITools.DarkMode;
+        UITools.DarkMode ^= true;
         ConfigFile.Save();
     }
 }

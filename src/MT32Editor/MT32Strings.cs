@@ -7,7 +7,7 @@ namespace MT32Edit;
 internal static class MT32Strings
 {
     // MT32Edit: MT32Strings class (static)
-    // S.Fryers Jan 2024
+    // S.Fryers Mar 2024
 
     public static readonly string[] bank1SampleNames =
     {
@@ -65,7 +65,7 @@ internal static class MT32Strings
 
     public static readonly string[] waveform = { "Square", "Saw" };
 
-    public static readonly string[] onOff = { "Off", "On" };
+    public static readonly string[] onOff = { "Off", "On " };
 
     public static readonly string[] partialConfig = { "(SS)     ", "(S(SR))", "(PS)     ", "(P(SR))", "(S(PR))", "(PP)     ", "(P(PR))", "(S)(S)   ", "(P)(P)  ", "(SS)R ", "(PS)R ", "(SP)R ", "(PP)R " };
 
@@ -121,7 +121,6 @@ internal static class MT32Strings
     {
         LogicTools.ValidateRange("Bias Point Value", biasPointValue, 0, 127, autoCorrect: false);
         StringBuilder biasPt = new StringBuilder();
-        biasPt.Append(">");
         if (biasPointValue < 64)
         {
             biasPt.Append("<");
@@ -129,9 +128,9 @@ internal static class MT32Strings
         }
         else
         {
+            biasPt.Append(">");
             biasPt.Append(PitchNote(biasPointValue - 43));
         }
-
         return biasPt.ToString();
     }
 
@@ -186,7 +185,6 @@ internal static class MT32Strings
         {
             waveformValue -= 2;
         }
-
         return waveform[waveformValue];
     }
 

@@ -39,12 +39,12 @@
             labelCoarsePitch = new Label();
             checkBoxPitchBend = new CheckBox();
             groupBoxPitch = new GroupBox();
-            label44 = new Label();
+            labelPitchSettings = new Label();
             comboBoxWaveform = new ComboBox();
             comboBoxPCMSample = new ComboBox();
             labelPCMSample = new Label();
             groupBoxWaveform = new GroupBox();
-            label47 = new Label();
+            labelWaveFormSettings = new Label();
             radioButtonPCMBank2 = new RadioButton();
             radioButtonPCMBank1 = new RadioButton();
             labelPWVeloSens = new Label();
@@ -67,20 +67,20 @@
             trackBarPitchEnvL2 = new TrackBar();
             trackBarPitchEnvSust = new TrackBar();
             groupBoxPitchEnvelope = new GroupBox();
-            label48 = new Label();
+            labelColourPitchSettings = new Label();
             labelNoActivePartials = new Label();
-            label10 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            label7 = new Label();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
+            labelPitchRelease = new Label();
+            labelPitchSustain = new Label();
+            labelPitchL2 = new Label();
+            labelPitchL1 = new Label();
+            labelPitchL0 = new Label();
+            labelPitchT4 = new Label();
+            labelPitchT3 = new Label();
+            labelPitchT2 = new Label();
+            labelPitchT1 = new Label();
             trackBarPitchEnvReleaseLevel = new TrackBar();
             groupBoxLFO = new GroupBox();
-            label49 = new Label();
+            labelPitchLFOSettings = new Label();
             labelPitchLFOModSens = new Label();
             labelLFODepth = new Label();
             trackBarLFOModSens = new TrackBar();
@@ -88,33 +88,33 @@
             labelLFORate = new Label();
             trackBarLFORate = new TrackBar();
             groupBoxTVF = new GroupBox();
-            label50 = new Label();
+            labelColourTVFSettings = new Label();
             labelTVFDisabled = new Label();
-            label36 = new Label();
+            labelTVFTimeKF = new Label();
             trackBarTVFTimeKeyfollow = new TrackBar();
-            label37 = new Label();
+            labelTVFDepthKF = new Label();
             trackBarTVFDepthKeyfollow = new TrackBar();
-            label38 = new Label();
-            label39 = new Label();
+            labelTVFVeloSens = new Label();
+            labelTVFDepth = new Label();
             trackBarTVFEnvDepth = new TrackBar();
             trackBarTVFVeloSensitivity = new TrackBar();
-            label11 = new Label();
+            labelTVFT5 = new Label();
             trackBarTVFT5 = new TrackBar();
-            label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
-            label18 = new Label();
-            label19 = new Label();
+            labelTVFSustain = new Label();
+            labelTVFL3 = new Label();
+            labelTVFL2 = new Label();
+            labelTVFL1 = new Label();
+            labelTVFT4 = new Label();
+            labelTVFT3 = new Label();
+            labelTVFT2 = new Label();
+            labelTVFT1 = new Label();
             trackBarTVFSustain = new TrackBar();
             groupBoxTVFBias = new GroupBox();
             label51 = new Label();
             trackBarTVFBiasLevel = new TrackBar();
             trackBarTVFBiasPoint = new TrackBar();
-            label34 = new Label();
-            label35 = new Label();
+            labelTVFBiasPt = new Label();
+            labelTVFBiasLevel = new Label();
             trackBarTVFL3 = new TrackBar();
             trackBarTVFL2 = new TrackBar();
             trackBarTVFL1 = new TrackBar();
@@ -122,28 +122,28 @@
             trackBarTVFT3 = new TrackBar();
             trackBarTVFT2 = new TrackBar();
             trackBarTVFT1 = new TrackBar();
-            label23 = new Label();
+            labelTVFKeyfollow = new Label();
             trackBarTVFKeyfollow = new TrackBar();
-            label24 = new Label();
+            labelResonance = new Label();
             trackBarTVFResonance = new TrackBar();
             labelTVFCutoff = new Label();
             trackBarTVFCutoff = new TrackBar();
             groupBoxTVA = new GroupBox();
-            label52 = new Label();
+            labelColourTVASettings = new Label();
             trackBarTVABiasLevel1 = new TrackBar();
             trackBarTVABiasPoint1 = new TrackBar();
-            label33 = new Label();
+            labelTVFVeloKF = new Label();
             trackBarTVAVelocityKeyfollow = new TrackBar();
-            label20 = new Label();
+            labelTVAT5 = new Label();
             trackBarTVAT5 = new TrackBar();
-            label21 = new Label();
-            label22 = new Label();
-            label25 = new Label();
-            label26 = new Label();
-            label27 = new Label();
-            label28 = new Label();
-            label29 = new Label();
-            label30 = new Label();
+            labelTVASust = new Label();
+            labelTVAL3 = new Label();
+            labelTVAL2 = new Label();
+            labelTVAL1 = new Label();
+            labelTVAT4 = new Label();
+            labelTVAT3 = new Label();
+            labelTVAT2 = new Label();
+            labelTVAT1 = new Label();
             trackBarTVASustain = new TrackBar();
             trackBarTVAL3 = new TrackBar();
             trackBarTVAL2 = new TrackBar();
@@ -152,20 +152,20 @@
             trackBarTVAT3 = new TrackBar();
             trackBarTVAT2 = new TrackBar();
             trackBarTVAT1 = new TrackBar();
-            label31 = new Label();
+            labelTVATimeKF = new Label();
             trackBarTVATimeKeyfollow = new TrackBar();
-            label32 = new Label();
+            labelTVAVeloSens = new Label();
             trackBarTVAVeloSensitivity = new TrackBar();
             labelTVALevel = new Label();
             trackBarTVALevel = new TrackBar();
             groupBoxTVABias = new GroupBox();
             label53 = new Label();
             trackBarTVABiasLevel2 = new TrackBar();
-            label41 = new Label();
-            label42 = new Label();
+            labelTVABiasL2 = new Label();
+            labelTVABiasL1 = new Label();
             trackBarTVABiasPoint2 = new TrackBar();
-            label40 = new Label();
-            label43 = new Label();
+            labelTVABiasPt2 = new Label();
+            labelTVABiasPt1 = new Label();
             toolTipParameterValue = new ToolTip(components);
             buttonRefresh = new Button();
             buttonReset = new Button();
@@ -179,36 +179,36 @@
             checkBoxSustain = new CheckBox();
             comboBoxPart12Struct = new ComboBox();
             comboBoxPart34Struct = new ComboBox();
-            label45 = new Label();
-            label46 = new Label();
+            labelPartial12 = new Label();
+            labelPartial34 = new Label();
             checkBoxShowLabels = new CheckBox();
             checkBoxShowAllPartials = new CheckBox();
             timer = new System.Windows.Forms.Timer(components);
             labelHeading = new Label();
             pictureBoxTVATVF = new PictureBox();
-            label54 = new Label();
-            label55 = new Label();
-            groupBox1 = new GroupBox();
-            label56 = new Label();
+            labelPitchEnvGraph = new Label();
+            labelTVATVFEnvGraph = new Label();
+            groupBoxEnvGraph = new GroupBox();
+            labelEnvGraphSettings = new Label();
             pictureBox1 = new PictureBox();
-            label57 = new Label();
-            label58 = new Label();
-            label59 = new Label();
-            label60 = new Label();
-            label61 = new Label();
+            labelRefresh = new Label();
+            labelNewTimbre = new Label();
+            labelSaveAs = new Label();
+            labelSave = new Label();
+            labelLoad = new Label();
             imageList = new ImageList(components);
             pictureBoxPartial12 = new PictureBox();
             pictureBoxPartial34 = new PictureBox();
-            label64 = new Label();
+            labelPartialStruct = new Label();
             label65 = new Label();
-            label66 = new Label();
+            labelPartialType = new Label();
             groupBoxPartialStructure = new GroupBox();
             radioButtonPartial4 = new RadioButton();
             radioButtonPartial3 = new RadioButton();
             radioButtonPartial2 = new RadioButton();
             radioButtonPartial1 = new RadioButton();
-            label63 = new Label();
-            label62 = new Label();
+            labelPaste = new Label();
+            labelCopy = new Label();
             labelPartialWarning = new Label();
             checkBoxPartial4 = new CheckBox();
             checkBoxPartial3 = new CheckBox();
@@ -280,7 +280,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarTVABiasLevel2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarTVABiasPoint2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxTVATVF).BeginInit();
-            groupBox1.SuspendLayout();
+            groupBoxEnvGraph.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).BeginInit();
@@ -391,7 +391,7 @@
             // 
             // groupBoxPitch
             // 
-            groupBoxPitch.Controls.Add(label44);
+            groupBoxPitch.Controls.Add(labelPitchSettings);
             groupBoxPitch.Controls.Add(checkBoxPitchBend);
             groupBoxPitch.Controls.Add(labelCoarsePitch);
             groupBoxPitch.Controls.Add(labelPitchKeyfollow);
@@ -405,14 +405,14 @@
             groupBoxPitch.TabIndex = 8;
             groupBoxPitch.TabStop = false;
             // 
-            // label44
+            // labelPitchSettings
             // 
-            label44.AutoSize = true;
-            label44.Location = new Point(6, 0);
-            label44.Name = "label44";
-            label44.Size = new Size(78, 15);
-            label44.TabIndex = 73;
-            label44.Text = "Pitch settings";
+            labelPitchSettings.AutoSize = true;
+            labelPitchSettings.Location = new Point(6, 0);
+            labelPitchSettings.Name = "labelPitchSettings";
+            labelPitchSettings.Size = new Size(78, 15);
+            labelPitchSettings.TabIndex = 73;
+            labelPitchSettings.Text = "Pitch settings";
             // 
             // comboBoxWaveform
             // 
@@ -450,7 +450,7 @@
             // 
             // groupBoxWaveform
             // 
-            groupBoxWaveform.Controls.Add(label47);
+            groupBoxWaveform.Controls.Add(labelWaveFormSettings);
             groupBoxWaveform.Controls.Add(radioButtonPCMBank2);
             groupBoxWaveform.Controls.Add(radioButtonPCMBank1);
             groupBoxWaveform.Controls.Add(labelPWVeloSens);
@@ -468,14 +468,14 @@
             groupBoxWaveform.TabIndex = 12;
             groupBoxWaveform.TabStop = false;
             // 
-            // label47
+            // labelWaveFormSettings
             // 
-            label47.AutoSize = true;
-            label47.Location = new Point(6, 0);
-            label47.Name = "label47";
-            label47.Size = new Size(106, 15);
-            label47.TabIndex = 73;
-            label47.Text = "Waveform settings";
+            labelWaveFormSettings.AutoSize = true;
+            labelWaveFormSettings.Location = new Point(6, 0);
+            labelWaveFormSettings.Name = "labelWaveFormSettings";
+            labelWaveFormSettings.Size = new Size(106, 15);
+            labelWaveFormSettings.TabIndex = 73;
+            labelWaveFormSettings.Text = "Waveform settings";
             // 
             // radioButtonPCMBank2
             // 
@@ -767,18 +767,17 @@
             // 
             // groupBoxPitchEnvelope
             // 
-            groupBoxPitchEnvelope.BackColor = Color.FromArgb(56, 56, 56);
-            groupBoxPitchEnvelope.Controls.Add(label48);
+            groupBoxPitchEnvelope.Controls.Add(labelColourPitchSettings);
             groupBoxPitchEnvelope.Controls.Add(labelNoActivePartials);
-            groupBoxPitchEnvelope.Controls.Add(label10);
-            groupBoxPitchEnvelope.Controls.Add(label9);
-            groupBoxPitchEnvelope.Controls.Add(label8);
-            groupBoxPitchEnvelope.Controls.Add(label7);
-            groupBoxPitchEnvelope.Controls.Add(label6);
-            groupBoxPitchEnvelope.Controls.Add(label5);
-            groupBoxPitchEnvelope.Controls.Add(label4);
-            groupBoxPitchEnvelope.Controls.Add(label3);
-            groupBoxPitchEnvelope.Controls.Add(label2);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchRelease);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchSustain);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchL2);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchL1);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchL0);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchT4);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchT3);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchT2);
+            groupBoxPitchEnvelope.Controls.Add(labelPitchT1);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvReleaseLevel);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvSust);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvL2);
@@ -801,15 +800,15 @@
             groupBoxPitchEnvelope.TabStop = false;
             groupBoxPitchEnvelope.Paint += groupBoxPitchEnvelope_Paint;
             // 
-            // label48
+            // labelColourPitchSettings
             // 
-            label48.AutoSize = true;
-            label48.ForeColor = Color.Plum;
-            label48.Location = new Point(8, 0);
-            label48.Name = "label48";
-            label48.Size = new Size(129, 15);
-            label48.TabIndex = 40;
-            label48.Text = "Pitch Envelope settings";
+            labelColourPitchSettings.AutoSize = true;
+            labelColourPitchSettings.ForeColor = Color.Plum;
+            labelColourPitchSettings.Location = new Point(8, 0);
+            labelColourPitchSettings.Name = "labelColourPitchSettings";
+            labelColourPitchSettings.Size = new Size(129, 15);
+            labelColourPitchSettings.TabIndex = 40;
+            labelColourPitchSettings.Text = "Pitch Envelope settings";
             // 
             // labelNoActivePartials
             // 
@@ -822,86 +821,86 @@
             labelNoActivePartials.Text = "No active partials: cannot display envelope graphs";
             labelNoActivePartials.Visible = false;
             // 
-            // label10
+            // labelPitchRelease
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(402, 203);
-            label10.Name = "label10";
-            label10.Size = new Size(46, 15);
-            label10.TabIndex = 38;
-            label10.Text = "Release";
+            labelPitchRelease.AutoSize = true;
+            labelPitchRelease.Location = new Point(402, 203);
+            labelPitchRelease.Name = "labelPitchRelease";
+            labelPitchRelease.Size = new Size(46, 15);
+            labelPitchRelease.TabIndex = 38;
+            labelPitchRelease.Text = "Release";
             // 
-            // label9
+            // labelPitchSustain
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(302, 203);
-            label9.Name = "label9";
-            label9.Size = new Size(45, 15);
-            label9.TabIndex = 37;
-            label9.Text = "Sustain";
+            labelPitchSustain.AutoSize = true;
+            labelPitchSustain.Location = new Point(302, 203);
+            labelPitchSustain.Name = "labelPitchSustain";
+            labelPitchSustain.Size = new Size(45, 15);
+            labelPitchSustain.TabIndex = 37;
+            labelPitchSustain.Text = "Sustain";
             // 
-            // label8
+            // labelPitchL2
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(224, 203);
-            label8.Name = "label8";
-            label8.Size = new Size(19, 15);
-            label8.TabIndex = 36;
-            label8.Text = "L2";
+            labelPitchL2.AutoSize = true;
+            labelPitchL2.Location = new Point(224, 203);
+            labelPitchL2.Name = "labelPitchL2";
+            labelPitchL2.Size = new Size(19, 15);
+            labelPitchL2.TabIndex = 36;
+            labelPitchL2.Text = "L2";
             // 
-            // label7
+            // labelPitchL1
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(146, 203);
-            label7.Name = "label7";
-            label7.Size = new Size(19, 15);
-            label7.TabIndex = 35;
-            label7.Text = "L1";
+            labelPitchL1.AutoSize = true;
+            labelPitchL1.Location = new Point(146, 203);
+            labelPitchL1.Name = "labelPitchL1";
+            labelPitchL1.Size = new Size(19, 15);
+            labelPitchL1.TabIndex = 35;
+            labelPitchL1.Text = "L1";
             // 
-            // label6
+            // labelPitchL0
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(59, 203);
-            label6.Name = "label6";
-            label6.Size = new Size(19, 15);
-            label6.TabIndex = 34;
-            label6.Text = "L0";
+            labelPitchL0.AutoSize = true;
+            labelPitchL0.Location = new Point(59, 203);
+            labelPitchL0.Name = "labelPitchL0";
+            labelPitchL0.Size = new Size(19, 15);
+            labelPitchL0.TabIndex = 34;
+            labelPitchL0.Text = "L0";
             // 
-            // label5
+            // labelPitchT4
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(437, 292);
-            label5.Name = "label5";
-            label5.Size = new Size(19, 15);
-            label5.TabIndex = 33;
-            label5.Text = "T4";
+            labelPitchT4.AutoSize = true;
+            labelPitchT4.Location = new Point(437, 292);
+            labelPitchT4.Name = "labelPitchT4";
+            labelPitchT4.Size = new Size(19, 15);
+            labelPitchT4.TabIndex = 33;
+            labelPitchT4.Text = "T4";
             // 
-            // label4
+            // labelPitchT3
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(323, 292);
-            label4.Name = "label4";
-            label4.Size = new Size(19, 15);
-            label4.TabIndex = 32;
-            label4.Text = "T3";
+            labelPitchT3.AutoSize = true;
+            labelPitchT3.Location = new Point(323, 292);
+            labelPitchT3.Name = "labelPitchT3";
+            labelPitchT3.Size = new Size(19, 15);
+            labelPitchT3.TabIndex = 32;
+            labelPitchT3.Text = "T3";
             // 
-            // label3
+            // labelPitchT2
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(221, 292);
-            label3.Name = "label3";
-            label3.Size = new Size(19, 15);
-            label3.TabIndex = 31;
-            label3.Text = "T2";
+            labelPitchT2.AutoSize = true;
+            labelPitchT2.Location = new Point(221, 292);
+            labelPitchT2.Name = "labelPitchT2";
+            labelPitchT2.Size = new Size(19, 15);
+            labelPitchT2.TabIndex = 31;
+            labelPitchT2.Text = "T2";
             // 
-            // label2
+            // labelPitchT1
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(111, 293);
-            label2.Name = "label2";
-            label2.Size = new Size(19, 15);
-            label2.TabIndex = 30;
-            label2.Text = "T1";
+            labelPitchT1.AutoSize = true;
+            labelPitchT1.Location = new Point(111, 293);
+            labelPitchT1.Name = "labelPitchT1";
+            labelPitchT1.Size = new Size(19, 15);
+            labelPitchT1.TabIndex = 30;
+            labelPitchT1.Text = "T1";
             // 
             // trackBarPitchEnvReleaseLevel
             // 
@@ -921,7 +920,7 @@
             // 
             // groupBoxLFO
             // 
-            groupBoxLFO.Controls.Add(label49);
+            groupBoxLFO.Controls.Add(labelPitchLFOSettings);
             groupBoxLFO.Controls.Add(labelPitchLFOModSens);
             groupBoxLFO.Controls.Add(labelLFODepth);
             groupBoxLFO.Controls.Add(trackBarLFOModSens);
@@ -934,14 +933,14 @@
             groupBoxLFO.TabIndex = 29;
             groupBoxLFO.TabStop = false;
             // 
-            // label49
+            // labelPitchLFOSettings
             // 
-            label49.AutoSize = true;
-            label49.Location = new Point(6, 0);
-            label49.Name = "label49";
-            label49.Size = new Size(102, 15);
-            label49.TabIndex = 34;
-            label49.Text = "Pitch LFO settings";
+            labelPitchLFOSettings.AutoSize = true;
+            labelPitchLFOSettings.Location = new Point(6, 0);
+            labelPitchLFOSettings.Name = "labelPitchLFOSettings";
+            labelPitchLFOSettings.Size = new Size(102, 15);
+            labelPitchLFOSettings.TabIndex = 34;
+            labelPitchLFOSettings.Text = "Pitch LFO settings";
             // 
             // labelPitchLFOModSens
             // 
@@ -1021,27 +1020,26 @@
             // 
             // groupBoxTVF
             // 
-            groupBoxTVF.BackColor = Color.FromArgb(56, 56, 56);
-            groupBoxTVF.Controls.Add(label50);
+            groupBoxTVF.Controls.Add(labelColourTVFSettings);
             groupBoxTVF.Controls.Add(labelTVFDisabled);
-            groupBoxTVF.Controls.Add(label36);
+            groupBoxTVF.Controls.Add(labelTVFTimeKF);
             groupBoxTVF.Controls.Add(trackBarTVFTimeKeyfollow);
-            groupBoxTVF.Controls.Add(label37);
+            groupBoxTVF.Controls.Add(labelTVFDepthKF);
             groupBoxTVF.Controls.Add(trackBarTVFDepthKeyfollow);
-            groupBoxTVF.Controls.Add(label38);
-            groupBoxTVF.Controls.Add(label39);
+            groupBoxTVF.Controls.Add(labelTVFVeloSens);
+            groupBoxTVF.Controls.Add(labelTVFDepth);
             groupBoxTVF.Controls.Add(trackBarTVFEnvDepth);
             groupBoxTVF.Controls.Add(trackBarTVFVeloSensitivity);
-            groupBoxTVF.Controls.Add(label11);
+            groupBoxTVF.Controls.Add(labelTVFT5);
             groupBoxTVF.Controls.Add(trackBarTVFT5);
-            groupBoxTVF.Controls.Add(label12);
-            groupBoxTVF.Controls.Add(label13);
-            groupBoxTVF.Controls.Add(label14);
-            groupBoxTVF.Controls.Add(label15);
-            groupBoxTVF.Controls.Add(label16);
-            groupBoxTVF.Controls.Add(label17);
-            groupBoxTVF.Controls.Add(label18);
-            groupBoxTVF.Controls.Add(label19);
+            groupBoxTVF.Controls.Add(labelTVFSustain);
+            groupBoxTVF.Controls.Add(labelTVFL3);
+            groupBoxTVF.Controls.Add(labelTVFL2);
+            groupBoxTVF.Controls.Add(labelTVFL1);
+            groupBoxTVF.Controls.Add(labelTVFT4);
+            groupBoxTVF.Controls.Add(labelTVFT3);
+            groupBoxTVF.Controls.Add(labelTVFT2);
+            groupBoxTVF.Controls.Add(labelTVFT1);
             groupBoxTVF.Controls.Add(trackBarTVFSustain);
             groupBoxTVF.Controls.Add(groupBoxTVFBias);
             groupBoxTVF.Controls.Add(trackBarTVFL3);
@@ -1051,9 +1049,9 @@
             groupBoxTVF.Controls.Add(trackBarTVFT3);
             groupBoxTVF.Controls.Add(trackBarTVFT2);
             groupBoxTVF.Controls.Add(trackBarTVFT1);
-            groupBoxTVF.Controls.Add(label23);
+            groupBoxTVF.Controls.Add(labelTVFKeyfollow);
             groupBoxTVF.Controls.Add(trackBarTVFKeyfollow);
-            groupBoxTVF.Controls.Add(label24);
+            groupBoxTVF.Controls.Add(labelResonance);
             groupBoxTVF.Controls.Add(trackBarTVFResonance);
             groupBoxTVF.Controls.Add(labelTVFCutoff);
             groupBoxTVF.Controls.Add(trackBarTVFCutoff);
@@ -1065,15 +1063,15 @@
             groupBoxTVF.TabStop = false;
             groupBoxTVF.Paint += groupBoxTVF_Paint;
             // 
-            // label50
+            // labelColourTVFSettings
             // 
-            label50.AutoSize = true;
-            label50.ForeColor = Color.MediumTurquoise;
-            label50.Location = new Point(6, 0);
-            label50.Name = "label50";
-            label50.Size = new Size(175, 15);
-            label50.TabIndex = 73;
-            label50.Text = "Time Variant Filter (TVF) settings";
+            labelColourTVFSettings.AutoSize = true;
+            labelColourTVFSettings.ForeColor = Color.MediumTurquoise;
+            labelColourTVFSettings.Location = new Point(6, 0);
+            labelColourTVFSettings.Name = "labelColourTVFSettings";
+            labelColourTVFSettings.Size = new Size(175, 15);
+            labelColourTVFSettings.TabIndex = 73;
+            labelColourTVFSettings.Text = "Time Variant Filter (TVF) settings";
             // 
             // labelTVFDisabled
             // 
@@ -1085,15 +1083,15 @@
             labelTVFDisabled.Text = "Partial is in PCM mode: TVF settings disabled";
             labelTVFDisabled.Visible = false;
             // 
-            // label36
+            // labelTVFTimeKF
             // 
-            label36.AutoSize = true;
-            label36.Location = new Point(291, 131);
-            label36.Name = "label36";
-            label36.Size = new Size(49, 15);
-            label36.TabIndex = 53;
-            label36.Text = "Time KF";
-            label36.TextAlign = ContentAlignment.TopCenter;
+            labelTVFTimeKF.AutoSize = true;
+            labelTVFTimeKF.Location = new Point(291, 131);
+            labelTVFTimeKF.Name = "labelTVFTimeKF";
+            labelTVFTimeKF.Size = new Size(49, 15);
+            labelTVFTimeKF.TabIndex = 53;
+            labelTVFTimeKF.Text = "Time KF";
+            labelTVFTimeKF.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVFTimeKeyfollow
             // 
@@ -1109,15 +1107,15 @@
             trackBarTVFTimeKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVFTimeKeyfollow.ValueChanged += trackBarTVFTimeKeyfollow_ValueChanged;
             // 
-            // label37
+            // labelTVFDepthKF
             // 
-            label37.AutoSize = true;
-            label37.Location = new Point(229, 131);
-            label37.Name = "label37";
-            label37.Size = new Size(55, 15);
-            label37.TabIndex = 51;
-            label37.Text = "Depth KF";
-            label37.TextAlign = ContentAlignment.TopCenter;
+            labelTVFDepthKF.AutoSize = true;
+            labelTVFDepthKF.Location = new Point(229, 131);
+            labelTVFDepthKF.Name = "labelTVFDepthKF";
+            labelTVFDepthKF.Size = new Size(55, 15);
+            labelTVFDepthKF.TabIndex = 51;
+            labelTVFDepthKF.Text = "Depth KF";
+            labelTVFDepthKF.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVFDepthKeyfollow
             // 
@@ -1133,26 +1131,26 @@
             trackBarTVFDepthKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVFDepthKeyfollow.ValueChanged += trackBarTVFDepthKeyfollow_ValueChanged;
             // 
-            // label38
+            // labelTVFVeloSens
             // 
-            label38.AccessibleDescription = "TVF Envelope Velocity Sensitivity";
-            label38.AccessibleName = "TVF Envelope Velocity Sensitivity";
-            label38.AutoSize = true;
-            label38.Location = new Point(153, 278);
-            label38.Name = "label38";
-            label38.Size = new Size(59, 15);
-            label38.TabIndex = 49;
-            label38.Text = "Velo Sens.";
+            labelTVFVeloSens.AccessibleDescription = "TVF Envelope Velocity Sensitivity";
+            labelTVFVeloSens.AccessibleName = "TVF Envelope Velocity Sensitivity";
+            labelTVFVeloSens.AutoSize = true;
+            labelTVFVeloSens.Location = new Point(153, 278);
+            labelTVFVeloSens.Name = "labelTVFVeloSens";
+            labelTVFVeloSens.Size = new Size(59, 15);
+            labelTVFVeloSens.TabIndex = 49;
+            labelTVFVeloSens.Text = "Velo Sens.";
             // 
-            // label39
+            // labelTVFDepth
             // 
-            label39.AutoSize = true;
-            label39.Location = new Point(181, 131);
-            label39.Name = "label39";
-            label39.Size = new Size(39, 15);
-            label39.TabIndex = 47;
-            label39.Text = "Depth";
-            label39.TextAlign = ContentAlignment.TopCenter;
+            labelTVFDepth.AutoSize = true;
+            labelTVFDepth.Location = new Point(181, 131);
+            labelTVFDepth.Name = "labelTVFDepth";
+            labelTVFDepth.Size = new Size(39, 15);
+            labelTVFDepth.TabIndex = 47;
+            labelTVFDepth.Text = "Depth";
+            labelTVFDepth.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVFEnvDepth
             // 
@@ -1184,14 +1182,14 @@
             trackBarTVFVeloSensitivity.TickStyle = TickStyle.Both;
             trackBarTVFVeloSensitivity.ValueChanged += trackBarTVFVeloSensitivity_ValueChanged;
             // 
-            // label11
+            // labelTVFT5
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(655, 294);
-            label11.Name = "label11";
-            label11.Size = new Size(19, 15);
-            label11.TabIndex = 39;
-            label11.Text = "T5";
+            labelTVFT5.AutoSize = true;
+            labelTVFT5.Location = new Point(655, 294);
+            labelTVFT5.Name = "labelTVFT5";
+            labelTVFT5.Size = new Size(19, 15);
+            labelTVFT5.TabIndex = 39;
+            labelTVFT5.Text = "T5";
             // 
             // trackBarTVFT5
             // 
@@ -1208,77 +1206,77 @@
             trackBarTVFT5.TickStyle = TickStyle.TopLeft;
             trackBarTVFT5.ValueChanged += trackBarTVFT5_ValueChanged;
             // 
-            // label12
+            // labelTVFSustain
             // 
-            label12.AutoSize = true;
-            label12.Location = new Point(583, 185);
-            label12.Name = "label12";
-            label12.Size = new Size(45, 15);
-            label12.TabIndex = 37;
-            label12.Text = "Sustain";
+            labelTVFSustain.AutoSize = true;
+            labelTVFSustain.Location = new Point(583, 185);
+            labelTVFSustain.Name = "labelTVFSustain";
+            labelTVFSustain.Size = new Size(45, 15);
+            labelTVFSustain.TabIndex = 37;
+            labelTVFSustain.Text = "Sustain";
             // 
-            // label13
+            // labelTVFL3
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(511, 185);
-            label13.Name = "label13";
-            label13.Size = new Size(19, 15);
-            label13.TabIndex = 36;
-            label13.Text = "L3";
+            labelTVFL3.AutoSize = true;
+            labelTVFL3.Location = new Point(511, 185);
+            labelTVFL3.Name = "labelTVFL3";
+            labelTVFL3.Size = new Size(19, 15);
+            labelTVFL3.TabIndex = 36;
+            labelTVFL3.Text = "L3";
             // 
-            // label14
+            // labelTVFL2
             // 
-            label14.AutoSize = true;
-            label14.Location = new Point(432, 185);
-            label14.Name = "label14";
-            label14.Size = new Size(19, 15);
-            label14.TabIndex = 35;
-            label14.Text = "L2";
+            labelTVFL2.AutoSize = true;
+            labelTVFL2.Location = new Point(432, 185);
+            labelTVFL2.Name = "labelTVFL2";
+            labelTVFL2.Size = new Size(19, 15);
+            labelTVFL2.TabIndex = 35;
+            labelTVFL2.Text = "L2";
             // 
-            // label15
+            // labelTVFL1
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(354, 185);
-            label15.Name = "label15";
-            label15.Size = new Size(19, 15);
-            label15.TabIndex = 34;
-            label15.Text = "L1";
+            labelTVFL1.AutoSize = true;
+            labelTVFL1.Location = new Point(354, 185);
+            labelTVFL1.Name = "labelTVFL1";
+            labelTVFL1.Size = new Size(19, 15);
+            labelTVFL1.TabIndex = 34;
+            labelTVFL1.Text = "L1";
             // 
-            // label16
+            // labelTVFT4
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(564, 294);
-            label16.Name = "label16";
-            label16.Size = new Size(19, 15);
-            label16.TabIndex = 33;
-            label16.Text = "T4";
+            labelTVFT4.AutoSize = true;
+            labelTVFT4.Location = new Point(564, 294);
+            labelTVFT4.Name = "labelTVFT4";
+            labelTVFT4.Size = new Size(19, 15);
+            labelTVFT4.TabIndex = 33;
+            labelTVFT4.Text = "T4";
             // 
-            // label17
+            // labelTVFT3
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(471, 294);
-            label17.Name = "label17";
-            label17.Size = new Size(19, 15);
-            label17.TabIndex = 32;
-            label17.Text = "T3";
+            labelTVFT3.AutoSize = true;
+            labelTVFT3.Location = new Point(471, 294);
+            labelTVFT3.Name = "labelTVFT3";
+            labelTVFT3.Size = new Size(19, 15);
+            labelTVFT3.TabIndex = 32;
+            labelTVFT3.Text = "T3";
             // 
-            // label18
+            // labelTVFT2
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(371, 294);
-            label18.Name = "label18";
-            label18.Size = new Size(19, 15);
-            label18.TabIndex = 31;
-            label18.Text = "T2";
+            labelTVFT2.AutoSize = true;
+            labelTVFT2.Location = new Point(371, 294);
+            labelTVFT2.Name = "labelTVFT2";
+            labelTVFT2.Size = new Size(19, 15);
+            labelTVFT2.TabIndex = 31;
+            labelTVFT2.Text = "T2";
             // 
-            // label19
+            // labelTVFT1
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(282, 294);
-            label19.Name = "label19";
-            label19.Size = new Size(19, 15);
-            label19.TabIndex = 30;
-            label19.Text = "T1";
+            labelTVFT1.AutoSize = true;
+            labelTVFT1.Location = new Point(282, 294);
+            labelTVFT1.Name = "labelTVFT1";
+            labelTVFT1.Size = new Size(19, 15);
+            labelTVFT1.TabIndex = 30;
+            labelTVFT1.Text = "T1";
             // 
             // trackBarTVFSustain
             // 
@@ -1300,8 +1298,8 @@
             groupBoxTVFBias.Controls.Add(label51);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasLevel);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasPoint);
-            groupBoxTVFBias.Controls.Add(label34);
-            groupBoxTVFBias.Controls.Add(label35);
+            groupBoxTVFBias.Controls.Add(labelTVFBiasPt);
+            groupBoxTVFBias.Controls.Add(labelTVFBiasLevel);
             groupBoxTVFBias.Location = new Point(7, 151);
             groupBoxTVFBias.Name = "groupBoxTVFBias";
             groupBoxTVFBias.Size = new Size(130, 149);
@@ -1348,25 +1346,25 @@
             trackBarTVFBiasPoint.Value = 64;
             trackBarTVFBiasPoint.ValueChanged += trackBarTVFBiasPoint_ValueChanged;
             // 
-            // label34
+            // labelTVFBiasPt
             // 
-            label34.AutoSize = true;
-            label34.Location = new Point(13, 127);
-            label34.Name = "label34";
-            label34.Size = new Size(35, 15);
-            label34.TabIndex = 43;
-            label34.Text = "Point";
-            label34.TextAlign = ContentAlignment.TopCenter;
+            labelTVFBiasPt.AutoSize = true;
+            labelTVFBiasPt.Location = new Point(13, 127);
+            labelTVFBiasPt.Name = "labelTVFBiasPt";
+            labelTVFBiasPt.Size = new Size(35, 15);
+            labelTVFBiasPt.TabIndex = 43;
+            labelTVFBiasPt.Text = "Point";
+            labelTVFBiasPt.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label35
+            // labelTVFBiasLevel
             // 
-            label35.AutoSize = true;
-            label35.Location = new Point(72, 127);
-            label35.Name = "label35";
-            label35.Size = new Size(34, 15);
-            label35.TabIndex = 45;
-            label35.Text = "Level";
-            label35.TextAlign = ContentAlignment.TopCenter;
+            labelTVFBiasLevel.AutoSize = true;
+            labelTVFBiasLevel.Location = new Point(72, 127);
+            labelTVFBiasLevel.Name = "labelTVFBiasLevel";
+            labelTVFBiasLevel.Size = new Size(34, 15);
+            labelTVFBiasLevel.TabIndex = 45;
+            labelTVFBiasLevel.Text = "Level";
+            labelTVFBiasLevel.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVFL3
             // 
@@ -1473,15 +1471,15 @@
             trackBarTVFT1.TickStyle = TickStyle.TopLeft;
             trackBarTVFT1.ValueChanged += trackBarTVFT1_ValueChanged;
             // 
-            // label23
+            // labelTVFKeyfollow
             // 
-            label23.AutoSize = true;
-            label23.Location = new Point(121, 131);
-            label23.Name = "label23";
-            label23.Size = new Size(59, 15);
-            label23.TabIndex = 18;
-            label23.Text = "Keyfollow";
-            label23.TextAlign = ContentAlignment.TopCenter;
+            labelTVFKeyfollow.AutoSize = true;
+            labelTVFKeyfollow.Location = new Point(121, 131);
+            labelTVFKeyfollow.Name = "labelTVFKeyfollow";
+            labelTVFKeyfollow.Size = new Size(59, 15);
+            labelTVFKeyfollow.TabIndex = 18;
+            labelTVFKeyfollow.Text = "Keyfollow";
+            labelTVFKeyfollow.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVFKeyfollow
             // 
@@ -1498,16 +1496,16 @@
             trackBarTVFKeyfollow.Value = 11;
             trackBarTVFKeyfollow.ValueChanged += trackBarTVFKeyfollow_ValueChanged;
             // 
-            // label24
+            // labelResonance
             // 
-            label24.AccessibleDescription = "Pitch Envelope Velocity Sensitivity";
-            label24.AccessibleName = "Pitch Envelope Velocity Sensitivity";
-            label24.AutoSize = true;
-            label24.Location = new Point(55, 131);
-            label24.Name = "label24";
-            label24.Size = new Size(64, 15);
-            label24.TabIndex = 16;
-            label24.Text = "Resonance";
+            labelResonance.AccessibleDescription = "Pitch Envelope Velocity Sensitivity";
+            labelResonance.AccessibleName = "Pitch Envelope Velocity Sensitivity";
+            labelResonance.AutoSize = true;
+            labelResonance.Location = new Point(55, 131);
+            labelResonance.Name = "labelResonance";
+            labelResonance.Size = new Size(64, 15);
+            labelResonance.TabIndex = 16;
+            labelResonance.Text = "Resonance";
             // 
             // trackBarTVFResonance
             // 
@@ -1550,22 +1548,21 @@
             // 
             // groupBoxTVA
             // 
-            groupBoxTVA.BackColor = Color.FromArgb(56, 56, 56);
-            groupBoxTVA.Controls.Add(label52);
+            groupBoxTVA.Controls.Add(labelColourTVASettings);
             groupBoxTVA.Controls.Add(trackBarTVABiasLevel1);
             groupBoxTVA.Controls.Add(trackBarTVABiasPoint1);
-            groupBoxTVA.Controls.Add(label33);
+            groupBoxTVA.Controls.Add(labelTVFVeloKF);
             groupBoxTVA.Controls.Add(trackBarTVAVelocityKeyfollow);
-            groupBoxTVA.Controls.Add(label20);
+            groupBoxTVA.Controls.Add(labelTVAT5);
             groupBoxTVA.Controls.Add(trackBarTVAT5);
-            groupBoxTVA.Controls.Add(label21);
-            groupBoxTVA.Controls.Add(label22);
-            groupBoxTVA.Controls.Add(label25);
-            groupBoxTVA.Controls.Add(label26);
-            groupBoxTVA.Controls.Add(label27);
-            groupBoxTVA.Controls.Add(label28);
-            groupBoxTVA.Controls.Add(label29);
-            groupBoxTVA.Controls.Add(label30);
+            groupBoxTVA.Controls.Add(labelTVASust);
+            groupBoxTVA.Controls.Add(labelTVAL3);
+            groupBoxTVA.Controls.Add(labelTVAL2);
+            groupBoxTVA.Controls.Add(labelTVAL1);
+            groupBoxTVA.Controls.Add(labelTVAT4);
+            groupBoxTVA.Controls.Add(labelTVAT3);
+            groupBoxTVA.Controls.Add(labelTVAT2);
+            groupBoxTVA.Controls.Add(labelTVAT1);
             groupBoxTVA.Controls.Add(trackBarTVASustain);
             groupBoxTVA.Controls.Add(trackBarTVAL3);
             groupBoxTVA.Controls.Add(trackBarTVAL2);
@@ -1574,9 +1571,9 @@
             groupBoxTVA.Controls.Add(trackBarTVAT3);
             groupBoxTVA.Controls.Add(trackBarTVAT2);
             groupBoxTVA.Controls.Add(trackBarTVAT1);
-            groupBoxTVA.Controls.Add(label31);
+            groupBoxTVA.Controls.Add(labelTVATimeKF);
             groupBoxTVA.Controls.Add(trackBarTVATimeKeyfollow);
-            groupBoxTVA.Controls.Add(label32);
+            groupBoxTVA.Controls.Add(labelTVAVeloSens);
             groupBoxTVA.Controls.Add(trackBarTVAVeloSensitivity);
             groupBoxTVA.Controls.Add(labelTVALevel);
             groupBoxTVA.Controls.Add(trackBarTVALevel);
@@ -1588,15 +1585,15 @@
             groupBoxTVA.TabStop = false;
             groupBoxTVA.Paint += groupBoxTVA_Paint;
             // 
-            // label52
+            // labelColourTVASettings
             // 
-            label52.AutoSize = true;
-            label52.ForeColor = Color.Khaki;
-            label52.Location = new Point(7, 0);
-            label52.Name = "label52";
-            label52.Size = new Size(206, 15);
-            label52.TabIndex = 52;
-            label52.Text = "Time Variant Amplitude (TVA) settings";
+            labelColourTVASettings.AutoSize = true;
+            labelColourTVASettings.ForeColor = Color.Khaki;
+            labelColourTVASettings.Location = new Point(7, 0);
+            labelColourTVASettings.Name = "labelColourTVASettings";
+            labelColourTVASettings.Size = new Size(206, 15);
+            labelColourTVASettings.TabIndex = 52;
+            labelColourTVASettings.Text = "Time Variant Amplitude (TVA) settings";
             // 
             // trackBarTVABiasLevel1
             // 
@@ -1629,15 +1626,15 @@
             trackBarTVABiasPoint1.Value = 64;
             trackBarTVABiasPoint1.ValueChanged += trackBarTVABiasPoint1_ValueChanged;
             // 
-            // label33
+            // labelTVFVeloKF
             // 
-            label33.AutoSize = true;
-            label33.Location = new Point(180, 131);
-            label33.Name = "label33";
-            label33.Size = new Size(45, 15);
-            label33.TabIndex = 42;
-            label33.Text = "Velo KF";
-            label33.TextAlign = ContentAlignment.TopCenter;
+            labelTVFVeloKF.AutoSize = true;
+            labelTVFVeloKF.Location = new Point(180, 131);
+            labelTVFVeloKF.Name = "labelTVFVeloKF";
+            labelTVFVeloKF.Size = new Size(45, 15);
+            labelTVFVeloKF.TabIndex = 42;
+            labelTVFVeloKF.Text = "Velo KF";
+            labelTVFVeloKF.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVAVelocityKeyfollow
             // 
@@ -1653,14 +1650,14 @@
             trackBarTVAVelocityKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVAVelocityKeyfollow.ValueChanged += trackBarTVAVelocityKeyfollow_ValueChanged;
             // 
-            // label20
+            // labelTVAT5
             // 
-            label20.AutoSize = true;
-            label20.Location = new Point(656, 293);
-            label20.Name = "label20";
-            label20.Size = new Size(19, 15);
-            label20.TabIndex = 39;
-            label20.Text = "T5";
+            labelTVAT5.AutoSize = true;
+            labelTVAT5.Location = new Point(656, 293);
+            labelTVAT5.Name = "labelTVAT5";
+            labelTVAT5.Size = new Size(19, 15);
+            labelTVAT5.TabIndex = 39;
+            labelTVAT5.Text = "T5";
             // 
             // trackBarTVAT5
             // 
@@ -1677,83 +1674,82 @@
             trackBarTVAT5.TickStyle = TickStyle.TopLeft;
             trackBarTVAT5.ValueChanged += trackBarTVAT5_ValueChanged;
             // 
-            // label21
+            // labelTVASust
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(583, 183);
-            label21.Name = "label21";
-            label21.Size = new Size(45, 15);
-            label21.TabIndex = 37;
-            label21.Text = "Sustain";
+            labelTVASust.AutoSize = true;
+            labelTVASust.Location = new Point(583, 183);
+            labelTVASust.Name = "labelTVASust";
+            labelTVASust.Size = new Size(45, 15);
+            labelTVASust.TabIndex = 37;
+            labelTVASust.Text = "Sustain";
             // 
-            // label22
+            // labelTVAL3
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(512, 183);
-            label22.Name = "label22";
-            label22.Size = new Size(19, 15);
-            label22.TabIndex = 36;
-            label22.Text = "L3";
+            labelTVAL3.AutoSize = true;
+            labelTVAL3.Location = new Point(512, 183);
+            labelTVAL3.Name = "labelTVAL3";
+            labelTVAL3.Size = new Size(19, 15);
+            labelTVAL3.TabIndex = 36;
+            labelTVAL3.Text = "L3";
             // 
-            // label25
+            // labelTVAL2
             // 
-            label25.AutoSize = true;
-            label25.Location = new Point(433, 183);
-            label25.Name = "label25";
-            label25.Size = new Size(19, 15);
-            label25.TabIndex = 35;
-            label25.Text = "L2";
+            labelTVAL2.AutoSize = true;
+            labelTVAL2.Location = new Point(433, 183);
+            labelTVAL2.Name = "labelTVAL2";
+            labelTVAL2.Size = new Size(19, 15);
+            labelTVAL2.TabIndex = 35;
+            labelTVAL2.Text = "L2";
             // 
-            // label26
+            // labelTVAL1
             // 
-            label26.AutoSize = true;
-            label26.Location = new Point(357, 183);
-            label26.Name = "label26";
-            label26.Size = new Size(19, 15);
-            label26.TabIndex = 34;
-            label26.Text = "L1";
+            labelTVAL1.AutoSize = true;
+            labelTVAL1.Location = new Point(357, 183);
+            labelTVAL1.Name = "labelTVAL1";
+            labelTVAL1.Size = new Size(19, 15);
+            labelTVAL1.TabIndex = 34;
+            labelTVAL1.Text = "L1";
             // 
-            // label27
+            // labelTVAT4
             // 
-            label27.AutoSize = true;
-            label27.Location = new Point(565, 293);
-            label27.Name = "label27";
-            label27.Size = new Size(19, 15);
-            label27.TabIndex = 33;
-            label27.Text = "T4";
+            labelTVAT4.AutoSize = true;
+            labelTVAT4.Location = new Point(565, 293);
+            labelTVAT4.Name = "labelTVAT4";
+            labelTVAT4.Size = new Size(19, 15);
+            labelTVAT4.TabIndex = 33;
+            labelTVAT4.Text = "T4";
             // 
-            // label28
+            // labelTVAT3
             // 
-            label28.AutoSize = true;
-            label28.Location = new Point(472, 293);
-            label28.Name = "label28";
-            label28.Size = new Size(19, 15);
-            label28.TabIndex = 32;
-            label28.Text = "T3";
+            labelTVAT3.AutoSize = true;
+            labelTVAT3.Location = new Point(472, 293);
+            labelTVAT3.Name = "labelTVAT3";
+            labelTVAT3.Size = new Size(19, 15);
+            labelTVAT3.TabIndex = 32;
+            labelTVAT3.Text = "T3";
             // 
-            // label29
+            // labelTVAT2
             // 
-            label29.AutoSize = true;
-            label29.Location = new Point(372, 293);
-            label29.Name = "label29";
-            label29.Size = new Size(19, 15);
-            label29.TabIndex = 31;
-            label29.Text = "T2";
+            labelTVAT2.AutoSize = true;
+            labelTVAT2.Location = new Point(372, 293);
+            labelTVAT2.Name = "labelTVAT2";
+            labelTVAT2.Size = new Size(19, 15);
+            labelTVAT2.TabIndex = 31;
+            labelTVAT2.Text = "T2";
             // 
-            // label30
+            // labelTVAT1
             // 
-            label30.AutoSize = true;
-            label30.Location = new Point(283, 293);
-            label30.Name = "label30";
-            label30.Size = new Size(19, 15);
-            label30.TabIndex = 30;
-            label30.Text = "T1";
+            labelTVAT1.AutoSize = true;
+            labelTVAT1.Location = new Point(283, 293);
+            labelTVAT1.Name = "labelTVAT1";
+            labelTVAT1.Size = new Size(19, 15);
+            labelTVAT1.TabIndex = 30;
+            labelTVAT1.Text = "T1";
             // 
             // trackBarTVASustain
             // 
             trackBarTVASustain.AccessibleDescription = "TVA Envelope Sustain Level";
             trackBarTVASustain.AccessibleName = "TVA Envelope Sustain Level";
-            trackBarTVASustain.BackColor = Color.FromArgb(56, 56, 56);
             trackBarTVASustain.LargeChange = 10;
             trackBarTVASustain.Location = new Point(630, 147);
             trackBarTVASustain.Maximum = 100;
@@ -1870,15 +1866,15 @@
             trackBarTVAT1.TickStyle = TickStyle.TopLeft;
             trackBarTVAT1.ValueChanged += trackBarTVAT1_ValueChanged;
             // 
-            // label31
+            // labelTVATimeKF
             // 
-            label31.AutoSize = true;
-            label31.Location = new Point(125, 131);
-            label31.Name = "label31";
-            label31.Size = new Size(49, 15);
-            label31.TabIndex = 18;
-            label31.Text = "Time KF";
-            label31.TextAlign = ContentAlignment.TopCenter;
+            labelTVATimeKF.AutoSize = true;
+            labelTVATimeKF.Location = new Point(125, 131);
+            labelTVATimeKF.Name = "labelTVATimeKF";
+            labelTVATimeKF.Size = new Size(49, 15);
+            labelTVATimeKF.TabIndex = 18;
+            labelTVATimeKF.Text = "Time KF";
+            labelTVATimeKF.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarTVATimeKeyfollow
             // 
@@ -1894,16 +1890,16 @@
             trackBarTVATimeKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVATimeKeyfollow.ValueChanged += trackBarTVATimeKeyfollow_ValueChanged;
             // 
-            // label32
+            // labelTVAVeloSens
             // 
-            label32.AccessibleDescription = "TVA Velocity Sensitivity";
-            label32.AccessibleName = "TVA Velocity Sensitivity";
-            label32.AutoSize = true;
-            label32.Location = new Point(60, 131);
-            label32.Name = "label32";
-            label32.Size = new Size(59, 15);
-            label32.TabIndex = 16;
-            label32.Text = "Velo Sens.";
+            labelTVAVeloSens.AccessibleDescription = "TVA Velocity Sensitivity";
+            labelTVAVeloSens.AccessibleName = "TVA Velocity Sensitivity";
+            labelTVAVeloSens.AutoSize = true;
+            labelTVAVeloSens.Location = new Point(60, 131);
+            labelTVAVeloSens.Name = "labelTVAVeloSens";
+            labelTVAVeloSens.Size = new Size(59, 15);
+            labelTVAVeloSens.TabIndex = 16;
+            labelTVAVeloSens.Text = "Velo Sens.";
             // 
             // trackBarTVAVeloSensitivity
             // 
@@ -1952,11 +1948,11 @@
             // 
             groupBoxTVABias.Controls.Add(label53);
             groupBoxTVABias.Controls.Add(trackBarTVABiasLevel2);
-            groupBoxTVABias.Controls.Add(label41);
-            groupBoxTVABias.Controls.Add(label42);
+            groupBoxTVABias.Controls.Add(labelTVABiasL2);
+            groupBoxTVABias.Controls.Add(labelTVABiasL1);
             groupBoxTVABias.Controls.Add(trackBarTVABiasPoint2);
-            groupBoxTVABias.Controls.Add(label40);
-            groupBoxTVABias.Controls.Add(label43);
+            groupBoxTVABias.Controls.Add(labelTVABiasPt2);
+            groupBoxTVABias.Controls.Add(labelTVABiasPt1);
             groupBoxTVABias.Location = new Point(7, 149);
             groupBoxTVABias.Name = "groupBoxTVABias";
             groupBoxTVABias.Size = new Size(227, 154);
@@ -1987,27 +1983,27 @@
             trackBarTVABiasLevel2.TickStyle = TickStyle.Both;
             trackBarTVABiasLevel2.ValueChanged += trackBarTVABiasLevel2_ValueChanged;
             // 
-            // label41
+            // labelTVABiasL2
             // 
-            label41.AccessibleDescription = "TVA Bias Level 2";
-            label41.AccessibleName = "TVA Bias Level 2";
-            label41.AutoSize = true;
-            label41.Location = new Point(172, 122);
-            label41.Name = "label41";
-            label41.Size = new Size(43, 15);
-            label41.TabIndex = 46;
-            label41.Text = "Level 2";
+            labelTVABiasL2.AccessibleDescription = "TVA Bias Level 2";
+            labelTVABiasL2.AccessibleName = "TVA Bias Level 2";
+            labelTVABiasL2.AutoSize = true;
+            labelTVABiasL2.Location = new Point(172, 122);
+            labelTVABiasL2.Name = "labelTVABiasL2";
+            labelTVABiasL2.Size = new Size(43, 15);
+            labelTVABiasL2.TabIndex = 46;
+            labelTVABiasL2.Text = "Level 2";
             // 
-            // label42
+            // labelTVABiasL1
             // 
-            label42.AccessibleDescription = "TVA Bias Level 1";
-            label42.AccessibleName = "TVA Bias Level 1";
-            label42.AutoSize = true;
-            label42.Location = new Point(61, 122);
-            label42.Name = "label42";
-            label42.Size = new Size(43, 15);
-            label42.TabIndex = 46;
-            label42.Text = "Level 1";
+            labelTVABiasL1.AccessibleDescription = "TVA Bias Level 1";
+            labelTVABiasL1.AccessibleName = "TVA Bias Level 1";
+            labelTVABiasL1.AutoSize = true;
+            labelTVABiasL1.Location = new Point(61, 122);
+            labelTVABiasL1.Name = "labelTVABiasL1";
+            labelTVABiasL1.Size = new Size(43, 15);
+            labelTVABiasL1.TabIndex = 46;
+            labelTVABiasL1.Text = "Level 1";
             // 
             // trackBarTVABiasPoint2
             // 
@@ -2025,33 +2021,34 @@
             trackBarTVABiasPoint2.Value = 64;
             trackBarTVABiasPoint2.ValueChanged += trackBarTVABiasPoint2_ValueChanged;
             // 
-            // label40
+            // labelTVABiasPt2
             // 
-            label40.AccessibleDescription = "TVA Bias Point 2";
-            label40.AccessibleName = "TVA Bias Point 2";
-            label40.AutoSize = true;
-            label40.Location = new Point(118, 122);
-            label40.Name = "label40";
-            label40.Size = new Size(44, 15);
-            label40.TabIndex = 44;
-            label40.Text = "Point 2";
-            label40.TextAlign = ContentAlignment.TopCenter;
+            labelTVABiasPt2.AccessibleDescription = "TVA Bias Point 2";
+            labelTVABiasPt2.AccessibleName = "TVA Bias Point 2";
+            labelTVABiasPt2.AutoSize = true;
+            labelTVABiasPt2.Location = new Point(118, 122);
+            labelTVABiasPt2.Name = "labelTVABiasPt2";
+            labelTVABiasPt2.Size = new Size(44, 15);
+            labelTVABiasPt2.TabIndex = 44;
+            labelTVABiasPt2.Text = "Point 2";
+            labelTVABiasPt2.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label43
+            // labelTVABiasPt1
             // 
-            label43.AccessibleDescription = "TVA Bias Point 1";
-            label43.AccessibleName = "TVA Bias Point 1";
-            label43.AutoSize = true;
-            label43.Location = new Point(7, 122);
-            label43.Name = "label43";
-            label43.Size = new Size(44, 15);
-            label43.TabIndex = 44;
-            label43.Text = "Point 1";
-            label43.TextAlign = ContentAlignment.TopCenter;
+            labelTVABiasPt1.AccessibleDescription = "TVA Bias Point 1";
+            labelTVABiasPt1.AccessibleName = "TVA Bias Point 1";
+            labelTVABiasPt1.AutoSize = true;
+            labelTVABiasPt1.Location = new Point(7, 122);
+            labelTVABiasPt1.Name = "labelTVABiasPt1";
+            labelTVABiasPt1.Size = new Size(44, 15);
+            labelTVABiasPt1.TabIndex = 44;
+            labelTVABiasPt1.Text = "Point 1";
+            labelTVABiasPt1.TextAlign = ContentAlignment.TopCenter;
             // 
             // buttonRefresh
             // 
             buttonRefresh.AccessibleDescription = "Resend parameter data to device";
+            buttonRefresh.BackColor = Color.FromArgb(224, 224, 224);
             buttonRefresh.ForeColor = SystemColors.ActiveCaptionText;
             buttonRefresh.Image = (Image)resources.GetObject("buttonRefresh.Image");
             buttonRefresh.Location = new Point(164, 111);
@@ -2060,12 +2057,13 @@
             buttonRefresh.TabIndex = 49;
             buttonRefresh.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonRefresh, "Resend all timbre parameters to MIDI device");
-            buttonRefresh.UseVisualStyleBackColor = true;
+            buttonRefresh.UseVisualStyleBackColor = false;
             buttonRefresh.Click += buttonRefresh_Click;
             // 
             // buttonReset
             // 
             buttonReset.AccessibleDescription = "New timbre";
+            buttonReset.BackColor = Color.FromArgb(224, 224, 224);
             buttonReset.ForeColor = SystemColors.ActiveCaptionText;
             buttonReset.Image = (Image)resources.GetObject("buttonReset.Image");
             buttonReset.Location = new Point(23, 111);
@@ -2074,13 +2072,14 @@
             buttonReset.TabIndex = 50;
             buttonReset.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonReset, "Create a new timbre");
-            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.UseVisualStyleBackColor = false;
             buttonReset.Click += buttonReset_Click;
             // 
             // buttonSaveTimbreAs
             // 
             buttonSaveTimbreAs.AccessibleDescription = "Save timbre as";
             buttonSaveTimbreAs.AccessibleName = "Save timbre as";
+            buttonSaveTimbreAs.BackColor = Color.FromArgb(224, 224, 224);
             buttonSaveTimbreAs.ForeColor = SystemColors.ActiveCaptionText;
             buttonSaveTimbreAs.Image = (Image)resources.GetObject("buttonSaveTimbreAs.Image");
             buttonSaveTimbreAs.Location = new Point(164, 144);
@@ -2089,13 +2088,14 @@
             buttonSaveTimbreAs.TabIndex = 54;
             buttonSaveTimbreAs.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonSaveTimbreAs, "Save a .timbre file");
-            buttonSaveTimbreAs.UseVisualStyleBackColor = true;
+            buttonSaveTimbreAs.UseVisualStyleBackColor = false;
             buttonSaveTimbreAs.Click += buttonSaveTimbreAs_Click;
             // 
             // buttonQuickSaveTimbre
             // 
             buttonQuickSaveTimbre.AccessibleDescription = "Save timbre data";
             buttonQuickSaveTimbre.AccessibleName = "Save timbre data";
+            buttonQuickSaveTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonQuickSaveTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonQuickSaveTimbre.Image = (Image)resources.GetObject("buttonQuickSaveTimbre.Image");
             buttonQuickSaveTimbre.Location = new Point(94, 144);
@@ -2104,13 +2104,14 @@
             buttonQuickSaveTimbre.TabIndex = 55;
             buttonQuickSaveTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonQuickSaveTimbre, "Quick Save");
-            buttonQuickSaveTimbre.UseVisualStyleBackColor = true;
+            buttonQuickSaveTimbre.UseVisualStyleBackColor = false;
             buttonQuickSaveTimbre.Click += buttonQuickSaveTimbre_Click;
             // 
             // buttonLoadTimbre
             // 
             buttonLoadTimbre.AccessibleDescription = "Load timbre";
             buttonLoadTimbre.AccessibleName = "Load timbre";
+            buttonLoadTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonLoadTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonLoadTimbre.Image = (Image)resources.GetObject("buttonLoadTimbre.Image");
             buttonLoadTimbre.Location = new Point(23, 145);
@@ -2119,12 +2120,13 @@
             buttonLoadTimbre.TabIndex = 56;
             buttonLoadTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonLoadTimbre, "Load a .timbre file");
-            buttonLoadTimbre.UseVisualStyleBackColor = true;
+            buttonLoadTimbre.UseVisualStyleBackColor = false;
             buttonLoadTimbre.Click += buttonLoadTimbre_Click;
             // 
             // buttonPastePartial
             // 
             buttonPastePartial.AccessibleDescription = "Paste Partial values";
+            buttonPastePartial.BackColor = Color.FromArgb(224, 224, 224);
             buttonPastePartial.Enabled = false;
             buttonPastePartial.ForeColor = SystemColors.ActiveCaptionText;
             buttonPastePartial.Image = (Image)resources.GetObject("buttonPastePartial.Image");
@@ -2135,12 +2137,13 @@
             buttonPastePartial.TabIndex = 102;
             buttonPastePartial.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonPastePartial, "Paste copied settings to the currently selected partial");
-            buttonPastePartial.UseVisualStyleBackColor = true;
+            buttonPastePartial.UseVisualStyleBackColor = false;
             buttonPastePartial.Click += buttonPastePartial_Click;
             // 
             // buttonCopyPartial
             // 
             buttonCopyPartial.AccessibleDescription = "Copy Partial values";
+            buttonCopyPartial.BackColor = Color.FromArgb(224, 224, 224);
             buttonCopyPartial.ForeColor = SystemColors.ActiveCaptionText;
             buttonCopyPartial.Image = (Image)resources.GetObject("buttonCopyPartial.Image");
             buttonCopyPartial.ImageAlign = ContentAlignment.MiddleLeft;
@@ -2150,7 +2153,7 @@
             buttonCopyPartial.TabIndex = 101;
             buttonCopyPartial.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonCopyPartial, "Copy all settings from the currently selected partial");
-            buttonCopyPartial.UseVisualStyleBackColor = true;
+            buttonCopyPartial.UseVisualStyleBackColor = false;
             buttonCopyPartial.Click += buttonCopyPartial_Click;
             // 
             // textBoxTimbreName
@@ -2213,24 +2216,24 @@
             comboBoxPart34Struct.DrawItem += comboBoxPart34Struct_DrawItem;
             comboBoxPart34Struct.SelectedIndexChanged += comboBoxPart34Struct_SelectedIndexChanged;
             // 
-            // label45
+            // labelPartial12
             // 
-            label45.AutoSize = true;
-            label45.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label45.Location = new Point(7, 29);
-            label45.Name = "label45";
-            label45.Size = new Size(71, 15);
-            label45.TabIndex = 47;
-            label45.Text = "Partial 1 && 2";
+            labelPartial12.AutoSize = true;
+            labelPartial12.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            labelPartial12.Location = new Point(7, 29);
+            labelPartial12.Name = "labelPartial12";
+            labelPartial12.Size = new Size(71, 15);
+            labelPartial12.TabIndex = 47;
+            labelPartial12.Text = "Partial 1 && 2";
             // 
-            // label46
+            // labelPartial34
             // 
-            label46.AutoSize = true;
-            label46.Location = new Point(7, 58);
-            label46.Name = "label46";
-            label46.Size = new Size(71, 15);
-            label46.TabIndex = 48;
-            label46.Text = "Partial 3 && 4";
+            labelPartial34.AutoSize = true;
+            labelPartial34.Location = new Point(7, 58);
+            labelPartial34.Name = "labelPartial34";
+            labelPartial34.Size = new Size(71, 15);
+            labelPartial34.TabIndex = 48;
+            labelPartial34.Text = "Partial 3 && 4";
             // 
             // checkBoxShowLabels
             // 
@@ -2279,45 +2282,45 @@
             pictureBoxTVATVF.TabIndex = 77;
             pictureBoxTVATVF.TabStop = false;
             // 
-            // label54
+            // labelPitchEnvGraph
             // 
-            label54.AutoSize = true;
-            label54.Location = new Point(14, 775);
-            label54.Name = "label54";
-            label54.Size = new Size(181, 15);
-            label54.TabIndex = 78;
-            label54.Text = "Pitch envelope graph parameters";
-            label54.TextAlign = ContentAlignment.TopCenter;
+            labelPitchEnvGraph.AutoSize = true;
+            labelPitchEnvGraph.Location = new Point(14, 775);
+            labelPitchEnvGraph.Name = "labelPitchEnvGraph";
+            labelPitchEnvGraph.Size = new Size(181, 15);
+            labelPitchEnvGraph.TabIndex = 78;
+            labelPitchEnvGraph.Text = "Pitch envelope graph parameters";
+            labelPitchEnvGraph.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label55
+            // labelTVATVFEnvGraph
             // 
-            label55.AutoSize = true;
-            label55.Location = new Point(16, 881);
-            label55.Name = "label55";
-            label55.Size = new Size(198, 15);
-            label55.TabIndex = 79;
-            label55.Text = "TVA/TVF envelope graph parameters";
-            label55.TextAlign = ContentAlignment.TopCenter;
+            labelTVATVFEnvGraph.AutoSize = true;
+            labelTVATVFEnvGraph.Location = new Point(16, 881);
+            labelTVATVFEnvGraph.Name = "labelTVATVFEnvGraph";
+            labelTVATVFEnvGraph.Size = new Size(198, 15);
+            labelTVATVFEnvGraph.TabIndex = 79;
+            labelTVATVFEnvGraph.Text = "TVA/TVF envelope graph parameters";
+            labelTVATVFEnvGraph.TextAlign = ContentAlignment.TopCenter;
             // 
-            // groupBox1
+            // groupBoxEnvGraph
             // 
-            groupBox1.Controls.Add(label56);
-            groupBox1.Controls.Add(checkBoxShowLabels);
-            groupBox1.Controls.Add(checkBoxShowAllPartials);
-            groupBox1.Location = new Point(10, 708);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(236, 59);
-            groupBox1.TabIndex = 80;
-            groupBox1.TabStop = false;
+            groupBoxEnvGraph.Controls.Add(labelEnvGraphSettings);
+            groupBoxEnvGraph.Controls.Add(checkBoxShowLabels);
+            groupBoxEnvGraph.Controls.Add(checkBoxShowAllPartials);
+            groupBoxEnvGraph.Location = new Point(10, 708);
+            groupBoxEnvGraph.Name = "groupBoxEnvGraph";
+            groupBoxEnvGraph.Size = new Size(236, 59);
+            groupBoxEnvGraph.TabIndex = 80;
+            groupBoxEnvGraph.TabStop = false;
             // 
-            // label56
+            // labelEnvGraphSettings
             // 
-            label56.AutoSize = true;
-            label56.Location = new Point(6, 0);
-            label56.Name = "label56";
-            label56.Size = new Size(133, 15);
-            label56.TabIndex = 74;
-            label56.Text = "Envelope graph settings";
+            labelEnvGraphSettings.AutoSize = true;
+            labelEnvGraphSettings.Location = new Point(6, 0);
+            labelEnvGraphSettings.Name = "labelEnvGraphSettings";
+            labelEnvGraphSettings.Size = new Size(133, 15);
+            labelEnvGraphSettings.TabIndex = 74;
+            labelEnvGraphSettings.Text = "Envelope graph settings";
             // 
             // pictureBox1
             // 
@@ -2329,50 +2332,50 @@
             pictureBox1.TabIndex = 81;
             pictureBox1.TabStop = false;
             // 
-            // label57
+            // labelRefresh
             // 
-            label57.AutoSize = true;
-            label57.Location = new Point(191, 116);
-            label57.Name = "label57";
-            label57.Size = new Size(46, 15);
-            label57.TabIndex = 82;
-            label57.Text = "Refresh";
+            labelRefresh.AutoSize = true;
+            labelRefresh.Location = new Point(191, 116);
+            labelRefresh.Name = "labelRefresh";
+            labelRefresh.Size = new Size(46, 15);
+            labelRefresh.TabIndex = 82;
+            labelRefresh.Text = "Refresh";
             // 
-            // label58
+            // labelNewTimbre
             // 
-            label58.AutoSize = true;
-            label58.Location = new Point(52, 115);
-            label58.Name = "label58";
-            label58.Size = new Size(71, 15);
-            label58.TabIndex = 83;
-            label58.Text = "New Timbre";
+            labelNewTimbre.AutoSize = true;
+            labelNewTimbre.Location = new Point(52, 115);
+            labelNewTimbre.Name = "labelNewTimbre";
+            labelNewTimbre.Size = new Size(71, 15);
+            labelNewTimbre.TabIndex = 83;
+            labelNewTimbre.Text = "New Timbre";
             // 
-            // label59
+            // labelSaveAs
             // 
-            label59.AutoSize = true;
-            label59.Location = new Point(194, 149);
-            label59.Name = "label59";
-            label59.Size = new Size(47, 15);
-            label59.TabIndex = 84;
-            label59.Text = "Save As";
+            labelSaveAs.AutoSize = true;
+            labelSaveAs.Location = new Point(194, 149);
+            labelSaveAs.Name = "labelSaveAs";
+            labelSaveAs.Size = new Size(47, 15);
+            labelSaveAs.TabIndex = 84;
+            labelSaveAs.Text = "Save As";
             // 
-            // label60
+            // labelSave
             // 
-            label60.AutoSize = true;
-            label60.Location = new Point(123, 149);
-            label60.Name = "label60";
-            label60.Size = new Size(31, 15);
-            label60.TabIndex = 85;
-            label60.Text = "Save";
+            labelSave.AutoSize = true;
+            labelSave.Location = new Point(123, 149);
+            labelSave.Name = "labelSave";
+            labelSave.Size = new Size(31, 15);
+            labelSave.TabIndex = 85;
+            labelSave.Text = "Save";
             // 
-            // label61
+            // labelLoad
             // 
-            label61.AutoSize = true;
-            label61.Location = new Point(54, 149);
-            label61.Name = "label61";
-            label61.Size = new Size(33, 15);
-            label61.TabIndex = 86;
-            label61.Text = "Load";
+            labelLoad.AutoSize = true;
+            labelLoad.Location = new Point(54, 149);
+            labelLoad.Name = "labelLoad";
+            labelLoad.Size = new Size(33, 15);
+            labelLoad.TabIndex = 86;
+            labelLoad.Text = "Load";
             // 
             // imageList
             // 
@@ -2411,15 +2414,15 @@
             pictureBoxPartial34.TabIndex = 90;
             pictureBoxPartial34.TabStop = false;
             // 
-            // label64
+            // labelPartialStruct
             // 
-            label64.AutoSize = true;
-            label64.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label64.Location = new Point(6, 1);
-            label64.Name = "label64";
-            label64.Size = new Size(91, 15);
-            label64.TabIndex = 91;
-            label64.Text = "Partial Structure";
+            labelPartialStruct.AutoSize = true;
+            labelPartialStruct.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            labelPartialStruct.Location = new Point(6, 1);
+            labelPartialStruct.Name = "labelPartialStruct";
+            labelPartialStruct.Size = new Size(91, 15);
+            labelPartialStruct.TabIndex = 91;
+            labelPartialStruct.Text = "Partial Structure";
             // 
             // label65
             // 
@@ -2430,16 +2433,16 @@
             label65.Size = new Size(0, 15);
             label65.TabIndex = 92;
             // 
-            // label66
+            // labelPartialType
             // 
-            label66.AutoSize = true;
-            label66.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            label66.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label66.Location = new Point(51, 89);
-            label66.Name = "label66";
-            label66.Size = new Size(165, 15);
-            label66.TabIndex = 93;
-            label66.Text = "S: Synth, P: PCM, R: Ring Mod.";
+            labelPartialType.AutoSize = true;
+            labelPartialType.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            labelPartialType.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
+            labelPartialType.Location = new Point(51, 89);
+            labelPartialType.Name = "labelPartialType";
+            labelPartialType.Size = new Size(165, 15);
+            labelPartialType.TabIndex = 93;
+            labelPartialType.Text = "S: Synth, P: PCM, R: Ring Mod.";
             // 
             // groupBoxPartialStructure
             // 
@@ -2447,8 +2450,8 @@
             groupBoxPartialStructure.Controls.Add(radioButtonPartial3);
             groupBoxPartialStructure.Controls.Add(radioButtonPartial2);
             groupBoxPartialStructure.Controls.Add(radioButtonPartial1);
-            groupBoxPartialStructure.Controls.Add(label63);
-            groupBoxPartialStructure.Controls.Add(label62);
+            groupBoxPartialStructure.Controls.Add(labelPaste);
+            groupBoxPartialStructure.Controls.Add(labelCopy);
             groupBoxPartialStructure.Controls.Add(labelPartialWarning);
             groupBoxPartialStructure.Controls.Add(buttonPastePartial);
             groupBoxPartialStructure.Controls.Add(buttonCopyPartial);
@@ -2458,13 +2461,13 @@
             groupBoxPartialStructure.Controls.Add(checkBoxPartial1);
             groupBoxPartialStructure.Controls.Add(labelEnablePartials);
             groupBoxPartialStructure.Controls.Add(labelEditPartialNo);
-            groupBoxPartialStructure.Controls.Add(label45);
-            groupBoxPartialStructure.Controls.Add(label64);
-            groupBoxPartialStructure.Controls.Add(label66);
+            groupBoxPartialStructure.Controls.Add(labelPartial12);
+            groupBoxPartialStructure.Controls.Add(labelPartialStruct);
+            groupBoxPartialStructure.Controls.Add(labelPartialType);
             groupBoxPartialStructure.Controls.Add(comboBoxPart12Struct);
             groupBoxPartialStructure.Controls.Add(label65);
             groupBoxPartialStructure.Controls.Add(comboBoxPart34Struct);
-            groupBoxPartialStructure.Controls.Add(label46);
+            groupBoxPartialStructure.Controls.Add(labelPartial34);
             groupBoxPartialStructure.Controls.Add(pictureBoxPartial34);
             groupBoxPartialStructure.Controls.Add(pictureBoxPartial12);
             groupBoxPartialStructure.Location = new Point(11, 210);
@@ -2522,23 +2525,23 @@
             radioButtonPartial1.UseVisualStyleBackColor = true;
             radioButtonPartial1.CheckedChanged += radioButtonPartial1_CheckedChanged;
             // 
-            // label63
+            // labelPaste
             // 
-            label63.AutoSize = true;
-            label63.Location = new Point(194, 208);
-            label63.Name = "label63";
-            label63.Size = new Size(35, 15);
-            label63.TabIndex = 105;
-            label63.Text = "Paste";
+            labelPaste.AutoSize = true;
+            labelPaste.Location = new Point(194, 208);
+            labelPaste.Name = "labelPaste";
+            labelPaste.Size = new Size(35, 15);
+            labelPaste.TabIndex = 105;
+            labelPaste.Text = "Paste";
             // 
-            // label62
+            // labelCopy
             // 
-            label62.AutoSize = true;
-            label62.Location = new Point(194, 177);
-            label62.Name = "label62";
-            label62.Size = new Size(35, 15);
-            label62.TabIndex = 104;
-            label62.Text = "Copy";
+            labelCopy.AutoSize = true;
+            labelCopy.Location = new Point(194, 177);
+            labelCopy.Name = "labelCopy";
+            labelCopy.Size = new Size(35, 15);
+            labelCopy.TabIndex = 104;
+            labelCopy.Text = "Copy";
             // 
             // labelPartialWarning
             // 
@@ -2622,15 +2625,15 @@
             ClientSize = new Size(991, 1003);
             ControlBox = false;
             Controls.Add(groupBoxPartialStructure);
-            Controls.Add(label61);
-            Controls.Add(label60);
-            Controls.Add(label59);
-            Controls.Add(label58);
-            Controls.Add(label57);
+            Controls.Add(labelLoad);
+            Controls.Add(labelSave);
+            Controls.Add(labelSaveAs);
+            Controls.Add(labelNewTimbre);
+            Controls.Add(labelRefresh);
             Controls.Add(pictureBox1);
-            Controls.Add(groupBox1);
-            Controls.Add(label55);
-            Controls.Add(label54);
+            Controls.Add(groupBoxEnvGraph);
+            Controls.Add(labelTVATVFEnvGraph);
+            Controls.Add(labelPitchEnvGraph);
             Controls.Add(pictureBoxTVATVF);
             Controls.Add(labelHeading);
             Controls.Add(buttonLoadTimbre);
@@ -2733,8 +2736,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarTVABiasLevel2).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarTVABiasPoint2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxTVATVF).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            groupBoxEnvGraph.ResumeLayout(false);
+            groupBoxEnvGraph.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).EndInit();
@@ -2786,27 +2789,27 @@
         private TrackBar trackBarLFODepth;
         private Label labelLFORate;
         private TrackBar trackBarLFORate;
-        private Label label10;
-        private Label label9;
-        private Label label8;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
+        private Label labelPitchRelease;
+        private Label labelPitchSustain;
+        private Label labelPitchL2;
+        private Label labelPitchL1;
+        private Label labelPitchL0;
+        private Label labelPitchT4;
+        private Label labelPitchT3;
+        private Label labelPitchT2;
+        private Label labelPitchT1;
         private TrackBar trackBarPitchEnvReleaseLevel;
         private GroupBox groupBoxTVF;
-        private Label label11;
+        private Label labelTVFT5;
         private TrackBar trackBarTVFT5;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
-        private Label label19;
+        private Label labelTVFSustain;
+        private Label labelTVFL3;
+        private Label labelTVFL2;
+        private Label labelTVFL1;
+        private Label labelTVFT4;
+        private Label labelTVFT3;
+        private Label labelTVFT2;
+        private Label labelTVFT1;
         private TrackBar trackBarTVFSustain;
         private TrackBar trackBarTVFL3;
         private TrackBar trackBarTVFL2;
@@ -2815,23 +2818,23 @@
         private TrackBar trackBarTVFT3;
         private TrackBar trackBarTVFT2;
         private TrackBar trackBarTVFT1;
-        private Label label23;
+        private Label labelTVFKeyfollow;
         private TrackBar trackBarTVFKeyfollow;
-        private Label label24;
+        private Label labelResonance;
         private TrackBar trackBarTVFResonance;
         private Label labelTVFCutoff;
         private TrackBar trackBarTVFCutoff;
         private GroupBox groupBoxTVA;
-        private Label label20;
+        private Label labelTVAT5;
         private TrackBar trackBarTVAT5;
-        private Label label21;
-        private Label label22;
-        private Label label25;
-        private Label label26;
-        private Label label27;
-        private Label label28;
-        private Label label29;
-        private Label label30;
+        private Label labelTVASust;
+        private Label labelTVAL3;
+        private Label labelTVAL2;
+        private Label labelTVAL1;
+        private Label labelTVAT4;
+        private Label labelTVAT3;
+        private Label labelTVAT2;
+        private Label labelTVAT1;
         private TrackBar trackBarTVASustain;
         private TrackBar trackBarTVAL3;
         private TrackBar trackBarTVAL2;
@@ -2840,44 +2843,44 @@
         private TrackBar trackBarTVAT3;
         private TrackBar trackBarTVAT2;
         private TrackBar trackBarTVAT1;
-        private Label label31;
+        private Label labelTVATimeKF;
         private TrackBar trackBarTVATimeKeyfollow;
-        private Label label32;
+        private Label labelTVAVeloSens;
         private TrackBar trackBarTVAVeloSensitivity;
         private Label labelTVALevel;
         private TrackBar trackBarTVALevel;
         private ToolTip toolTipParameterValue;
-        private Label label33;
+        private Label labelTVFVeloKF;
         private TrackBar trackBarTVAVelocityKeyfollow;
-        private Label label35;
+        private Label labelTVFBiasLevel;
         private TrackBar trackBarTVFBiasLevel;
-        private Label label34;
+        private Label labelTVFBiasPt;
         private TrackBar trackBarTVFBiasPoint;
-        private Label label36;
+        private Label labelTVFTimeKF;
         private TrackBar trackBarTVFTimeKeyfollow;
-        private Label label37;
+        private Label labelTVFDepthKF;
         private TrackBar trackBarTVFDepthKeyfollow;
-        private Label label38;
-        private Label label39;
+        private Label labelTVFVeloSens;
+        private Label labelTVFDepth;
         private TrackBar trackBarTVFEnvDepth;
         private TrackBar trackBarTVFVeloSensitivity;
         private GroupBox groupBoxTVFBias;
-        private Label label42;
+        private Label labelTVABiasL1;
         private TrackBar trackBarTVABiasLevel1;
-        private Label label43;
+        private Label labelTVABiasPt1;
         private TrackBar trackBarTVABiasPoint1;
         private GroupBox groupBoxTVABias;
         private TrackBar trackBarTVABiasLevel2;
-        private Label label41;
+        private Label labelTVABiasL2;
         private TrackBar trackBarTVABiasPoint2;
-        private Label label40;
+        private Label labelTVABiasPt2;
         private TextBox textBoxTimbreName;
         private Label labelTimbreName;
         private CheckBox checkBoxSustain;
         private ComboBox comboBoxPart12Struct;
         private ComboBox comboBoxPart34Struct;
-        private Label label45;
-        private Label label46;
+        private Label labelPartial12;
+        private Label labelPartial34;
         private Button buttonRefresh;
         private Button buttonReset;
         private Button buttonSaveTimbreAs;
@@ -2887,38 +2890,38 @@
         private RadioButton radioButtonPCMBank2;
         private RadioButton radioButtonPCMBank1;
         private CheckBox checkBoxShowLabels;
-        private Label label44;
-        private Label label47;
-        private Label label48;
-        private Label label49;
-        private Label label50;
+        private Label labelPitchSettings;
+        private Label labelWaveFormSettings;
+        private Label labelColourPitchSettings;
+        private Label labelPitchLFOSettings;
+        private Label labelColourTVFSettings;
         private Label label51;
-        private Label label52;
+        private Label labelColourTVASettings;
         private Label label53;
         private CheckBox checkBoxShowAllPartials;
         private System.Windows.Forms.Timer timer;
         private Label labelHeading;
         private Label labelNoActivePartials;
         private PictureBox pictureBoxTVATVF;
-        private Label label54;
-        private Label label55;
-        private GroupBox groupBox1;
-        private Label label56;
+        private Label labelPitchEnvGraph;
+        private Label labelTVATVFEnvGraph;
+        private GroupBox groupBoxEnvGraph;
+        private Label labelEnvGraphSettings;
         private PictureBox pictureBox1;
-        private Label label57;
-        private Label label58;
-        private Label label59;
-        private Label label60;
-        private Label label61;
+        private Label labelRefresh;
+        private Label labelNewTimbre;
+        private Label labelSaveAs;
+        private Label labelSave;
+        private Label labelLoad;
         private ImageList imageList;
         private PictureBox pictureBoxPartial12;
         private PictureBox pictureBoxPartial34;
-        private Label label64;
+        private Label labelPartialStruct;
         private Label label65;
-        private Label label66;
+        private Label labelPartialType;
         private GroupBox groupBoxPartialStructure;
-        private Label label63;
-        private Label label62;
+        private Label labelPaste;
+        private Label labelCopy;
         private Label labelPartialWarning;
         private Button buttonPastePartial;
         private Button buttonCopyPartial;

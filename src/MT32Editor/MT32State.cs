@@ -6,26 +6,33 @@
 public class MT32State
 {
     // MT32Edit: MT32State class
-    // S.Fryers Feb 2024
+    // S.Fryers Mar 2024
+
+    public const int NO_OF_MEMORY_TIMBRES = 64;
+    public const int NO_OF_PATCHES = 128;
+    public const int NO_OF_RHYTHM_BANKS = 85;
 
     private SystemLevel system = new SystemLevel();
-
-    private Patch[] patchArray = new Patch[128];
-    private Rhythm[] rhythmBank = new Rhythm[85];
-    private TimbreStructure[] memoryTimbre = new TimbreStructure[64];
+    private TimbreStructure[] memoryTimbre = new TimbreStructure[NO_OF_MEMORY_TIMBRES];
+    private Patch[] patchArray = new Patch[NO_OF_PATCHES];
+    private Rhythm[] rhythmBank = new Rhythm[NO_OF_RHYTHM_BANKS];
     private readonly TimbreNames timbreName = new TimbreNames();
-    private DateTime timeOfLastFullUpdate = DateTime.Now;
-    public bool patchEditorActive = false;
-    public bool rhythmEditorActive = false;
-    public bool returnFocusToPatchEditor = false;
-    public bool returnFocusToRhythmEditor = false;
-    public bool returnFocusToMemoryBankList = false;
-    public bool enableTimbreSaveButton = false;
-    public bool changesMade = false;
+    private DateTime timeOfLastFullUpdate = DateTime.Now; 
+
     private bool timbreEditable = true;
     private int selectedPatch = 0;
     private int selectedMemoryTimbre = 0;
-    private int selectedKey = 24;
+    private int selectedKey = RhythmConstants.KEY_OFFSET;
+
+    public bool patchEditorActive { get; set; } = false;
+    public bool rhythmEditorActive { get; set; } = false;
+    public bool returnFocusToPatchEditor { get; set; } = false;
+    public bool returnFocusToRhythmEditor { get; set; } = false;
+    public bool returnFocusToMemoryBankList { get; set; } = false;
+    public bool enableTimbreSaveButton { get; set; } = false;
+    public bool changesMade { get; set; } = false;
+    public bool requestPatchRefresh { get; set; } = false;
+    public bool requestRhythmRefresh { get; set; } = false;
 
     public MT32State()
     {
@@ -44,7 +51,7 @@ public class MT32State
 
     private void InitialisePatchArray()
     {
-        for (int patchNo = 0; patchNo < 128; patchNo++)
+        for (int patchNo = 0; patchNo < NO_OF_PATCHES; patchNo++)
         {
             patchArray[patchNo] = new Patch(patchNo);
         }
@@ -52,7 +59,7 @@ public class MT32State
 
     public void InitialiseMemoryTimbreArray()
     {
-        for (int timbreNo = 0; timbreNo < 64; timbreNo++)
+        for (int timbreNo = 0; timbreNo < NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
             memoryTimbre[timbreNo] = new TimbreStructure(false);
         }
@@ -60,10 +67,9 @@ public class MT32State
 
     public void InitialiseRhythmBank()
     {
-        int keyOffset = 24;
-        for (int keyNo = 24; keyNo < 109; keyNo++)
+        for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < RhythmConstants.KEY_OFFSET + NO_OF_RHYTHM_BANKS; keyNo++)
         {
-            int bankNo = keyNo - keyOffset;
+            int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
             rhythmBank[bankNo] = new Rhythm(keyNo);
         }
     }
@@ -76,17 +82,17 @@ public class MT32State
     public void SetUpdateTime()
     {
         timeOfLastFullUpdate = DateTime.Now;
-        for (int patchNo = 0; patchNo < 128; patchNo++)
+        for (int patchNo = 0; patchNo < NO_OF_PATCHES; patchNo++)
         {
             patchArray[patchNo].SetUpdateTime();
         }
 
-        for (int timbreNo = 0; timbreNo < 64; timbreNo++)
+        for (int timbreNo = 0; timbreNo < NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
             memoryTimbre[timbreNo].SetUpdateTime();
         }
 
-        for (int bankNo = 0; bankNo < 84; bankNo++)
+        for (int bankNo = 0; bankNo < NO_OF_RHYTHM_BANKS; bankNo++)
         {
             rhythmBank[bankNo].SetUpdateTime();
         }
@@ -94,22 +100,22 @@ public class MT32State
 
     private void ValidateTimbreNo(int timbreNo)
     {
-        LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+        LogicTools.ValidateRange("Timbre No.", timbreNo, 0, NO_OF_MEMORY_TIMBRES - 1, autoCorrect: false);
     }
 
     private void ValidatePatchNo(int patchNo)
     {
-        LogicTools.ValidateRange("Patch No.", patchNo, 0, 127, autoCorrect: false);
+        LogicTools.ValidateRange("Patch No.", patchNo, 0, NO_OF_PATCHES - 1, autoCorrect: false);
     }
 
     private void ValidateKeyNo(int keyNo)
     {
-        LogicTools.ValidateRange("Key No.", keyNo, 24, 108, autoCorrect: false);
+        LogicTools.ValidateRange("Key No.", keyNo, 24, NO_OF_RHYTHM_BANKS + RhythmConstants.KEY_OFFSET - 1, autoCorrect: false);
     }
 
     private void ValidateBankNo(int bankNo)
     {
-        LogicTools.ValidateRange("Bank No.", bankNo, 0, 85, autoCorrect: false);
+        LogicTools.ValidateRange("Bank No.", bankNo, 0, NO_OF_RHYTHM_BANKS - 1, autoCorrect: false);
     }
 
     public TimbreStructure[] GetMemoryTimbreArray()
@@ -126,6 +132,12 @@ public class MT32State
     {
         ValidateTimbreNo(timbreNo);
         return memoryTimbre[timbreNo];
+    }
+
+    public string GetMemoryTimbreName(int timbreNo)
+    {
+        ValidateTimbreNo(timbreNo);
+        return ParseTools.RemoveTrailingSpaces(GetTimbreNames().Get(timbreNo, 2));
     }
 
     public void SetMemoryTimbre(TimbreStructure memoryTimbreInput, int timbreNo)
@@ -166,13 +178,20 @@ public class MT32State
         rhythmBank = rhythmBankArrayInput;
     }
 
-    public Rhythm GetRhythm(int bankNo)
+    public Rhythm GetRhythmBank(int bankNo)
     {
         ValidateBankNo(bankNo);
         return rhythmBank[bankNo];
     }
 
-    public void SetRhythm(Rhythm rhythmBankInput, int bankNo)
+    public Rhythm GetRhythmKey(int keyNo)
+    {
+        int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
+        ValidateKeyNo(keyNo);
+        return rhythmBank[bankNo];
+    }
+
+    public void SetRhythmBank(Rhythm rhythmBankInput, int bankNo)
     {
         ValidateBankNo(bankNo);
         rhythmBank[bankNo] = rhythmBankInput;
@@ -227,7 +246,7 @@ public class MT32State
 
     public int GetSelectedBank()
     {
-        return selectedKey - 24;
+        return selectedKey - RhythmConstants.KEY_OFFSET;
     }
 
     public void SetSelectedMemoryTimbre(int timbreNo)

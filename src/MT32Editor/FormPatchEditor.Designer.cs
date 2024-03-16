@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            ListViewItem listViewItem1 = new ListViewItem("");
+            ListViewItem listViewItem2 = new ListViewItem("");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPatchEditor));
             listViewPatches = new ListView();
             columnHeaderPatchNo = new ColumnHeader();
             columnHeaderTimbreGroup = new ColumnHeader();
@@ -42,24 +43,26 @@
             comboBoxTimbreGroup = new ComboBox();
             numericUpDownPatchNo = new NumericUpDown();
             comboBoxTimbreName = new ComboBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            labelPatchNo = new Label();
+            labelTimbreGroup = new Label();
+            labelTimbreName = new Label();
             trackBarKeyShift = new TrackBar();
             trackBarFineTune = new TrackBar();
             trackBarBenderRange = new TrackBar();
             radioButtonReverbOn = new RadioButton();
             radioButtonReverbOff = new RadioButton();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label9 = new Label();
+            labelKeyShift = new Label();
+            labelFineTune = new Label();
+            labelBendRange = new Label();
+            labelReverb = new Label();
             comboBoxAssignMode = new ComboBox();
-            label10 = new Label();
+            labelAssignMode = new Label();
             toolTipParameterValue = new ToolTip(components);
+            labelUnitNoWarning = new Label();
             labelHeading = new Label();
             timer = new System.Windows.Forms.Timer(components);
             buttonEditPreset = new Button();
+            labelNoChannelAssigned = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPatchNo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarKeyShift).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFineTune).BeginInit();
@@ -73,7 +76,7 @@
             listViewPatches.ForeColor = SystemColors.Control;
             listViewPatches.FullRowSelect = true;
             listViewPatches.GridLines = true;
-            listViewPatches.Items.AddRange(new ListViewItem[] { listViewItem1 });
+            listViewPatches.Items.AddRange(new ListViewItem[] { listViewItem2 });
             listViewPatches.Location = new Point(14, 305);
             listViewPatches.MinimumSize = new Size(0, 28);
             listViewPatches.MultiSelect = false;
@@ -127,6 +130,7 @@
             // 
             // comboBoxTimbreGroup
             // 
+            comboBoxTimbreGroup.BackColor = SystemColors.Window;
             comboBoxTimbreGroup.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTimbreGroup.FormattingEnabled = true;
             comboBoxTimbreGroup.Items.AddRange(new object[] { "Preset A", "Preset B", "Memory", "Rhythm" });
@@ -157,35 +161,35 @@
             comboBoxTimbreName.TabIndex = 5;
             comboBoxTimbreName.SelectionChangeCommitted += comboBoxTimbreName_SelectionChangeCommitted;
             // 
-            // label1
+            // labelPatchNo
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(320, 46);
-            label1.Name = "label1";
-            label1.Size = new Size(59, 15);
-            label1.TabIndex = 6;
-            label1.Text = "Patch No.";
+            labelPatchNo.AutoSize = true;
+            labelPatchNo.ForeColor = SystemColors.Control;
+            labelPatchNo.Location = new Point(320, 46);
+            labelPatchNo.Name = "labelPatchNo";
+            labelPatchNo.Size = new Size(59, 15);
+            labelPatchNo.TabIndex = 6;
+            labelPatchNo.Text = "Patch No.";
             // 
-            // label2
+            // labelTimbreGroup
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(92, 95);
-            label2.Name = "label2";
-            label2.Size = new Size(80, 15);
-            label2.TabIndex = 7;
-            label2.Text = "Timbre Group";
+            labelTimbreGroup.AutoSize = true;
+            labelTimbreGroup.ForeColor = SystemColors.Control;
+            labelTimbreGroup.Location = new Point(92, 95);
+            labelTimbreGroup.Name = "labelTimbreGroup";
+            labelTimbreGroup.Size = new Size(80, 15);
+            labelTimbreGroup.TabIndex = 7;
+            labelTimbreGroup.Text = "Timbre Group";
             // 
-            // label3
+            // labelTimbreName
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(219, 95);
-            label3.Name = "label3";
-            label3.Size = new Size(79, 15);
-            label3.TabIndex = 8;
-            label3.Text = "Timbre Name";
+            labelTimbreName.AutoSize = true;
+            labelTimbreName.ForeColor = SystemColors.Control;
+            labelTimbreName.Location = new Point(219, 95);
+            labelTimbreName.Name = "labelTimbreName";
+            labelTimbreName.Size = new Size(79, 15);
+            labelTimbreName.TabIndex = 8;
+            labelTimbreName.Text = "Timbre Name";
             // 
             // trackBarKeyShift
             // 
@@ -253,45 +257,45 @@
             radioButtonReverbOff.Text = "Off";
             radioButtonReverbOff.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // labelKeyShift
             // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(96, 159);
-            label4.Name = "label4";
-            label4.Size = new Size(53, 15);
-            label4.TabIndex = 16;
-            label4.Text = "Key Shift";
+            labelKeyShift.AutoSize = true;
+            labelKeyShift.ForeColor = SystemColors.Control;
+            labelKeyShift.Location = new Point(96, 159);
+            labelKeyShift.Name = "labelKeyShift";
+            labelKeyShift.Size = new Size(53, 15);
+            labelKeyShift.TabIndex = 16;
+            labelKeyShift.Text = "Key Shift";
             // 
-            // label5
+            // labelFineTune
             // 
-            label5.AutoSize = true;
-            label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(155, 159);
-            label5.Name = "label5";
-            label5.Size = new Size(58, 15);
-            label5.TabIndex = 17;
-            label5.Text = "Fine Tune";
+            labelFineTune.AutoSize = true;
+            labelFineTune.ForeColor = SystemColors.Control;
+            labelFineTune.Location = new Point(155, 159);
+            labelFineTune.Name = "labelFineTune";
+            labelFineTune.Size = new Size(58, 15);
+            labelFineTune.TabIndex = 17;
+            labelFineTune.Text = "Fine Tune";
             // 
-            // label6
+            // labelBendRange
             // 
-            label6.AutoSize = true;
-            label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(219, 159);
-            label6.Name = "label6";
-            label6.Size = new Size(70, 15);
-            label6.TabIndex = 18;
-            label6.Text = "Bend Range";
+            labelBendRange.AutoSize = true;
+            labelBendRange.ForeColor = SystemColors.Control;
+            labelBendRange.Location = new Point(219, 159);
+            labelBendRange.Name = "labelBendRange";
+            labelBendRange.Size = new Size(70, 15);
+            labelBendRange.TabIndex = 18;
+            labelBendRange.Text = "Bend Range";
             // 
-            // label9
+            // labelReverb
             // 
-            label9.AutoSize = true;
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(312, 159);
-            label9.Name = "label9";
-            label9.Size = new Size(43, 15);
-            label9.TabIndex = 21;
-            label9.Text = "Reverb";
+            labelReverb.AutoSize = true;
+            labelReverb.ForeColor = SystemColors.Control;
+            labelReverb.Location = new Point(312, 159);
+            labelReverb.Name = "labelReverb";
+            labelReverb.Size = new Size(43, 15);
+            labelReverb.TabIndex = 21;
+            labelReverb.Text = "Reverb";
             // 
             // comboBoxAssignMode
             // 
@@ -304,15 +308,28 @@
             comboBoxAssignMode.TabIndex = 22;
             comboBoxAssignMode.SelectedValueChanged += comboBoxAssignMode_SelectedValueChanged;
             // 
-            // label10
+            // labelAssignMode
             // 
-            label10.AutoSize = true;
-            label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(312, 237);
-            label10.Name = "label10";
-            label10.Size = new Size(76, 15);
-            label10.TabIndex = 23;
-            label10.Text = "Assign Mode";
+            labelAssignMode.AutoSize = true;
+            labelAssignMode.ForeColor = SystemColors.Control;
+            labelAssignMode.Location = new Point(312, 237);
+            labelAssignMode.Name = "labelAssignMode";
+            labelAssignMode.Size = new Size(76, 15);
+            labelAssignMode.TabIndex = 23;
+            labelAssignMode.Text = "Assign Mode";
+            // 
+            // labelUnitNoWarning
+            // 
+            labelUnitNoWarning.AutoSize = true;
+            labelUnitNoWarning.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelUnitNoWarning.ForeColor = Color.Yellow;
+            labelUnitNoWarning.Location = new Point(15, 74);
+            labelUnitNoWarning.Name = "labelUnitNoWarning";
+            labelUnitNoWarning.Size = new Size(508, 15);
+            labelUnitNoWarning.TabIndex = 62;
+            labelUnitNoWarning.Text = "WARNING! Unit No. set to non-default value. To revert, edit/delete MT32Edit.ini and restart app.";
+            toolTipParameterValue.SetToolTip(labelUnitNoWarning, resources.GetString("labelUnitNoWarning.ToolTip"));
+            labelUnitNoWarning.Visible = false;
             // 
             // labelHeading
             // 
@@ -333,13 +350,26 @@
             // 
             // buttonEditPreset
             // 
+            buttonEditPreset.BackColor = Color.FromArgb(224, 224, 224);
             buttonEditPreset.Location = new Point(350, 113);
             buttonEditPreset.Name = "buttonEditPreset";
             buttonEditPreset.Size = new Size(91, 23);
             buttonEditPreset.TabIndex = 32;
             buttonEditPreset.Text = "Edit Preset Timbre";
-            buttonEditPreset.UseVisualStyleBackColor = true;
+            buttonEditPreset.UseVisualStyleBackColor = false;
             buttonEditPreset.Click += buttonEditPreset_Click;
+            // 
+            // labelNoChannelAssigned
+            // 
+            labelNoChannelAssigned.AutoSize = true;
+            labelNoChannelAssigned.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelNoChannelAssigned.ForeColor = Color.Yellow;
+            labelNoChannelAssigned.Location = new Point(48, 284);
+            labelNoChannelAssigned.Name = "labelNoChannelAssigned";
+            labelNoChannelAssigned.Size = new Size(416, 15);
+            labelNoChannelAssigned.TabIndex = 61;
+            labelNoChannelAssigned.Text = "Part 1 muted- no MIDI channel assigned. Assign a channel in System Settings.";
+            labelNoChannelAssigned.Visible = false;
             // 
             // FormPatchEditor
             // 
@@ -348,22 +378,24 @@
             BackColor = Color.FromArgb(24, 24, 24);
             ClientSize = new Size(540, 960);
             ControlBox = false;
+            Controls.Add(labelUnitNoWarning);
+            Controls.Add(labelNoChannelAssigned);
             Controls.Add(buttonEditPreset);
             Controls.Add(labelHeading);
-            Controls.Add(label10);
+            Controls.Add(labelAssignMode);
             Controls.Add(comboBoxAssignMode);
-            Controls.Add(label9);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
+            Controls.Add(labelReverb);
+            Controls.Add(labelBendRange);
+            Controls.Add(labelFineTune);
+            Controls.Add(labelKeyShift);
             Controls.Add(radioButtonReverbOff);
             Controls.Add(radioButtonReverbOn);
             Controls.Add(trackBarBenderRange);
             Controls.Add(trackBarFineTune);
             Controls.Add(trackBarKeyShift);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(labelTimbreName);
+            Controls.Add(labelTimbreGroup);
+            Controls.Add(labelPatchNo);
             Controls.Add(comboBoxTimbreName);
             Controls.Add(numericUpDownPatchNo);
             Controls.Add(comboBoxTimbreGroup);
@@ -397,20 +429,20 @@
         private ComboBox comboBoxTimbreGroup;
         private NumericUpDown numericUpDownPatchNo;
         private ComboBox comboBoxTimbreName;
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label labelPatchNo;
+        private Label labelTimbreGroup;
+        private Label labelTimbreName;
         private TrackBar trackBarKeyShift;
         private TrackBar trackBarFineTune;
         private TrackBar trackBarBenderRange;
         private RadioButton radioButtonReverbOn;
         private RadioButton radioButtonReverbOff;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label9;
+        private Label labelKeyShift;
+        private Label labelFineTune;
+        private Label labelBendRange;
+        private Label labelReverb;
         private ComboBox comboBoxAssignMode;
-        private Label label10;
+        private Label labelAssignMode;
         private ColumnHeader columnHeaderKeyShift;
         private ColumnHeader columnHeaderFineTune;
         private ColumnHeader columnHeaderBendRange;
@@ -420,5 +452,7 @@
         private Label labelHeading;
         private System.Windows.Forms.Timer timer;
         private Button buttonEditPreset;
+        private Label labelNoChannelAssigned;
+        private Label labelUnitNoWarning;
     }
 }

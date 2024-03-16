@@ -93,12 +93,13 @@
             // 
             // buttonClose
             // 
-            buttonClose.Location = new Point(280, 146);
+            buttonClose.BackColor = Color.FromArgb(224, 224, 224);
+            buttonClose.Location = new Point(272, 146);
             buttonClose.Name = "buttonClose";
-            buttonClose.Size = new Size(46, 23);
+            buttonClose.Size = new Size(54, 23);
             buttonClose.TabIndex = 7;
             buttonClose.Text = "Close";
-            buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.UseVisualStyleBackColor = false;
             buttonClose.Click += ButtonClose_Click;
             // 
             // linkLabelProject

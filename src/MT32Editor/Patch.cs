@@ -18,13 +18,13 @@ public class Patch
     private int benderRange = 12;
     private int assignMode = 0;
     private bool reverbEnabled = true;
-    private const int keyShiftOffset = 24;
-    private const int fineTuneOffset = 50;
+    private const int KEY_SHIFT_OFFSET = 24;
+    private const int FINE_TUNE_OFFSET = 50;
     private DateTime timeOfLastFullUpdate = DateTime.Now;
 
     public Patch(int patchNo, bool autoCorrect = false)
     {
-        patchNo = LogicTools.ValidateRange("Patch No.", patchNo, minPermitted: 0, maxPermitted: 127, autoCorrect);
+        patchNo = LogicTools.ValidateRange("Patch No.", patchNo, minPermitted: 0, maxPermitted: MT32State.NO_OF_PATCHES - 1, autoCorrect);
         if (patchNo < 64)
         {
             timbreGroup = 0;
@@ -58,10 +58,10 @@ public class Patch
                 return timbreNo;
 
             case 2:
-                return keyShift + keyShiftOffset;
+                return keyShift + KEY_SHIFT_OFFSET;
 
             case 3:
-                return fineTune + fineTuneOffset;
+                return fineTune + FINE_TUNE_OFFSET;
 
             case 4:
                 return benderRange;
@@ -70,14 +70,7 @@ public class Patch
                 return assignMode;
 
             case 6:
-                if (reverbEnabled)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return LogicTools.BoolToInt(reverbEnabled);
 
             case 7:
                 return 0;
@@ -111,15 +104,7 @@ public class Patch
                 return assignMode;
 
             case 6:
-                if (reverbEnabled)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-
+                return LogicTools.BoolToInt(reverbEnabled);
             case 7:
                 return 0;
 
@@ -158,15 +143,7 @@ public class Patch
                 return;
 
             case 6:
-                if (parameterValue == 1)
-                {
-                    SetReverbEnabled(true);
-                }
-                else
-                {
-                    SetReverbEnabled(false);
-                }
-
+                SetReverbEnabled(LogicTools.IntToBool(parameterValue));
                 return;
 
             case 7:
@@ -191,11 +168,11 @@ public class Patch
                 return;
 
             case 2:
-                SetKeyShift(parameterValue - keyShiftOffset, autoCorrect);
+                SetKeyShift(parameterValue - KEY_SHIFT_OFFSET, autoCorrect);
                 return;
 
             case 3:
-                SetFineTune(parameterValue - fineTuneOffset, autoCorrect);
+                SetFineTune(parameterValue - FINE_TUNE_OFFSET, autoCorrect);
                 return;
 
             case 4:
@@ -207,15 +184,7 @@ public class Patch
                 return;
 
             case 6:
-                if (parameterValue == 1)
-                {
-                    SetReverbEnabled(true);
-                }
-                else
-                {
-                    SetReverbEnabled(false);
-                }
-
+                SetReverbEnabled(LogicTools.IntToBool(parameterValue));
                 return;
 
             case 7:
@@ -249,7 +218,7 @@ public class Patch
 
     public void SetTimbreNo(int timbre, bool autoCorrect = false)
     {
-        timbreNo = LogicTools.ValidateRange("Timbre No.", timbre, minPermitted: 0, maxPermitted: 63, autoCorrect);
+        timbreNo = LogicTools.ValidateRange("Timbre No.", timbre, minPermitted: 0, maxPermitted: MT32State.NO_OF_MEMORY_TIMBRES - 1, autoCorrect);
     }
 
     public int GetTimbreNo()

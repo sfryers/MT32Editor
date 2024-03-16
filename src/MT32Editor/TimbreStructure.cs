@@ -7,20 +7,20 @@
 public class TimbreStructure
 {
     // MT32Edit: TimbreStructure class
-    // S.Fryers Apr 2023
+    // S.Fryers Mar 2024
 
     //each timbre consists of (up to) 4 partials
-    public const int PARTIALS = 4;
+    public const int NO_OF_PARTIALS = 4;
 
     //each partial contains 58 (0x3A) parameters
-    public const int PARAMETERS = 58;
+    public const int NO_OF_PARAMETERS = 58;
 
     private string timbreName = string.Empty;
     private int part12Structure;
     private int part34Structure;
-    private bool[] partialMuteStatus = new bool[4];
+    private bool[] partialMuteStatus = new bool[NO_OF_PARTIALS];
     private bool sustain;
-    private readonly byte[,] partial = new byte[PARTIALS, PARAMETERS];
+    private readonly byte[,] partial = new byte[NO_OF_PARTIALS, NO_OF_PARAMETERS];
     private DateTime timeOfLastFullUpdate;
 
     public TimbreStructure(bool createAudibleTimbre)
@@ -47,7 +47,7 @@ public class TimbreStructure
         part12Structure = 0;
         part34Structure = 0;
         sustain = true;
-        for (int partialNo = 0; partialNo < PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < NO_OF_PARTIALS; partialNo++)
         {
             SetDefaultPartialValues(partialNo);
         }
@@ -56,7 +56,7 @@ public class TimbreStructure
 
     public void SetDefaultPartialValues(int partialNo)
     {
-        for (int parameterNo = 0; parameterNo < PARAMETERS; parameterNo++)
+        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
         {
             partial[partialNo, parameterNo] = PartialConstants.defaultValue[parameterNo];
         }
@@ -133,13 +133,6 @@ public class TimbreStructure
         }
     }
 
-    public void FlipPartialMuteStatus(int partialNo, bool autoCorrect = false)
-    {
-        ValidatePartialNo(partialNo);
-        partialMuteStatus[partialNo] ^= true;
-        MT32SysEx.UpdatePartialMuteStatus(partialMuteStatus, partialNo);
-    }
-
     public bool GetSustainStatus()
     {
         return sustain;
@@ -148,11 +141,6 @@ public class TimbreStructure
     public void SetSustainStatus(bool status)
     {
         sustain = status;
-    }
-
-    public void FlipSustainStatus()
-    {
-        sustain ^= true;
     }
 
     public string GetParameterName(int parameterNo)
@@ -193,13 +181,14 @@ public class TimbreStructure
     public int GetPCMBankNo(int partialNo)
     {
         ValidatePartialNo(partialNo);
-        int bankNo = 0;
-        if (partial[partialNo, 0x04] > 1)
+        switch (partial[partialNo, 0x04])
         {
-            bankNo = 1;
+            case 2:
+            case 3:
+                return 1;
+            default:
+                return 0;
         }
-
-        return bankNo;
     }
 
     public int GetUIParameter(int partialNo, int parameterNo)
@@ -235,8 +224,8 @@ public class TimbreStructure
     public byte[] CopyPartial(int partialNo)
     {
         ValidatePartialNo(partialNo);
-        byte[] partialValues = new byte[PARAMETERS];
-        for (int parameterNo = 0; parameterNo < PARAMETERS; parameterNo++)
+        byte[] partialValues = new byte[NO_OF_PARAMETERS];
+        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
         {
             partialValues[parameterNo] = partial[partialNo, parameterNo];
         }
@@ -246,7 +235,7 @@ public class TimbreStructure
     public void PastePartial(int partialNo, byte[] partialValues)
     {
         ValidatePartialNo(partialNo);
-        for (int parameterNo = 0; parameterNo < PARAMETERS; parameterNo++)
+        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
         {
             partial[partialNo, parameterNo] = partialValues[parameterNo];
         }
@@ -260,10 +249,10 @@ public class TimbreStructure
         clonedTimbre.part34Structure = part34Structure;
         clonedTimbre.sustain = sustain;
         clonedTimbre.timeOfLastFullUpdate = timeOfLastFullUpdate;
-        for (int partialNo = 0; partialNo < PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < NO_OF_PARTIALS; partialNo++)
         {
             clonedTimbre.partialMuteStatus[partialNo] = partialMuteStatus[partialNo];
-            for (int parameterNo = 0; parameterNo < PARAMETERS; parameterNo++)
+            for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
             {
                 clonedTimbre.partial[partialNo, parameterNo] = partial[partialNo, parameterNo];
             }

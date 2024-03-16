@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Windows.Forms.Design;
 namespace MT32Edit;
 
 /// <summary>
@@ -9,18 +8,21 @@ namespace MT32Edit;
 internal static class SaveSysExFile
 {
     // MT32Edit: SaveSysExFile class (static)
-    // S.Fryers Feb 2024 
+    // S.Fryers Mar 2024 
 
-    public static bool excludeSystemArea = false;
-    public static bool autoSave = true;
-    private static readonly string? applicationPath = Path.GetDirectoryName(Application.ExecutablePath);
-    private static readonly string iniFileName = "MT32Edit.ini";
-    private static readonly string iniFileLocation = Path.Combine($"{applicationPath}", iniFileName);
+    /// <summary>
+    ///  If true, will not save system area settings to file.
+    /// </summary>
+    public static bool excludeSystemArea { get; set; } = false;
+
+    /// <summary>
+    ///  If true, will autosave current SysEx data to application folder every 5 minutes.
+    /// </summary>
+    public static bool autoSave { get; set; } = true;
 
     /// <summary>
     /// Allows user to browse for a file in which to save sysEx data from the currentMemoryState. If successful, returns the name of the saved file, otherwise "Cancelled" or "Empty".
     /// </summary>
-
     public static string SaveAs(MT32State memorystate, string fileName = "New SysEx file.syx")
     {
         SaveFileDialog saveDialog = new SaveFileDialog();
@@ -63,7 +65,7 @@ internal static class SaveSysExFile
         FileStream sysExFile;
         try
         {
-            sysExFile = File.OpenWrite(fileName);
+            sysExFile = File.Create(fileName);
         }
         catch(Exception e)
         {
@@ -89,7 +91,7 @@ internal static class SaveSysExFile
 
         void SaveAllMemoryTimbres()
         {
-            for (int timbreNo = 0; timbreNo < 64; timbreNo++)
+            for (int timbreNo = 0; timbreNo < MT32State.NO_OF_MEMORY_TIMBRES; timbreNo++)
             {
                 if (memoryState.GetMemoryTimbre(timbreNo).GetTimbreName() == MT32Strings.EMPTY)
                 {
@@ -167,7 +169,7 @@ internal static class SaveSysExFile
                 byte[] parameterData = new byte[4];
                 for (int parameterNo = 0; parameterNo < 4; parameterNo++)
                 {
-                    parameterData[parameterNo] = (byte)memoryState.GetRhythm(bankNo).GetParameterSysExValue(parameterNo);
+                    parameterData[parameterNo] = (byte)memoryState.GetRhythmBank(bankNo).GetParameterSysExValue(parameterNo);
                     sumOfSysExValues += parameterData[parameterNo];
                 }
                 sysExFile.Write(parameterData, 0, parameterData.Length);
@@ -187,7 +189,7 @@ internal static class SaveSysExFile
         byte[] sysExData = new byte[5];
         sysExData[0] = MT32SysEx.START_OF_DATA_BLOCK;
         sysExData[1] = MT32SysEx.MANUFACTURER_ID;
-        sysExData[2] = MT32SysEx.DEVICE_ID;
+        sysExData[2] = MT32SysEx.DeviceID;
         sysExData[3] = MT32SysEx.MODEL_ID;
         sysExData[4] = MT32SysEx.TX;
         sysExFile.Write(sysExData, 0, sysExData.Length);
@@ -213,20 +215,10 @@ internal static class SaveSysExFile
 
     private static int SaveSystemData(FileStream sysExFile, SystemLevel systemConfig, int sumOfSysExValues)
     {
-        byte[] sysExData = new byte[MT32SysEx.NO_OF_SYSTEM_PARAMS];
-        sysExData[0] = (byte)systemConfig.GetMasterTune();
-        sysExData[1] = (byte)systemConfig.GetReverbMode();
-        sysExData[2] = (byte)systemConfig.GetReverbTime();
-        sysExData[3] = (byte)systemConfig.GetReverbLevel();
-        for (int part = 0; part < 9; part++)
+        byte[] sysExData = MT32SysEx.GetSystemParameters(systemConfig);
+        for (int parameter = 0; parameter < sysExData.Length; parameter++)
         {
-            sysExData[part + 4] = (byte)systemConfig.GetPartialReserve(part);
-            sysExData[part + 13] = (byte)systemConfig.GetSysExMidiChannel(part);
-        }
-        sysExData[22] = (byte)systemConfig.GetMasterLevel();
-        for (int param = 0; param < MT32SysEx.NO_OF_SYSTEM_PARAMS; param++)
-        {
-            sumOfSysExValues += sysExData[param];
+            sumOfSysExValues += sysExData[parameter];
         }
         sysExFile.Write(sysExData, 0, sysExData.Length);
         return sumOfSysExValues;
@@ -237,6 +229,11 @@ internal static class SaveSysExFile
         //values of all parameters need to be totalled in order to calculate checksum
         int sumOfSysExValues = 0;
         string message = ParseTools.MakeNCharsLong(systemConfig.GetMessage(messageNo), 20);
+        if (message == "                    ")
+        {
+            //don't save blank messages
+            return; 
+        }
         byte[] messageASCIIChars = Encoding.ASCII.GetBytes(message);
         byte[] sysExAddr = { 0x20, 0x00, 0x00 };
         SaveSysExHeader(sysExFile);
@@ -271,7 +268,7 @@ internal static class SaveSysExFile
         FileStream sysExFile;
         try
         {
-            sysExFile = (FileStream)saveDialog.OpenFile();
+            sysExFile = File.Create(saveDialog.FileName);
         }
         catch (Exception e)
         {

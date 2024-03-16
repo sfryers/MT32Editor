@@ -9,23 +9,42 @@ namespace MT32Edit;
 // S.Fryers Feb 2024
 public partial class FormPatchEditor : Form
 {
-    private MT32State memoryState = new MT32State();
+    private MT32State memoryState;
     private DateTime lastGlobalUpdate = DateTime.Now;
-    private bool changesMade = false;
-    private bool sendSysEx = false;
+    private bool changesMade;
     private bool thisFormIsActive = true;
     private float UIScale;
 
-    public FormPatchEditor(float DPIScale, MT32State inputMemoryState)
+    private const string TEXT_EDIT_PRESET = "Edit Preset Timbre";
+    private const string TEXT_RESTORE_PRESET = "Restore Preset Timbre";
+
+    public FormPatchEditor(float DPIScale, MT32State parentMemoryState)
     {
         InitializeComponent();
         UIScale = DPIScale;
         ScaleUIElements();
-        memoryState = inputMemoryState;
+        SetTheme();
+        memoryState = parentMemoryState;
         InitialisePatchArray();
+        ConfigureWarnings();
         changesMade = false;
         timer.Start();
     }
+
+    private void ScaleUIElements()
+    {
+        ScaleListView();
+        ScaleListViewColumns();
+    }
+
+    private void SetTheme()
+    {
+        Label[] labels = {labelAssignMode, labelBendRange, labelFineTune, labelKeyShift, labelPatchNo, labelReverb, labelTimbreGroup, labelTimbreName };
+        Label[] warningLabels = {labelNoChannelAssigned, labelUnitNoWarning};
+        RadioButton[] radioButtons = { radioButtonReverbOff, radioButtonReverbOn };
+        BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels, checkBoxes: null, groupBoxes: null, listViewPatches, radioButtons, alternate: true);
+    }
+
 
     private void InitialisePatchArray()
     {
@@ -43,10 +62,12 @@ public partial class FormPatchEditor : Form
         Midi.SendProgramChange(selectedPatch, midiChannel);
     }
 
-    private void ScaleUIElements()
+    private void ConfigureWarnings()
     {
-        ScaleListView();
-        ScaleListViewColumns();
+        if (MT32SysEx.DeviceID != MT32SysEx.DEFAULT_DEVICE_ID)
+        {
+            labelUnitNoWarning.Visible = true;
+        }
     }
 
     /// <summary>
@@ -64,14 +85,11 @@ public partial class FormPatchEditor : Form
     private void ScaleListViewColumns()
     {
         int listWidth = listViewPatches.Width;
-        listViewPatches.Columns[0].Width = (int)(listWidth * 0.10);
-        listViewPatches.Columns[1].Width = (int)(listWidth * 0.19);
-        listViewPatches.Columns[2].Width = (int)(listWidth * 0.19);
-        listViewPatches.Columns[3].Width = (int)(listWidth * 0.08);
-        listViewPatches.Columns[4].Width = (int)(listWidth * 0.08);
-        listViewPatches.Columns[5].Width = (int)(listWidth * 0.09);
-        listViewPatches.Columns[6].Width = (int)(listWidth * 0.11);
-        listViewPatches.Columns[7].Width = (int)(listWidth * 0.12);
+        double[] columnWidth = {0.10, 0.19, 0.19, 0.08, 0.08, 0.09, 0.11, 0.12};
+        for (int i = 0; i < 8; i++)
+        {
+            listViewPatches.Columns[i].Width = (int)(listWidth * columnWidth[i]);
+        }
     }
 
     private void SelectPatchInListView(int patchNo)
@@ -87,7 +105,7 @@ public partial class FormPatchEditor : Form
     private void PopulatePatchFormParameters(int patchNo)
     {
         //prevent every updated form control from triggering a separate sysex message
-        sendSysEx = false;
+        MT32SysEx.blockSysExMessages = true;
         int selectedPatch = patchNo;
         memoryState.SetSelectedPatchNo(selectedPatch);
         Patch memoryPatch = memoryState.GetPatch(patchNo);
@@ -104,7 +122,7 @@ public partial class FormPatchEditor : Form
         comboBoxAssignMode.SelectedIndex = memoryPatch.GetAssignMode();
         radioButtonReverbOn.Checked = memoryPatch.GetReverbEnabled();
         radioButtonReverbOff.Checked = !memoryPatch.GetReverbEnabled();
-        sendSysEx = true;
+        MT32SysEx.blockSysExMessages = false;
     }
 
     private void RefreshPatchList()
@@ -139,7 +157,6 @@ public partial class FormPatchEditor : Form
         {
             MT32SysEx.SendPatchData(memoryState.GetPatchArray(), patchNo);
         }
-
         int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(0);
         Midi.SendProgramChange(patchNo, midiChannel);
         Patch memoryPatch = memoryState.GetPatch(patchNo);
@@ -148,10 +165,7 @@ public partial class FormPatchEditor : Form
 
     private void SendPatchParameterChange(int patchNo, int parameterNo)
     {
-        if (sendSysEx)
-        {
-            MT32SysEx.SendPatchParameterData(memoryState.GetPatchArray(), patchNo, parameterNo);
-        }
+        MT32SysEx.SendPatchParameterData(memoryState.GetPatchArray(), patchNo, parameterNo);
     }
 
     private void UpdateTimbreName()
@@ -164,7 +178,7 @@ public partial class FormPatchEditor : Form
 
     private void UpdateMemoryTimbreNames()
     {
-        for (int timbreNo = 0; timbreNo < 63; timbreNo++)
+        for (int timbreNo = 0; timbreNo < MT32State.NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
             string timbreName = memoryState.GetMemoryTimbre(timbreNo).GetTimbreName();
             memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, timbreNo);
@@ -204,6 +218,7 @@ public partial class FormPatchEditor : Form
         {
             int selectedPatch = listViewPatches.SelectedIndices[0];
             PopulatePatchFormParameters(selectedPatch);
+            SendPatch(selectedPatch, sendSysExMessage: false);
         }
         RefreshTimbreNamesList();
     }
@@ -227,7 +242,6 @@ public partial class FormPatchEditor : Form
         {
             memoryState.SetTimbreIsEditable(false);
         }
-
         ConfigureEditButton();
     }
 
@@ -237,12 +251,12 @@ public partial class FormPatchEditor : Form
         string timbreGroupType = memoryState.GetPatch(selectedPatch).GetTimbreGroupType();
         if (timbreGroupType == "Preset A" || timbreGroupType == "Preset B")
         {
-            buttonEditPreset.Text = "Edit Preset Timbre";
+            buttonEditPreset.Text = TEXT_EDIT_PRESET;
             buttonEditPreset.Enabled = true;
         }
         else
         {
-            buttonEditPreset.Text = "Restore Preset Timbre";
+            buttonEditPreset.Text = TEXT_RESTORE_PRESET;
             buttonEditPreset.Enabled = true;
         }
     }
@@ -298,7 +312,6 @@ public partial class FormPatchEditor : Form
         {
             listViewPatches.SelectedItems[0].SubItems[2].Text = memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup());
         }
-
         SendPatch(selectedPatch, sendSysExMessage: false);
         changesMade = true;
     }
@@ -324,7 +337,6 @@ public partial class FormPatchEditor : Form
         {
             listViewPatches.SelectedItems[0].SubItems[4].Text = trackBarFineTune.Value.ToString();
         }
-
         SetFineTuneToolTip();
         SendPatchParameterChange(selectedPatch, 0x03);
         changesMade = true;
@@ -397,6 +409,18 @@ public partial class FormPatchEditor : Form
         {
             ReturnFocusToPatchEditor();
         }
+        CheckPartStatus();
+        SetTheme();
+    }
+
+    private void CheckPartStatus()
+    {
+        if (memoryState.GetSystem().GetUIMidiChannel(0) == 0)
+        {
+            labelNoChannelAssigned.Visible = true;
+            return;
+        }
+        labelNoChannelAssigned.Visible = false;
     }
 
     private void FindMemoryTimbreInPatchList(int selectedTimbreNo)
@@ -429,11 +453,12 @@ public partial class FormPatchEditor : Form
     private void CheckForMemoryStateUpdates()
     {
         //only refresh if memoryState has recently been updated
-        if (lastGlobalUpdate < memoryState.GetUpdateTime())
+        if (memoryState.requestPatchRefresh || lastGlobalUpdate < memoryState.GetUpdateTime())
         {
             ConsoleMessage.SendVerboseLine("Updating Patch List");
             DoFullRefresh(memoryState.GetSelectedPatchNo());
             lastGlobalUpdate = DateTime.Now;
+            memoryState.requestPatchRefresh = false;
         }
     }
 
@@ -477,7 +502,7 @@ public partial class FormPatchEditor : Form
     private void buttonEditPreset_Click(object sender, EventArgs e)
     {
         int selectedPatch = memoryState.GetSelectedPatchNo();
-        if (buttonEditPreset.Text == "Edit Preset Timbre")
+        if (buttonEditPreset.Text == TEXT_EDIT_PRESET)
         {
             EditPresetTimbre(selectedPatch);
         }

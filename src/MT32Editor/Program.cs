@@ -1,10 +1,10 @@
 namespace MT32Edit;
 
+/// <summary>
+/// Main entry point for the MT-32 Editor application.
+/// </summary>
 internal static class Program
 {
-    /// <summary>
-    /// The main entry point for the application.
-    /// </summary>
     [STAThread]
     private static void Main(string[] args)
     {

@@ -8,9 +8,15 @@ internal class DrawingTools
     // MT32Edit: DrawingTools class
     // S.Fryers Feb 2024 
 
+    /// <summary>
+    /// Custom comboBox- creates vertical divider between structure type and structure description.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <param name="isPartial12"></param>
+    /// <param name="droppedDown"></param>
+    /// <param name="UIScale"></param>
     public void DrawStructureList(DrawItemEventArgs e, bool isPartial12, bool droppedDown, float UIScale)
     {
-        //custom comboBox draw method- creates vertical divider between structure type and structure description
         if (e.Index < 0)
         {
             return;

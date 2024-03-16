@@ -1,5 +1,4 @@
 ﻿using System.Text;
-
 namespace MT32Edit;
 
 /// <summary>
@@ -7,22 +6,22 @@ namespace MT32Edit;
 /// </summary>
 /// 
 /// <remarks> 
-/// Valid .timbre files consist of: bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: "
-/// bytes 40-49: 10-character ASCII timbre name string bytes 50-53: 2x partial structures,
+/// Valid .timbre files consist of: bytes 0-39: character string header "MT-32 Editor v1 timbre definition file: ";
+/// bytes 40-49: 10-character ASCII timbre name string; bytes 50-53: 2x partial structures,
 /// partial mute status (encoded as 4 boolean values rather than the single byte value used in
-/// the SysEx format), sustain status, bytes 54-285: 58 parameter byte values for each of the
+/// the SysEx format), sustain status; bytes 54-285: 58 parameter byte values for each of the
 /// four partials in order.
 /// </remarks>
 /// 
 internal static class TimbreFile
 {
     // MT32Edit: TimbreFile class (static)
-    // S.Fryers Feb 2024
+    // S.Fryers Mar 2024
 
     private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
     // Total size of valid .timbre file is 286 bytes.
-    private static readonly int VALID_FILE_LENGTH = TIMBRE_FILE_HEADER.Length + MT32SysEx.PARTIAL_ADDRESS_OFFSET + (MT32SysEx.PARAMETER_COUNT * 4);
+    private static readonly int VALID_FILE_LENGTH = TIMBRE_FILE_HEADER.Length + MT32SysEx.PARTIAL_ADDRESS_OFFSET + (TimbreStructure.NO_OF_PARAMETERS * TimbreStructure.NO_OF_PARTIALS);
 
     /// <summary>
     /// Loads timbre data into the provided TimbreStructure. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
@@ -38,7 +37,7 @@ internal static class TimbreFile
         loadTimbreDialog.Dispose();
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            return "Cancelled";
+            return FileTools.CANCELLED;
         }
 
         return Load(timbre, fileName);
@@ -63,7 +62,7 @@ internal static class TimbreFile
         byte[] header = new byte[40];
         byte[] timbreNameBytes = new byte[10];
         byte[] timbreData = new byte[4];
-        byte[] parameterValue = new byte[MT32SysEx.PARAMETER_COUNT];
+        byte[] parameterValue = new byte[MT32SysEx.NO_OF_PARTIAL_PARAMETERS];
         MT32SysEx.blockMT32text = true;
 
         //load data from file
@@ -74,7 +73,7 @@ internal static class TimbreFile
             //incorrect file length or invalid header: stop loading
             timbreFile.Close();
             MessageBox.Show($"{fileName} is not a valid timbre file.", "Unable to load timbre");
-            return "#Error!";
+            return FileTools.ERROR;
         }
         MT32SysEx.blockSysExMessages = true;
         LoadTimbreParameters();
@@ -102,7 +101,7 @@ internal static class TimbreFile
 
         void LoadPartials()
         {
-            for (int partialNo = 0; partialNo < 4; partialNo++)
+            for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
             {
                 SetPartialMuteStatus(partialNo);
                 LoadPartialParameters(partialNo);
@@ -124,7 +123,7 @@ internal static class TimbreFile
         void LoadPartialParameters(int partialNo)
         {
             timbreFile.Read(parameterValue, 0, parameterValue.Length);
-            for (byte parameterNo = 0; parameterNo < 58; parameterNo++)
+            for (byte parameterNo = 0; parameterNo < MT32SysEx.NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
                 timbre.SetSysExParameter(partialNo, parameterNo, parameterValue[parameterNo]);
             }
@@ -200,7 +199,7 @@ internal static class TimbreFile
         }
 
         int fileCount = 0;
-        for (int timbreNo = 0; timbreNo < 64; timbreNo++)
+        for (int timbreNo = 0; timbreNo < MT32State.NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
             string timbreName = ParseTools.RemoveTrailingSpaces(timbreArray[timbreNo].GetTimbreName());
             if (timbreName == MT32Strings.EMPTY)
@@ -226,7 +225,7 @@ internal static class TimbreFile
         }
         else
         {
-            MessageBox.Show($"{fileCount} timbre file{ParseTools.Plural(fileCount)} saved to {filePath}", "MT-32 Editor");
+            MessageBox.Show($"{fileCount} timbre file{ParseTools.Pluralise(fileCount)} saved to {filePath}", "MT-32 Editor");
         }
 
         string CreateBatchTimbreFilename(int timbreNo)
@@ -259,7 +258,6 @@ internal static class TimbreFile
 
     private static void SaveTimbreFileContents(TimbreStructure timbre, FileStream file)
     {
-        //40 character header
         ConsoleMessage.SendLine($"Saving {file.Name}");
         file.Write(Encoding.ASCII.GetBytes(TIMBRE_FILE_HEADER), 0, TIMBRE_FILE_HEADER.Length);
         SaveTimbreParameters(timbre, file);
@@ -295,11 +293,11 @@ internal static class TimbreFile
 
     public static int SavePartials(TimbreStructure timbre, FileStream file)
     {
-        byte[] parameterData = new byte[58];
+        byte[] parameterData = new byte[TimbreStructure.NO_OF_PARAMETERS];
         int sumOfSysExValues = 0;
-        for (int partialNo = 0; partialNo < 4; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
-            for (int parameterNo = 0; parameterNo < 58; parameterNo++)
+            for (int parameterNo = 0; parameterNo < TimbreStructure.NO_OF_PARAMETERS; parameterNo++)
             {
                 parameterData[parameterNo] = timbre.GetSysExParameter(partialNo, parameterNo);
                 sumOfSysExValues += parameterData[parameterNo];

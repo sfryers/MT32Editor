@@ -53,6 +53,7 @@
             hardwareMT32ConnectedToolStripMenuItem = new ToolStripMenuItem();
             sendMessagesToMT32DisplayToolStripMenuItem = new ToolStripMenuItem();
             allowMT32ResetToolStripMenuItem = new ToolStripMenuItem();
+            darkModeToolStripMenuItem = new ToolStripMenuItem();
             showConsoleToolStripMenuItem = new ToolStripMenuItem();
             verboseConsoleMessagesToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem1 = new ToolStripMenuItem();
@@ -178,7 +179,7 @@
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, autosaveEvery5MinutesToolStripMenuItem, ignoreSysConfigOnLoadToolStripMenuItem, excludeSysConfigonSaveToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, showConsoleToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
+            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, autosaveEvery5MinutesToolStripMenuItem, ignoreSysConfigOnLoadToolStripMenuItem, excludeSysConfigonSaveToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, darkModeToolStripMenuItem, showConsoleToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             optionsToolStripMenuItem.Size = new Size(61, 26);
             optionsToolStripMenuItem.Text = "Options";
@@ -187,7 +188,7 @@
             // 
             masterSettingsToolStripMenuItem.Image = Properties.Resources.Settings;
             masterSettingsToolStripMenuItem.Name = "masterSettingsToolStripMenuItem";
-            masterSettingsToolStripMenuItem.Size = new Size(370, 26);
+            masterSettingsToolStripMenuItem.Size = new Size(366, 22);
             masterSettingsToolStripMenuItem.Text = "System area settings";
             masterSettingsToolStripMenuItem.Click += masterSettingsToolStripMenuItem_Click;
             // 
@@ -196,14 +197,14 @@
             autosaveEvery5MinutesToolStripMenuItem.Checked = true;
             autosaveEvery5MinutesToolStripMenuItem.CheckState = CheckState.Checked;
             autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
-            autosaveEvery5MinutesToolStripMenuItem.Size = new Size(370, 26);
+            autosaveEvery5MinutesToolStripMenuItem.Size = new Size(366, 22);
             autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
             autosaveEvery5MinutesToolStripMenuItem.Click += autosaveEvery5MinutesToolStripMenuItem_Click;
             // 
             // ignoreSysConfigOnLoadToolStripMenuItem
             // 
             ignoreSysConfigOnLoadToolStripMenuItem.Name = "ignoreSysConfigOnLoadToolStripMenuItem";
-            ignoreSysConfigOnLoadToolStripMenuItem.Size = new Size(370, 26);
+            ignoreSysConfigOnLoadToolStripMenuItem.Size = new Size(366, 22);
             ignoreSysConfigOnLoadToolStripMenuItem.Text = "Ignore system config messages when loading SysEx file";
             ignoreSysConfigOnLoadToolStripMenuItem.ToolTipText = "When loading a SysEx file, retain the current System Area Settings instead of loading the values in the .syx file";
             ignoreSysConfigOnLoadToolStripMenuItem.Click += ignoreSysConfigOnLoadToolStripMenuItem_Click;
@@ -211,7 +212,7 @@
             // excludeSysConfigonSaveToolStripMenuItem
             // 
             excludeSysConfigonSaveToolStripMenuItem.Name = "excludeSysConfigonSaveToolStripMenuItem";
-            excludeSysConfigonSaveToolStripMenuItem.Size = new Size(370, 26);
+            excludeSysConfigonSaveToolStripMenuItem.Size = new Size(366, 22);
             excludeSysConfigonSaveToolStripMenuItem.Text = "Exclude system config messages when saving SysEx file";
             excludeSysConfigonSaveToolStripMenuItem.ToolTipText = "When saving a SysEx file, do not include any system area settings";
             excludeSysConfigonSaveToolStripMenuItem.Click += excludeSysConfigonSaveToolStripMenuItem_Click;
@@ -221,7 +222,7 @@
             hardwareMT32ConnectedToolStripMenuItem.Checked = true;
             hardwareMT32ConnectedToolStripMenuItem.CheckState = CheckState.Checked;
             hardwareMT32ConnectedToolStripMenuItem.Name = "hardwareMT32ConnectedToolStripMenuItem";
-            hardwareMT32ConnectedToolStripMenuItem.Size = new Size(370, 26);
+            hardwareMT32ConnectedToolStripMenuItem.Size = new Size(366, 22);
             hardwareMT32ConnectedToolStripMenuItem.Text = "Hardware MT-32 connected";
             hardwareMT32ConnectedToolStripMenuItem.ToolTipText = "When selected, this option will add a short delay between SysEx messages to avoid causing Buffer Overflow errors on a hardware MT-32 device.";
             hardwareMT32ConnectedToolStripMenuItem.Click += hardwareMT32ConnectedToolStripMenuItem_Click;
@@ -231,7 +232,7 @@
             sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
             sendMessagesToMT32DisplayToolStripMenuItem.CheckState = CheckState.Checked;
             sendMessagesToMT32DisplayToolStripMenuItem.Name = "sendMessagesToMT32DisplayToolStripMenuItem";
-            sendMessagesToMT32DisplayToolStripMenuItem.Size = new Size(370, 26);
+            sendMessagesToMT32DisplayToolStripMenuItem.Size = new Size(366, 22);
             sendMessagesToMT32DisplayToolStripMenuItem.Text = "Send info to MT-32 display";
             sendMessagesToMT32DisplayToolStripMenuItem.ToolTipText = "When selected, parameter changes will appear on the MT-32 LCD display.";
             sendMessagesToMT32DisplayToolStripMenuItem.Click += sendMessagesToMT32DisplayToolStripMenuItem_Click;
@@ -239,17 +240,24 @@
             // allowMT32ResetToolStripMenuItem
             // 
             allowMT32ResetToolStripMenuItem.Name = "allowMT32ResetToolStripMenuItem";
-            allowMT32ResetToolStripMenuItem.Size = new Size(370, 26);
+            allowMT32ResetToolStripMenuItem.Size = new Size(366, 22);
             allowMT32ResetToolStripMenuItem.Text = "Allow MT-32 reset from SysEx";
             allowMT32ResetToolStripMenuItem.ToolTipText = "When selected, loading a SysEx file which contains an MT-32 reset message will cause the MT-32 to reset";
             allowMT32ResetToolStripMenuItem.Click += allowMT32ResetToolStripMenuItem_Click;
+            // 
+            // darkModeToolStripMenuItem
+            // 
+            darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
+            darkModeToolStripMenuItem.Size = new Size(366, 22);
+            darkModeToolStripMenuItem.Text = "Dark mode";
+            darkModeToolStripMenuItem.Click += darkModeToolStripMenuItem_Click;
             // 
             // showConsoleToolStripMenuItem
             // 
             showConsoleToolStripMenuItem.Checked = true;
             showConsoleToolStripMenuItem.CheckState = CheckState.Checked;
             showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
-            showConsoleToolStripMenuItem.Size = new Size(370, 26);
+            showConsoleToolStripMenuItem.Size = new Size(366, 22);
             showConsoleToolStripMenuItem.Text = "Show console";
             showConsoleToolStripMenuItem.ToolTipText = "Show or hide the console window";
             showConsoleToolStripMenuItem.Click += showConsoleToolStripMenuItem_Click;
@@ -257,7 +265,7 @@
             // verboseConsoleMessagesToolStripMenuItem
             // 
             verboseConsoleMessagesToolStripMenuItem.Name = "verboseConsoleMessagesToolStripMenuItem";
-            verboseConsoleMessagesToolStripMenuItem.Size = new Size(370, 26);
+            verboseConsoleMessagesToolStripMenuItem.Size = new Size(366, 22);
             verboseConsoleMessagesToolStripMenuItem.Text = "Verbose console messages";
             verboseConsoleMessagesToolStripMenuItem.ToolTipText = "When selected, additional information will appear in the console window. This will cause SysEx files to load more slowly due to the amount of data being sent to the console.";
             verboseConsoleMessagesToolStripMenuItem.Click += verboseConsoleMessagesToolStripMenuItem_Click;
@@ -342,7 +350,7 @@
             Name = "FormMainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Untitled - MT-32 Editor";
-            FormClosing += FormMainMenu_FormClosing;
+            FormClosed += FormMainMenu_FormClosed;
             Load += FormMainMenu_Load;
             Resize += FormMainMenu_Resize;
             menuStrip.ResumeLayout(false);
@@ -384,5 +392,6 @@
         private ToolStripMenuItem excludeSysConfigonSaveToolStripMenuItem;
         private System.Windows.Forms.Timer timerAutoSave;
         private ToolStripMenuItem autosaveEvery5MinutesToolStripMenuItem;
+        private ToolStripMenuItem darkModeToolStripMenuItem;
     }
 }

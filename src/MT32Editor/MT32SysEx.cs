@@ -1,5 +1,4 @@
 ﻿using System.Text;
-
 namespace MT32Edit;
 
 /// <summary>
@@ -8,12 +7,11 @@ namespace MT32Edit;
 internal static class MT32SysEx
 {
     // MT32Edit: MT32SysEx class (static)
-    // S.Fryers Feb 2024
+    // S.Fryers Mar 2024
 
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
-
     public const byte MANUFACTURER_ID = 0x41;       //Manufacturer ID (Roland)
-    public const byte DEVICE_ID = 0x10;             //Default device ID - might be helpful to allow user to alter this value in a future release
+    public const byte DEFAULT_DEVICE_ID = 0x10;     //Default device ID (17)
     public const byte MODEL_ID = 0x16;              //Model ID for MT-32
     public const byte RX = 0x11;                    //Receive SysEx data from device
     public const byte TX = 0x12;                    //Transmit SysEx data to device
@@ -21,21 +19,48 @@ internal static class MT32SysEx
     public const byte END_OF_DATA_BLOCK = 0xF7;     //SysEx message blocks terminate with F7
 
     public const int MAX_BLOCK_LENGTH = 270;        //maximum length (in bytes) of SysEx data block
-    public const int PARAMETER_COUNT = 58;          //no of parameters in each partial
-    public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0E
+    public const int NO_OF_PARTIAL_PARAMETERS = TimbreStructure.NO_OF_PARAMETERS;  
+                                                    //no. of parameters in each partial
+    public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0x0E
 
-    public const int NO_OF_SYSTEM_PARAMS = 0x17;    //no of parameters in system area
+    public const int NO_OF_SYSTEM_PARAMETERS = 0x17;//no of parameters in system area
     public const int MT32_DELAY = 50;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
 
-    public static bool uploadInProgress = false;
-    //user configurable option- when true, parameter changes will be displayed on MT-32 text display.
-    public static bool sendTextToMT32 = true;
-    //if set to true, blocks all text messages from being sent regardless of sendTextToMT32 status.
-    public static bool blockMT32text = false;
-    //if set to true, no system exclusive data will be sent to the selected MIDI Out device.
-    public static bool blockSysExMessages = false;
-    //if set to true, will pass any MT-32 reset messages to the selected MIDI Out device.
-    public static bool allowReset = false;
+    /// <summary>
+    /// Set to true whilst long SysEx uploads are occurring. MIDI Thru functionality will be disabled.
+    /// </summary>
+    public static bool uploadInProgress { get; set; } = false;
+
+    /// <summary>
+    /// If set to true, short delay will be added between SysEx messages to avoid MT-32 hardware buffer overflow
+    /// </summary>
+    public static bool hardwareMT32Connected { get; set; } = true;
+
+    /// <summary>
+    /// If set to true, parameter changes will be displayed on MT-32 text display.
+    /// </summary>
+    public static bool sendTextToMT32 { get; set; } = true;
+
+    /// <summary>
+    /// If set to true, blocks all text messages from being sent regardless of sendTextToMT32 status.
+    /// </summary>
+    public static bool blockMT32text { get; set; } = false;
+
+    /// <summary>
+    /// If set to true, no system exclusive data will be sent to the selected MIDI Out device
+    /// </summary>
+    public static bool blockSysExMessages { get; set; } = false;
+
+    /// <summary>
+    /// If set to true, will pass any MT-32 reset messages to the selected MIDI Out device.
+    /// </summary>
+    public static bool allowReset { get; set; } = false;
+
+    /// <summary>
+    /// User-configurable device ID. Devices other than hardware MT-32 will only respond to the default value.
+    /// </summary>
+    public static byte DeviceID { get; set; } = DEFAULT_DEVICE_ID;
+
     private static readonly int channelNo = 1;
     private static byte[] previousSysExMessage = Array.Empty<byte>();
 
@@ -52,17 +77,18 @@ internal static class MT32SysEx
         {
             checkSum = 0x00;
         }
-
         return checkSum;
     }
 
+    /// <summary>
+    /// If value of least significant byte exceeds 0x7F (7-bit maximum), wrap value and increment next significant byte
+    /// </summary>
     private static int[] WrapBytes(int[] addr)
     {
-        //if value exceeds 7-bit maximum, wrap value and increment next significant byte
-        while (addr[1] > 0x7F)
+        while (addr[addr.Length - 1] > 0x7F)
         {
-            addr[0] += 0x01;
-            addr[1] -= 0x80;
+            addr[addr.Length - 2] += 0x01;
+            addr[addr.Length - 1] -= 0x80;
         }
         return addr;
     }
@@ -72,7 +98,7 @@ internal static class MT32SysEx
     /// </summary>
     public static byte[] PatchAddress(int patchNo)
     {
-        LogicTools.ValidateRange("Patch No", patchNo, 0, 127, autoCorrect: false);
+        LogicTools.ValidateRange("Patch No", patchNo, 0, MT32State.NO_OF_PATCHES - 1, autoCorrect: false);
         int[] addr = new int[2];
         addr[0] = 0x00;
         addr[1] = patchNo * 8;
@@ -84,11 +110,11 @@ internal static class MT32SysEx
     /// <summary>
     /// Calculates address of specific rhythm bank key area
     /// </summary>
-    public static byte[] RhythmKeyAddress(int keyNo)
+    private static byte[] RhythmKeyAddress(int keyNo)
     {
         int[] addr = new int[2];
         addr[0] = 0x01;
-        addr[1] = 0x10 + ((keyNo - 24) * 4);
+        addr[1] = 0x10 + ((keyNo - RhythmConstants.KEY_OFFSET) * 4);
         addr = WrapBytes(addr);
         byte[] sysExAddr = { 0x03, Convert.ToByte(addr[0]), Convert.ToByte(addr[1]) };
         return sysExAddr;
@@ -99,7 +125,7 @@ internal static class MT32SysEx
     /// </summary>
     public static byte[] MemoryTimbreAddress(int timbreNo)
     {
-        LogicTools.ValidateRange("Timbre No", timbreNo, 0, 63, autoCorrect: false);
+        LogicTools.ValidateRange("Timbre No", timbreNo, 0, MT32State.NO_OF_MEMORY_TIMBRES - 1, autoCorrect: false);
         byte[] addr = new byte[2];
         addr[0] = Convert.ToByte(timbreNo * 2);
         addr[1] = 0x00;
@@ -112,11 +138,11 @@ internal static class MT32SysEx
     /// </summary>
     public static byte[] PartialAddress(int timbreNo, int partialNo)
     {
-        LogicTools.ValidateRange("Timbre No", timbreNo, 0, 63, autoCorrect: false);
-        LogicTools.ValidateRange("Partial No", partialNo, 0, 3, autoCorrect: false);
+        LogicTools.ValidateRange("Timbre No", timbreNo, 0, MT32State.NO_OF_MEMORY_TIMBRES - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Partial No", partialNo, 0, TimbreStructure.NO_OF_PARTIALS - 1, autoCorrect: false);
         int[] addr = new int[2];
         addr[0] = 0x00;
-        addr[1] = PARTIAL_ADDRESS_OFFSET + partialNo * PARAMETER_COUNT;
+        addr[1] = PARTIAL_ADDRESS_OFFSET + partialNo * NO_OF_PARTIAL_PARAMETERS;
         addr[1] += timbreNo * 2;
         WrapBytes(addr);
         byte[] sysExAddr = { 0x08, Convert.ToByte(addr[0]), Convert.ToByte(addr[1]) };
@@ -126,21 +152,23 @@ internal static class MT32SysEx
     /// <summary>
     /// Calculates address of specific temporary timbre area partial parameter
     /// </summary>
-    public static byte[] TempPartialAddress(int parameter, int partial)
+    private static byte[] TempPartialAddress(int parameter, int partial)
     {
-        LogicTools.ValidateRange("Parameter No", parameter, 0, PARAMETER_COUNT - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Parameter No", parameter, 0, NO_OF_PARTIAL_PARAMETERS - 1, autoCorrect: false);
         LogicTools.ValidateRange("Partial No", partial, 0, 3, autoCorrect: false);
         int[] addr = new int[2];
         addr[0] = 0x00;
-        addr[1] = parameter + PARTIAL_ADDRESS_OFFSET + (PARAMETER_COUNT * partial);
+        addr[1] = parameter + PARTIAL_ADDRESS_OFFSET + (NO_OF_PARTIAL_PARAMETERS * partial);
         addr = WrapBytes(addr);
         byte[] sysExAddr = { 0x04, Convert.ToByte(addr[0]), Convert.ToByte(addr[1]) };
         return sysExAddr;
     }
 
-    public static void SendSystemParameters(SystemLevel system)
+    /// <summary>
+    /// Returns system parameters in sysEx format
+    /// </summary>
+    public static byte[] GetSystemParameters(SystemLevel system)
     {
-        byte[] sysExAddr = { 0x10, 0x00, 0x00 };
         byte[] sysExData = new byte[23];
         sysExData[0] = (byte)system.GetMasterTune();
         sysExData[1] = (byte)system.GetReverbMode();
@@ -152,9 +180,22 @@ internal static class MT32SysEx
             sysExData[partNo + 13] = (byte)system.GetSysExMidiChannel(partNo);
         }
         sysExData[22] = (byte)system.GetMasterLevel();
+        return sysExData;
+    }
+
+    /// <summary>
+    /// Packages system area data for delivery to MIDI device
+    /// </summary>
+    public static void SendSystemParameters(SystemLevel system)
+    {
+        byte[] sysExAddr = { 0x10, 0x00, 0x00 };
+        byte[] sysExData = GetSystemParameters(system);
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Packages a specified range of patch data for delivery to MIDI device
+    /// </summary>
     public static void SendPatchBlock(Patch[] patchData, int firstPatchNo, int lastPatchNo)
     {
         //send multiple patches to device
@@ -164,6 +205,9 @@ internal static class MT32SysEx
         }
     }
 
+    /// <summary>
+    /// Packages a single block of patch data for delivery to MIDI device
+    /// </summary>
     public static void SendPatchData(Patch[] patchData, int patchNo)
     {
         //send patch parameters to device
@@ -176,40 +220,49 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Packages a single block of patch data for delivery to MIDI device, along with program change and text showing changed parameter value
+    /// </summary>
     public static void SendPatchParameterData(Patch[] patchData, int patchNo, int parameterNo)
     {
         LogicTools.ValidateRange("Parameter No", parameterNo, 0, 7, autoCorrect: false);
         //send patch parameters to device
-        byte[] sysExAddr = PatchAddress(patchNo);
-        byte[] sysExData = new byte[8];
-        for (int param = 0; param < 8; param++)
-        {
-            sysExData[param] = (byte)patchData[patchNo].GetParameterSysExValue(param);
-        }
-        SendMessage(sysExAddr, sysExData);
+        SendPatchData(patchData, patchNo);
         Midi.SendProgramChange(patchNo, channelNo);
         SendText($"{MT32Strings.patchParameterNames[parameterNo]}: {MT32Strings.PatchParameterValueText(parameterNo, patchData[patchNo].GetParameterUIValue(parameterNo))}");
     }
 
-    public static void UpdateTimbreParameters(TimbreStructure t)
+    /// <summary>
+    /// Sends timbre name, partial mute status and sustain status sysEx data to MIDI device
+    /// </summary>
+    private static void UpdateTimbreParameters(TimbreStructure timbre)
     {
         blockMT32text = true;
-        SendTimbreName(t.GetTimbreName());
-        UpdatePartialStructures(t.GetPart12Structure(), t.GetPart34Structure());
-        UpdatePartialMuteStatus(t.GetPartialMuteStatus(), 0);
-        SendSustainValue(t.GetSustainStatus());
+        SendTimbreName(timbre.GetTimbreName());
+        UpdatePartialStructures(timbre.GetPart12Structure(), timbre.GetPart34Structure());
+        UpdatePartialMuteStatus(timbre.GetPartialMuteStatus(), 0);
+        SendSustainValue(timbre.GetSustainStatus());
         blockMT32text = false;
     }
 
     /// <summary>
-    /// Sends parameter change to device and show text on device display
+    /// Sends whole timbre's sysEx data to MIDI device
+    /// </summary>
+    public static void SendAllSysExParameters(TimbreStructure timbre)
+    {
+        UpdateTimbreParameters(timbre);
+        SendAllPartialParameters(timbre);
+    }
+
+    /// <summary>
+    /// Sends parameter change to device and shows text on device display
     /// </summary>
     public static void SendPartialParameter(int partialNo, byte parameterNo, int parameterValue)
     {
         string parameterName = MT32Strings.partialParameterNames[parameterNo];
         int sysExParameterValue = parameterValue + PartialConstants.offset[parameterNo];
         LogicTools.ValidateRange("Partial No", partialNo, 0, 3, autoCorrect: false);
-        LogicTools.ValidateRange("Parameter No", parameterNo, 0, PARAMETER_COUNT - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Parameter No", parameterNo, 0, NO_OF_PARTIAL_PARAMETERS  - 1, autoCorrect: false);
         LogicTools.ValidateRange("Parameter Value", sysExParameterValue, 0, 127, autoCorrect: false);
         byte[] sysExAddr = TempPartialAddress(parameterNo, partialNo);
         // ensure no negative values are passed to device
@@ -218,30 +271,42 @@ internal static class MT32SysEx
         SendText($"{parameterName}: {MT32Strings.PartialParameterValueText(parameterNo, parameterValue)}");
     }
 
-    public static void SendAllPartialParameters(TimbreStructure t)
+    /// <summary>
+    /// Sends all partial parameters to device
+    /// </summary>
+    private static void SendAllPartialParameters(TimbreStructure timbre)
     {
         blockMT32text = true;
-        for (int partialNo = 0; partialNo < 4; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
-            ApplyPartialParameters(t, partialNo);
+            ApplyPartialParameters(timbre, partialNo);
         }
         blockMT32text = false;
-        SendText("Loaded " + t.GetTimbreName());
+        SendText("Loaded " + timbre.GetTimbreName());
     }
 
-    //send all partial parameters to device
-    public static void ApplyPartialParameters(TimbreStructure t, int partialNo)
+    /// <summary>
+    /// Sends all parameters for specified partial to device
+    /// </summary>
+    public static void ApplyPartialParameters(TimbreStructure timbre, int partialNo)
     {
         byte[] sysExAddr = TempPartialAddress(parameter: 0x00, partialNo);
-        byte[] sysExData = new byte[PARAMETER_COUNT];
-        for (int parameterNo = 0; parameterNo < PARAMETER_COUNT; parameterNo++)
+        byte[] sysExData = new byte[NO_OF_PARTIAL_PARAMETERS];
+        for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
         {
-            sysExData[parameterNo] = t.GetSysExParameter(partialNo, parameterNo);
+            sysExData[parameterNo] = timbre.GetSysExParameter(partialNo, parameterNo);
         }
         SendMessage(sysExAddr, sysExData);
-        if (Midi.hardwareMT32Connected)
-        {
-            //avoid buffer overflow on hardware MT-32
+        MT32Delay();
+    }
+
+    /// <summary>
+    /// Adds short delay to avoid buffer overflow on hardware MT-32
+    /// </summary>
+    private static void MT32Delay()
+    {
+        if (hardwareMT32Connected)
+        {   
             Thread.Sleep(MT32_DELAY);
         }
     }
@@ -256,7 +321,6 @@ internal static class MT32SysEx
         {
             bankNo = "2";
         }
-
         byte[] sysExAddr = TempPartialAddress(parameter: 0x04, partialNo);
         byte[] sysExData = { (byte)sysExValue };
         SendMessage(sysExAddr, sysExData);
@@ -274,6 +338,9 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Sends updated partialMuteStatus to device
+    /// </summary>
     public static void UpdatePartialMuteStatus(bool[] partialMuteStatus, int activePartialNo)
     {
         //temporary timbre area, partial mute status
@@ -282,14 +349,12 @@ internal static class MT32SysEx
         //send updated partial mute status to device
         SendMessage(sysExAddr, sysExData);
         //send partial status to MT-32 screen
-        DisplayPartialMuteStatus(partialMuteStatus, activePartialNo);
-
-        static void DisplayPartialMuteStatus(bool[] partialMuteStatus, int activePartialNo)
-        {
-            SendText($"Partial {activePartialNo + 1} {MT32Strings.OnOffStatus(!partialMuteStatus[activePartialNo])} ({MT32Strings.PartialStatus(partialMuteStatus)})");
-        }
+        SendText($"Partial {activePartialNo + 1} {MT32Strings.OnOffStatus(!partialMuteStatus[activePartialNo])} ({MT32Strings.PartialStatus(partialMuteStatus)})");
     }
 
+    /// <summary>
+    /// Returns sysEx byte value equivalent of 4-bit partialMuteStatus array
+    /// </summary>
     public static byte PartialMuteValue(bool[] partialMuteStatus)
     {
         //order right to left
@@ -326,6 +391,9 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Sends timbreName to device
+    /// </summary>
     public static void SendTimbreName(string timbreName)
     {
         timbreName = ParseTools.MakeNCharsLong(timbreName, 10);
@@ -336,6 +404,9 @@ internal static class MT32SysEx
         SendMessage(sysExAddr, sysExData);
     }
 
+    /// <summary>
+    /// Sends sustainStatus to device
+    /// </summary>
     public static void SendSustainValue(bool sustainStatus)
     {
         string parameterName = "Sustain";
@@ -346,6 +417,9 @@ internal static class MT32SysEx
         SendText($"{parameterName} {MT32Strings.OnOffStatus(sustainStatus)}");
     }
 
+    /// <summary>
+    /// Sends MT-32 reset message to device, if permitted to do so
+    /// </summary>
     public static bool RequestMT32Reset()
     {
         if (!allowReset)
@@ -356,9 +430,12 @@ internal static class MT32SysEx
         return true;
     }
 
+    /// <summary>
+    /// Sends MT-32 reset message to device
+    /// </summary>
     public static void ResetMT32()
     {
-        byte[] sysExData = { START_OF_DATA_BLOCK, MANUFACTURER_ID, DEVICE_ID, MODEL_ID, TX, 0x7F, 0x01, END_OF_DATA_BLOCK };
+        byte[] sysExData = { START_OF_DATA_BLOCK, MANUFACTURER_ID, DeviceID, MODEL_ID, TX, 0x7F, 0x01, END_OF_DATA_BLOCK };
         SendSysExData(sysExData);
         SendText("Device reset");
         ConsoleMessage.SendLine("Device reset");
@@ -375,7 +452,7 @@ internal static class MT32SysEx
         //set fixed parameters
         sysExMessage[0] = START_OF_DATA_BLOCK;
         sysExMessage[1] = MANUFACTURER_ID;
-        sysExMessage[2] = DEVICE_ID;
+        sysExMessage[2] = DeviceID;
         sysExMessage[3] = MODEL_ID;
         sysExMessage[4] = TX;
         for (int i = 0; i < 3; i++)
@@ -441,27 +518,10 @@ internal static class MT32SysEx
         {
             return;
         }
-
         uploadInProgress = true;
-        
-        //close any existing MIDI connections to prevent clash between SysEx data and note on/off data
-        Midi.CloseInputDevice();
-        
-        try
-        {
-            if (Midi.Out != null)
-            {
-                Midi.Out.SendBuffer(sysExMessage);
-                //SendSysExDataToConsole(sysExMessage); //uncomment for debugging
-            }
-        }
-        catch
-        {
-            ConsoleMessage.SendLine("Error: Cannot open selected MIDI Out device\\nPlease close any conflicting MIDI applications and restart MT-32 Editor.");
-        }
-
+        Midi.SendSysExMessage(sysExMessage);
+        //SendSysExDataToConsole(sysExMessage); //Uncomment for debugging
         uploadInProgress = false;
-        Midi.ReopenInputDevice();
         previousSysExMessage = (byte[])sysExMessage.Clone();
     }
 
@@ -493,24 +553,23 @@ internal static class MT32SysEx
         SendTimbre(timbreNo, timbre, sysExAddress);
     }
 
+    /// <summary>
+    /// Sends timbre parameters to device,
+    /// targeting timbre temp area 1
+    /// </summary>
     public static void PreviewTimbre(int timbreNo, TimbreStructure timbre)
     {
-        //using timbre temp area 1
         byte[] sysExAddress = { 0x04, 0x00, 0x00 };
         SendTimbre(timbreNo, timbre, sysExAddress);
-        if (Midi.hardwareMT32Connected)
-        {
-            //add delay to avoid overloading MT-32 hardware buffer
-            Thread.Sleep(MT32_DELAY);
-        }
+        MT32Delay();
     }
 
     /// <summary>
     /// Sends timbre parameters to device
     /// </summary>
-    public static void SendTimbre(int timbreNo, TimbreStructure timbre, byte[] sysExAddress)
+    private static void SendTimbre(int timbreNo, TimbreStructure timbre, byte[] sysExAddress)
     {
-        byte[] sysExData = new byte[246];
+        byte[] sysExData = new byte[(TimbreStructure.NO_OF_PARTIALS * NO_OF_PARTIAL_PARAMETERS) + PARTIAL_ADDRESS_OFFSET]; //246
         byte[] timbreName = Encoding.ASCII.GetBytes(ParseTools.MakeNCharsLong(timbre.GetTimbreName(), 10));
         for (int i = 0; i < 10; i++)
         {
@@ -532,10 +591,10 @@ internal static class MT32SysEx
             sysExData[13] = 1;
         }
 
-        int byteNo = 14;
-        for (int partialNo = 0; partialNo < 4; partialNo++)
+        int byteNo = PARTIAL_ADDRESS_OFFSET;
+        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
-            for (int parameterNo = 0; parameterNo < 58; parameterNo++)
+            for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
                 sysExData[byteNo] = timbre.GetSysExParameter(partialNo, parameterNo);
                 byteNo++;
@@ -565,7 +624,7 @@ internal static class MT32SysEx
     {
         for (int keyNo = firstKeyNo; keyNo < lastKeyNo + 1; keyNo++)
         {
-            int bankNo = keyNo - 24;
+            int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
             SendRhythmKey(rhythmData[bankNo], keyNo);
         }
     }

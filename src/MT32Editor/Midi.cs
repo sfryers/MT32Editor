@@ -8,54 +8,87 @@ namespace MT32Edit;
 internal static class Midi
 {
     // MT32Edit: Midi class (static)
-    // S.Fryers Feb 2024
-
-    public static int OutDeviceIndex = -1;
-    public static int InDeviceIndex = -1;
-    public static bool hardwareMT32Connected = true;
-    public static MidiIn? In = null;
-    public static MidiOut? Out = null;
+    // S.Fryers Mar 2024
 
     public const string MUNT_DEVICE_NAME = "MT-32 Synth Emulator";
 
-    public static void InputErrorReceived(object sender, MidiInMessageEventArgs e)
+    private static int OutDeviceIndex = -1;
+    private static int InDeviceIndex = -1;
+    private static MidiIn? In;
+    private static MidiOut? Out;
+
+    /// <summary>
+    /// Displays an error message if invalid MIDI In data is received.
+    /// </summary>
+    private static void InputErrorReceived(object? sender, MidiInMessageEventArgs e)
     {
         MessageBox.Show(string.Format("MIDI Input error: Message 0x{0:X8} Event {1}", e.RawMessage, e.MidiEvent));
     }
 
+    /// <summary>
+    /// Returns the name of the MIDI In device specified by deviceNo.
+    /// </summary>
     public static string GetInputDeviceName(int deviceNo)
     {
         if (deviceNo < 0 || deviceNo >= MidiIn.NumberOfDevices)
         {
             return "none";
         }
-
         string deviceName = MidiIn.DeviceInfo(deviceNo).ProductName;
         return deviceName;
     }
 
+    /// <summary>
+    /// Returns the name of the MIDI Out device specified by deviceNo.
+    /// </summary>
     public static string GetOutputDeviceName(int deviceNo)
     {
         if (deviceNo < 0 || deviceNo >= MidiOut.NumberOfDevices)
         {
             return "none";
         }
-
         string deviceName = MidiOut.DeviceInfo(deviceNo).ProductName;
         return deviceName;
     }
 
+    /// <summary>
+    /// Returns the name of the open MIDI In device.
+    /// </summary>
+    public static string GetCurrentInputDeviceName()
+    {
+        return GetInputDeviceName(InDeviceIndex);
+    }
+
+    /// <summary>
+    /// Returns the name of the open MIDI Out device.
+    /// </summary>
+    public static string GetCurrentOutputDeviceName()
+    {
+        return GetOutputDeviceName(OutDeviceIndex);
+    }
+
+    /// <summary>
+    /// Returns the number of identified MIDI In devices on the current system.
+    /// </summary>
     public static int CountInputDevices()
     {
         return MidiIn.NumberOfDevices;
     }
 
+    /// <summary>
+    /// Returns the number of identified MIDI In devices on the current system.
+    /// </summary>
     public static int CountOutputDevices()
     {
         return MidiOut.NumberOfDevices;
     }
 
-    public static void InputMessageReceived(object sender, MidiInMessageEventArgs e)
+    /// <summary>
+    /// Forwards any MIDI In data to the active MIDI Out port, unless a SysEx upload is in progress.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private static void InputMessageReceived(object? sender, MidiInMessageEventArgs e)
 
     //echo any note data received from MIDI In port thru to MIDI Out port
     {
@@ -64,7 +97,7 @@ internal static class Midi
             return; // only echo data if a sysEx upload is not in progress
         }
 
-        if (Out != null)
+        if (Out is not null)
         {
             try
             {
@@ -72,12 +105,16 @@ internal static class Midi
             }
             catch
             {
-                ConsoleMessage.SendLine("Error opening MIDI Out device.");
+                ShowMidiOutErrorMessage();
                 Out = null;
             }
         }
     }
 
+    /// <summary>
+    /// Opens the specified MIDI In device
+    /// </summary>
+    /// <returns>True if successful, false if unsuccessful</returns>
     public static bool OpenInputDevice(int device)
     {
         if (In is not null) 
@@ -106,35 +143,19 @@ internal static class Midi
         catch { return false; }
     }
 
-    public static bool ReopenInputDevice()
-    {
-        //restart Midi In monitoring
-        if (InDeviceIndex < 0)
-        {
-            return false;
-        }
-
-        try
-        {
-            //reopen MIDI In connection if a device is selected
-            In = new MidiIn(InDeviceIndex);
-            In.MessageReceived += InputMessageReceived;
-            In.ErrorReceived += InputErrorReceived;
-            In.Start(); //MIDI handler will start and continue running in background
-            return true;
-        }
-        catch { return false; }
-    }
-
+    /// <summary>
+    /// Opens the specified MIDI Out device
+    /// </summary>
+    /// <returns>True if successful, false if unsuccessful</returns>
     public static bool OpenOutputDevice(int device)
     {
-        if (Out != null)
+        if (Out is not null)
         {
             Out.Dispose(); //close any existing MIDI Out connection
         }
 
         OutDeviceIndex = device;
-        try                             //test for errors
+        try                //test for errors
         {
             Out = new MidiOut(OutDeviceIndex);
             return true;
@@ -142,7 +163,11 @@ internal static class Midi
         catch { return false; }
     }
 
-    public static string[] ListInputDevices() //List available MIDI In devices
+    /// <summary>
+    /// Lists all available MIDI In devices on the current system.
+    /// </summary>
+    /// <returns>An array of strings containing device names.</returns>
+    public static string[] ListInputDevices() 
     {
         List<string> deviceList = new List<string>();
         for (int device = 0; device < MidiIn.NumberOfDevices; device++)
@@ -152,6 +177,10 @@ internal static class Midi
         return deviceList.ToArray();
     }
 
+    /// <summary>
+    /// Lists all available MIDI Out devices on the current system.
+    /// </summary>
+    /// <returns>An array of strings containing device names.</returns>
     public static string[] ListOutputDevices() //List available MIDI Out devices
     {
         List<string> deviceList = new List<string>();
@@ -162,6 +191,9 @@ internal static class Midi
         return deviceList.ToArray();
     }
 
+    /// <summary>
+    /// Returns true if the current MIDI Out device is an MT-32 Emulator
+    /// </summary>
     public static bool EmulatorPresent(int deviceIndex)
     {
         if (Out is not null && GetOutputDeviceName(deviceIndex) == MUNT_DEVICE_NAME)
@@ -174,9 +206,12 @@ internal static class Midi
         }
     }
 
+    /// <summary>
+    /// Closes the connection to the active MIDI Out device.
+    /// </summary>
     public static void CloseOutputDevice()
     {
-        if (Out != null)
+        if (Out is not null)
         {
             try
             {
@@ -190,9 +225,12 @@ internal static class Midi
         }
     }
 
+    /// <summary>
+    /// Closes the connection to the active MIDI In device.
+    /// </summary>
     public static void CloseInputDevice()
     {
-        if (In != null)
+        if (In is not null)
         {
             try
             {
@@ -208,14 +246,24 @@ internal static class Midi
         }
     }
 
-    public static void PlayRhythmNote(int note, int midiChannel)
+    /// <summary>
+    /// Sends a MIDI 'note on' message
+    /// </summary>
+    /// <param name="note"></param>
+    /// <param name="midiChannel"></param>
+
+    public static void NoteOn(int note, int midiChannel, int volume = 100)
     {
+        if (midiChannel == 16)
+        {
+            return; //Part is disabled
+        }
         LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
         try
         {
-            if (Out != null)
+            if (Out is not null)
             {
-                Out.Send(MidiMessage.StartNote(note, 120, midiChannel + 1).RawData);
+                Out.Send(MidiMessage.StartNote(note, volume, midiChannel + 1).RawData);
             }
         }
         catch
@@ -225,19 +273,28 @@ internal static class Midi
         }
     }
 
-    public static void StopRhythmNote(int note, int midiChannel)
+    /// <summary>
+    /// Sends a MIDI 'note off' message
+    /// </summary>
+    /// <param name="note"></param>
+    /// <param name="midiChannel"></param>
+    public static void NoteOff(int note, int midiChannel, int volume = 100)
     {
+        if (midiChannel == 16)
+        {
+            return; //Part is disabled
+        }
         LogicTools.ValidateRange("Midi Channel", midiChannel, 0, 15, autoCorrect: false);
         try
         {
-            if (Out != null)
+            if (Out is not null)
             {
-                Out.Send(MidiMessage.StopNote(note, 120, midiChannel + 1).RawData);
+                Out.Send(MidiMessage.StopNote(note, volume, midiChannel + 1).RawData);
             }
         }
         catch
         {
-            ConsoleMessage.SendLine("Error opening MIDI Out device.");
+            ShowMidiOutErrorMessage();
             Out = null;
         }
     }
@@ -255,15 +312,35 @@ internal static class Midi
         byte[] message = { status, programNo };
         try
         {
-            if (Out != null)
+            if (Out is not null)
             {
                 Out.SendBuffer(message);
             }
         }
         catch
         {
-            ConsoleMessage.SendLine("Error opening MIDI Out device.");
+            ShowMidiOutErrorMessage();
             Out = null;
         }
+    }
+
+    public static void SendSysExMessage(byte[] sysExMessage)
+    {
+        try
+        {
+            if (Out is not null)
+            {
+                Out.SendBuffer(sysExMessage);
+            }
+        }
+        catch
+        {
+            ShowMidiOutErrorMessage();
+        }
+    }
+
+    private static void ShowMidiOutErrorMessage()
+    {
+        ConsoleMessage.SendLine("Error: Cannot open selected MIDI Out device\\nPlease close any conflicting MIDI applications and restart MT-32 Editor.");
     }
 }

@@ -36,7 +36,8 @@ public partial class FormLoadSysEx : Form
         }
         memoryState = inputMemoryState;
         SetTextLabels();
-        if (Midi.hardwareMT32Connected)
+        SetTheme();
+        if (MT32SysEx.hardwareMT32Connected)
         {
             timer.Interval = MT32SysEx.MT32_DELAY;
         }
@@ -55,6 +56,13 @@ public partial class FormLoadSysEx : Form
         labelMT32Text1.Text = ParseTools.RemoveLeadingSpaces(memoryState.GetSystem().GetMessage(0));
         labelMT32Text2.Text = ParseTools.RemoveLeadingSpaces(memoryState.GetSystem().GetMessage(1));
     }
+
+    private void SetTheme()
+    {
+        Label[] labels = { labelLoadProgress, labelMT32Text1, labelMT32Text2 };
+        BackColor = UITools.SetThemeColours(titleLabel: null, labels, warningLabels: null, checkBoxes: null, groupBoxes: null, listView: null, radioButtons: null, alternate: true);
+    }
+
 
     private void timer_Tick(object sender, EventArgs e)
     {

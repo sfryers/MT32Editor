@@ -6,7 +6,7 @@
 internal static class FileTools
 {
     // MT32Edit: FileTools class (static)
-    // S.Fryers Feb 2024
+    // S.Fryers Mar 2024
 
     public const string MIDI_FILE = ".mid";
     public const string SYSEX_FILE = ".syx";
@@ -21,7 +21,6 @@ internal static class FileTools
     /// <summary>
     /// Returns true if status is not CANCELLED, EMPTY, or ERROR.
     /// </summary>
-
     public static bool Success(string status)
     {
         if (status == CANCELLED || status == EMPTY || status == ERROR)
@@ -31,6 +30,10 @@ internal static class FileTools
         return true;
     }
 
+    /// <summary>
+    /// Opens a folder browser window. 
+    /// </summary>
+    /// <returns>A valid folder path name, ERROR or CANCELLED.</returns>
     public static string AskUserForFilePath()
     {
         FolderBrowserDialog selectFolder = new FolderBrowserDialog();
@@ -51,9 +54,29 @@ internal static class FileTools
         }
     }
 
+    /// <summary>
+    /// Removes characters which are not permitted to be used in filenames. 
+    /// </summary>
+    /// <returns>The provided fileName with any illegal characters removed</returns>
     public static string RemoveInvalidFileNameCharacters(string fileName)
     {
         return string.Concat(fileName.Split(Path.GetInvalidFileNameChars()));
+    }
+
+    /// <summary>
+    /// Returns true if fileName extension is .syx or .mid, 
+    /// Any other value returns false.
+    /// Function is not case sensitive.
+    /// </summary>
+    public static bool IsSysExOrMidi(string? fileName)
+    {
+        if (fileName is null)
+        {
+            return false;
+        }
+        string extension = Path.GetExtension(fileName).ToLower();
+        //return true if file extension is .syx or .mid
+        return (extension == SYSEX_FILE || extension == MIDI_FILE);
     }
 
     /// <summary>
