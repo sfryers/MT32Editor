@@ -205,7 +205,8 @@ internal static class SaveSysExFile
 
     private static void SaveAllSystemData(FileStream sysExFile, SystemLevel systemConfig)
     {
-        int sumOfSysExValues = 0;
+        int sumOfSysExValues = 0x78; //This value should really start at 0x00, but doing so results in a checksum value 0x10 less than it should be.
+                                     //By trial and error, changing this to 0x78 results in a correct checksum, but I'm not sure why yet. 
         byte[] sysExAddr = { 0x10, 0x00, 0x00 };
         SaveSysExHeader(sysExFile);
         sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
