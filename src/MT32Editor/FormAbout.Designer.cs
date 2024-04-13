@@ -38,6 +38,7 @@
             linkLabelProject = new LinkLabel();
             label2 = new Label();
             label6 = new Label();
+            labelFramework = new Label();
             SuspendLayout();
             // 
             // label1
@@ -75,7 +76,7 @@
             // 
             labelReleaseDate.AutoSize = true;
             labelReleaseDate.ForeColor = SystemColors.ActiveCaptionText;
-            labelReleaseDate.Location = new Point(190, 34);
+            labelReleaseDate.Location = new Point(190, 52);
             labelReleaseDate.Name = "labelReleaseDate";
             labelReleaseDate.Size = new Size(69, 15);
             labelReleaseDate.TabIndex = 3;
@@ -85,7 +86,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ActiveCaptionText;
-            label5.Location = new Point(17, 105);
+            label5.Location = new Point(14, 118);
             label5.Name = "label5";
             label5.Size = new Size(130, 15);
             label5.TabIndex = 4;
@@ -94,7 +95,7 @@
             // buttonClose
             // 
             buttonClose.BackColor = Color.FromArgb(224, 224, 224);
-            buttonClose.Location = new Point(272, 146);
+            buttonClose.Location = new Point(269, 159);
             buttonClose.Name = "buttonClose";
             buttonClose.Size = new Size(54, 23);
             buttonClose.TabIndex = 7;
@@ -105,7 +106,7 @@
             // linkLabelProject
             // 
             linkLabelProject.AutoSize = true;
-            linkLabelProject.Location = new Point(17, 120);
+            linkLabelProject.Location = new Point(14, 133);
             linkLabelProject.Name = "linkLabelProject";
             linkLabelProject.Size = new Size(213, 15);
             linkLabelProject.TabIndex = 8;
@@ -116,7 +117,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(17, 64);
+            label2.Location = new Point(14, 77);
             label2.Name = "label2";
             label2.Size = new Size(241, 15);
             label2.TabIndex = 9;
@@ -125,18 +126,29 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(17, 79);
+            label6.Location = new Point(14, 92);
             label6.Name = "label6";
             label6.Size = new Size(243, 15);
             label6.TabIndex = 10;
             label6.Text = "MT-32/CM-32L and compatible synthesizers.";
+            // 
+            // labelFramework
+            // 
+            labelFramework.AutoSize = true;
+            labelFramework.ForeColor = SystemColors.ActiveCaptionText;
+            labelFramework.Location = new Point(190, 34);
+            labelFramework.Name = "labelFramework";
+            labelFramework.Size = new Size(64, 15);
+            labelFramework.TabIndex = 11;
+            labelFramework.Text = "framework";
             // 
             // FormAbout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(160, 160, 150);
-            ClientSize = new Size(338, 181);
+            ClientSize = new Size(338, 193);
+            Controls.Add(labelFramework);
             Controls.Add(label6);
             Controls.Add(label2);
             Controls.Add(linkLabelProject);
@@ -169,5 +181,6 @@
         private LinkLabel linkLabelProject;
         private Label label2;
         private Label label6;
+        private Label labelFramework;
     }
 }

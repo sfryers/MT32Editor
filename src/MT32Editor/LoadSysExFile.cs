@@ -8,7 +8,7 @@ namespace MT32Edit;
 internal static class LoadSysExFile
 {
     // MT32Edit: LoadSysExFile class (static)
-    // S.Fryers Mar 2024 
+    // S.Fryers Apr 2024 
 
     /// <summary>
     /// If true, ignores system area data when loading SysEx file
@@ -43,11 +43,13 @@ internal static class LoadSysExFile
         loadSysExDialog.CheckPathExists = true;
         if (loadSysExDialog.ShowDialog() != DialogResult.OK)
         {
+            loadSysExDialog.Dispose();
             return FileTools.CANCELLED; //file error or dialogue cancelled
         }
 
         if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
         {
+            loadSysExDialog.Dispose();
             return FileTools.ERROR; //No file specified, abort loading process
         }
         string fileName = loadSysExDialog.FileName;
@@ -77,7 +79,15 @@ internal static class LoadSysExFile
         //All ok, continue loading process
         MT32SysEx.blockMT32text = true;
         Form loadSysExForm = new FormLoadSysEx(memoryState, requestClearMemory: false);
-        loadSysExForm.ShowDialog();
+        try
+        {
+            loadSysExForm.ShowDialog();
+        }
+        catch (Exception)
+        {
+            loadSysExForm.Dispose();
+            return FileTools.ERROR;
+        }
         loadSysExForm.Dispose();
         memoryState.SetUpdateTime();
         MT32SysEx.blockMT32text = false;
@@ -251,15 +261,7 @@ internal static class LoadSysExFile
     private static int FindMidiDataOffset(int dataBlockLength, int[] sysExDataBlock)
     {
         //For MIDI files, the first 1 or 2 byte values of SysExBlock should match SysExBlock.Length
-        int offsetBytes;
-        if (dataBlockLength > 127)
-        {
-            offsetBytes = 2;
-        }
-        else
-        {
-            offsetBytes = 1;
-        }
+        int offsetBytes = dataBlockLength > 127 ? 2 : 1;
         ConsoleMessage.SendVerboseLine($"MIDI file- SysEx block length {dataBlockLength - offsetBytes}");
         return offsetBytes;
     }
@@ -284,6 +286,10 @@ internal static class LoadSysExFile
 
     private static void SendSysExDataToConsole(int[] sysExDataBlock, int offsetBytes)
     {
+        if (!MT32SysEx.echoSysExData)
+        {
+            return;
+        }
         ConsoleMessage.SendVerboseString($"{Environment.NewLine}Processing data block, {(sysExDataBlock.Length - offsetBytes)} bytes [");
         for (int i = offsetBytes; i < sysExDataBlock.Length; i++)
         {
@@ -405,27 +411,53 @@ internal static class LoadSysExFile
 
     private static void ExtractPatchData(int[] sysExData, int[] sysExAddress)
     {
-        //One 256-byte SysEx block can contain up to 32 patches
+        //A complete patch definition is 8 bytes, although the 8th byte is a dummy value.
+        int patchLength = 8;
+        //One 256-byte SysEx block can therefore contain up to 32 patches
+        //Ignore data block if start address is not divisible by 8
+        if (sysExAddress[2] % patchLength != 0)
+        {
+            ConsoleMessage.SendVerboseLine($"Patch data starting address is not divisible by 8, ignoring...");
+            return;
+        }
         int startingPatchNo = ((sysExAddress[1] * 128) + sysExAddress[2]) / 8;
         int noOfPatches = sysExData.Length / 8;
-        ConsoleMessage.SendLine(noOfPatches + " patches found.");
+        if (sysExData.Length > 1 && sysExData.Length < 8)
+        {
+            //if the block only contains data for a single patch then try to extract it even if it's incomplete
+            noOfPatches = 1;
+            patchLength = sysExData.Length;
+        }
+        ConsoleMessage.SendLine($"{noOfPatches} patches found.");
         int byteNo = 0;
         for (int patchNo = startingPatchNo; patchNo < (noOfPatches + startingPatchNo); patchNo++)
         {
-            for (int parameterNo = 0; parameterNo < 8; parameterNo++)
+            for (int parameterNo = 0; parameterNo < patchLength; parameterNo++)
             {
                 memoryState.GetPatch(patchNo).SetParameterSysExValue(parameterNo, sysExData[byteNo], autoCorrect: true);
                 byteNo++;
             }
         }
-        ConsoleMessage.SendVerboseLine("Patch " + (startingPatchNo + 1) + "-" + (startingPatchNo + noOfPatches) + " data found, extracting...");
+        if (noOfPatches > 0)
+        {
+            ConsoleMessage.SendVerboseLine($"Patch {startingPatchNo + 1}-{startingPatchNo + noOfPatches} data found, extracting...");
+        }
+        else
+        {
+            ConsoleMessage.SendVerboseLine($"Incomplete data for Patch {startingPatchNo + 1}, ignoring...");
+        }
     }
 
+    /// <summary>
+    /// Process rhythm settings:
+    /// One 256-byte SysEx block can contain up to 64 rhythm keys.
+    /// Bank 0 is located at address {0x03, 0x01, 0x10}
+    /// </summary>
+    /// <param name="sysExData"></param>
+    /// <param name="sysExAddress"></param>
     private static void ExtractRhythmData(int[] sysExData, int[] sysExAddress)
     {
-        // Process rhythm settings:
-        // One 256-byte SysEx block can contain up to 64 rhythm keys
-        // Bank 0 is located at address {0x03, 0x01, 0x10}
+
         int startingbankNo = ((sysExAddress[1] * 128) + sysExAddress[2] - 144) / 4;
         ConsoleMessage.SendVerboseLine($"Address {sysExAddress[0]} {sysExAddress[1]} {sysExAddress[2]}: Bank No {startingbankNo + 1}");
         int noOfKeys = sysExData.Length / 4;
@@ -450,7 +482,6 @@ internal static class LoadSysExFile
     private static void ExtractTimbreData(int[] sysExData, int[] sysExAddress)
     {
         //check whether timbre data contains data for some or all partials
-
         string timbreName;
         int startingAddress = GetStartPosition(sysExAddress);
 
@@ -569,9 +600,13 @@ internal static class LoadSysExFile
         }
     }
 
+    /// <summary>
+    /// Returns position of sysExAddress relative to start position
+    /// </summary>
+    /// <param name="sysExAddress"></param>
+    /// <returns></returns>
     private static int GetStartPosition(int[] sysExAddress)
     {
-        //returns position of sysExAddress relative to 0
         int startPosition = 0;
 
         if (!LogicTools.DivisibleBy(sysExAddress[1], 2))

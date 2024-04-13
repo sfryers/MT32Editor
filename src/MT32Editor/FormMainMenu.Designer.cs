@@ -199,6 +199,7 @@
             autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
             autosaveEvery5MinutesToolStripMenuItem.Size = new Size(366, 22);
             autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
+            autosaveEvery5MinutesToolStripMenuItem.ToolTipText = "Saves current status to autosave.syx";
             autosaveEvery5MinutesToolStripMenuItem.Click += autosaveEvery5MinutesToolStripMenuItem_Click;
             // 
             // ignoreSysConfigOnLoadToolStripMenuItem
@@ -250,6 +251,7 @@
             darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
             darkModeToolStripMenuItem.Size = new Size(366, 22);
             darkModeToolStripMenuItem.Text = "Dark mode";
+            darkModeToolStripMenuItem.ToolTipText = "Select the application theme (light on dark/dark on light)";
             darkModeToolStripMenuItem.Click += darkModeToolStripMenuItem_Click;
             // 
             // showConsoleToolStripMenuItem
@@ -302,7 +304,7 @@
             midiInToolStripMenuItem.FlatStyle = FlatStyle.Standard;
             midiInToolStripMenuItem.MaxDropDownItems = 10;
             midiInToolStripMenuItem.Name = "midiInToolStripMenuItem";
-            midiInToolStripMenuItem.Size = new Size(200, 23);
+            midiInToolStripMenuItem.Size = new Size(250, 23);
             midiInToolStripMenuItem.DropDownClosed += midiInToolStripMenuItem_DropDownClosed;
             // 
             // MidiOutLabelToolStripMenuItem
@@ -322,7 +324,7 @@
             midiOutToolStripMenuItem.FlatStyle = FlatStyle.Standard;
             midiOutToolStripMenuItem.MaxDropDownItems = 10;
             midiOutToolStripMenuItem.Name = "midiOutToolStripMenuItem";
-            midiOutToolStripMenuItem.Size = new Size(200, 23);
+            midiOutToolStripMenuItem.Size = new Size(250, 23);
             midiOutToolStripMenuItem.DropDownClosed += midiOutToolStripMenuItem_DropDownClosed;
             // 
             // timer

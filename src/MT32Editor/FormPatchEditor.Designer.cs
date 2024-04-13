@@ -325,9 +325,9 @@
             labelUnitNoWarning.ForeColor = Color.Yellow;
             labelUnitNoWarning.Location = new Point(15, 74);
             labelUnitNoWarning.Name = "labelUnitNoWarning";
-            labelUnitNoWarning.Size = new Size(508, 15);
+            labelUnitNoWarning.Size = new Size(439, 15);
             labelUnitNoWarning.TabIndex = 62;
-            labelUnitNoWarning.Text = "WARNING! Unit No. set to non-default value. To revert, edit/delete MT32Edit.ini and restart app.";
+            labelUnitNoWarning.Text = "⚠ Unit No. set to non-default value! To revert, edit/delete MT32Edit.ini and reload.";
             toolTipParameterValue.SetToolTip(labelUnitNoWarning, resources.GetString("labelUnitNoWarning.ToolTip"));
             labelUnitNoWarning.Visible = false;
             // 
@@ -353,7 +353,7 @@
             buttonEditPreset.BackColor = Color.FromArgb(224, 224, 224);
             buttonEditPreset.Location = new Point(350, 113);
             buttonEditPreset.Name = "buttonEditPreset";
-            buttonEditPreset.Size = new Size(91, 23);
+            buttonEditPreset.Size = new Size(134, 23);
             buttonEditPreset.TabIndex = 32;
             buttonEditPreset.Text = "Edit Preset Timbre";
             buttonEditPreset.UseVisualStyleBackColor = false;

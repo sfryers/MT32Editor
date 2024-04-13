@@ -20,7 +20,7 @@ internal static class MT32Strings
         "Crash Cymbal (loop)","Ride cymbal (loop)","Ride cymbal 2 (loop)","Rim (loop)","Hand clap (loop)","Bongo (loop)","Conga (loop)","Muted conga (loop)","Cowbell (loop)","Tambourine (loop)",
         "Agogo (loop)","Woodblock (loop)","Timbales (loop)","Maracas (loop)","Sticks (loop)","Perc Organ (loop)","Trombone (loop)","Trumpet (loop)","Clarinet (loop)","Piccolo (loop)","Pan Pipe (loop)",
         "Breath Noise (loop)","Alto Sax (loop)","Baritone Sax (loop)","Xylophone (loop)","Glockenspiel (loop)","Marimba (loop)","Tubular Bells (loop)","Fingered Bass (loop)","Slap Bass (loop)",
-        "Acoustic Bass (loop)","Nylon Guitar (loop)","Steel Guitar (loop)","Pizzicato (loop)","Harp (loop)","Bowed string (loop)","String Ensemble (loop)","Timpani","Orchestra Hit (loop)","Flute (loop)",
+        "Acoustic Bass (loop)","Nylon Guitar (loop)","Steel Guitar (loop)","Pizzicato (loop)","Harp (loop)","Bowed string (loop)","String Ensemble (loop)","Timpani (loop)","Orchestra Hit (loop)","Flute (loop)",
         "Perc. loop 1","Perc. loop 2","Orch&Perc loop","Wind&Perc loop","Guitar & Bass loop","Orchestra loop","Perc. loop 3","Bass & Perc. loop","Bass & Snare loop"
     };
 
@@ -165,18 +165,11 @@ internal static class MT32Strings
     /// </summary>
     public static string OnOffStatus(bool statusIsOn)
     {
-        if (statusIsOn)
-        {
-            return onOff[1];
-        }
-        else
-        {
-            return onOff[0];
-        }
+        return statusIsOn ? onOff[1] : onOff[0];
     }
 
     /// <summary>
-    /// Returns 'Saw' or 'Square'
+    /// Returns 'Square' if waveformValue = 0 or 2. Returns 'Saw' is waveformValue = 1 or 3.
     /// </summary>
     public static string WaveformType(int waveformValue)
     {
@@ -189,7 +182,7 @@ internal static class MT32Strings
     }
 
     /// <summary>
-    /// Produces appropriate string for non-numeric UI values
+    /// Produces appropriate string for non-numeric UI parameter values
     /// </summary>
     public static string PartialParameterValueText(int parameterNo, int parameterValue)
     {
@@ -239,20 +232,11 @@ internal static class MT32Strings
     }
 
     /// <summary>
-    /// Returns a string containing the name of a MT-32 PCM sample
+    /// Returns a string containing the name of an MT-32 PCM sample
     /// </summary>
     public static string GetSampleName(int bankNo, int sampleNo)
     {
-        string sampleName;
-        if (bankNo == 0)
-        {
-            sampleName = bank1SampleNames[sampleNo];
-        }
-        else
-        {
-            sampleName = bank2SampleNames[sampleNo];
-        }
-        return sampleName;
+        return bankNo == 0 ? bank1SampleNames[sampleNo] : bank2SampleNames[sampleNo];
     }
 
     /// <summary>
@@ -260,13 +244,6 @@ internal static class MT32Strings
     /// </summary>
     public static string[] GetAllSampleNames(int bankNo)
     {
-        if (bankNo == 0)
-        {
-            return bank1SampleNames;
-        }
-        else
-        {
-            return bank2SampleNames;
-        }
+        return bankNo == 0 ? bank1SampleNames : bank2SampleNames;
     }
 }

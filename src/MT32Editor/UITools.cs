@@ -7,9 +7,9 @@
 internal static class UITools
 {
     // MT32Edit: UITools class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
-    public const int UI_REFRESH_INTERVAL = 250; //interval between form refreshes, in milliseconds 
+    public const int UI_REFRESH_INTERVAL = 200; //interval between form refreshes, in milliseconds 
 
     /// <summary>
     /// If true, will set UI theme to dark background.
@@ -212,9 +212,8 @@ internal static class UITools
         else
         {
             labelPitch.ForeColor = Color.DarkOrchid;
-            labelTVF.ForeColor = Color.DarkSlateBlue;
-            labelTVA.ForeColor = Color.Brown;
-
+            labelTVA.ForeColor = Color.DarkSlateBlue;
+            labelTVF.ForeColor = Color.Brown;
         }
     }
 }

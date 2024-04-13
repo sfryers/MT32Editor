@@ -13,6 +13,7 @@ public partial class FormPatchEditor : Form
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool changesMade;
     private bool thisFormIsActive = true;
+    private bool darkMode = !UITools.DarkMode;
     private float UIScale;
 
     private const string TEXT_EDIT_PRESET = "Edit Preset Timbre";
@@ -39,10 +40,15 @@ public partial class FormPatchEditor : Form
 
     private void SetTheme()
     {
+        if (darkMode == UITools.DarkMode)
+        {
+            return;
+        }
         Label[] labels = {labelAssignMode, labelBendRange, labelFineTune, labelKeyShift, labelPatchNo, labelReverb, labelTimbreGroup, labelTimbreName };
         Label[] warningLabels = {labelNoChannelAssigned, labelUnitNoWarning};
         RadioButton[] radioButtons = { radioButtonReverbOff, radioButtonReverbOn };
         BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels, checkBoxes: null, groupBoxes: null, listViewPatches, radioButtons, alternate: true);
+        darkMode = UITools.DarkMode;
     }
 
 
@@ -68,6 +74,28 @@ public partial class FormPatchEditor : Form
         {
             labelUnitNoWarning.Visible = true;
         }
+    }
+
+    private void timer_Tick(object sender, EventArgs e)
+    {
+        if (!thisFormIsActive)
+        {
+            int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
+            CheckForMemoryStateUpdates();
+            UpdateMemoryTimbreNames();
+            FindMemoryTimbreInPatchList(selectedTimbre);
+        }
+        if (comboBoxTimbreGroup.Text == "Memory")
+        {
+            SyncMemoryTimbreNames();
+        }
+
+        if (memoryState.returnFocusToPatchEditor)
+        {
+            ReturnFocusToPatchEditor();
+        }
+        CheckPartStatus();
+        SetTheme();
     }
 
     /// <summary>
@@ -389,28 +417,6 @@ public partial class FormPatchEditor : Form
     private void FormPatchEditor_FormClosing(object sender, FormClosingEventArgs e)
     {
         CheckForUnsavedChanges(e);
-    }
-
-    private void timer_Tick(object sender, EventArgs e)
-    {
-        if (!thisFormIsActive)
-        {
-            int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
-            CheckForMemoryStateUpdates();
-            UpdateMemoryTimbreNames();
-            FindMemoryTimbreInPatchList(selectedTimbre);
-        }
-        if (comboBoxTimbreGroup.Text == "Memory")
-        {
-            SyncMemoryTimbreNames();
-        }
-
-        if (memoryState.returnFocusToPatchEditor)
-        {
-            ReturnFocusToPatchEditor();
-        }
-        CheckPartStatus();
-        SetTheme();
     }
 
     private void CheckPartStatus()

@@ -8,7 +8,7 @@ namespace MT32Edit;
 internal static class Midi
 {
     // MT32Edit: Midi class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     public const string MUNT_DEVICE_NAME = "MT-32 Synth Emulator";
 
@@ -103,7 +103,7 @@ internal static class Midi
             {
                 Out.Send(e.RawMessage); //send MIDI In data to MIDI Out
             }
-            catch
+            catch (Exception)
             {
                 ShowMidiOutErrorMessage();
                 Out = null;
@@ -125,7 +125,7 @@ internal static class Midi
                 In.Stop();
                 In.Dispose();
             }
-            catch
+            catch (Exception)
             {
                 ConsoleMessage.SendLine("Error- MIDI device disconnected.");
                 return false;
@@ -140,7 +140,10 @@ internal static class Midi
             In.Start(); //MIDI handler will start and continue running in background
             return true;
         }
-        catch { return false; }
+        catch (Exception) 
+        { 
+            return false; 
+        }
     }
 
     /// <summary>
@@ -160,7 +163,10 @@ internal static class Midi
             Out = new MidiOut(OutDeviceIndex);
             return true;
         }
-        catch { return false; }
+        catch (Exception)
+        { 
+            return false; 
+        }
     }
 
     /// <summary>
@@ -192,18 +198,11 @@ internal static class Midi
     }
 
     /// <summary>
-    /// Returns true if the current MIDI Out device is an MT-32 Emulator
+    /// Returns true if the current MIDI Out device is a MUNT MT-32 Emulator.
     /// </summary>
     public static bool EmulatorPresent(int deviceIndex)
     {
-        if (Out is not null && GetOutputDeviceName(deviceIndex) == MUNT_DEVICE_NAME)
-        {
-            return true;
-        }
-        else
-        { 
-            return false; 
-        }
+        return Out is not null && GetOutputDeviceName(deviceIndex) == MUNT_DEVICE_NAME;
     }
 
     /// <summary>
@@ -217,7 +216,7 @@ internal static class Midi
             {
                 Out.Dispose();
             }
-            catch
+            catch (Exception)
             {
                 ConsoleMessage.SendLine("MIDI Out device already closed.");
                 Out = null;
@@ -238,7 +237,7 @@ internal static class Midi
                 In.Dispose();
                 In = null;
             }
-            catch
+            catch (Exception)
             {
                 ConsoleMessage.SendLine("MIDI In device already closed.");
                 In = null;
@@ -247,7 +246,7 @@ internal static class Midi
     }
 
     /// <summary>
-    /// Sends a MIDI 'note on' message
+    /// Sends a MIDI 'note on' message.
     /// </summary>
     /// <param name="note"></param>
     /// <param name="midiChannel"></param>
@@ -266,7 +265,7 @@ internal static class Midi
                 Out.Send(MidiMessage.StartNote(note, volume, midiChannel + 1).RawData);
             }
         }
-        catch
+        catch (Exception)
         {
             ConsoleMessage.SendLine("Error opening MIDI Out device.");
             Out = null;
@@ -274,7 +273,7 @@ internal static class Midi
     }
 
     /// <summary>
-    /// Sends a MIDI 'note off' message
+    /// Sends a MIDI 'note off' message.
     /// </summary>
     /// <param name="note"></param>
     /// <param name="midiChannel"></param>
@@ -292,13 +291,18 @@ internal static class Midi
                 Out.Send(MidiMessage.StopNote(note, volume, midiChannel + 1).RawData);
             }
         }
-        catch
+        catch (Exception)
         {
             ShowMidiOutErrorMessage();
             Out = null;
         }
     }
 
+    /// <summary>
+    /// Sends a MIDI program change message.
+    /// </summary>
+    /// <param name="patchNo"></param>
+    /// <param name="midiChannel"></param>
     public static void SendProgramChange(int patchNo, int channelNo)
     {
         //program change
@@ -317,13 +321,17 @@ internal static class Midi
                 Out.SendBuffer(message);
             }
         }
-        catch
+        catch (Exception)
         {
             ShowMidiOutErrorMessage();
             Out = null;
         }
     }
 
+    /// <summary>
+    /// Sends an array of bytes as a MIDI SysEx message.
+    /// </summary>
+    /// <param name="sysExMessage"></param>
     public static void SendSysExMessage(byte[] sysExMessage)
     {
         try
@@ -333,7 +341,7 @@ internal static class Midi
                 Out.SendBuffer(sysExMessage);
             }
         }
-        catch
+        catch (Exception)
         {
             ShowMidiOutErrorMessage();
         }

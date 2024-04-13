@@ -6,32 +6,30 @@
 internal static class LogicTools
 {
     // MT32Edit: LogicTools class (static)
-    // S.Fryers Mar 2023
+    // S.Fryers Apr 2023
 
+    /// <summary>
+    /// Converts a bool to an integer value.
+    /// </summary>
+    /// <returns>If true, returns 1. If false, returns 0.</returns>
     public static int BoolToInt(bool flag)
     {
-        if (flag)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return flag ? 1 : 0;
     }
 
+    /// <summary>
+    /// Converts an integer value to a bool.
+    /// </summary>
+    /// <returns>If value is 0, returns false. For any other value, returns true.</returns>
     public static bool IntToBool(int value)
     {
-        if (value == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return value == 0 ? false : true;
     }
 
+    /// <summary>
+    /// Tests whether a value is divisible exactly by the specified divisor
+    /// </summary>
+    /// <returns>True or false.</returns>
     public static bool DivisibleBy(int value, int divisor)
     {
         return value % divisor == 0;
@@ -84,7 +82,7 @@ internal static class LogicTools
     /// <param name="value">The value to test.</param>
     /// <param name="minPermitted">The range start of permitted values.</param>
     /// <param name="maxPermitted">The range end of permitted values.</param>
-    /// <exception cref="ArgumentOutOfRangeException">When the value is outside the expected range.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"> When the value is outside the expected range.</exception>
     public static void ErrorCheck(string parameterName, int value, int minPermitted, int maxPermitted)
     {
         if (value < minPermitted || value > maxPermitted)
@@ -100,7 +98,6 @@ internal static class LogicTools
     /// Normally, a number between 0 and 3. If all input values are false, returns -1.
     /// If more than one input value is true, returns a number corresponding to the lowest true value.
     /// </returns>
-    /// 
     public static int GetRadioButtonValue(bool a, bool b, bool c, bool d)
     {
         if (a)

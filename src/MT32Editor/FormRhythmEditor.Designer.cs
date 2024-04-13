@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            ListViewItem listViewItem2 = new ListViewItem("");
+            ListViewItem listViewItem1 = new ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRhythmEditor));
             labelReverb = new Label();
             labelPan = new Label();
@@ -77,7 +77,7 @@
             // 
             labelPan.AutoSize = true;
             labelPan.ForeColor = SystemColors.Control;
-            labelPan.Location = new Point(240, 207);
+            labelPan.Location = new Point(246, 206);
             labelPan.Name = "labelPan";
             labelPan.Size = new Size(94, 15);
             labelPan.TabIndex = 45;
@@ -125,7 +125,7 @@
             trackBarPanPot.Maximum = 7;
             trackBarPanPot.Minimum = -7;
             trackBarPanPot.Name = "trackBarPanPot";
-            trackBarPanPot.Size = new Size(94, 45);
+            trackBarPanPot.Size = new Size(104, 45);
             trackBarPanPot.TabIndex = 40;
             trackBarPanPot.TickStyle = TickStyle.Both;
             trackBarPanPot.ValueChanged += trackBarPanPot_ValueChanged;
@@ -214,7 +214,7 @@
             listViewRhythmBank.ForeColor = SystemColors.Control;
             listViewRhythmBank.FullRowSelect = true;
             listViewRhythmBank.GridLines = true;
-            listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem2 });
+            listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem1 });
             listViewRhythmBank.Location = new Point(14, 305);
             listViewRhythmBank.MinimumSize = new Size(0, 28);
             listViewRhythmBank.MultiSelect = false;
@@ -279,9 +279,9 @@
             labelUnitNoWarning.ForeColor = Color.Yellow;
             labelUnitNoWarning.Location = new Point(15, 74);
             labelUnitNoWarning.Name = "labelUnitNoWarning";
-            labelUnitNoWarning.Size = new Size(508, 15);
+            labelUnitNoWarning.Size = new Size(439, 15);
             labelUnitNoWarning.TabIndex = 63;
-            labelUnitNoWarning.Text = "WARNING! Unit No. set to non-default value. To revert, edit/delete MT32Edit.ini and restart app.";
+            labelUnitNoWarning.Text = "⚠ Unit No. set to non-default value! To revert, edit/delete MT32Edit.ini and reload.";
             toolTipParameterValue.SetToolTip(labelUnitNoWarning, resources.GetString("labelUnitNoWarning.ToolTip"));
             labelUnitNoWarning.Visible = false;
             // 

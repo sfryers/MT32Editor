@@ -7,7 +7,7 @@ namespace MT32Edit;
 internal static class MT32SysEx
 {
     // MT32Edit: MT32SysEx class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
     public const byte MANUFACTURER_ID = 0x41;       //Manufacturer ID (Roland)
@@ -24,7 +24,7 @@ internal static class MT32SysEx
     public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0x0E
 
     public const int NO_OF_SYSTEM_PARAMETERS = 0x17;//no of parameters in system area
-    public const int MT32_DELAY = 50;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
+    public const int MT32_DELAY = 75;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
 
     /// <summary>
     /// Set to true whilst long SysEx uploads are occurring. MIDI Thru functionality will be disabled.
@@ -60,6 +60,11 @@ internal static class MT32SysEx
     /// User-configurable device ID. Devices other than hardware MT-32 will only respond to the default value.
     /// </summary>
     public static byte DeviceID { get; set; } = DEFAULT_DEVICE_ID;
+
+    /// <summary>
+    /// If set to true, will show content of SysEx messages in the console window to assist with debugging.
+    /// </summary>
+    public static bool echoSysExData {  get; set; } = false;
 
     private static readonly int channelNo = 1;
     private static byte[] previousSysExMessage = Array.Empty<byte>();
@@ -276,12 +281,16 @@ internal static class MT32SysEx
     /// </summary>
     private static void SendAllPartialParameters(TimbreStructure timbre)
     {
+        bool keepBlocking = blockMT32text;
         blockMT32text = true;
         for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
             ApplyPartialParameters(timbre, partialNo);
         }
-        blockMT32text = false;
+        if (!keepBlocking)
+        {
+            blockMT32text = false;
+        }
         SendText("Loaded " + timbre.GetTimbreName());
     }
 
@@ -520,7 +529,10 @@ internal static class MT32SysEx
         }
         uploadInProgress = true;
         Midi.SendSysExMessage(sysExMessage);
-        //SendSysExDataToConsole(sysExMessage); //Uncomment for debugging
+        if (echoSysExData)
+        {
+            SendSysExDataToConsole(sysExMessage);
+        }
         uploadInProgress = false;
         previousSysExMessage = (byte[])sysExMessage.Clone();
     }
@@ -530,7 +542,8 @@ internal static class MT32SysEx
     /// </summary>
     private static void SendSysExDataToConsole(byte[] sysExMessage)
     {
-        ConsoleMessage.SendVerboseString($"Sending data to device: {sysExMessage.Length} bytes [");
+        ConsoleMessage.SendVerboseString($"Sending data to device: ", ConsoleColor.Green);
+        ConsoleMessage.SendVerboseString($"{sysExMessage.Length} bytes [", ConsoleColor.Cyan);
         for (int i = 0; i < sysExMessage.Length; i++)
         {
             string hexString = sysExMessage[i].ToString("X");
@@ -544,7 +557,7 @@ internal static class MT32SysEx
                 ConsoleMessage.SendVerboseString(" ");
             }
         }
-        ConsoleMessage.SendVerboseLine("]");
+        ConsoleMessage.SendVerboseLine("]", ConsoleColor.Cyan);
     }
 
     public static void SendMemoryTimbre(int timbreNo, TimbreStructure timbre)
@@ -582,15 +595,7 @@ internal static class MT32SysEx
         sysExData[10] = (byte)timbre.GetPart12Structure();
         sysExData[11] = (byte)timbre.GetPart34Structure();
         sysExData[12] = PartialMuteValue(timbre.GetPartialMuteStatus());
-        if (timbre.GetSustainStatus())
-        {
-            sysExData[13] = 0;
-        }
-        else
-        {
-            sysExData[13] = 1;
-        }
-
+        sysExData[13] = (byte)(timbre.GetSustainStatus() ? 0 : 1);
         int byteNo = PARTIAL_ADDRESS_OFFSET;
         for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {

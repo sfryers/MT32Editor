@@ -6,7 +6,7 @@
 public class MT32State
 {
     // MT32Edit: MT32State class
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     public const int NO_OF_MEMORY_TIMBRES = 64;
     public const int NO_OF_PATCHES = 128;
@@ -39,6 +39,9 @@ public class MT32State
         ResetAll();
     }
 
+    /// <summary>
+    /// Resets the entire internal MT-32 memory state.
+    /// </summary>
     public void ResetAll()
     {
         InitialisePatchArray();
@@ -57,7 +60,7 @@ public class MT32State
         }
     }
 
-    public void InitialiseMemoryTimbreArray()
+    private void InitialiseMemoryTimbreArray()
     {
         for (int timbreNo = 0; timbreNo < NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
@@ -65,7 +68,7 @@ public class MT32State
         }
     }
 
-    public void InitialiseRhythmBank()
+    private void InitialiseRhythmBank()
     {
         for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < RhythmConstants.KEY_OFFSET + NO_OF_RHYTHM_BANKS; keyNo++)
         {
@@ -118,16 +121,27 @@ public class MT32State
         LogicTools.ValidateRange("Bank No.", bankNo, 0, NO_OF_RHYTHM_BANKS - 1, autoCorrect: false);
     }
 
+    /// <summary>
+    /// Gets all current memory timbres
+    /// </summary>
+    /// <returns>An array of TimbreStructures containing all current memory timbres</returns>
     public TimbreStructure[] GetMemoryTimbreArray()
     {
         return memoryTimbre;
     }
 
+    /// <summary>
+    /// Sets all current memory timbres
+    /// </summary>
     public void SetMemoryTimbreArray(TimbreStructure[] memoryTimbreArrayInput)
     {
         memoryTimbre = memoryTimbreArrayInput;
     }
 
+    /// <summary>
+    /// Gets a single memory timbre from slot [timbreNo].
+    /// </summary>
+    /// <returns>A TimbreStructure containing the requested memory timbre</returns>
     public TimbreStructure GetMemoryTimbre(int timbreNo)
     {
         ValidateTimbreNo(timbreNo);

@@ -6,7 +6,7 @@
 internal static class ConfigFile
 {
     // MT32Edit: ConfigFile class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     private const string COMMENT_CHARACTER = "#";
     private const string TEXT_MIDI_IN = "Midi In";
@@ -21,6 +21,7 @@ internal static class ConfigFile
     private const string TEXT_SEND_MESSAGES = "Send messages to MT-32";
     private const string TEXT_IGNORE_SYSTEM_ON_LOAD = "Ignore system area on SysEx load";
     private const string TEXT_EXCLUDE_SYSTEM_ON_SAVE = "Exclude system area on SysEx save";
+    private const string TEXT_SEND_SYSEX_DATA_TO_CONSOLE = "Show SysEx data in console";
 
     private static readonly string iniFileName = "MT32Edit.ini";
     private static readonly string iniFileLocation = Path.Combine($"{FileTools.applicationPath}", iniFileName);
@@ -35,7 +36,8 @@ internal static class ConfigFile
         string[] parameterNames = {
                                     TEXT_MIDI_IN, TEXT_MIDI_OUT, TEXT_UNIT_NO, TEXT_AUTOSAVE, TEXT_DARK_MODE,
                                     TEXT_SHOW_CONSOLE, TEXT_VERBOSE_MESSAGES, TEXT_HARDWARE_CONNECTED, TEXT_ALLOW_RESET,
-                                    TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE
+                                    TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE,
+                                    TEXT_SEND_SYSEX_DATA_TO_CONSOLE
                                   };
 
         if (!File.Exists(iniFileLocation))
@@ -114,6 +116,9 @@ internal static class ConfigFile
                     break;
                 case TEXT_EXCLUDE_SYSTEM_ON_SAVE:
                     CheckExcludeOnSaveSetting(status);
+                    break;
+                case TEXT_SEND_SYSEX_DATA_TO_CONSOLE:
+                    CheckSysExConsoleSetting(status);
                     break;
                 default:
                     break;
@@ -208,6 +213,14 @@ internal static class ConfigFile
                 MT32SysEx.sendTextToMT32 = (bool)status;
             }
         }
+
+        void CheckSysExConsoleSetting(bool? status)
+        {
+            if (status.HasValue)
+            {
+                MT32SysEx.echoSysExData = (bool)status;
+            }
+        }
     }
 
     /// <summary>
@@ -232,6 +245,7 @@ internal static class ConfigFile
             fs.WriteLine($"{TEXT_DARK_MODE} = {UITools.DarkMode}");
             fs.WriteLine($"{TEXT_SHOW_CONSOLE} = {ConsoleMessage.Visible()}");
             fs.WriteLine($"{TEXT_VERBOSE_MESSAGES} = {ConsoleMessage.Verbose()}");
+            fs.WriteLine($"{TEXT_SEND_SYSEX_DATA_TO_CONSOLE} = {MT32SysEx.echoSysExData}");
             fs.WriteLine($"{TEXT_HARDWARE_CONNECTED} = {MT32SysEx.hardwareMT32Connected}");
             fs.WriteLine($"{TEXT_ALLOW_RESET} = {MT32SysEx.allowReset}");
             fs.WriteLine($"{TEXT_SEND_MESSAGES} = {MT32SysEx.sendTextToMT32}");
@@ -239,7 +253,7 @@ internal static class ConfigFile
             fs.WriteLine($"{TEXT_EXCLUDE_SYSTEM_ON_SAVE} = {SaveSysExFile.excludeSystemArea}");
             fs.Close();
         }
-        catch
+        catch (Exception)
         {
             MessageBox.Show($"Unable to create {iniFileName}.{Environment.NewLine}{Environment.NewLine}Check that you have read/write access to the folder that the application is running from ({FileTools.applicationPath}){Environment.NewLine}{Environment.NewLine}MIDI device settings have not been saved.", "MT-32 Editor");
         }

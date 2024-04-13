@@ -6,15 +6,17 @@
 public partial class FormAbout : Form
 {
     // MT32Edit: FormAbout
-    // S.Fryers Feb 2024
+    // S.Fryers Apr 2024
 
-    private string versionNo = string.Empty;
-    private string releaseDate = string.Empty;
+    private readonly string version;
+    private readonly string framework;
+    private readonly string releaseDate;
 
-    public FormAbout(string version, string date)
+    public FormAbout(string versionNo, string frameworkID, string date)
     {
         InitializeComponent();
-        versionNo = version;
+        version = versionNo;
+        framework = string.IsNullOrWhiteSpace(frameworkID) ? "" : $"({frameworkID})";
         releaseDate = date;
     }
 
@@ -25,7 +27,8 @@ public partial class FormAbout : Form
 
     private void FormAbout_Load(object sender, EventArgs e)
     {
-        labelVersionNo.Text = versionNo;
+        labelVersionNo.Text = version;
+        labelFramework.Text = framework;
         labelReleaseDate.Text = releaseDate;
     }
 

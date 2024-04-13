@@ -16,7 +16,7 @@ namespace MT32Edit;
 internal static class TimbreFile
 {
     // MT32Edit: TimbreFile class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
@@ -145,7 +145,7 @@ internal static class TimbreFile
             FileStream file = (FileStream)saveDialog.OpenFile();
             SaveTimbreFileContents(timbre, file);
         }
-        catch
+        catch (Exception)
         {
             MessageBox.Show("Could not write timbre file. Please ensure you have write access to the selected folder path.");
         }
@@ -248,7 +248,7 @@ internal static class TimbreFile
                 SaveTimbreFileContents(timbre, timbreFile);
                 return true;
             }
-            catch
+            catch (Exception)
             {
                 MessageBox.Show("Could not write timbre file. Please ensure you have write access to the selected folder path.");
                 return false;
@@ -274,15 +274,7 @@ internal static class TimbreFile
         timbreData[0] = (byte)timbre.GetPart12Structure();
         timbreData[1] = (byte)timbre.GetPart34Structure();
         timbreData[2] = MT32SysEx.PartialMuteValue(partialStatus);
-        if (timbre.GetSustainStatus())
-        {
-            timbreData[3] = 0;
-        }
-        else
-        {
-            timbreData[3] = 1;
-        }
-
+        timbreData[3] = (byte)(timbre.GetSustainStatus() ? 0 : 1);
         file.Write(timbreNameASCIIChars, 0, 10);
         file.Write(timbreData, 0, timbreData.Length);
         int sumOfSysExValues = ParseTools.CharacterSum(timbreNameASCIIChars, 10) + timbreData[0] + timbreData[1] + timbreData[2] + timbreData[3];

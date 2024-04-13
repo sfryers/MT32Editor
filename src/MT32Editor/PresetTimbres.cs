@@ -908,6 +908,15 @@ internal static class PresetTimbres
         }
     };
 
+    /// <summary>
+    /// Get all parameters for preset timbre [timbreNo] in [bankNo].
+    /// If a bankNo is specified, valid timbreNo values are 0-63.
+    /// If no bankNo is specified, valid timbreNo values are 0-127.
+    /// </summary>
+    /// <param name="timbreNo"></param>
+    /// <param name="bankNo"></param>
+    /// <returns>TimbreStructure containing parameter values corresponding to the specified MT-32 preset timbre</returns>
+
     public static TimbreStructure Get(int timbreNo, int bankNo = -1)
     {
         LogicTools.ValidateRange("Bank No.", bankNo, -1, 1, autoCorrect: false);
@@ -936,25 +945,30 @@ internal static class PresetTimbres
         }
         timbre.SetPart12Structure(presetTimbreData[timbreNo, 0]);
         timbre.SetPart34Structure(presetTimbreData[timbreNo, 1]);
-        //use inverse value
+        //use inverse value for sustain status
         timbre.SetSustainStatus(!LogicTools.IntToBool(presetTimbreData[timbreNo, 3]));
 
-        for (int partialNo = 0; partialNo < 4; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
         {
-            if ((presetTimbreData[timbreNo, 2] & (1 << partialNo)) != 0)
-            {
-                timbre.SetPartialMuteStatus(partialNo, false);
-            }
-            else
+            SetPartialParameters(partialNo);
+        }
+        return timbre;
+
+        void SetPartialParameters(int partialNo)
+        {
+            if ((presetTimbreData[timbreNo, 2] & (1 << partialNo)) == 0)
             {
                 timbre.SetPartialMuteStatus(partialNo, true);
             }
+            else
+            {
+                timbre.SetPartialMuteStatus(partialNo, false);
+            }
 
-            for (byte parameterNo = 0; parameterNo < 58; parameterNo++)
+            for (byte parameterNo = 0; parameterNo < TimbreStructure.NO_OF_PARAMETERS; parameterNo++)
             {
                 timbre.SetSysExParameter(partialNo, parameterNo, presetTimbreData[timbreNo, (partialNo * 58) + parameterNo + 4]);
             }
         }
-        return timbre;
     }
 }

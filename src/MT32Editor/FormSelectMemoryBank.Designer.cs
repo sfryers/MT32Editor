@@ -59,7 +59,7 @@
             // buttonOK
             // 
             buttonOK.BackColor = Color.FromArgb(224, 224, 224);
-            buttonOK.Location = new Point(193, 44);
+            buttonOK.Location = new Point(212, 45);
             buttonOK.Name = "buttonOK";
             buttonOK.Size = new Size(71, 25);
             buttonOK.TabIndex = 3;
@@ -70,7 +70,7 @@
             // buttonCancel
             // 
             buttonCancel.BackColor = Color.FromArgb(224, 224, 224);
-            buttonCancel.Location = new Point(193, 73);
+            buttonCancel.Location = new Point(212, 74);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(71, 26);
             buttonCancel.TabIndex = 4;
@@ -83,7 +83,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(278, 109);
+            ClientSize = new Size(308, 109);
             Controls.Add(buttonCancel);
             Controls.Add(buttonOK);
             Controls.Add(comboBoxMemoryBank);

@@ -24,15 +24,7 @@ internal class DrawingTools
 
         e.DrawBackground();
         string partialConfigType = $"{e.Index + 1}: {MT32Strings.partialConfig[e.Index]}";
-        string partialConfigDescription;
-        if (isPartial12)
-        {
-            partialConfigDescription = MT32Strings.partialConfig12Desc[e.Index];
-        }
-        else
-        {
-            partialConfigDescription = MT32Strings.partialConfig34Desc[e.Index];
-        }
+        string partialConfigDescription = isPartial12 ? MT32Strings.partialConfig12Desc[e.Index] : MT32Strings.partialConfig34Desc[e.Index];
 
         int xLeft = e.Bounds.Location.X;
         int xMid = (int)(58 * UIScale);

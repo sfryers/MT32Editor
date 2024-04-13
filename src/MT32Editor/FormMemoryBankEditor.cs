@@ -6,13 +6,14 @@
 public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     private MT32State memoryState;
     private FormTimbreEditor timbreEditor;
     private TimbreStructure? copiedTimbre;
     private DateTime lastGlobalUpdate = DateTime.Now;
     private float UIScale;
+    private bool darkMode = !UITools.DarkMode;
 
     internal FormMemoryBankEditor(float DPIScale, MT32State parentMemoryState, FormTimbreEditor parentTimbreEditorForm)
     {
@@ -28,10 +29,38 @@ public partial class FormMemoryBankEditor : Form
         timer.Start();
     }
 
+    private void timer_Tick(object sender, EventArgs e)
+    {
+        int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
+        if (memoryState.patchEditorActive)
+        {
+            selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
+        }
+        else if (memoryState.rhythmEditorActive)
+        {
+            selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
+        }
+        if (memoryState.returnFocusToMemoryBankList)
+        {
+            ReturnFocusToMemoryBankList();
+        }
+        else
+        {
+            SynchroniseTimbreEditor(selectedTimbre);
+        }
+        RefreshMemoryBankListView(selectedTimbre);
+        SetTheme();
+    }
+
     private void SetTheme()
     {
+        if (darkMode == UITools.DarkMode)
+        {
+            return;
+        }
         Label[] labels = { labelTimbreName, labelTimbreNo, labelClearAll, labelClearSelected, labelCopy, labelPaste };
         BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels: null, checkBoxes: null, groupBoxes: null, listViewTimbres, null, alternate: true);
+        darkMode = UITools.DarkMode;
     }
 
     private void ScaleUIElements()
@@ -118,7 +147,7 @@ public partial class FormMemoryBankEditor : Form
         SynchroniseTimbreEditor(selectedTimbre);
         if (timbreName == MT32Strings.EMPTY)
         {
-            timbreName = "New Timbre";
+            timbreName = TimbreStructure.NEW_TIMBRE;
         }
 
         MT32SysEx.SendText("Editing " + timbreName);
@@ -144,8 +173,8 @@ public partial class FormMemoryBankEditor : Form
     private void buttonClearAll_Click(object sender, EventArgs e)
     {
         if (!UITools.AskUserToConfirm("Clear all memory timbres?", "MT-32 Editor"))
-        { 
-            return; 
+        {
+            return;
         }
         memoryState.SetMemoryTimbreArray(new TimbreStructure[MT32State.NO_OF_MEMORY_TIMBRES]);
         InitialiseMemoryTimbreArray();
@@ -204,30 +233,6 @@ public partial class FormMemoryBankEditor : Form
             string currentTimbreName = memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName();
             return !UITools.AskUserToConfirm($"Overwrite {currentTimbreName} with copied timbre {copiedTimbre.GetTimbreName()}?", "MT-32 Editor");
         }
-    }
-
-    private void timer_Tick(object sender, EventArgs e)
-    {
-        int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
-        if (memoryState.patchEditorActive)
-        {
-            selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
-        }
-        else if (memoryState.rhythmEditorActive)
-        {
-            selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
-        }
-
-        if (memoryState.returnFocusToMemoryBankList)
-        {
-            ReturnFocusToMemoryBankList();
-        }
-        else
-        {
-            SynchroniseTimbreEditor(selectedTimbre);
-        }
-        RefreshMemoryBankListView(selectedTimbre);
-        SetTheme();
     }
 
     private int FindPatchTimbreInMemoryBank(int selectedTimbreNo)
@@ -325,6 +330,7 @@ public partial class FormMemoryBankEditor : Form
     private void FormMemoryBankEditor_Activated(object sender, EventArgs e)
     {
         int selectedTimbre = (int)numericUpDownTimbreNo.Value - 1;
+        memoryState.SetMemoryTimbre(timbreEditor.TimbreData, selectedTimbre);
         memoryState.rhythmEditorActive = false;
         memoryState.patchEditorActive = false;
         memoryState.SetTimbreIsEditable(true);

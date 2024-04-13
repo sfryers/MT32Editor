@@ -6,7 +6,7 @@
 public partial class FormRhythmEditor : Form
 {
     // MT32Edit: FormRhythmEditor
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     // Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
     private const int BANK_OFFSET = 2;
@@ -15,6 +15,7 @@ public partial class FormRhythmEditor : Form
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool thisFormIsActive = false;
     private bool changesMade = false;
+    private bool darkMode = !UITools.DarkMode;
     private int pressedKey = -1;
     private float UIScale;
 
@@ -39,10 +40,15 @@ public partial class FormRhythmEditor : Form
 
     private void SetTheme()
     {
+        if (darkMode == UITools.DarkMode)
+        {
+            return;
+        }
         Label[] labels = {labelKeyNo, labelLevel, labelNoChannelAssigned, labelPan, labelReverb, labelTimbreGroup, labelTimbreName };
         Label[] warningLabels = { labelNoChannelAssigned, labelUnitNoWarning };
         RadioButton[] radioButtons = { radioButtonReverbOff, radioButtonReverbOn };
         BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels, checkBoxes: null, groupBoxes: null, listViewRhythmBank, radioButtons, alternate: true);
+        darkMode = UITools.DarkMode;
     }
 
     private void InitialiseRhythmBank()
@@ -64,6 +70,28 @@ public partial class FormRhythmEditor : Form
         {
             labelUnitNoWarning.Visible = true;
         }
+    }
+
+    private void timer_Tick(object sender, EventArgs e)
+    {
+        if (!thisFormIsActive)
+        {
+            int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
+            CheckForMemoryStateUpdates();
+            FindMemoryTimbreInRhythmList(selectedTimbre);
+
+        }
+        if (comboBoxTimbreGroup.Text == "Memory")
+        {
+            SyncMemoryTimbreNames();
+        }
+
+        if (memoryState.returnFocusToRhythmEditor)
+        {
+            ReturnFocusToRhythmEditor();
+        }
+        CheckPartStatus();
+        SetTheme();
     }
 
     /// <summary>
@@ -88,7 +116,6 @@ public partial class FormRhythmEditor : Form
 
     private void SelectKeyInListView(int keyNo)
     {
-        ConsoleMessage.SendVerboseLine("Key No." + keyNo.ToString());
         listViewRhythmBank.Items[keyNo - RhythmConstants.KEY_OFFSET].Selected = true;
         listViewRhythmBank.Items[keyNo - RhythmConstants.KEY_OFFSET].EnsureVisible();
         listViewRhythmBank.Select();
@@ -306,28 +333,6 @@ public partial class FormRhythmEditor : Form
             Midi.NoteOff(pressedKey, midiChannel);
         }
         pressedKey = -1;
-    }
-
-    private void timer_Tick(object sender, EventArgs e)
-    {
-        if (!thisFormIsActive)
-        {
-            int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
-            CheckForMemoryStateUpdates();
-            FindMemoryTimbreInRhythmList(selectedTimbre);
-            
-        }
-        if (comboBoxTimbreGroup.Text == "Memory")
-        {
-            SyncMemoryTimbreNames();
-        }
-
-        if (memoryState.returnFocusToRhythmEditor)
-        {
-            ReturnFocusToRhythmEditor();
-        }
-        CheckPartStatus();
-        SetTheme();
     }
 
     private void CheckPartStatus()

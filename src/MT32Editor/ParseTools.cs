@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Text;
+
+namespace MT32Edit;
 
 /// <summary>
 /// Simple tools for parsing text strings
@@ -6,7 +8,7 @@
 internal static class ParseTools
 {
     // MT32Edit: ParseTools class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
    
     /// <summary>
     /// Ensures str is precisely the desiredLength by adding spaces or removing excess characters from right hand side
@@ -23,11 +25,13 @@ internal static class ParseTools
     /// </summary>
     public static string PadWithSpace(string str, int desiredLength)
     {
-        while (str.Length < desiredLength)
+        StringBuilder outputString = new StringBuilder();
+        outputString.Append(str);
+        while (outputString.Length < desiredLength)
         {
-            str += " ";
+            outputString.Append(" ");
         }
-        return str;
+        return outputString.ToString();
     }
 
     /// <summary>
@@ -35,14 +39,7 @@ internal static class ParseTools
     /// </summary>
     public static string Pluralise(int noOfItems)
     {
-        if (noOfItems == 1)
-        {
-            return string.Empty;
-        }
-        else
-        {
-            return "s";
-        }
+        return noOfItems == 1 ? string.Empty : "s";
     }
 
     /// <summary>
@@ -50,14 +47,7 @@ internal static class ParseTools
     /// </summary>
     public static string UnsavedEdits(bool changesMade)
     {
-        if (changesMade)
-        { 
-            return "*";  
-        }
-        else
-        { 
-            return string.Empty; 
-        }
+        return changesMade ? "*" : string.Empty;
     }
 
     /// <summary>
@@ -203,5 +193,15 @@ internal static class ParseTools
         {
             return null;
         }
+    }
+
+    public static string Architecture()
+    {
+        return IntPtr.Size == 8 ? "x64" : "x86";
+    }
+
+    public static string GetVersion(string version)
+    {
+        return $"{version}_{Architecture()}";
     }
 }

@@ -57,7 +57,6 @@
             trackBarPitchEnvVeloSens = new TrackBar();
             labelPitchEnvVeloSens = new Label();
             trackBarPitchEnvTimeKeyfollow = new TrackBar();
-            label1 = new Label();
             trackBarPitchEnvT1 = new TrackBar();
             trackBarPitchEnvT2 = new TrackBar();
             trackBarPitchEnvT3 = new TrackBar();
@@ -110,7 +109,6 @@
             labelTVFT1 = new Label();
             trackBarTVFSustain = new TrackBar();
             groupBoxTVFBias = new GroupBox();
-            label51 = new Label();
             trackBarTVFBiasLevel = new TrackBar();
             trackBarTVFBiasPoint = new TrackBar();
             labelTVFBiasPt = new Label();
@@ -159,7 +157,6 @@
             labelTVALevel = new Label();
             trackBarTVALevel = new TrackBar();
             groupBoxTVABias = new GroupBox();
-            label53 = new Label();
             trackBarTVABiasLevel2 = new TrackBar();
             labelTVABiasL2 = new Label();
             labelTVABiasL1 = new Label();
@@ -174,6 +171,8 @@
             buttonLoadTimbre = new Button();
             buttonPastePartial = new Button();
             buttonCopyPartial = new Button();
+            buttonUndo = new Button();
+            buttonRedo = new Button();
             textBoxTimbreName = new TextBox();
             labelTimbreName = new Label();
             checkBoxSustain = new CheckBox();
@@ -190,7 +189,7 @@
             labelTVATVFEnvGraph = new Label();
             groupBoxEnvGraph = new GroupBox();
             labelEnvGraphSettings = new Label();
-            pictureBox1 = new PictureBox();
+            pictureBoxPitch = new PictureBox();
             labelRefresh = new Label();
             labelNewTimbre = new Label();
             labelSaveAs = new Label();
@@ -200,7 +199,6 @@
             pictureBoxPartial12 = new PictureBox();
             pictureBoxPartial34 = new PictureBox();
             labelPartialStruct = new Label();
-            label65 = new Label();
             labelPartialType = new Label();
             groupBoxPartialStructure = new GroupBox();
             radioButtonPartial4 = new RadioButton();
@@ -216,6 +214,8 @@
             checkBoxPartial1 = new CheckBox();
             labelEnablePartials = new Label();
             labelEditPartialNo = new Label();
+            labelUndo = new Label();
+            labelRedo = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFinePitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarPitchKeyFollow).BeginInit();
@@ -281,7 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarTVABiasPoint2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxTVATVF).BeginInit();
             groupBoxEnvGraph.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).BeginInit();
             groupBoxPartialStructure.SuspendLayout();
@@ -302,6 +302,8 @@
             trackBarPitch.TickStyle = TickStyle.Both;
             trackBarPitch.Value = 36;
             trackBarPitch.ValueChanged += trackBarPitch_ValueChanged;
+            trackBarPitch.KeyUp += trackBarKeyUp;
+            trackBarPitch.MouseUp += trackBar_MouseUp;
             // 
             // labelWaveform
             // 
@@ -338,6 +340,8 @@
             trackBarFinePitch.TickFrequency = 10;
             trackBarFinePitch.TickStyle = TickStyle.Both;
             trackBarFinePitch.ValueChanged += trackBarFinePitch_ValueChanged;
+            trackBarFinePitch.KeyUp += trackBarKeyUp;
+            trackBarFinePitch.MouseUp += trackBar_MouseUp;
             // 
             // labelPitchKeyfollow
             // 
@@ -363,6 +367,8 @@
             trackBarPitchKeyFollow.TickStyle = TickStyle.Both;
             trackBarPitchKeyFollow.Value = 11;
             trackBarPitchKeyFollow.ValueChanged += trackBarPitchKeyFollow_ValueChanged;
+            trackBarPitchKeyFollow.KeyUp += trackBarKeyUp;
+            trackBarPitchKeyFollow.MouseUp += trackBar_MouseUp;
             // 
             // labelCoarsePitch
             // 
@@ -388,6 +394,7 @@
             checkBoxPitchBend.Text = "Enable Pitch Bend";
             checkBoxPitchBend.UseVisualStyleBackColor = true;
             checkBoxPitchBend.CheckedChanged += checkBoxPitchBend_CheckedChanged;
+            checkBoxPitchBend.KeyUp += trackBarKeyUp;
             // 
             // groupBoxPitch
             // 
@@ -424,6 +431,7 @@
             comboBoxWaveform.Size = new Size(77, 23);
             comboBoxWaveform.TabIndex = 9;
             comboBoxWaveform.SelectedValueChanged += comboBoxWaveform_SelectedValueChanged;
+            comboBoxWaveform.KeyUp += trackBarKeyUp;
             // 
             // comboBoxPCMSample
             // 
@@ -437,6 +445,7 @@
             comboBoxPCMSample.TabIndex = 11;
             comboBoxPCMSample.SelectedValueChanged += comboBoxPCMSample_SelectedValueChanged;
             comboBoxPCMSample.EnabledChanged += comboBoxPCMSample_EnabledChanged;
+            comboBoxPCMSample.KeyUp += trackBarKeyUp;
             // 
             // labelPCMSample
             // 
@@ -481,13 +490,14 @@
             // 
             radioButtonPCMBank2.AutoSize = true;
             radioButtonPCMBank2.Enabled = false;
-            radioButtonPCMBank2.Location = new Point(167, 224);
+            radioButtonPCMBank2.Location = new Point(162, 224);
             radioButtonPCMBank2.Name = "radioButtonPCMBank2";
             radioButtonPCMBank2.Size = new Size(60, 19);
             radioButtonPCMBank2.TabIndex = 16;
             radioButtonPCMBank2.Text = "Bank 2";
             toolTipParameterValue.SetToolTip(radioButtonPCMBank2, "Bank 2 is only available on CM-32L or compatible ROMs");
             radioButtonPCMBank2.UseVisualStyleBackColor = true;
+            radioButtonPCMBank2.KeyUp += trackBarKeyUp;
             radioButtonPCMBank2.MouseUp += radioButtonPCMBank2_MouseUp;
             // 
             // radioButtonPCMBank1
@@ -551,6 +561,8 @@
             trackBarPWVeloSens.TabIndex = 4;
             trackBarPWVeloSens.TickStyle = TickStyle.Both;
             trackBarPWVeloSens.ValueChanged += trackBarPWVeloSens_ValueChanged;
+            trackBarPWVeloSens.KeyUp += trackBarKeyUp;
+            trackBarPWVeloSens.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPulseWidth
             // 
@@ -567,6 +579,8 @@
             trackBarPulseWidth.TickStyle = TickStyle.Both;
             trackBarPulseWidth.Value = 50;
             trackBarPulseWidth.ValueChanged += trackBarPulseWidth_ValueChanged;
+            trackBarPulseWidth.KeyUp += trackBarKeyUp;
+            trackBarPulseWidth.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvelopeDepth
             // 
@@ -580,6 +594,8 @@
             trackBarPitchEnvelopeDepth.TabIndex = 13;
             trackBarPitchEnvelopeDepth.TickStyle = TickStyle.Both;
             trackBarPitchEnvelopeDepth.ValueChanged += trackBarPitchEnvelopeDepth_ValueChanged;
+            trackBarPitchEnvelopeDepth.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvelopeDepth.MouseUp += trackBar_MouseUp;
             // 
             // labelPitchEnvDepth
             // 
@@ -605,6 +621,8 @@
             trackBarPitchEnvVeloSens.TickFrequency = 10;
             trackBarPitchEnvVeloSens.TickStyle = TickStyle.Both;
             trackBarPitchEnvVeloSens.ValueChanged += trackBarPitchEnvVeloSens_ValueChanged;
+            trackBarPitchEnvVeloSens.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvVeloSens.MouseUp += trackBar_MouseUp;
             // 
             // labelPitchEnvVeloSens
             // 
@@ -630,140 +648,148 @@
             trackBarPitchEnvTimeKeyfollow.TabIndex = 17;
             trackBarPitchEnvTimeKeyfollow.TickStyle = TickStyle.Both;
             trackBarPitchEnvTimeKeyfollow.ValueChanged += trackBarPitchEnvTimeKeyfollow_ValueChanged;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(112, 127);
-            label1.Name = "label1";
-            label1.Size = new Size(59, 15);
-            label1.TabIndex = 18;
-            label1.Text = "Keyfollow";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            trackBarPitchEnvTimeKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvTimeKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvT1
             // 
             trackBarPitchEnvT1.AccessibleDescription = "Pitch Envelope Time 1";
             trackBarPitchEnvT1.AccessibleName = "Pitch Envelope Time 1";
             trackBarPitchEnvT1.LargeChange = 10;
-            trackBarPitchEnvT1.Location = new Point(68, 262);
+            trackBarPitchEnvT1.Location = new Point(61, 255);
             trackBarPitchEnvT1.Maximum = 100;
             trackBarPitchEnvT1.Name = "trackBarPitchEnvT1";
-            trackBarPitchEnvT1.Size = new Size(104, 45);
+            trackBarPitchEnvT1.Size = new Size(97, 45);
             trackBarPitchEnvT1.SmallChange = 10;
             trackBarPitchEnvT1.TabIndex = 19;
             trackBarPitchEnvT1.TickFrequency = 10;
             trackBarPitchEnvT1.TickStyle = TickStyle.TopLeft;
             trackBarPitchEnvT1.ValueChanged += trackBarPitchEnvT1_ValueChanged;
+            trackBarPitchEnvT1.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvT1.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvT2
             // 
             trackBarPitchEnvT2.AccessibleDescription = "Pitch Envelope Time 2";
             trackBarPitchEnvT2.AccessibleName = "Pitch Envelope Time 2";
             trackBarPitchEnvT2.LargeChange = 10;
-            trackBarPitchEnvT2.Location = new Point(171, 262);
+            trackBarPitchEnvT2.Location = new Point(169, 255);
             trackBarPitchEnvT2.Maximum = 100;
             trackBarPitchEnvT2.Name = "trackBarPitchEnvT2";
-            trackBarPitchEnvT2.Size = new Size(104, 45);
+            trackBarPitchEnvT2.Size = new Size(97, 45);
             trackBarPitchEnvT2.SmallChange = 10;
             trackBarPitchEnvT2.TabIndex = 20;
             trackBarPitchEnvT2.TickFrequency = 10;
             trackBarPitchEnvT2.TickStyle = TickStyle.TopLeft;
             trackBarPitchEnvT2.ValueChanged += trackBarPitchEnvT2_ValueChanged;
+            trackBarPitchEnvT2.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvT2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvT3
             // 
             trackBarPitchEnvT3.AccessibleDescription = "Pitch Envelope Time 3";
             trackBarPitchEnvT3.AccessibleName = "Pitch Envelope Time 3";
             trackBarPitchEnvT3.LargeChange = 10;
-            trackBarPitchEnvT3.Location = new Point(281, 262);
+            trackBarPitchEnvT3.Location = new Point(279, 255);
             trackBarPitchEnvT3.Maximum = 100;
             trackBarPitchEnvT3.Name = "trackBarPitchEnvT3";
-            trackBarPitchEnvT3.Size = new Size(104, 45);
+            trackBarPitchEnvT3.Size = new Size(97, 45);
             trackBarPitchEnvT3.SmallChange = 10;
             trackBarPitchEnvT3.TabIndex = 21;
             trackBarPitchEnvT3.TickFrequency = 10;
             trackBarPitchEnvT3.TickStyle = TickStyle.TopLeft;
             trackBarPitchEnvT3.ValueChanged += trackBarPitchEnvT3_ValueChanged;
+            trackBarPitchEnvT3.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvT3.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvT4
             // 
             trackBarPitchEnvT4.AccessibleDescription = "Pitch Envelope Time 4";
             trackBarPitchEnvT4.AccessibleName = "Pitch Envelope Time 4";
             trackBarPitchEnvT4.LargeChange = 10;
-            trackBarPitchEnvT4.Location = new Point(391, 262);
+            trackBarPitchEnvT4.Location = new Point(389, 255);
             trackBarPitchEnvT4.Maximum = 100;
             trackBarPitchEnvT4.Name = "trackBarPitchEnvT4";
-            trackBarPitchEnvT4.Size = new Size(104, 45);
+            trackBarPitchEnvT4.Size = new Size(97, 45);
             trackBarPitchEnvT4.SmallChange = 10;
             trackBarPitchEnvT4.TabIndex = 22;
             trackBarPitchEnvT4.TickFrequency = 10;
             trackBarPitchEnvT4.TickStyle = TickStyle.TopLeft;
             trackBarPitchEnvT4.ValueChanged += trackBarPitchEnvT4_ValueChanged;
+            trackBarPitchEnvT4.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvT4.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvL0
             // 
             trackBarPitchEnvL0.AccessibleDescription = "Pitch Envelope Level 0";
             trackBarPitchEnvL0.AccessibleName = "Pitch Envelope Level 0";
             trackBarPitchEnvL0.LargeChange = 12;
-            trackBarPitchEnvL0.Location = new Point(84, 158);
+            trackBarPitchEnvL0.Location = new Point(82, 161);
             trackBarPitchEnvL0.Maximum = 50;
             trackBarPitchEnvL0.Minimum = -50;
             trackBarPitchEnvL0.Name = "trackBarPitchEnvL0";
             trackBarPitchEnvL0.Orientation = Orientation.Vertical;
-            trackBarPitchEnvL0.Size = new Size(45, 104);
+            trackBarPitchEnvL0.Size = new Size(45, 94);
             trackBarPitchEnvL0.TabIndex = 23;
             trackBarPitchEnvL0.TickFrequency = 12;
             trackBarPitchEnvL0.TickStyle = TickStyle.Both;
             trackBarPitchEnvL0.ValueChanged += trackBarPitchEnvL0_ValueChanged;
+            trackBarPitchEnvL0.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvL0.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvL1
             // 
             trackBarPitchEnvL1.AccessibleDescription = "Pitch Envelope Level 1";
             trackBarPitchEnvL1.AccessibleName = "Pitch Envelope Level 1";
             trackBarPitchEnvL1.LargeChange = 12;
-            trackBarPitchEnvL1.Location = new Point(168, 158);
+            trackBarPitchEnvL1.Location = new Point(166, 161);
             trackBarPitchEnvL1.Maximum = 50;
             trackBarPitchEnvL1.Minimum = -50;
             trackBarPitchEnvL1.Name = "trackBarPitchEnvL1";
             trackBarPitchEnvL1.Orientation = Orientation.Vertical;
-            trackBarPitchEnvL1.Size = new Size(45, 104);
+            trackBarPitchEnvL1.Size = new Size(45, 94);
             trackBarPitchEnvL1.TabIndex = 24;
             trackBarPitchEnvL1.TickFrequency = 12;
             trackBarPitchEnvL1.TickStyle = TickStyle.Both;
             trackBarPitchEnvL1.ValueChanged += trackBarPitchEnvL1_ValueChanged;
+            trackBarPitchEnvL1.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvL1.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvL2
             // 
             trackBarPitchEnvL2.AccessibleDescription = "Pitch Envelope Level 2";
             trackBarPitchEnvL2.AccessibleName = "Pitch Envelope Level 2";
             trackBarPitchEnvL2.LargeChange = 12;
-            trackBarPitchEnvL2.Location = new Point(249, 158);
+            trackBarPitchEnvL2.Location = new Point(247, 161);
             trackBarPitchEnvL2.Maximum = 50;
             trackBarPitchEnvL2.Minimum = -50;
             trackBarPitchEnvL2.Name = "trackBarPitchEnvL2";
             trackBarPitchEnvL2.Orientation = Orientation.Vertical;
-            trackBarPitchEnvL2.Size = new Size(45, 104);
+            trackBarPitchEnvL2.Size = new Size(45, 94);
             trackBarPitchEnvL2.TabIndex = 25;
             trackBarPitchEnvL2.TickFrequency = 12;
             trackBarPitchEnvL2.TickStyle = TickStyle.Both;
             trackBarPitchEnvL2.ValueChanged += trackBarPitchEnvL2_ValueChanged;
+            trackBarPitchEnvL2.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvL2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarPitchEnvSust
             // 
             trackBarPitchEnvSust.AccessibleDescription = "Pitch Envelope Sustain Level";
             trackBarPitchEnvSust.AccessibleName = "Pitch Envelope Sustain Level";
             trackBarPitchEnvSust.LargeChange = 12;
-            trackBarPitchEnvSust.Location = new Point(351, 158);
+            trackBarPitchEnvSust.Location = new Point(349, 161);
             trackBarPitchEnvSust.Maximum = 50;
             trackBarPitchEnvSust.Minimum = -50;
             trackBarPitchEnvSust.Name = "trackBarPitchEnvSust";
             trackBarPitchEnvSust.Orientation = Orientation.Vertical;
-            trackBarPitchEnvSust.Size = new Size(45, 104);
+            trackBarPitchEnvSust.Size = new Size(45, 94);
             trackBarPitchEnvSust.TabIndex = 26;
             trackBarPitchEnvSust.TickFrequency = 12;
             trackBarPitchEnvSust.TickStyle = TickStyle.Both;
             trackBarPitchEnvSust.ValueChanged += trackBarPitchEnvSust_ValueChanged;
+            trackBarPitchEnvSust.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvSust.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxPitchEnvelope
             // 
@@ -787,7 +813,6 @@
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvT3);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvT2);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvT1);
-            groupBoxPitchEnvelope.Controls.Add(label1);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvTimeKeyfollow);
             groupBoxPitchEnvelope.Controls.Add(labelPitchEnvVeloSens);
             groupBoxPitchEnvelope.Controls.Add(trackBarPitchEnvVeloSens);
@@ -824,7 +849,7 @@
             // labelPitchRelease
             // 
             labelPitchRelease.AutoSize = true;
-            labelPitchRelease.Location = new Point(402, 203);
+            labelPitchRelease.Location = new Point(400, 196);
             labelPitchRelease.Name = "labelPitchRelease";
             labelPitchRelease.Size = new Size(46, 15);
             labelPitchRelease.TabIndex = 38;
@@ -833,7 +858,7 @@
             // labelPitchSustain
             // 
             labelPitchSustain.AutoSize = true;
-            labelPitchSustain.Location = new Point(302, 203);
+            labelPitchSustain.Location = new Point(300, 196);
             labelPitchSustain.Name = "labelPitchSustain";
             labelPitchSustain.Size = new Size(45, 15);
             labelPitchSustain.TabIndex = 37;
@@ -842,7 +867,7 @@
             // labelPitchL2
             // 
             labelPitchL2.AutoSize = true;
-            labelPitchL2.Location = new Point(224, 203);
+            labelPitchL2.Location = new Point(222, 196);
             labelPitchL2.Name = "labelPitchL2";
             labelPitchL2.Size = new Size(19, 15);
             labelPitchL2.TabIndex = 36;
@@ -851,7 +876,7 @@
             // labelPitchL1
             // 
             labelPitchL1.AutoSize = true;
-            labelPitchL1.Location = new Point(146, 203);
+            labelPitchL1.Location = new Point(144, 196);
             labelPitchL1.Name = "labelPitchL1";
             labelPitchL1.Size = new Size(19, 15);
             labelPitchL1.TabIndex = 35;
@@ -860,7 +885,7 @@
             // labelPitchL0
             // 
             labelPitchL0.AutoSize = true;
-            labelPitchL0.Location = new Point(59, 203);
+            labelPitchL0.Location = new Point(57, 196);
             labelPitchL0.Name = "labelPitchL0";
             labelPitchL0.Size = new Size(19, 15);
             labelPitchL0.TabIndex = 34;
@@ -869,7 +894,7 @@
             // labelPitchT4
             // 
             labelPitchT4.AutoSize = true;
-            labelPitchT4.Location = new Point(437, 292);
+            labelPitchT4.Location = new Point(435, 285);
             labelPitchT4.Name = "labelPitchT4";
             labelPitchT4.Size = new Size(19, 15);
             labelPitchT4.TabIndex = 33;
@@ -878,7 +903,7 @@
             // labelPitchT3
             // 
             labelPitchT3.AutoSize = true;
-            labelPitchT3.Location = new Point(323, 292);
+            labelPitchT3.Location = new Point(321, 285);
             labelPitchT3.Name = "labelPitchT3";
             labelPitchT3.Size = new Size(19, 15);
             labelPitchT3.TabIndex = 32;
@@ -887,7 +912,7 @@
             // labelPitchT2
             // 
             labelPitchT2.AutoSize = true;
-            labelPitchT2.Location = new Point(221, 292);
+            labelPitchT2.Location = new Point(212, 286);
             labelPitchT2.Name = "labelPitchT2";
             labelPitchT2.Size = new Size(19, 15);
             labelPitchT2.TabIndex = 31;
@@ -896,7 +921,7 @@
             // labelPitchT1
             // 
             labelPitchT1.AutoSize = true;
-            labelPitchT1.Location = new Point(111, 293);
+            labelPitchT1.Location = new Point(103, 286);
             labelPitchT1.Name = "labelPitchT1";
             labelPitchT1.Size = new Size(19, 15);
             labelPitchT1.TabIndex = 30;
@@ -907,16 +932,18 @@
             trackBarPitchEnvReleaseLevel.AccessibleDescription = "Pitch Envelope Release Level";
             trackBarPitchEnvReleaseLevel.AccessibleName = "Pitch Envelope Release Level";
             trackBarPitchEnvReleaseLevel.LargeChange = 12;
-            trackBarPitchEnvReleaseLevel.Location = new Point(448, 158);
+            trackBarPitchEnvReleaseLevel.Location = new Point(446, 161);
             trackBarPitchEnvReleaseLevel.Maximum = 50;
             trackBarPitchEnvReleaseLevel.Minimum = -50;
             trackBarPitchEnvReleaseLevel.Name = "trackBarPitchEnvReleaseLevel";
             trackBarPitchEnvReleaseLevel.Orientation = Orientation.Vertical;
-            trackBarPitchEnvReleaseLevel.Size = new Size(45, 104);
+            trackBarPitchEnvReleaseLevel.Size = new Size(45, 94);
             trackBarPitchEnvReleaseLevel.TabIndex = 27;
             trackBarPitchEnvReleaseLevel.TickFrequency = 12;
             trackBarPitchEnvReleaseLevel.TickStyle = TickStyle.Both;
             trackBarPitchEnvReleaseLevel.ValueChanged += trackBarPitchEnvReleaseLevel_ValueChanged;
+            trackBarPitchEnvReleaseLevel.KeyUp += trackBarKeyUp;
+            trackBarPitchEnvReleaseLevel.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxLFO
             // 
@@ -977,6 +1004,8 @@
             trackBarLFOModSens.TickFrequency = 10;
             trackBarLFOModSens.TickStyle = TickStyle.Both;
             trackBarLFOModSens.ValueChanged += trackBarLFOModSens_ValueChanged;
+            trackBarLFOModSens.KeyUp += trackBarKeyUp;
+            trackBarLFOModSens.MouseUp += trackBar_MouseUp;
             // 
             // trackBarLFODepth
             // 
@@ -992,6 +1021,8 @@
             trackBarLFODepth.TickFrequency = 10;
             trackBarLFODepth.TickStyle = TickStyle.Both;
             trackBarLFODepth.ValueChanged += trackBarLFODepth_ValueChanged;
+            trackBarLFODepth.KeyUp += trackBarKeyUp;
+            trackBarLFODepth.MouseUp += trackBar_MouseUp;
             // 
             // labelLFORate
             // 
@@ -1017,6 +1048,8 @@
             trackBarLFORate.TickFrequency = 10;
             trackBarLFORate.TickStyle = TickStyle.Both;
             trackBarLFORate.ValueChanged += trackBarLFORate_ValueChanged;
+            trackBarLFORate.KeyUp += trackBarKeyUp;
+            trackBarLFORate.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxTVF
             // 
@@ -1106,6 +1139,8 @@
             trackBarTVFTimeKeyfollow.TabIndex = 52;
             trackBarTVFTimeKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVFTimeKeyfollow.ValueChanged += trackBarTVFTimeKeyfollow_ValueChanged;
+            trackBarTVFTimeKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarTVFTimeKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFDepthKF
             // 
@@ -1130,6 +1165,8 @@
             trackBarTVFDepthKeyfollow.TabIndex = 50;
             trackBarTVFDepthKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVFDepthKeyfollow.ValueChanged += trackBarTVFDepthKeyfollow_ValueChanged;
+            trackBarTVFDepthKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarTVFDepthKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFVeloSens
             // 
@@ -1166,6 +1203,8 @@
             trackBarTVFEnvDepth.TickFrequency = 10;
             trackBarTVFEnvDepth.TickStyle = TickStyle.Both;
             trackBarTVFEnvDepth.ValueChanged += trackBarTVFEnvDepth_ValueChanged;
+            trackBarTVFEnvDepth.KeyUp += trackBarKeyUp;
+            trackBarTVFEnvDepth.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFVeloSensitivity
             // 
@@ -1181,11 +1220,13 @@
             trackBarTVFVeloSensitivity.TickFrequency = 10;
             trackBarTVFVeloSensitivity.TickStyle = TickStyle.Both;
             trackBarTVFVeloSensitivity.ValueChanged += trackBarTVFVeloSensitivity_ValueChanged;
+            trackBarTVFVeloSensitivity.KeyUp += trackBarKeyUp;
+            trackBarTVFVeloSensitivity.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFT5
             // 
             labelTVFT5.AutoSize = true;
-            labelTVFT5.Location = new Point(655, 294);
+            labelTVFT5.Location = new Point(655, 287);
             labelTVFT5.Name = "labelTVFT5";
             labelTVFT5.Size = new Size(19, 15);
             labelTVFT5.TabIndex = 39;
@@ -1196,20 +1237,22 @@
             trackBarTVFT5.AccessibleDescription = "TVF Envelope Time 5";
             trackBarTVFT5.AccessibleName = "TVF Envelope Time 5";
             trackBarTVFT5.LargeChange = 10;
-            trackBarTVFT5.Location = new Point(615, 261);
+            trackBarTVFT5.Location = new Point(615, 254);
             trackBarTVFT5.Maximum = 100;
             trackBarTVFT5.Name = "trackBarTVFT5";
-            trackBarTVFT5.Size = new Size(104, 45);
+            trackBarTVFT5.Size = new Size(97, 45);
             trackBarTVFT5.SmallChange = 10;
             trackBarTVFT5.TabIndex = 38;
             trackBarTVFT5.TickFrequency = 10;
             trackBarTVFT5.TickStyle = TickStyle.TopLeft;
             trackBarTVFT5.ValueChanged += trackBarTVFT5_ValueChanged;
+            trackBarTVFT5.KeyUp += trackBarKeyUp;
+            trackBarTVFT5.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFSustain
             // 
             labelTVFSustain.AutoSize = true;
-            labelTVFSustain.Location = new Point(583, 185);
+            labelTVFSustain.Location = new Point(581, 184);
             labelTVFSustain.Name = "labelTVFSustain";
             labelTVFSustain.Size = new Size(45, 15);
             labelTVFSustain.TabIndex = 37;
@@ -1218,7 +1261,7 @@
             // labelTVFL3
             // 
             labelTVFL3.AutoSize = true;
-            labelTVFL3.Location = new Point(511, 185);
+            labelTVFL3.Location = new Point(509, 184);
             labelTVFL3.Name = "labelTVFL3";
             labelTVFL3.Size = new Size(19, 15);
             labelTVFL3.TabIndex = 36;
@@ -1227,7 +1270,7 @@
             // labelTVFL2
             // 
             labelTVFL2.AutoSize = true;
-            labelTVFL2.Location = new Point(432, 185);
+            labelTVFL2.Location = new Point(430, 184);
             labelTVFL2.Name = "labelTVFL2";
             labelTVFL2.Size = new Size(19, 15);
             labelTVFL2.TabIndex = 35;
@@ -1236,7 +1279,7 @@
             // labelTVFL1
             // 
             labelTVFL1.AutoSize = true;
-            labelTVFL1.Location = new Point(354, 185);
+            labelTVFL1.Location = new Point(352, 184);
             labelTVFL1.Name = "labelTVFL1";
             labelTVFL1.Size = new Size(19, 15);
             labelTVFL1.TabIndex = 34;
@@ -1245,7 +1288,7 @@
             // labelTVFT4
             // 
             labelTVFT4.AutoSize = true;
-            labelTVFT4.Location = new Point(564, 294);
+            labelTVFT4.Location = new Point(564, 287);
             labelTVFT4.Name = "labelTVFT4";
             labelTVFT4.Size = new Size(19, 15);
             labelTVFT4.TabIndex = 33;
@@ -1254,7 +1297,7 @@
             // labelTVFT3
             // 
             labelTVFT3.AutoSize = true;
-            labelTVFT3.Location = new Point(471, 294);
+            labelTVFT3.Location = new Point(471, 287);
             labelTVFT3.Name = "labelTVFT3";
             labelTVFT3.Size = new Size(19, 15);
             labelTVFT3.TabIndex = 32;
@@ -1263,7 +1306,7 @@
             // labelTVFT2
             // 
             labelTVFT2.AutoSize = true;
-            labelTVFT2.Location = new Point(371, 294);
+            labelTVFT2.Location = new Point(371, 287);
             labelTVFT2.Name = "labelTVFT2";
             labelTVFT2.Size = new Size(19, 15);
             labelTVFT2.TabIndex = 31;
@@ -1272,7 +1315,7 @@
             // labelTVFT1
             // 
             labelTVFT1.AutoSize = true;
-            labelTVFT1.Location = new Point(282, 294);
+            labelTVFT1.Location = new Point(282, 287);
             labelTVFT1.Name = "labelTVFT1";
             labelTVFT1.Size = new Size(19, 15);
             labelTVFT1.TabIndex = 30;
@@ -1283,19 +1326,20 @@
             trackBarTVFSustain.AccessibleDescription = "TVF Envelope Sustain Level";
             trackBarTVFSustain.AccessibleName = "TVF Envelope Sustain Level";
             trackBarTVFSustain.LargeChange = 10;
-            trackBarTVFSustain.Location = new Point(629, 149);
+            trackBarTVFSustain.Location = new Point(627, 151);
             trackBarTVFSustain.Maximum = 100;
             trackBarTVFSustain.Name = "trackBarTVFSustain";
             trackBarTVFSustain.Orientation = Orientation.Vertical;
-            trackBarTVFSustain.Size = new Size(45, 104);
+            trackBarTVFSustain.Size = new Size(45, 101);
             trackBarTVFSustain.TabIndex = 26;
             trackBarTVFSustain.TickFrequency = 10;
             trackBarTVFSustain.TickStyle = TickStyle.Both;
             trackBarTVFSustain.ValueChanged += trackBarTVFSustain_ValueChanged;
+            trackBarTVFSustain.KeyUp += trackBarKeyUp;
+            trackBarTVFSustain.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxTVFBias
             // 
-            groupBoxTVFBias.Controls.Add(label51);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasLevel);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasPoint);
             groupBoxTVFBias.Controls.Add(labelTVFBiasPt);
@@ -1305,15 +1349,6 @@
             groupBoxTVFBias.Size = new Size(130, 149);
             groupBoxTVFBias.TabIndex = 54;
             groupBoxTVFBias.TabStop = false;
-            // 
-            // label51
-            // 
-            label51.AutoSize = true;
-            label51.Location = new Point(7, 2);
-            label51.Name = "label51";
-            label51.Size = new Size(94, 15);
-            label51.TabIndex = 46;
-            label51.Text = "TVF Bias settings";
             // 
             // trackBarTVFBiasLevel
             // 
@@ -1329,6 +1364,8 @@
             trackBarTVFBiasLevel.TabIndex = 44;
             trackBarTVFBiasLevel.TickStyle = TickStyle.Both;
             trackBarTVFBiasLevel.ValueChanged += trackBarTVFBiasLevel_ValueChanged;
+            trackBarTVFBiasLevel.KeyUp += trackBarKeyUp;
+            trackBarTVFBiasLevel.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFBiasPoint
             // 
@@ -1345,6 +1382,8 @@
             trackBarTVFBiasPoint.TickStyle = TickStyle.Both;
             trackBarTVFBiasPoint.Value = 64;
             trackBarTVFBiasPoint.ValueChanged += trackBarTVFBiasPoint_ValueChanged;
+            trackBarTVFBiasPoint.KeyUp += trackBarKeyUp;
+            trackBarTVFBiasPoint.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFBiasPt
             // 
@@ -1371,105 +1410,119 @@
             trackBarTVFL3.AccessibleDescription = "TVF Envelope Level 3";
             trackBarTVFL3.AccessibleName = "TVF Envelope Level 3";
             trackBarTVFL3.LargeChange = 10;
-            trackBarTVFL3.Location = new Point(535, 149);
+            trackBarTVFL3.Location = new Point(533, 151);
             trackBarTVFL3.Maximum = 100;
             trackBarTVFL3.Name = "trackBarTVFL3";
             trackBarTVFL3.Orientation = Orientation.Vertical;
-            trackBarTVFL3.Size = new Size(45, 104);
+            trackBarTVFL3.Size = new Size(45, 101);
             trackBarTVFL3.TabIndex = 25;
             trackBarTVFL3.TickFrequency = 10;
             trackBarTVFL3.TickStyle = TickStyle.Both;
             trackBarTVFL3.ValueChanged += trackBarTVFL3_ValueChanged;
+            trackBarTVFL3.KeyUp += trackBarKeyUp;
+            trackBarTVFL3.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFL2
             // 
             trackBarTVFL2.AccessibleDescription = "TVF Envelope Level 2";
             trackBarTVFL2.AccessibleName = "TVF Envelope Level 2";
             trackBarTVFL2.LargeChange = 10;
-            trackBarTVFL2.Location = new Point(454, 149);
+            trackBarTVFL2.Location = new Point(452, 151);
             trackBarTVFL2.Maximum = 100;
             trackBarTVFL2.Name = "trackBarTVFL2";
             trackBarTVFL2.Orientation = Orientation.Vertical;
-            trackBarTVFL2.Size = new Size(45, 104);
+            trackBarTVFL2.Size = new Size(45, 101);
             trackBarTVFL2.TabIndex = 24;
             trackBarTVFL2.TickFrequency = 10;
             trackBarTVFL2.TickStyle = TickStyle.Both;
             trackBarTVFL2.ValueChanged += trackBarTVFL2_ValueChanged;
+            trackBarTVFL2.KeyUp += trackBarKeyUp;
+            trackBarTVFL2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFL1
             // 
             trackBarTVFL1.AccessibleDescription = "TVF Envelope Level 1";
             trackBarTVFL1.AccessibleName = "TVF Envelope Level 1";
             trackBarTVFL1.LargeChange = 10;
-            trackBarTVFL1.Location = new Point(381, 149);
+            trackBarTVFL1.Location = new Point(379, 151);
             trackBarTVFL1.Maximum = 100;
             trackBarTVFL1.Name = "trackBarTVFL1";
             trackBarTVFL1.Orientation = Orientation.Vertical;
-            trackBarTVFL1.Size = new Size(45, 104);
+            trackBarTVFL1.Size = new Size(45, 101);
             trackBarTVFL1.TabIndex = 23;
             trackBarTVFL1.TickFrequency = 10;
             trackBarTVFL1.TickStyle = TickStyle.Both;
             trackBarTVFL1.ValueChanged += trackBarTVFL1_ValueChanged;
+            trackBarTVFL1.KeyUp += trackBarKeyUp;
+            trackBarTVFL1.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFT4
             // 
             trackBarTVFT4.AccessibleDescription = "TVF Envelope Time 4";
             trackBarTVFT4.AccessibleName = "TVF Envelope Time 4";
             trackBarTVFT4.LargeChange = 10;
-            trackBarTVFT4.Location = new Point(524, 261);
+            trackBarTVFT4.Location = new Point(524, 254);
             trackBarTVFT4.Maximum = 100;
             trackBarTVFT4.Name = "trackBarTVFT4";
-            trackBarTVFT4.Size = new Size(104, 45);
+            trackBarTVFT4.Size = new Size(97, 45);
             trackBarTVFT4.SmallChange = 10;
             trackBarTVFT4.TabIndex = 22;
             trackBarTVFT4.TickFrequency = 10;
             trackBarTVFT4.TickStyle = TickStyle.TopLeft;
             trackBarTVFT4.ValueChanged += trackBarTVFT4_ValueChanged;
+            trackBarTVFT4.KeyUp += trackBarKeyUp;
+            trackBarTVFT4.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFT3
             // 
             trackBarTVFT3.AccessibleDescription = "TVF Envelope Time 3";
             trackBarTVFT3.AccessibleName = "TVF Envelope Time 3";
             trackBarTVFT3.LargeChange = 10;
-            trackBarTVFT3.Location = new Point(424, 261);
+            trackBarTVFT3.Location = new Point(427, 254);
             trackBarTVFT3.Maximum = 100;
             trackBarTVFT3.Name = "trackBarTVFT3";
-            trackBarTVFT3.Size = new Size(104, 45);
+            trackBarTVFT3.Size = new Size(97, 45);
             trackBarTVFT3.SmallChange = 10;
             trackBarTVFT3.TabIndex = 21;
             trackBarTVFT3.TickFrequency = 10;
             trackBarTVFT3.TickStyle = TickStyle.TopLeft;
             trackBarTVFT3.ValueChanged += trackBarTVFT3_ValueChanged;
+            trackBarTVFT3.KeyUp += trackBarKeyUp;
+            trackBarTVFT3.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFT2
             // 
             trackBarTVFT2.AccessibleDescription = "TVF Envelope Time 2";
             trackBarTVFT2.AccessibleName = "TVF Envelope Time 2";
             trackBarTVFT2.LargeChange = 10;
-            trackBarTVFT2.Location = new Point(329, 261);
+            trackBarTVFT2.Location = new Point(329, 254);
             trackBarTVFT2.Maximum = 100;
             trackBarTVFT2.Name = "trackBarTVFT2";
-            trackBarTVFT2.Size = new Size(104, 45);
+            trackBarTVFT2.Size = new Size(97, 45);
             trackBarTVFT2.SmallChange = 10;
             trackBarTVFT2.TabIndex = 20;
             trackBarTVFT2.TickFrequency = 10;
             trackBarTVFT2.TickStyle = TickStyle.TopLeft;
             trackBarTVFT2.ValueChanged += trackBarTVFT2_ValueChanged;
+            trackBarTVFT2.KeyUp += trackBarKeyUp;
+            trackBarTVFT2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVFT1
             // 
             trackBarTVFT1.AccessibleDescription = "TVF Envelope Time 1";
             trackBarTVFT1.AccessibleName = "TVF Envelope Time 1";
             trackBarTVFT1.LargeChange = 10;
-            trackBarTVFT1.Location = new Point(236, 261);
+            trackBarTVFT1.Location = new Point(236, 254);
             trackBarTVFT1.Maximum = 100;
             trackBarTVFT1.Name = "trackBarTVFT1";
-            trackBarTVFT1.Size = new Size(104, 45);
+            trackBarTVFT1.Size = new Size(97, 45);
             trackBarTVFT1.SmallChange = 10;
             trackBarTVFT1.TabIndex = 19;
             trackBarTVFT1.TickFrequency = 10;
             trackBarTVFT1.TickStyle = TickStyle.TopLeft;
             trackBarTVFT1.ValueChanged += trackBarTVFT1_ValueChanged;
+            trackBarTVFT1.KeyUp += trackBarKeyUp;
+            trackBarTVFT1.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFKeyfollow
             // 
@@ -1495,6 +1548,8 @@
             trackBarTVFKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVFKeyfollow.Value = 11;
             trackBarTVFKeyfollow.ValueChanged += trackBarTVFKeyfollow_ValueChanged;
+            trackBarTVFKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarTVFKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // labelResonance
             // 
@@ -1520,6 +1575,8 @@
             trackBarTVFResonance.TickFrequency = 5;
             trackBarTVFResonance.TickStyle = TickStyle.Both;
             trackBarTVFResonance.ValueChanged += trackBarTVFResonance_ValueChanged;
+            trackBarTVFResonance.KeyUp += trackBarKeyUp;
+            trackBarTVFResonance.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFCutoff
             // 
@@ -1545,6 +1602,8 @@
             trackBarTVFCutoff.TickFrequency = 10;
             trackBarTVFCutoff.TickStyle = TickStyle.Both;
             trackBarTVFCutoff.ValueChanged += trackBarTVFCutoff_ValueChanged;
+            trackBarTVFCutoff.KeyUp += trackBarKeyUp;
+            trackBarTVFCutoff.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxTVA
             // 
@@ -1609,6 +1668,8 @@
             trackBarTVABiasLevel1.TabIndex = 45;
             trackBarTVABiasLevel1.TickStyle = TickStyle.Both;
             trackBarTVABiasLevel1.ValueChanged += trackBarTVABiasLevel1_ValueChanged;
+            trackBarTVABiasLevel1.KeyUp += trackBarKeyUp;
+            trackBarTVABiasLevel1.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVABiasPoint1
             // 
@@ -1625,6 +1686,8 @@
             trackBarTVABiasPoint1.TickStyle = TickStyle.Both;
             trackBarTVABiasPoint1.Value = 64;
             trackBarTVABiasPoint1.ValueChanged += trackBarTVABiasPoint1_ValueChanged;
+            trackBarTVABiasPoint1.KeyUp += trackBarKeyUp;
+            trackBarTVABiasPoint1.MouseUp += trackBar_MouseUp;
             // 
             // labelTVFVeloKF
             // 
@@ -1649,11 +1712,13 @@
             trackBarTVAVelocityKeyfollow.TabIndex = 41;
             trackBarTVAVelocityKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVAVelocityKeyfollow.ValueChanged += trackBarTVAVelocityKeyfollow_ValueChanged;
+            trackBarTVAVelocityKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarTVAVelocityKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // labelTVAT5
             // 
             labelTVAT5.AutoSize = true;
-            labelTVAT5.Location = new Point(656, 293);
+            labelTVAT5.Location = new Point(657, 286);
             labelTVAT5.Name = "labelTVAT5";
             labelTVAT5.Size = new Size(19, 15);
             labelTVAT5.TabIndex = 39;
@@ -1664,20 +1729,22 @@
             trackBarTVAT5.AccessibleDescription = "TVA Envelope Time 5";
             trackBarTVAT5.AccessibleName = "TVA Envelope Time 4";
             trackBarTVAT5.LargeChange = 10;
-            trackBarTVAT5.Location = new Point(616, 263);
+            trackBarTVAT5.Location = new Point(617, 256);
             trackBarTVAT5.Maximum = 100;
             trackBarTVAT5.Name = "trackBarTVAT5";
-            trackBarTVAT5.Size = new Size(104, 45);
+            trackBarTVAT5.Size = new Size(97, 45);
             trackBarTVAT5.SmallChange = 10;
             trackBarTVAT5.TabIndex = 38;
             trackBarTVAT5.TickFrequency = 10;
             trackBarTVAT5.TickStyle = TickStyle.TopLeft;
             trackBarTVAT5.ValueChanged += trackBarTVAT5_ValueChanged;
+            trackBarTVAT5.KeyUp += trackBarKeyUp;
+            trackBarTVAT5.MouseUp += trackBar_MouseUp;
             // 
             // labelTVASust
             // 
             labelTVASust.AutoSize = true;
-            labelTVASust.Location = new Point(583, 183);
+            labelTVASust.Location = new Point(581, 185);
             labelTVASust.Name = "labelTVASust";
             labelTVASust.Size = new Size(45, 15);
             labelTVASust.TabIndex = 37;
@@ -1686,7 +1753,7 @@
             // labelTVAL3
             // 
             labelTVAL3.AutoSize = true;
-            labelTVAL3.Location = new Point(512, 183);
+            labelTVAL3.Location = new Point(510, 185);
             labelTVAL3.Name = "labelTVAL3";
             labelTVAL3.Size = new Size(19, 15);
             labelTVAL3.TabIndex = 36;
@@ -1695,7 +1762,7 @@
             // labelTVAL2
             // 
             labelTVAL2.AutoSize = true;
-            labelTVAL2.Location = new Point(433, 183);
+            labelTVAL2.Location = new Point(431, 185);
             labelTVAL2.Name = "labelTVAL2";
             labelTVAL2.Size = new Size(19, 15);
             labelTVAL2.TabIndex = 35;
@@ -1704,7 +1771,7 @@
             // labelTVAL1
             // 
             labelTVAL1.AutoSize = true;
-            labelTVAL1.Location = new Point(357, 183);
+            labelTVAL1.Location = new Point(355, 185);
             labelTVAL1.Name = "labelTVAL1";
             labelTVAL1.Size = new Size(19, 15);
             labelTVAL1.TabIndex = 34;
@@ -1713,7 +1780,7 @@
             // labelTVAT4
             // 
             labelTVAT4.AutoSize = true;
-            labelTVAT4.Location = new Point(565, 293);
+            labelTVAT4.Location = new Point(566, 286);
             labelTVAT4.Name = "labelTVAT4";
             labelTVAT4.Size = new Size(19, 15);
             labelTVAT4.TabIndex = 33;
@@ -1722,7 +1789,7 @@
             // labelTVAT3
             // 
             labelTVAT3.AutoSize = true;
-            labelTVAT3.Location = new Point(472, 293);
+            labelTVAT3.Location = new Point(473, 286);
             labelTVAT3.Name = "labelTVAT3";
             labelTVAT3.Size = new Size(19, 15);
             labelTVAT3.TabIndex = 32;
@@ -1731,7 +1798,7 @@
             // labelTVAT2
             // 
             labelTVAT2.AutoSize = true;
-            labelTVAT2.Location = new Point(372, 293);
+            labelTVAT2.Location = new Point(373, 286);
             labelTVAT2.Name = "labelTVAT2";
             labelTVAT2.Size = new Size(19, 15);
             labelTVAT2.TabIndex = 31;
@@ -1740,7 +1807,7 @@
             // labelTVAT1
             // 
             labelTVAT1.AutoSize = true;
-            labelTVAT1.Location = new Point(283, 293);
+            labelTVAT1.Location = new Point(284, 286);
             labelTVAT1.Name = "labelTVAT1";
             labelTVAT1.Size = new Size(19, 15);
             labelTVAT1.TabIndex = 30;
@@ -1751,120 +1818,136 @@
             trackBarTVASustain.AccessibleDescription = "TVA Envelope Sustain Level";
             trackBarTVASustain.AccessibleName = "TVA Envelope Sustain Level";
             trackBarTVASustain.LargeChange = 10;
-            trackBarTVASustain.Location = new Point(630, 147);
+            trackBarTVASustain.Location = new Point(628, 152);
             trackBarTVASustain.Maximum = 100;
             trackBarTVASustain.Name = "trackBarTVASustain";
             trackBarTVASustain.Orientation = Orientation.Vertical;
-            trackBarTVASustain.Size = new Size(45, 104);
+            trackBarTVASustain.Size = new Size(45, 101);
             trackBarTVASustain.TabIndex = 26;
             trackBarTVASustain.TickFrequency = 10;
             trackBarTVASustain.TickStyle = TickStyle.Both;
             trackBarTVASustain.ValueChanged += trackBarTVASustain_ValueChanged;
+            trackBarTVASustain.KeyUp += trackBarKeyUp;
+            trackBarTVASustain.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAL3
             // 
             trackBarTVAL3.AccessibleDescription = "TVA Envelope Level 3";
             trackBarTVAL3.AccessibleName = "TVA Envelope Level 3";
             trackBarTVAL3.LargeChange = 10;
-            trackBarTVAL3.Location = new Point(536, 147);
+            trackBarTVAL3.Location = new Point(534, 152);
             trackBarTVAL3.Maximum = 100;
             trackBarTVAL3.Name = "trackBarTVAL3";
             trackBarTVAL3.Orientation = Orientation.Vertical;
-            trackBarTVAL3.Size = new Size(45, 104);
+            trackBarTVAL3.Size = new Size(45, 101);
             trackBarTVAL3.TabIndex = 25;
             trackBarTVAL3.TickFrequency = 10;
             trackBarTVAL3.TickStyle = TickStyle.Both;
             trackBarTVAL3.ValueChanged += trackBarTVAL3_ValueChanged;
+            trackBarTVAL3.KeyUp += trackBarKeyUp;
+            trackBarTVAL3.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAL2
             // 
             trackBarTVAL2.AccessibleDescription = "TVA Envelope Level 2";
             trackBarTVAL2.AccessibleName = "TVA Envelope Level 2";
             trackBarTVAL2.LargeChange = 10;
-            trackBarTVAL2.Location = new Point(455, 147);
+            trackBarTVAL2.Location = new Point(453, 152);
             trackBarTVAL2.Maximum = 100;
             trackBarTVAL2.Name = "trackBarTVAL2";
             trackBarTVAL2.Orientation = Orientation.Vertical;
-            trackBarTVAL2.Size = new Size(45, 104);
+            trackBarTVAL2.Size = new Size(45, 101);
             trackBarTVAL2.TabIndex = 24;
             trackBarTVAL2.TickFrequency = 10;
             trackBarTVAL2.TickStyle = TickStyle.Both;
             trackBarTVAL2.ValueChanged += trackBarTVAL2_ValueChanged;
+            trackBarTVAL2.KeyUp += trackBarKeyUp;
+            trackBarTVAL2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAL1
             // 
             trackBarTVAL1.AccessibleDescription = "TVA Envelope Level 1";
             trackBarTVAL1.AccessibleName = "TVA Envelope Level 1";
             trackBarTVAL1.LargeChange = 10;
-            trackBarTVAL1.Location = new Point(382, 147);
+            trackBarTVAL1.Location = new Point(380, 152);
             trackBarTVAL1.Maximum = 100;
             trackBarTVAL1.Name = "trackBarTVAL1";
             trackBarTVAL1.Orientation = Orientation.Vertical;
-            trackBarTVAL1.Size = new Size(45, 104);
+            trackBarTVAL1.Size = new Size(45, 101);
             trackBarTVAL1.TabIndex = 23;
             trackBarTVAL1.TickFrequency = 10;
             trackBarTVAL1.TickStyle = TickStyle.Both;
             trackBarTVAL1.ValueChanged += trackBarTVAL1_ValueChanged;
+            trackBarTVAL1.KeyUp += trackBarKeyUp;
+            trackBarTVAL1.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAT4
             // 
             trackBarTVAT4.AccessibleDescription = "TVA Envelope Time 4";
             trackBarTVAT4.AccessibleName = "TVA Envelope Time 4";
             trackBarTVAT4.LargeChange = 10;
-            trackBarTVAT4.Location = new Point(522, 263);
+            trackBarTVAT4.Location = new Point(523, 256);
             trackBarTVAT4.Maximum = 100;
             trackBarTVAT4.Name = "trackBarTVAT4";
-            trackBarTVAT4.Size = new Size(104, 45);
+            trackBarTVAT4.Size = new Size(97, 45);
             trackBarTVAT4.SmallChange = 10;
             trackBarTVAT4.TabIndex = 22;
             trackBarTVAT4.TickFrequency = 10;
             trackBarTVAT4.TickStyle = TickStyle.TopLeft;
             trackBarTVAT4.ValueChanged += trackBarTVAT4_ValueChanged;
+            trackBarTVAT4.KeyUp += trackBarKeyUp;
+            trackBarTVAT4.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAT3
             // 
             trackBarTVAT3.AccessibleDescription = "TVA Envelope Time 3";
             trackBarTVAT3.AccessibleName = "TVA Envelope Time 3";
             trackBarTVAT3.LargeChange = 10;
-            trackBarTVAT3.Location = new Point(425, 263);
+            trackBarTVAT3.Location = new Point(426, 256);
             trackBarTVAT3.Maximum = 100;
             trackBarTVAT3.Name = "trackBarTVAT3";
-            trackBarTVAT3.Size = new Size(104, 45);
+            trackBarTVAT3.Size = new Size(97, 45);
             trackBarTVAT3.SmallChange = 10;
             trackBarTVAT3.TabIndex = 21;
             trackBarTVAT3.TickFrequency = 10;
             trackBarTVAT3.TickStyle = TickStyle.TopLeft;
             trackBarTVAT3.ValueChanged += trackBarTVAT3_ValueChanged;
+            trackBarTVAT3.KeyUp += trackBarKeyUp;
+            trackBarTVAT3.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAT2
             // 
             trackBarTVAT2.AccessibleDescription = "TVA Envelope Time 2";
             trackBarTVAT2.AccessibleName = "TVA Envelope Time 2";
             trackBarTVAT2.LargeChange = 10;
-            trackBarTVAT2.Location = new Point(329, 263);
+            trackBarTVAT2.Location = new Point(330, 256);
             trackBarTVAT2.Maximum = 100;
             trackBarTVAT2.Name = "trackBarTVAT2";
-            trackBarTVAT2.Size = new Size(104, 45);
+            trackBarTVAT2.Size = new Size(97, 45);
             trackBarTVAT2.SmallChange = 10;
             trackBarTVAT2.TabIndex = 20;
             trackBarTVAT2.TickFrequency = 10;
             trackBarTVAT2.TickStyle = TickStyle.TopLeft;
             trackBarTVAT2.ValueChanged += trackBarTVAT2_ValueChanged;
+            trackBarTVAT2.KeyUp += trackBarKeyUp;
+            trackBarTVAT2.MouseUp += trackBar_MouseUp;
             // 
             // trackBarTVAT1
             // 
             trackBarTVAT1.AccessibleDescription = "TVA Envelope Time 1";
             trackBarTVAT1.AccessibleName = "TVA Envelope Time 1";
             trackBarTVAT1.LargeChange = 10;
-            trackBarTVAT1.Location = new Point(237, 263);
+            trackBarTVAT1.Location = new Point(238, 256);
             trackBarTVAT1.Maximum = 100;
             trackBarTVAT1.Name = "trackBarTVAT1";
-            trackBarTVAT1.Size = new Size(104, 45);
+            trackBarTVAT1.Size = new Size(97, 45);
             trackBarTVAT1.SmallChange = 10;
             trackBarTVAT1.TabIndex = 19;
             trackBarTVAT1.TickFrequency = 10;
             trackBarTVAT1.TickStyle = TickStyle.TopLeft;
             trackBarTVAT1.ValueChanged += trackBarTVAT1_ValueChanged;
+            trackBarTVAT1.KeyUp += trackBarKeyUp;
+            trackBarTVAT1.MouseUp += trackBar_MouseUp;
             // 
             // labelTVATimeKF
             // 
@@ -1889,6 +1972,8 @@
             trackBarTVATimeKeyfollow.TabIndex = 17;
             trackBarTVATimeKeyfollow.TickStyle = TickStyle.Both;
             trackBarTVATimeKeyfollow.ValueChanged += trackBarTVATimeKeyfollow_ValueChanged;
+            trackBarTVATimeKeyfollow.KeyUp += trackBarKeyUp;
+            trackBarTVATimeKeyfollow.MouseUp += trackBar_MouseUp;
             // 
             // labelTVAVeloSens
             // 
@@ -1915,6 +2000,8 @@
             trackBarTVAVeloSensitivity.TickFrequency = 10;
             trackBarTVAVeloSensitivity.TickStyle = TickStyle.Both;
             trackBarTVAVeloSensitivity.ValueChanged += trackBarTVAVeloSensitivity_ValueChanged;
+            trackBarTVAVeloSensitivity.KeyUp += trackBarKeyUp;
+            trackBarTVAVeloSensitivity.MouseUp += trackBar_MouseUp;
             // 
             // labelTVALevel
             // 
@@ -1943,10 +2030,11 @@
             trackBarTVALevel.TickFrequency = 10;
             trackBarTVALevel.TickStyle = TickStyle.Both;
             trackBarTVALevel.ValueChanged += trackBarTVALevel_ValueChanged;
+            trackBarTVALevel.KeyUp += trackBarKeyUp;
+            trackBarTVALevel.MouseUp += trackBar_MouseUp;
             // 
             // groupBoxTVABias
             // 
-            groupBoxTVABias.Controls.Add(label53);
             groupBoxTVABias.Controls.Add(trackBarTVABiasLevel2);
             groupBoxTVABias.Controls.Add(labelTVABiasL2);
             groupBoxTVABias.Controls.Add(labelTVABiasL1);
@@ -1958,15 +2046,6 @@
             groupBoxTVABias.Size = new Size(227, 154);
             groupBoxTVABias.TabIndex = 51;
             groupBoxTVABias.TabStop = false;
-            // 
-            // label53
-            // 
-            label53.AutoSize = true;
-            label53.Location = new Point(6, 0);
-            label53.Name = "label53";
-            label53.Size = new Size(95, 15);
-            label53.TabIndex = 47;
-            label53.Text = "TVA Bias settings";
             // 
             // trackBarTVABiasLevel2
             // 
@@ -1982,6 +2061,8 @@
             trackBarTVABiasLevel2.TabIndex = 45;
             trackBarTVABiasLevel2.TickStyle = TickStyle.Both;
             trackBarTVABiasLevel2.ValueChanged += trackBarTVABiasLevel2_ValueChanged;
+            trackBarTVABiasLevel2.KeyUp += trackBarKeyUp;
+            trackBarTVABiasLevel2.MouseUp += trackBar_MouseUp;
             // 
             // labelTVABiasL2
             // 
@@ -2020,6 +2101,8 @@
             trackBarTVABiasPoint2.TickStyle = TickStyle.Both;
             trackBarTVABiasPoint2.Value = 64;
             trackBarTVABiasPoint2.ValueChanged += trackBarTVABiasPoint2_ValueChanged;
+            trackBarTVABiasPoint2.KeyUp += trackBarKeyUp;
+            trackBarTVABiasPoint2.MouseUp += trackBar_MouseUp;
             // 
             // labelTVABiasPt2
             // 
@@ -2053,7 +2136,7 @@
             buttonRefresh.Image = (Image)resources.GetObject("buttonRefresh.Image");
             buttonRefresh.Location = new Point(164, 111);
             buttonRefresh.Name = "buttonRefresh";
-            buttonRefresh.Size = new Size(26, 25);
+            buttonRefresh.Size = new Size(28, 28);
             buttonRefresh.TabIndex = 49;
             buttonRefresh.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonRefresh, "Resend all timbre parameters to MIDI device");
@@ -2068,7 +2151,7 @@
             buttonReset.Image = (Image)resources.GetObject("buttonReset.Image");
             buttonReset.Location = new Point(23, 111);
             buttonReset.Name = "buttonReset";
-            buttonReset.Size = new Size(26, 23);
+            buttonReset.Size = new Size(28, 28);
             buttonReset.TabIndex = 50;
             buttonReset.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonReset, "Create a new timbre");
@@ -2081,10 +2164,10 @@
             buttonSaveTimbreAs.AccessibleName = "Save timbre as";
             buttonSaveTimbreAs.BackColor = Color.FromArgb(224, 224, 224);
             buttonSaveTimbreAs.ForeColor = SystemColors.ActiveCaptionText;
-            buttonSaveTimbreAs.Image = (Image)resources.GetObject("buttonSaveTimbreAs.Image");
+            buttonSaveTimbreAs.Image = Properties.Resources.SaveAs;
             buttonSaveTimbreAs.Location = new Point(164, 144);
             buttonSaveTimbreAs.Name = "buttonSaveTimbreAs";
-            buttonSaveTimbreAs.Size = new Size(26, 24);
+            buttonSaveTimbreAs.Size = new Size(28, 28);
             buttonSaveTimbreAs.TabIndex = 54;
             buttonSaveTimbreAs.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonSaveTimbreAs, "Save a .timbre file");
@@ -2097,10 +2180,10 @@
             buttonQuickSaveTimbre.AccessibleName = "Save timbre data";
             buttonQuickSaveTimbre.BackColor = Color.FromArgb(224, 224, 224);
             buttonQuickSaveTimbre.ForeColor = SystemColors.ActiveCaptionText;
-            buttonQuickSaveTimbre.Image = (Image)resources.GetObject("buttonQuickSaveTimbre.Image");
-            buttonQuickSaveTimbre.Location = new Point(94, 144);
+            buttonQuickSaveTimbre.Image = Properties.Resources.Save;
+            buttonQuickSaveTimbre.Location = new Point(97, 144);
             buttonQuickSaveTimbre.Name = "buttonQuickSaveTimbre";
-            buttonQuickSaveTimbre.Size = new Size(26, 24);
+            buttonQuickSaveTimbre.Size = new Size(28, 28);
             buttonQuickSaveTimbre.TabIndex = 55;
             buttonQuickSaveTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonQuickSaveTimbre, "Quick Save");
@@ -2116,7 +2199,7 @@
             buttonLoadTimbre.Image = (Image)resources.GetObject("buttonLoadTimbre.Image");
             buttonLoadTimbre.Location = new Point(23, 145);
             buttonLoadTimbre.Name = "buttonLoadTimbre";
-            buttonLoadTimbre.Size = new Size(26, 23);
+            buttonLoadTimbre.Size = new Size(28, 28);
             buttonLoadTimbre.TabIndex = 56;
             buttonLoadTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonLoadTimbre, "Load a .timbre file");
@@ -2130,10 +2213,9 @@
             buttonPastePartial.Enabled = false;
             buttonPastePartial.ForeColor = SystemColors.ActiveCaptionText;
             buttonPastePartial.Image = (Image)resources.GetObject("buttonPastePartial.Image");
-            buttonPastePartial.ImageAlign = ContentAlignment.MiddleLeft;
             buttonPastePartial.Location = new Point(164, 203);
             buttonPastePartial.Name = "buttonPastePartial";
-            buttonPastePartial.Size = new Size(26, 25);
+            buttonPastePartial.Size = new Size(28, 28);
             buttonPastePartial.TabIndex = 102;
             buttonPastePartial.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonPastePartial, "Paste copied settings to the currently selected partial");
@@ -2146,15 +2228,47 @@
             buttonCopyPartial.BackColor = Color.FromArgb(224, 224, 224);
             buttonCopyPartial.ForeColor = SystemColors.ActiveCaptionText;
             buttonCopyPartial.Image = (Image)resources.GetObject("buttonCopyPartial.Image");
-            buttonCopyPartial.ImageAlign = ContentAlignment.MiddleLeft;
             buttonCopyPartial.Location = new Point(164, 172);
             buttonCopyPartial.Name = "buttonCopyPartial";
-            buttonCopyPartial.Size = new Size(26, 25);
+            buttonCopyPartial.Size = new Size(28, 28);
             buttonCopyPartial.TabIndex = 101;
             buttonCopyPartial.TextAlign = ContentAlignment.MiddleRight;
             toolTipParameterValue.SetToolTip(buttonCopyPartial, "Copy all settings from the currently selected partial");
             buttonCopyPartial.UseVisualStyleBackColor = false;
             buttonCopyPartial.Click += buttonCopyPartial_Click;
+            // 
+            // buttonUndo
+            // 
+            buttonUndo.AccessibleDescription = "Undo last action";
+            buttonUndo.AccessibleName = "Undo";
+            buttonUndo.BackColor = Color.FromArgb(224, 224, 224);
+            buttonUndo.ForeColor = SystemColors.ActiveCaptionText;
+            buttonUndo.Image = (Image)resources.GetObject("buttonUndo.Image");
+            buttonUndo.Location = new Point(97, 177);
+            buttonUndo.Name = "buttonUndo";
+            buttonUndo.Size = new Size(28, 28);
+            buttonUndo.TabIndex = 95;
+            buttonUndo.TextAlign = ContentAlignment.MiddleRight;
+            toolTipParameterValue.SetToolTip(buttonUndo, "Undo last action");
+            buttonUndo.UseVisualStyleBackColor = false;
+            buttonUndo.Click += buttonUndo_Click;
+            // 
+            // buttonRedo
+            // 
+            buttonRedo.AccessibleDescription = "Redo action";
+            buttonRedo.AccessibleName = "Redo";
+            buttonRedo.BackColor = Color.FromArgb(224, 224, 224);
+            buttonRedo.Enabled = false;
+            buttonRedo.ForeColor = SystemColors.ActiveCaptionText;
+            buttonRedo.Image = Properties.Resources.Redo;
+            buttonRedo.Location = new Point(164, 177);
+            buttonRedo.Name = "buttonRedo";
+            buttonRedo.Size = new Size(28, 28);
+            buttonRedo.TabIndex = 97;
+            buttonRedo.TextAlign = ContentAlignment.MiddleRight;
+            toolTipParameterValue.SetToolTip(buttonRedo, "Redo last undone action");
+            buttonRedo.UseVisualStyleBackColor = false;
+            buttonRedo.Click += buttonRedo_Click;
             // 
             // textBoxTimbreName
             // 
@@ -2180,13 +2294,14 @@
             checkBoxSustain.AutoSize = true;
             checkBoxSustain.Checked = true;
             checkBoxSustain.CheckState = CheckState.Checked;
-            checkBoxSustain.Location = new Point(23, 182);
+            checkBoxSustain.Location = new Point(25, 181);
             checkBoxSustain.Name = "checkBoxSustain";
-            checkBoxSustain.Size = new Size(102, 19);
+            checkBoxSustain.Size = new Size(64, 19);
             checkBoxSustain.TabIndex = 44;
-            checkBoxSustain.Text = "Enable Sustain";
+            checkBoxSustain.Text = "Sustain";
             checkBoxSustain.UseVisualStyleBackColor = true;
             checkBoxSustain.CheckedChanged += checkBoxSustain_CheckedChanged;
+            checkBoxSustain.KeyUp += trackBarKeyUp;
             // 
             // comboBoxPart12Struct
             // 
@@ -2201,6 +2316,7 @@
             comboBoxPart12Struct.TabIndex = 45;
             comboBoxPart12Struct.DrawItem += comboBoxPart12Struct_DrawItem;
             comboBoxPart12Struct.SelectedIndexChanged += comboBoxPart12Struct_SelectedIndexChanged;
+            comboBoxPart12Struct.KeyUp += trackBarKeyUp;
             // 
             // comboBoxPart34Struct
             // 
@@ -2215,11 +2331,11 @@
             comboBoxPart34Struct.TabIndex = 46;
             comboBoxPart34Struct.DrawItem += comboBoxPart34Struct_DrawItem;
             comboBoxPart34Struct.SelectedIndexChanged += comboBoxPart34Struct_SelectedIndexChanged;
+            comboBoxPart34Struct.KeyUp += trackBarKeyUp;
             // 
             // labelPartial12
             // 
             labelPartial12.AutoSize = true;
-            labelPartial12.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
             labelPartial12.Location = new Point(7, 29);
             labelPartial12.Name = "labelPartial12";
             labelPartial12.Size = new Size(71, 15);
@@ -2245,6 +2361,7 @@
             checkBoxShowLabels.Text = "Show labels";
             checkBoxShowLabels.UseVisualStyleBackColor = true;
             checkBoxShowLabels.CheckedChanged += checkBoxShowLabels_CheckedChanged;
+            checkBoxShowLabels.KeyUp += trackBarKeyUp;
             // 
             // checkBoxShowAllPartials
             // 
@@ -2256,6 +2373,7 @@
             checkBoxShowAllPartials.Text = "Show all partials";
             checkBoxShowAllPartials.UseVisualStyleBackColor = true;
             checkBoxShowAllPartials.CheckedChanged += checkBoxShowAllPartials_CheckedChanged;
+            checkBoxShowAllPartials.KeyUp += trackBarKeyUp;
             // 
             // timer
             // 
@@ -2322,15 +2440,15 @@
             labelEnvGraphSettings.TabIndex = 74;
             labelEnvGraphSettings.Text = "Envelope graph settings";
             // 
-            // pictureBox1
+            // pictureBoxPitch
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(10, 793);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(236, 81);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 81;
-            pictureBox1.TabStop = false;
+            pictureBoxPitch.Image = (Image)resources.GetObject("pictureBoxPitch.Image");
+            pictureBoxPitch.Location = new Point(10, 793);
+            pictureBoxPitch.Name = "pictureBoxPitch";
+            pictureBoxPitch.Size = new Size(236, 81);
+            pictureBoxPitch.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxPitch.TabIndex = 81;
+            pictureBoxPitch.TabStop = false;
             // 
             // labelRefresh
             // 
@@ -2353,7 +2471,7 @@
             // labelSaveAs
             // 
             labelSaveAs.AutoSize = true;
-            labelSaveAs.Location = new Point(194, 149);
+            labelSaveAs.Location = new Point(191, 149);
             labelSaveAs.Name = "labelSaveAs";
             labelSaveAs.Size = new Size(47, 15);
             labelSaveAs.TabIndex = 84;
@@ -2362,7 +2480,7 @@
             // labelSave
             // 
             labelSave.AutoSize = true;
-            labelSave.Location = new Point(123, 149);
+            labelSave.Location = new Point(126, 149);
             labelSave.Name = "labelSave";
             labelSave.Size = new Size(31, 15);
             labelSave.TabIndex = 85;
@@ -2417,28 +2535,17 @@
             // labelPartialStruct
             // 
             labelPartialStruct.AutoSize = true;
-            labelPartialStruct.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
             labelPartialStruct.Location = new Point(6, 1);
             labelPartialStruct.Name = "labelPartialStruct";
             labelPartialStruct.Size = new Size(91, 15);
             labelPartialStruct.TabIndex = 91;
             labelPartialStruct.Text = "Partial Structure";
             // 
-            // label65
-            // 
-            label65.AutoSize = true;
-            label65.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            label65.Location = new Point(126, 95);
-            label65.Name = "label65";
-            label65.Size = new Size(0, 15);
-            label65.TabIndex = 92;
-            // 
             // labelPartialType
             // 
             labelPartialType.AutoSize = true;
             labelPartialType.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            labelPartialType.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
-            labelPartialType.Location = new Point(51, 89);
+            labelPartialType.Location = new Point(35, 89);
             labelPartialType.Name = "labelPartialType";
             labelPartialType.Size = new Size(165, 15);
             labelPartialType.TabIndex = 93;
@@ -2465,7 +2572,6 @@
             groupBoxPartialStructure.Controls.Add(labelPartialStruct);
             groupBoxPartialStructure.Controls.Add(labelPartialType);
             groupBoxPartialStructure.Controls.Add(comboBoxPart12Struct);
-            groupBoxPartialStructure.Controls.Add(label65);
             groupBoxPartialStructure.Controls.Add(comboBoxPart34Struct);
             groupBoxPartialStructure.Controls.Add(labelPartial34);
             groupBoxPartialStructure.Controls.Add(pictureBoxPartial34);
@@ -2564,6 +2670,7 @@
             checkBoxPartial4.Text = "4";
             checkBoxPartial4.UseVisualStyleBackColor = true;
             checkBoxPartial4.CheckedChanged += checkBoxPartial4_CheckedChanged;
+            checkBoxPartial4.KeyUp += trackBarKeyUp;
             // 
             // checkBoxPartial3
             // 
@@ -2575,6 +2682,7 @@
             checkBoxPartial3.Text = "3";
             checkBoxPartial3.UseVisualStyleBackColor = true;
             checkBoxPartial3.CheckedChanged += checkBoxPartial3_CheckedChanged;
+            checkBoxPartial3.KeyUp += trackBarKeyUp;
             // 
             // checkBoxPartial2
             // 
@@ -2586,6 +2694,7 @@
             checkBoxPartial2.Text = "2";
             checkBoxPartial2.UseVisualStyleBackColor = true;
             checkBoxPartial2.CheckedChanged += checkBoxPartial2_CheckedChanged;
+            checkBoxPartial2.KeyUp += trackBarKeyUp;
             // 
             // checkBoxPartial1
             // 
@@ -2597,6 +2706,7 @@
             checkBoxPartial1.Text = "1";
             checkBoxPartial1.UseVisualStyleBackColor = true;
             checkBoxPartial1.CheckedChanged += checkBoxPartial1_CheckedChanged;
+            checkBoxPartial1.KeyUp += trackBarKeyUp;
             // 
             // labelEnablePartials
             // 
@@ -2616,21 +2726,43 @@
             labelEditPartialNo.TabIndex = 95;
             labelEditPartialNo.Text = "Edit Partial No.";
             // 
+            // labelUndo
+            // 
+            labelUndo.AutoSize = true;
+            labelUndo.Location = new Point(124, 183);
+            labelUndo.Name = "labelUndo";
+            labelUndo.Size = new Size(36, 15);
+            labelUndo.TabIndex = 96;
+            labelUndo.Text = "Undo";
+            // 
+            // labelRedo
+            // 
+            labelRedo.AutoSize = true;
+            labelRedo.Location = new Point(191, 183);
+            labelRedo.Name = "labelRedo";
+            labelRedo.Size = new Size(34, 15);
+            labelRedo.TabIndex = 98;
+            labelRedo.Text = "Redo";
+            // 
             // FormTimbreEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(56, 56, 56);
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(991, 1003);
+            ClientSize = new Size(991, 999);
             ControlBox = false;
+            Controls.Add(labelRedo);
+            Controls.Add(buttonRedo);
+            Controls.Add(labelUndo);
+            Controls.Add(buttonUndo);
             Controls.Add(groupBoxPartialStructure);
             Controls.Add(labelLoad);
             Controls.Add(labelSave);
             Controls.Add(labelSaveAs);
             Controls.Add(labelNewTimbre);
             Controls.Add(labelRefresh);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBoxPitch);
             Controls.Add(groupBoxEnvGraph);
             Controls.Add(labelTVATVFEnvGraph);
             Controls.Add(labelPitchEnvGraph);
@@ -2738,7 +2870,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxTVATVF).EndInit();
             groupBoxEnvGraph.ResumeLayout(false);
             groupBoxEnvGraph.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPitch).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial12).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPartial34).EndInit();
             groupBoxPartialStructure.ResumeLayout(false);
@@ -2772,7 +2904,6 @@
         private TrackBar trackBarPitchEnvVeloSens;
         private Label labelPitchEnvVeloSens;
         private TrackBar trackBarPitchEnvTimeKeyfollow;
-        private Label label1;
         private TrackBar trackBarPitchEnvT1;
         private TrackBar trackBarPitchEnvT2;
         private TrackBar trackBarPitchEnvT3;
@@ -2895,9 +3026,7 @@
         private Label labelColourPitchSettings;
         private Label labelPitchLFOSettings;
         private Label labelColourTVFSettings;
-        private Label label51;
         private Label labelColourTVASettings;
-        private Label label53;
         private CheckBox checkBoxShowAllPartials;
         private System.Windows.Forms.Timer timer;
         private Label labelHeading;
@@ -2907,7 +3036,7 @@
         private Label labelTVATVFEnvGraph;
         private GroupBox groupBoxEnvGraph;
         private Label labelEnvGraphSettings;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxPitch;
         private Label labelRefresh;
         private Label labelNewTimbre;
         private Label labelSaveAs;
@@ -2917,7 +3046,6 @@
         private PictureBox pictureBoxPartial12;
         private PictureBox pictureBoxPartial34;
         private Label labelPartialStruct;
-        private Label label65;
         private Label labelPartialType;
         private GroupBox groupBoxPartialStructure;
         private Label labelPaste;
@@ -2935,5 +3063,9 @@
         private RadioButton radioButtonPartial3;
         private RadioButton radioButtonPartial2;
         private RadioButton radioButtonPartial1;
+        private Button buttonUndo;
+        private Label labelUndo;
+        private Label labelRedo;
+        private Button buttonRedo;
     }
 }

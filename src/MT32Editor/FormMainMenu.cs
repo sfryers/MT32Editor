@@ -24,9 +24,15 @@ public partial class FormMainMenu : Form
 
     [DllImport("user32.dll")]
     static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-    private const string VERSION_NO = "v0.9.8a (x64)";
-    private const string RELEASE_DATE = "March 2024";
+    private const string VERSION_NO = "v0.9.9b";
+#if NET472
+    private const string FRAMEWORK = ".NET 4.7.2";
+#elif NET6_0
+    private const string FRAMEWORK = ".NET 6.0";
+#else
+    private const string FRAMEWORK = "";
+#endif
+    private const string RELEASE_DATE = "April 2024";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
@@ -46,9 +52,10 @@ public partial class FormMainMenu : Form
 
     public FormMainMenu(string[] args)
     {
+        MT32SysEx.blockMT32text = true;
         InitializeComponent();
         AllocConsole();
-        Console.WriteLine($"Welcome to MT32 Editor {VERSION_NO}");
+        Console.WriteLine($"Welcome to MT32 Editor {ParseTools.GetVersion(VERSION_NO)} ({FRAMEWORK})");
         ReadConfigFile();
         if (midiInError || midiOutError)
         {
@@ -59,11 +66,15 @@ public partial class FormMainMenu : Form
         OpenRhythmEditor();
         OpenPatchEditor();
         ScaleUIElements();
+
         MT32SysEx.SendText($"MT32 Editor {ParseTools.TrimToLength(VERSION_NO, 8)}");
         timer.Interval = UITools.UI_REFRESH_INTERVAL;
         timer.Start();
+        MT32SysEx.blockMT32text = false;
         ProcessShellArguments(args);
     }
+
+
 
     private void ProcessShellArguments(string[] args)
     {
@@ -239,6 +250,7 @@ public partial class FormMainMenu : Form
         void SetOptionMenuFlags()
         {
             showConsoleToolStripMenuItem.Checked = ConsoleMessage.Visible();
+            verboseConsoleMessagesToolStripMenuItem.Enabled = ConsoleMessage.Visible();
             verboseConsoleMessagesToolStripMenuItem.Checked = ConsoleMessage.Verbose();
             sendMessagesToMT32DisplayToolStripMenuItem.Checked = MT32SysEx.sendTextToMT32;
             ignoreSysConfigOnLoadToolStripMenuItem.Checked = LoadSysExFile.ignoreSystemArea;
@@ -359,15 +371,7 @@ public partial class FormMainMenu : Form
 
     private void saveSysExFileAsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        string fileName;
-        if (loadedSysExFileName is null)
-        {
-            fileName = SaveSysExFile.SaveAs(memoryState);
-        }
-        else
-        {
-            fileName = SaveSysExFile.SaveAs(memoryState, loadedSysExFileName);
-        }
+        string fileName = loadedSysExFileName is null ? SaveSysExFile.SaveAs(memoryState) : SaveSysExFile.SaveAs(memoryState, loadedSysExFileName);
         if (!FileTools.Success(fileName))
         {
             return;
@@ -502,7 +506,7 @@ public partial class FormMainMenu : Form
 
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        FormAbout about = new FormAbout(VERSION_NO, RELEASE_DATE);
+        FormAbout about = new FormAbout(ParseTools.GetVersion(VERSION_NO), FRAMEWORK, RELEASE_DATE);
         about.Show();
     }
 
@@ -519,7 +523,7 @@ public partial class FormMainMenu : Form
             timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
         }
 
-        saveTimbreFileToolStripMenuItem.Enabled = !(memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() == MT32Strings.EMPTY);
+        saveTimbreFileToolStripMenuItem.Enabled = memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() != MT32Strings.EMPTY;
 
         if (midiInError || midiOutError)
         {

@@ -684,9 +684,9 @@
             // 
             buttonSave.BackColor = Color.FromArgb(224, 224, 224);
             buttonSave.ForeColor = Color.Black;
-            buttonSave.Location = new Point(81, 57);
+            buttonSave.Location = new Point(71, 57);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(44, 23);
+            buttonSave.Size = new Size(54, 23);
             buttonSave.TabIndex = 60;
             buttonSave.Text = "Save";
             toolTip.SetToolTip(buttonSave, "Create a SysEx file containing only these System settings");

@@ -6,7 +6,7 @@
 public class Rhythm
 {
     // MT32Edit: Rhythm class
-    // S.Fryers Apr 2023
+    // S.Fryers Apr 2024
 
     private int timbreGroup = 1;
 
@@ -50,14 +50,7 @@ public class Rhythm
                 return panPot + RhythmConstants.PANPOT_OFFSET;
 
             case 3:
-                if (reverbEnabled)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return reverbEnabled ? 1 : 0;
 
             default:
                 InvalidParameterNo(parameterNo);

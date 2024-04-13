@@ -55,14 +55,7 @@ public partial class FormSelectMemoryBank : Form
     private void comboBoxMemoryBank_SelectedIndexChanged(object sender, EventArgs e)
     {
         string timbreName = ParseTools.RightMost(memoryState.GetTimbreNames().Get(comboBoxMemoryBank.SelectedIndex, MEMORY_GROUP), MT32Strings.EMPTY.Length);
-        if (timbreName == MT32Strings.EMPTY)
-        {
-            buttonOK.Text = "OK";
-        }
-        else
-        {
-            buttonOK.Text = "Replace";
-        }
+        buttonOK.Text = (timbreName == MT32Strings.EMPTY) ? "OK" : "Replace";
     }
 
     private void buttonOK_Click(object sender, EventArgs e)

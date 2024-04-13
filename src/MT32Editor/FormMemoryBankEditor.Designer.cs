@@ -111,7 +111,7 @@
             buttonCopyTimbre.Image = Properties.Resources.Copy;
             buttonCopyTimbre.Location = new Point(17, 156);
             buttonCopyTimbre.Name = "buttonCopyTimbre";
-            buttonCopyTimbre.Size = new Size(27, 24);
+            buttonCopyTimbre.Size = new Size(28, 28);
             buttonCopyTimbre.TabIndex = 58;
             buttonCopyTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonCopyTimbre, "Copy the selected timbre");
@@ -125,9 +125,9 @@
             buttonPasteTimbre.Enabled = false;
             buttonPasteTimbre.ForeColor = SystemColors.ActiveCaptionText;
             buttonPasteTimbre.Image = Properties.Resources.Paste;
-            buttonPasteTimbre.Location = new Point(92, 156);
+            buttonPasteTimbre.Location = new Point(101, 156);
             buttonPasteTimbre.Name = "buttonPasteTimbre";
-            buttonPasteTimbre.Size = new Size(25, 24);
+            buttonPasteTimbre.Size = new Size(28, 28);
             buttonPasteTimbre.TabIndex = 57;
             buttonPasteTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonPasteTimbre, "Paste timbre into the selected position");
@@ -143,7 +143,7 @@
             buttonClearTimbre.Image = (Image)resources.GetObject("buttonClearTimbre.Image");
             buttonClearTimbre.Location = new Point(17, 186);
             buttonClearTimbre.Name = "buttonClearTimbre";
-            buttonClearTimbre.Size = new Size(27, 24);
+            buttonClearTimbre.Size = new Size(28, 28);
             buttonClearTimbre.TabIndex = 59;
             buttonClearTimbre.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonClearTimbre, "Clear the selected timbre");
@@ -159,7 +159,7 @@
             buttonClearAll.Image = (Image)resources.GetObject("buttonClearAll.Image");
             buttonClearAll.Location = new Point(17, 216);
             buttonClearAll.Name = "buttonClearAll";
-            buttonClearAll.Size = new Size(27, 24);
+            buttonClearAll.Size = new Size(28, 28);
             buttonClearAll.TabIndex = 60;
             buttonClearAll.TextAlign = ContentAlignment.MiddleRight;
             toolTip.SetToolTip(buttonClearAll, "Clear all memory timbres");
@@ -197,7 +197,7 @@
             // 
             labelCopy.AutoSize = true;
             labelCopy.ForeColor = SystemColors.Control;
-            labelCopy.Location = new Point(45, 161);
+            labelCopy.Location = new Point(47, 163);
             labelCopy.Name = "labelCopy";
             labelCopy.Size = new Size(35, 15);
             labelCopy.TabIndex = 64;
@@ -207,7 +207,7 @@
             // 
             labelPaste.AutoSize = true;
             labelPaste.ForeColor = SystemColors.Control;
-            labelPaste.Location = new Point(117, 161);
+            labelPaste.Location = new Point(135, 163);
             labelPaste.Name = "labelPaste";
             labelPaste.Size = new Size(35, 15);
             labelPaste.TabIndex = 65;
@@ -217,7 +217,7 @@
             // 
             labelClearSelected.AutoSize = true;
             labelClearSelected.ForeColor = SystemColors.Control;
-            labelClearSelected.Location = new Point(45, 191);
+            labelClearSelected.Location = new Point(47, 193);
             labelClearSelected.Name = "labelClearSelected";
             labelClearSelected.Size = new Size(121, 15);
             labelClearSelected.TabIndex = 66;
@@ -227,7 +227,7 @@
             // 
             labelClearAll.AutoSize = true;
             labelClearAll.ForeColor = SystemColors.Control;
-            labelClearAll.Location = new Point(45, 221);
+            labelClearAll.Location = new Point(45, 223);
             labelClearAll.Name = "labelClearAll";
             labelClearAll.Size = new Size(96, 15);
             labelClearAll.TabIndex = 67;

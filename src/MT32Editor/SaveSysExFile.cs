@@ -8,7 +8,7 @@ namespace MT32Edit;
 internal static class SaveSysExFile
 {
     // MT32Edit: SaveSysExFile class (static)
-    // S.Fryers Mar 2024 
+    // S.Fryers Apr 2024 
 
     /// <summary>
     ///  If true, will not save system area settings to file.
@@ -33,12 +33,14 @@ internal static class SaveSysExFile
         if (saveDialog.ShowDialog() != DialogResult.OK)
         {
             //file error or cancelled dialogue
+            saveDialog.Dispose();
             return FileTools.CANCELLED;
         }
 
         if (string.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             //user didn't select a file
+            saveDialog.Dispose();
             return FileTools.EMPTY;
         }
         fileName = saveDialog.FileName;
@@ -67,7 +69,7 @@ internal static class SaveSysExFile
         {
             sysExFile = File.Create(fileName);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             MessageBox.Show($"Could not write SysEx file: {e.GetBaseException().Message}{Environment.NewLine}Please ensure you have write access to the selected folder path.", "MT-32 Editor");
             return FileTools.ERROR;
@@ -274,6 +276,7 @@ internal static class SaveSysExFile
         catch (Exception e)
         {
             MessageBox.Show($"Could not write SysEx file: {e.GetBaseException().Message} {Environment.NewLine}Please ensure you have write access to the selected folder path.", "MT-32 Editor");
+            saveDialog.Dispose();
             return;
         }
         if (messages)

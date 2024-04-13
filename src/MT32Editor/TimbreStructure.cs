@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Text;
+
+namespace MT32Edit;
 
 /// <summary>
 /// Data structure representing user-accessible timbre memory areas of MT-32, 
@@ -7,7 +9,7 @@
 public class TimbreStructure
 {
     // MT32Edit: TimbreStructure class
-    // S.Fryers Mar 2024
+    // S.Fryers Apr 2024
 
     //each timbre consists of (up to) 4 partials
     public const int NO_OF_PARTIALS = 4;
@@ -15,9 +17,12 @@ public class TimbreStructure
     //each partial contains 58 (0x3A) parameters
     public const int NO_OF_PARAMETERS = 58;
 
+    public const string NEW_TIMBRE = "New Timbre";
+
     private string timbreName = string.Empty;
     private int part12Structure;
     private int part34Structure;
+    private int activePartial = 0;
     private bool[] partialMuteStatus = new bool[NO_OF_PARTIALS];
     private bool sustain;
     private readonly byte[,] partial = new byte[NO_OF_PARTIALS, NO_OF_PARAMETERS];
@@ -28,11 +33,17 @@ public class TimbreStructure
         SetDefaultTimbreParameters(createAudibleTimbre);
     }
 
+    /// <summary>
+    /// Configures timbre parameters to create a basic saw wave sound.
+    /// If createAudibleTimbre is set to true, partial 1 is unmuted.
+    /// If set to false, all partials are muted.
+    /// </summary>
+    /// <param name="createAudibleTimbre"></param>
     public void SetDefaultTimbreParameters(bool createAudibleTimbre)
     {
         if (createAudibleTimbre)
         {
-            timbreName = "New Timbre";
+            timbreName = NEW_TIMBRE;
 
             //false = not muted, true = muted
             partialMuteStatus = new bool[] { false, true, true, true };
@@ -44,6 +55,7 @@ public class TimbreStructure
             //all partials muted
             partialMuteStatus = new bool[] { true, true, true, true };
         }
+        activePartial = 0;
         part12Structure = 0;
         part34Structure = 0;
         sustain = true;
@@ -54,7 +66,7 @@ public class TimbreStructure
         timeOfLastFullUpdate = DateTime.Now;
     }
 
-    public void SetDefaultPartialValues(int partialNo)
+    private void SetDefaultPartialValues(int partialNo)
     {
         for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
         {
@@ -92,6 +104,16 @@ public class TimbreStructure
         return part34Structure;
     }
 
+    public int GetActivePartial()
+    {
+        return activePartial;
+    }
+
+    public void SetActivePartial(int partialNo)
+    {
+        activePartial = ValidatePartialNo(partialNo);
+    }
+
     public void SetPart12Structure(int structure, bool autoCorrect = false)
     {
         part12Structure = ValidateStructureNo(structure, autoCorrect);
@@ -107,9 +129,9 @@ public class TimbreStructure
         return LogicTools.ValidateRange("Structure No.", structure, minPermitted: 0, maxPermitted: 12, autoCorrect);
     }
 
-    private void ValidatePartialNo(int partialNo)
+    private int ValidatePartialNo(int partialNo)
     {
-        LogicTools.ValidateRange("Partial No.", partialNo, minPermitted: 0, maxPermitted: 3, autoCorrect: false);
+        return LogicTools.ValidateRange("Partial No.", partialNo, minPermitted: 0, maxPermitted: 3, autoCorrect: false);
     }
 
     private void ValidateParameterNo(int parameterNo)
@@ -178,6 +200,9 @@ public class TimbreStructure
         }
     }
 
+    /// <summary>
+    /// Returns the number of the PCM Bank currently assigned to the specified partial
+    /// </summary>
     public int GetPCMBankNo(int partialNo)
     {
         ValidatePartialNo(partialNo);
@@ -191,12 +216,13 @@ public class TimbreStructure
         }
     }
 
+    /// <summary>
+    /// Returns parameter value with appropriate offset for UI controls that permit negative values
+    /// </summary>
     public int GetUIParameter(int partialNo, int parameterNo)
     {
         ValidatePartialNo(partialNo);
         ValidateParameterNo(parameterNo);
-
-        //return parameter value with appropriate offset for UI controls that permit negative values
         return partial[partialNo, parameterNo] - PartialConstants.offset[parameterNo];
     }
 
@@ -221,6 +247,12 @@ public class TimbreStructure
         }
     }
 
+    /// <summary>
+    /// Copies the specified partial.
+    /// </summary>
+    /// <returns>
+    /// Byte array containing the specified partial parameter values.
+    /// </returns>
     public byte[] CopyPartial(int partialNo)
     {
         ValidatePartialNo(partialNo);
@@ -232,6 +264,9 @@ public class TimbreStructure
         return partialValues;
     }
 
+    /// <summary>
+    /// Pastes the provided partial parameter values into the specified partial.
+    /// </summary>
     public void PastePartial(int partialNo, byte[] partialValues)
     {
         ValidatePartialNo(partialNo);
@@ -241,22 +276,70 @@ public class TimbreStructure
         }
     }
 
+    /// <summary>
+    /// Returns an exact clone of the current timbre
+    /// </summary>
     public TimbreStructure Clone()
     {
         TimbreStructure clonedTimbre = new TimbreStructure(false);
-        clonedTimbre.timbreName = timbreName;
-        clonedTimbre.part12Structure = part12Structure;
-        clonedTimbre.part34Structure = part34Structure;
-        clonedTimbre.sustain = sustain;
+        clonedTimbre.SetTimbreName(timbreName);
+        clonedTimbre.SetPart12Structure(part12Structure);
+        clonedTimbre.SetPart34Structure(part34Structure);
+        clonedTimbre.SetSustainStatus(sustain);
         clonedTimbre.timeOfLastFullUpdate = timeOfLastFullUpdate;
+        clonedTimbre.SetActivePartial(activePartial);
         for (int partialNo = 0; partialNo < NO_OF_PARTIALS; partialNo++)
         {
             clonedTimbre.partialMuteStatus[partialNo] = partialMuteStatus[partialNo];
-            for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
-            {
-                clonedTimbre.partial[partialNo, parameterNo] = partial[partialNo, parameterNo];
-            }
+            ClonePartial(partialNo);
         }
         return clonedTimbre;
+
+        void ClonePartial(int partialNo)
+        {
+            for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
+            {
+                clonedTimbre.SetSysExParameter(partialNo, parameterNo, partial[partialNo, parameterNo]); 
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns a 64-bit checksum derived from all timbre parameter values
+    /// </summary>
+    public long CheckSum()
+    {
+        long checkSum = SumOfTimbreNameCharacters() + ((part12Structure + 1) * 8192) + ((part34Structure + 1) * 32768) + (LogicTools.BoolToInt(sustain) * 131072) + (activePartial * 262144);
+        for (int i = 0; i < NO_OF_PARTIALS; i++)
+        {
+            checkSum += SumOfParameterValues(i);
+            checkSum *= (i + 1) * (LogicTools.BoolToInt(partialMuteStatus[i]) + 1);
+        }
+        return checkSum;
+
+        long SumOfParameterValues(int partialNo)
+        {
+            long sum = 0;
+            for (int i = 0; i < NO_OF_PARAMETERS; i++)
+            {
+                sum += (long)partial[partialNo, i] * (partialNo + ((i + 1) * NO_OF_PARAMETERS)) * 128;
+            }
+            return sum;
+        }
+
+        long SumOfTimbreNameCharacters()
+        {
+            byte[] timbreNameCharacterValues = Encoding.ASCII.GetBytes(timbreName);
+            if (timbreNameCharacterValues.Length == 0)
+            {
+                return 0;
+            }
+            long sum = 0;
+            for (int i = 0; i < timbreNameCharacterValues.Length; i++)
+            {
+                sum += timbreNameCharacterValues[i] * ((i + 1) * 4096);
+            }
+            return sum;
+        }
     }
 }

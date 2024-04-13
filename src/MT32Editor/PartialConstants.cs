@@ -9,8 +9,6 @@
 /// However this represents a value in the UI of -50 to +50, hence an offset value of 50 is
 /// used for this parameter.
 /// </remarks>
-
-
 internal static class PartialConstants
 
 // MT32Edit: PartialConstants class (static)
@@ -22,7 +20,7 @@ internal static class PartialConstants
     /// </summary>
     public static readonly byte[] maxValue =
     {
-         96, 100,  16,   1,   3, 127, 100,  14,  10,  14,   4, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,  30,  16, 127,  14, 100,
+         96, 100,  16,   1,   3, 127, 100,  14,  10,  100,   4, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,  30,  16, 127,  14, 100,
         100,   4,   4, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 127,  12, 127,  12,   4,   4, 100, 100, 100, 100, 100, 100, 100, 100, 100
     };
 

@@ -8,13 +8,19 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        // To customize application configuration such as set high DPI settings or default font, see https://aka.ms/applicationconfiguration.
+
+#if NET6_0_OR_GREATER
         ApplicationConfiguration.Initialize();
+#else
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+#endif
+
         try
         {
             Application.Run(new FormMainMenu(args));
         }
-        catch
+        catch (Exception)
         {
             //Application failed to open, probably closed prematurely by failure to open MIDI device;
         }

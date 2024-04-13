@@ -145,14 +145,7 @@ public class SystemLevel
     {
         partNo = LogicTools.ValidateRange("Part No.", partNo, minPermitted: 0, maxPermitted: 8, autoCorrect);
         midiChannelNo = LogicTools.ValidateRange("MIDI Channel No.", midiChannelNo, minPermitted: 0, maxPermitted: 16, autoCorrect);
-        if (midiChannelNo == 0)
-        {
-            midiChannel[partNo] = 16; //off
-        }
-        else
-        {
-            midiChannel[partNo] = midiChannelNo - 1;
-        }
+        midiChannel[partNo] = (midiChannelNo == 0) ? 16 : midiChannelNo - 1;
     }
 
     public int GetUIMidiChannel(int partNo)

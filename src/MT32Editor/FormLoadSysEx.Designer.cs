@@ -65,9 +65,9 @@
             // buttonClose
             // 
             buttonClose.BackColor = Color.FromArgb(224, 224, 224);
-            buttonClose.Location = new Point(274, 68);
+            buttonClose.Location = new Point(266, 68);
             buttonClose.Name = "buttonClose";
-            buttonClose.Size = new Size(50, 26);
+            buttonClose.Size = new Size(58, 26);
             buttonClose.TabIndex = 2;
             buttonClose.Text = "Close";
             buttonClose.UseVisualStyleBackColor = false;

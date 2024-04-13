@@ -7,7 +7,7 @@
 public partial class FormLoadSysEx : Form
 {
     // MT32Edit: FormLoadSysEx
-    // S.Fryers Feb 2024
+    // S.Fryers Apr 2024
 
     private readonly MT32State memoryState;
 
@@ -37,15 +37,7 @@ public partial class FormLoadSysEx : Form
         memoryState = inputMemoryState;
         SetTextLabels();
         SetTheme();
-        if (MT32SysEx.hardwareMT32Connected)
-        {
-            timer.Interval = MT32SysEx.MT32_DELAY;
-        }
-        else
-        {
-            timer.Interval = 1;
-        }
-
+        timer.Interval = MT32SysEx.hardwareMT32Connected ? MT32SysEx.MT32_DELAY : 5;
         progressBar.Maximum = 66 + (88 / RHYTHM_BANKS_PER_BLOCK) + (128 / PATCHES_PER_BLOCK);
         MT32SysEx.blockSysExMessages = false;
         timer.Start();
