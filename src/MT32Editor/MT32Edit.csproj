@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateResourceUsePreserializedResouces>true</GenerateResourceUsePreserializedResouces>
     <StartupObject>MT32Edit.Program</StartupObject>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<ApplicationIcon>MT32Edit.ico</ApplicationIcon>
@@ -25,6 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio.Midi" Version="2.2.1" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
