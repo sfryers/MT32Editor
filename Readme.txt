@@ -5,13 +5,14 @@ The term 'SysEx' refers to MIDI System Exclusive message files, which normally c
 
 COMPATIBILITY:
 
-- This software should run on any Windows 8, 8.1, 10 or 11 PC which has the .NET 6.0 runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed. A monitor with at least 1080p resolution is recommended. The software does not work with Windows 7 32-bit edition, but will reportedly run on the 64-bit edition.
+- This software should run on any Windows 8, 8.1, 10 or 11 PC which has the .NET 6.0 runtime (https://dotnet.microsoft.com/en-us/download/dotnet/6.0) installed. A monitor with at least 1080p resolution is recommended. The .NET 6 version does not work with Windows 7 32-bit edition, but will reportedly run on the 64-bit edition. The code can alternatively be compiled for .NET 4.7.2, which will run on Windows 7 32-bit systems.
+- The software should also run (with some UI imperfections) on Linux systems with the latest versions of Wine and wine-mono.msi installed. The .NET 6.0 x64 build has been successfully tested on Ubuntu 20.04 with Wine 9.2 and wine-mono 9.0. 
 - A MIDI input device and an MT-32 compatible MIDI output device is strongly recommended but not required (SysEx files can still be loaded and edited without a connected MIDI device, but you will not hear any sounds).
 - SysEx (.syx) files created with this software can be uploaded to an MT-32 device using external software such as MIDI-OX, MIDI Tools, MUNT or any MIDI sequencer/DAW with built-in SysEx functionality.
 
 LICENCE:
 
-This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available at GitHub (https://github.com/sfryers/MT32Editor). The only external dependency is the NAudio.Midi library, which can be imported using NuGet in Visual Studio (https://www.nuget.org/packages/NAudio.Midi/2.1.0/).
+This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available from GitHub (https://github.com/sfryers/MT32Editor). The only external dependency is the NAudio.Midi library, which can be imported using NuGet in Visual Studio (https://www.nuget.org/packages/NAudio.Midi/2.2.1/).
 
 This software and its author are in no way linked to or endorsed by the Roland Corporation.
 
@@ -27,6 +28,7 @@ FEATURES:
 - Load and save individual timbres as .timbre files
 
 LIMITATIONS:
+
 - The application may ignore otherwise valid MT-32 SysEx data if it is formatted in an unconventional way (eg. data blocks which don't align with normal timbre/patch starting addresses)
 - Loading/saving data for timbre temp area and patch temp area has intentionally not been implemented (the timbre editor does make use of timbre temp area 1).
 
@@ -34,7 +36,7 @@ LAYOUT:
 
 Menu Bar
 
-File Menu - load or save a SysEx file (a complete MT-32 memory state, consisting of system settings plus up to 64 timbres, 128 patches and 84 rhythm keys). Any existing MT-32 compatible SysEx files can be loaded, browsed and edited.
+File Menu - load or save a SysEx file (a complete MT-32 memory state, consisting of system settings plus up to 64 timbres, 128 patches and 85 rhythm keys). Any existing MT-32 compatible SysEx files can be loaded, browsed and edited.
 
 Individual timbres, in .timbre format, can also be loaded and saved using this menu. SysEx files are saved in a standard format and can be used with any compatible external software and devices, however .timbre files are only intended to be used with this software.
 
@@ -45,7 +47,7 @@ Options Menu
 	- Autosave every 5 minutes (when enabled, regularly saves the current state to a file named autosave.syx in the same folder as the main applicaton).
 	- Ignore system config messages when loading SysEx file (will not load any new MIDI channel assignments, partial reserve settings, master tune, master level or reverb settings). 
 	- Exclude system config messages when saving SysEx file (will not save any of the above). Note- if you ONLY wish to save system area settings, use the Save option in the System area settings window.
-        - Hardware MT-32 connected (when enabled, adds 50ms delay between large sysex messages to prevent buffer overflow errors on original hardware).
+        - Hardware MT-32 connected (when enabled, adds 60ms delay between large sysex messages to prevent buffer overflow errors on original hardware).
 	- Send info to MT-32 display (when enabled, sends messages to device's matrix display to show parameter changes etc).
 	- Allow MT-32 reset from SysEx (when enabled, will pass any MT-32 reset messages found whilst loading a SysEx file directly to the connected MIDI Out device).
         - Dark mode (set user interface theme either to dark background with light text, or light background with dark text).
@@ -75,6 +77,8 @@ Timbres can be named using basic ASCII characters (a-z, A-Z, 0-9, space and the 
 Refer to the original user manuals for detailed information on device specific features: 
 http://www.midimanuals.com/manuals/roland/mt-32/owners_manual/mt-32_om.pdf 
 http://www.midimanuals.com/manuals/roland/cm-32l/owners_manual/cm-32l_om.pdf
+
+To assist with the editing process, any user changes to parameters in the Timbre Editor section can be undone and re-done by using the undo/redo buttons. Undo history is preserved when changing between partials in a single timbre, but is cleared when a different timbre is selected.
 
 Patch Editor
 
@@ -113,6 +117,6 @@ My timbre sounds crackly/distorted:
 
 - MT-32 devices will produce audible clipping if patches or partials are set too loud. Reduce the master volume, the level of the patch or the level of the individual partials in a memory timbre to help resolve this.
 
-I can't save my timbre or SysEx files- I see an error message "File not found. Check the filename and try again."
+I can't save my timbre or SysEx files: 
 
-- Check that you have write access to the folder you're trying to save into.
+- If you see an error message "File not found. Check the filename and try again.", check that you have write access to the folder you're trying to save into.

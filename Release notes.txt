@@ -2,6 +2,20 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.9b - 13th April 2024
+  Bug Fixes:
+    - Pitch Envelope Velocity Sensitivity parameter now stores the full range of permitted values from 0-100 (bug in previous versions caused the internal range of values for this parameter to be restricted to 0-14).
+    - Framework version and architecture detected at compile time instead of relying on hard-coded strings.
+    - Tweaked SysEx delay timings to improve compatibility with hardware MT-32 under Wine environment.
+  New Features:
+    - Timbre Editor now includes undo/redo function
+    - Application now attempts to read incomplete patch data rather than ignoring it.
+    - Ability to display raw SysEx data in the console window- can be enabled by editing the .ini file.
+  Miscellaneous:
+    - Improved sizing and spacing of certain UI elements.
+    - Code improvements- added further summary information and refactored some methods.
+    - Project can now target .NET 6.0 and .NET 4.7.2 from a common codebase.
+
 v0.9.8a - 16th March 2024
   Bug Fixes:
     - Saving over an existing SysEx file properly clears the file before writing new data. In previous versions, overwriting a file with a smaller one could cause invalid data to remain at the end of the file.
