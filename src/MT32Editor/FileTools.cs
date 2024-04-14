@@ -36,21 +36,22 @@ internal static class FileTools
     /// <returns>A valid folder path name, ERROR or CANCELLED.</returns>
     public static string AskUserForFilePath()
     {
-        FolderBrowserDialog selectFolder = new FolderBrowserDialog();
-        DialogResult result = selectFolder.ShowDialog();
-        string pathName = selectFolder.SelectedPath;
-        selectFolder.Dispose();
-        if (result != DialogResult.OK)
+        using (var selectFolder = new FolderBrowserDialog())
         {
-            return ERROR;
-        }
-        else if (string.IsNullOrWhiteSpace(pathName))
-        {
-            return CANCELLED;
-        }
-        else
-        {
-            return pathName;
+            DialogResult result = selectFolder.ShowDialog();
+            string pathName = selectFolder.SelectedPath;
+            if (result != DialogResult.OK)
+            {
+                return ERROR;
+            }
+            else if (string.IsNullOrWhiteSpace(pathName))
+            {
+                return CANCELLED;
+            }
+            else
+            {
+                return pathName;
+            }
         }
     }
 

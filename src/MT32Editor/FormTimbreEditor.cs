@@ -219,19 +219,21 @@ public partial class FormTimbreEditor : Form
     /// </summary>
     private TrackBar[] GetTrackBars()
     {
-        TrackBar trackBarDummy = new TrackBar();
-        return new TrackBar[] {
-                                trackBarPitch, trackBarFinePitch, trackBarPitchKeyFollow, trackBarDummy, trackBarDummy, trackBarDummy,
-                                trackBarPulseWidth, trackBarPWVeloSens, trackBarPitchEnvelopeDepth, trackBarPitchEnvVeloSens, trackBarPitchEnvTimeKeyfollow,
-                                trackBarPitchEnvT1, trackBarPitchEnvT2, trackBarPitchEnvT3, trackBarPitchEnvT4, trackBarPitchEnvL0, trackBarPitchEnvL1, trackBarPitchEnvL2,
-                                trackBarPitchEnvSust, trackBarPitchEnvReleaseLevel, trackBarLFORate, trackBarLFODepth, trackBarLFOModSens,
-                                trackBarTVFCutoff, trackBarTVFResonance, trackBarTVFKeyfollow, trackBarTVFBiasPoint, trackBarTVFBiasLevel, trackBarTVFEnvDepth,
-                                trackBarTVFVeloSensitivity, trackBarTVFDepthKeyfollow, trackBarTVFTimeKeyfollow,
-                                trackBarTVFT1, trackBarTVFT2, trackBarTVFT3, trackBarTVFT4, trackBarTVFT5, trackBarTVFL1, trackBarTVFL2, trackBarTVFL3, trackBarTVFSustain,
-                                trackBarTVALevel, trackBarTVAVeloSensitivity, trackBarTVABiasPoint1, trackBarTVABiasLevel1, trackBarTVABiasPoint2, trackBarTVABiasLevel2,
-                                trackBarTVATimeKeyfollow, trackBarTVAVelocityKeyfollow,
-                                trackBarTVAT1, trackBarTVAT2, trackBarTVAT3, trackBarTVAT4, trackBarTVAT5, trackBarTVAL1, trackBarTVAL2, trackBarTVAL3, trackBarTVASustain
-                              };
+        using (var trackBarDummy = new TrackBar())
+        {
+            return new TrackBar[] {
+                                    trackBarPitch, trackBarFinePitch, trackBarPitchKeyFollow, trackBarDummy, trackBarDummy, trackBarDummy,
+                                    trackBarPulseWidth, trackBarPWVeloSens, trackBarPitchEnvelopeDepth, trackBarPitchEnvVeloSens, trackBarPitchEnvTimeKeyfollow,
+                                    trackBarPitchEnvT1, trackBarPitchEnvT2, trackBarPitchEnvT3, trackBarPitchEnvT4, trackBarPitchEnvL0, trackBarPitchEnvL1, trackBarPitchEnvL2,
+                                    trackBarPitchEnvSust, trackBarPitchEnvReleaseLevel, trackBarLFORate, trackBarLFODepth, trackBarLFOModSens,
+                                    trackBarTVFCutoff, trackBarTVFResonance, trackBarTVFKeyfollow, trackBarTVFBiasPoint, trackBarTVFBiasLevel, trackBarTVFEnvDepth,
+                                    trackBarTVFVeloSensitivity, trackBarTVFDepthKeyfollow, trackBarTVFTimeKeyfollow,
+                                    trackBarTVFT1, trackBarTVFT2, trackBarTVFT3, trackBarTVFT4, trackBarTVFT5, trackBarTVFL1, trackBarTVFL2, trackBarTVFL3, trackBarTVFSustain,
+                                    trackBarTVALevel, trackBarTVAVeloSensitivity, trackBarTVABiasPoint1, trackBarTVABiasLevel1, trackBarTVABiasPoint2, trackBarTVABiasLevel2,
+                                    trackBarTVATimeKeyfollow, trackBarTVAVelocityKeyfollow,
+                                    trackBarTVAT1, trackBarTVAT2, trackBarTVAT3, trackBarTVAT4, trackBarTVAT5, trackBarTVAL1, trackBarTVAL2, trackBarTVAL3, trackBarTVASustain
+                                };
+        }
     }
 
     /// <summary>
@@ -508,13 +510,13 @@ public partial class FormTimbreEditor : Form
 
     private void comboBoxPart12Struct_DrawItem(object sender, DrawItemEventArgs e)
     {
-        DrawingTools dividedComboBox = new DrawingTools();
+        var dividedComboBox = new DrawingTools();
         dividedComboBox.DrawStructureList(e, isPartial12: true, comboBoxPart12Struct.DroppedDown, UIScale);
     }
 
     private void comboBoxPart34Struct_DrawItem(object sender, DrawItemEventArgs e)
     {
-        DrawingTools dividedComboBox = new DrawingTools();
+        var dividedComboBox = new DrawingTools();
         dividedComboBox.DrawStructureList(e, isPartial12: false, comboBoxPart34Struct.DroppedDown, UIScale);
     }
 

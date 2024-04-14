@@ -36,26 +36,25 @@ internal static class LoadSysExFile
     /// </summary>
     public static string Load(MT32State currentMemoryState)
     {
-        OpenFileDialog loadSysExDialog = new OpenFileDialog();
-        loadSysExDialog.Filter = $"MIDI & SysEx files|*.syx; *.mid|SysEx files|*.syx|MIDI files|*.mid|All files|*.*";
-        loadSysExDialog.Title = "Load SysEx File";
-        loadSysExDialog.CheckFileExists = true;
-        loadSysExDialog.CheckPathExists = true;
-        if (loadSysExDialog.ShowDialog() != DialogResult.OK)
+        using (var loadSysExDialog = new OpenFileDialog())
         {
-            loadSysExDialog.Dispose();
-            return FileTools.CANCELLED; //file error or dialogue cancelled
-        }
+            loadSysExDialog.Filter = $"MIDI & SysEx files|*.syx; *.mid|SysEx files|*.syx|MIDI files|*.mid|All files|*.*";
+            loadSysExDialog.Title = "Load SysEx File";
+            loadSysExDialog.CheckFileExists = true;
+            loadSysExDialog.CheckPathExists = true;
+            if (loadSysExDialog.ShowDialog() != DialogResult.OK)
+            {
+                return FileTools.CANCELLED; //file error or dialogue cancelled
+            }
 
-        if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
-        {
-            loadSysExDialog.Dispose();
-            return FileTools.ERROR; //No file specified, abort loading process
+            if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
+            {
+                return FileTools.ERROR; //No file specified, abort loading process
+            }
+            string fileName = loadSysExDialog.FileName;
+            Load(currentMemoryState, fileName);
+            return fileName;
         }
-        string fileName = loadSysExDialog.FileName;
-        loadSysExDialog.Dispose();
-        Load(currentMemoryState, fileName);
-        return fileName;
     }
 
     /// <summary>
@@ -78,20 +77,20 @@ internal static class LoadSysExFile
         }
         //All ok, continue loading process
         MT32SysEx.blockMT32text = true;
-        Form loadSysExForm = new FormLoadSysEx(memoryState, requestClearMemory: false);
-        try
+        using (Form loadSysExForm = new FormLoadSysEx(memoryState, requestClearMemory: false))
         {
-            loadSysExForm.ShowDialog();
+            try
+            {
+                loadSysExForm.ShowDialog();
+            }
+            catch (Exception)
+            {
+                return FileTools.ERROR;
+            }
+            memoryState.SetUpdateTime();
+            MT32SysEx.blockMT32text = false;
+            return fileName;
         }
-        catch (Exception)
-        {
-            loadSysExForm.Dispose();
-            return FileTools.ERROR;
-        }
-        loadSysExForm.Dispose();
-        memoryState.SetUpdateTime();
-        MT32SysEx.blockMT32text = false;
-        return fileName;
     }
 
     private static bool IsMidiFile(FileStream file)

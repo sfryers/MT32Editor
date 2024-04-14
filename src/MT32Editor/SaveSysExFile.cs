@@ -25,27 +25,25 @@ internal static class SaveSysExFile
     /// </summary>
     public static string SaveAs(MT32State memorystate, string fileName = "New SysEx file.syx")
     {
-        SaveFileDialog saveDialog = new SaveFileDialog();
-        fileName = Path.ChangeExtension(fileName, FileTools.SYSEX_FILE);
-        saveDialog.FileName = Path.GetFileName(fileName);
-        saveDialog.Title = "Save SysEx File";
-        saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-        if (saveDialog.ShowDialog() != DialogResult.OK)
+        using (var saveDialog = new SaveFileDialog())
         {
-            //file error or cancelled dialogue
-            saveDialog.Dispose();
-            return FileTools.CANCELLED;
+            fileName = Path.ChangeExtension(fileName, FileTools.SYSEX_FILE);
+            saveDialog.FileName = Path.GetFileName(fileName);
+            saveDialog.Title = "Save SysEx File";
+            saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
+            if (saveDialog.ShowDialog() != DialogResult.OK)
+            {
+                //file error or cancelled dialogue
+                return FileTools.CANCELLED;
+            }
+            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            {
+                //user didn't select a file
+                return FileTools.EMPTY;
+            }
+            fileName = saveDialog.FileName;
+            return Save(memorystate, fileName, checkBeforeOverwriting: false);
         }
-
-        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
-        {
-            //user didn't select a file
-            saveDialog.Dispose();
-            return FileTools.EMPTY;
-        }
-        fileName = saveDialog.FileName;
-        saveDialog.Dispose();
-        return Save(memorystate, fileName, checkBeforeOverwriting: false);
     }
 
     /// <summary>
@@ -253,104 +251,108 @@ internal static class SaveSysExFile
 
     public static void SaveSystemOnly(SystemLevel systemConfig, bool level, bool tuning, bool reverb, bool channels, bool reserve, bool messages)
     {
-        SaveFileDialog saveDialog = new SaveFileDialog();
-        saveDialog.Title = "Save SysEx File";
-        saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+        using (var saveDialog = new SaveFileDialog())
         {
-            saveDialog.FileName = "New MT32 system settings file.syx";
+            saveDialog.Title = "Save SysEx File";
+            saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
+            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            {
+                saveDialog.FileName = "New MT32 system settings file.syx";
+            }
+
+            if (saveDialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(saveDialog.FileName))
+            {
+                //file error or user left filename blank
+                return;
+            }
+
+            FileStream sysExFile;
+            try
+            {
+                sysExFile = File.Create(saveDialog.FileName);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Could not write SysEx file: {e.GetBaseException().Message} {Environment.NewLine}Please ensure you have write access to the selected folder path.", "MT-32 Editor");
+                return;
+            }
+
+            ProcessSystemData(sysExFile);
+            string fileName = saveDialog.FileName;
+            sysExFile.Close();
+            MessageBox.Show($"Saved system settings to {fileName}", "MT-32 System Settings");
         }
 
-        if (saveDialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(saveDialog.FileName))
+        void ProcessSystemData(FileStream sysExFile)
         {
-            //file error or user left filename blank
-            saveDialog.Dispose();
-            return;
-        }
+            if (messages)
+            {
+                SaveMessage(sysExFile, systemConfig, 0);
+            }
 
-        FileStream sysExFile;
-        try
-        {
-            sysExFile = File.Create(saveDialog.FileName);
+            if (level && tuning && reverb && channels && reserve)
+            {
+                SaveAllSystemData(sysExFile, systemConfig);
+            }
+            else
+            {   //if not all options are selected, save separate SysEx block for each set of parameters
+                if (tuning)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x00 };
+                    SaveSingleSysExValue(sysExFile, sysExAddr, systemConfig.GetMasterTune());
+                }
+                if (reverb)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x01 };
+                    byte[] sysExData = systemConfig.GetReverbSysExValues();
+                    SaveMultipleSysExValues(sysExFile, sysExAddr, sysExData);
+                }
+                if (reserve)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x04 };
+                    byte[] sysExData = systemConfig.GetPartialReserveSysExValues();
+                    SaveMultipleSysExValues(sysExFile, sysExAddr, sysExData);
+                }
+                if (channels)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x0D };
+                    byte[] sysExData = systemConfig.GetMidiChannelSysExValues();
+                    SaveMultipleSysExValues(sysExFile, sysExAddr, sysExData);
+                }
+                if (level)
+                {
+                    byte[] sysExAddr = { 0x10, 0x00, 0x16 };
+                    SaveSingleSysExValue(sysExFile, sysExAddr, systemConfig.GetMasterLevel());
+                }
+            }
+            if (messages)
+            {
+                SaveMessage(sysExFile, systemConfig, 1);
+            }
         }
-        catch (Exception e)
-        {
-            MessageBox.Show($"Could not write SysEx file: {e.GetBaseException().Message} {Environment.NewLine}Please ensure you have write access to the selected folder path.", "MT-32 Editor");
-            saveDialog.Dispose();
-            return;
-        }
-        if (messages)
-        {
-            SaveMessage(sysExFile, systemConfig, 0);
-        }
+    }
 
-        if (level && tuning && reverb && channels && reserve)
-        {
-            SaveAllSystemData(sysExFile, systemConfig);
-        }
-        else
-        {   //if not all options are selected, save separate SysEx block for each set of parameters
-            if (tuning)
-            {
-                byte[] sysExAddr = { 0x10, 0x00, 0x00 };
-                SaveSingleSysExValue(sysExAddr, systemConfig.GetMasterTune());
-            }
-            if (reverb)
-            {
-                byte[] sysExAddr = { 0x10, 0x00, 0x01 };
-                byte[] sysExData = systemConfig.GetReverbSysExValues();
-                SaveMultipleSysExValues(sysExAddr, sysExData);
-            }
-            if (reserve)
-            {
-                byte[] sysExAddr = { 0x10, 0x00, 0x04 };
-                byte[] sysExData = systemConfig.GetPartialReserveSysExValues();
-                SaveMultipleSysExValues(sysExAddr, sysExData);
-            }
-            if (channels)
-            {
-                byte[] sysExAddr = { 0x10, 0x00, 0x0D };
-                byte[] sysExData = systemConfig.GetMidiChannelSysExValues();
-                SaveMultipleSysExValues(sysExAddr, sysExData);
-            }
-            if (level)
-            {
-                byte[] sysExAddr = { 0x10, 0x00, 0x16 };
-                SaveSingleSysExValue(sysExAddr, systemConfig.GetMasterLevel());
-            }
-        }
-        if (messages)
-        {
-            SaveMessage(sysExFile, systemConfig, 1);
-        }
+    private static void SaveSingleSysExValue(FileStream sysExFile, byte[] sysExAddr, int sysExValue)
+    {
+        int sumOfSysExValues = 0;
+        SaveSysExHeader(sysExFile);
+        sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+        byte[] sysExData = { (byte)sysExValue };
+        sysExFile.Write(sysExData, 0, 1);
+        sumOfSysExValues += sysExValue;
+        SaveSysExFooter(sysExFile, sumOfSysExValues);
+    }
 
-        string fileName = saveDialog.FileName;
-        sysExFile.Close();
-        saveDialog.Dispose();
-        MessageBox.Show($"Saved system settings to {fileName}", "MT-32 System Settings");
-
-        void SaveSingleSysExValue(byte[] sysExAddr, int sysExValue)
+    private static void SaveMultipleSysExValues(FileStream sysExFile, byte[] sysExAddr, byte[] sysExData)
+    {
+        int sumOfSysExValues = 0;
+        SaveSysExHeader(sysExFile);
+        sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
+        sysExFile.Write(sysExData, 0, sysExData.Length);
+        for (int i = 0; i < sysExData.Length; i++)
         {
-            int sumOfSysExValues = 0;
-            SaveSysExHeader(sysExFile);
-            sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
-            byte[] sysExData = { (byte)sysExValue };
-            sysExFile.Write(sysExData, 0, 1);
-            sumOfSysExValues += sysExValue;
-            SaveSysExFooter(sysExFile, sumOfSysExValues);
+            sumOfSysExValues += sysExData[i];
         }
-
-        void SaveMultipleSysExValues(byte[] sysExAddr, byte[] sysExData)
-        {
-            int sumOfSysExValues = 0;
-            SaveSysExHeader(sysExFile);
-            sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
-            sysExFile.Write(sysExData, 0, sysExData.Length);
-            for (int i = 0; i < sysExData.Length; i++)
-            {
-                sumOfSysExValues += sysExData[i];
-            }
-            SaveSysExFooter(sysExFile, sumOfSysExValues);
-        }
+        SaveSysExFooter(sysExFile, sumOfSysExValues);
     }
 }
