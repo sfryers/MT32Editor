@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
 	<TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
 	<LangVersion>10.0</LangVersion>
-	<!--With PublishSingleFile is set to true, Publish will fail for .NET 4.7.2.-->
+	<!--With PublishSingleFile set to true, Publish will fail for .NET 4.7.2.-->
 	<!--Project will Publish correctly for .NET 6.0 (or later) and will Build for any supported framework-->
 	<PublishSingleFile>true</PublishSingleFile> 
     <Nullable>enable</Nullable>

@@ -6,29 +6,20 @@
 
 internal class TimbreHistory
 {
+    /// MT32Edit: TimbreHistory class
+    /// S.Fryers Apr 2024 
     private const int MAXIMUM_STACK_SIZE = 1000;    // maximum size of undo buffer
     private const int NO_OF_ITEMS_TO_FREE_UP = 100; // amount of space to free up when buffer is full (must be less than MAXIMUM_STACK_SIZE)
     private int actionNo;                           // current stack pointer position
     private int topOfStack;                         // number of items in the stack
     TimbreStructure[] timbreHistory;                // stack of timbre states
 
-    /// MT32Edit: TimbreHistory class
-    /// S.Fryers Apr 2024 
     public TimbreHistory(TimbreStructure initialTimbreState)
     {
-        ValidateStackSize();
         actionNo = 0;
         topOfStack = -1;
         timbreHistory = new TimbreStructure[MAXIMUM_STACK_SIZE];
         timbreHistory[0] = initialTimbreState.Clone();
-    }
-
-    private void ValidateStackSize()
-    {
-        if (NO_OF_ITEMS_TO_FREE_UP >= MAXIMUM_STACK_SIZE)
-        {
-            throw new Exception("TimbreHistory: Stack size configuration error. Please ensure that NO_OF_ITEMS_TO_FREE_UP is less than MAXIMUM_STACK_SIZE.");
-        }
     }
 
     /// <summary>

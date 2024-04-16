@@ -74,8 +74,6 @@ public partial class FormMainMenu : Form
         ProcessShellArguments(args);
     }
 
-
-
     private void ProcessShellArguments(string[] args)
     {
         if (args.Length == 0 || !File.Exists(args[0]))
@@ -506,13 +504,13 @@ public partial class FormMainMenu : Form
 
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        FormAbout about = new FormAbout(ParseTools.GetVersion(VERSION_NO), FRAMEWORK, RELEASE_DATE);
+        var about = new FormAbout(ParseTools.GetVersion(VERSION_NO), FRAMEWORK, RELEASE_DATE);
         about.Show();
     }
 
     private void masterSettingsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        FormSystemSettings systemSettings = new FormSystemSettings(memoryState.GetSystem());
+        var systemSettings = new FormSystemSettings(memoryState.GetSystem());
         systemSettings.ShowDialog();
     }
 

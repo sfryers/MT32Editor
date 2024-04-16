@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            ListViewItem listViewItem2 = new ListViewItem("");
+            ListViewItem listViewItem1 = new ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPatchEditor));
             listViewPatches = new ListView();
             columnHeaderPatchNo = new ColumnHeader();
@@ -76,7 +76,7 @@
             listViewPatches.ForeColor = SystemColors.Control;
             listViewPatches.FullRowSelect = true;
             listViewPatches.GridLines = true;
-            listViewPatches.Items.AddRange(new ListViewItem[] { listViewItem2 });
+            listViewPatches.Items.AddRange(new ListViewItem[] { listViewItem1 });
             listViewPatches.Location = new Point(14, 305);
             listViewPatches.MinimumSize = new Size(0, 28);
             listViewPatches.MultiSelect = false;
