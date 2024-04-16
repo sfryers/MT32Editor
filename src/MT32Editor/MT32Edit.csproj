@@ -4,10 +4,13 @@
     <OutputType>WinExe</OutputType>
 	<TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
 	<LangVersion>10.0</LangVersion>
-	<PublishSingleFile>true</PublishSingleFile>
+	<!--With PublishSingleFile is set to true, Publish will fail for .NET 4.7.2.-->
+	<!--Project will Publish correctly for .NET 6.0 (or later) and will Build for any supported framework-->
+	<PublishSingleFile>true</PublishSingleFile> 
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<!--The following line can be removed if only .NET 6.0 (or later) is to be targeted-->
 	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <StartupObject>MT32Edit.Program</StartupObject>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
@@ -26,7 +29,8 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio.Midi" Version="2.2.1" />
-    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+	<!--Reference to System.Resources.Extensions can be removed if only .NET 6.0 (or later) is to be targeted-->
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
