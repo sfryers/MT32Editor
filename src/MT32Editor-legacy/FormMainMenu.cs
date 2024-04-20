@@ -29,7 +29,7 @@ public partial class FormMainMenu : Form
 #if NET6_0
     private const string FRAMEWORK = ".NET 6.0";
 #else
-    private const string FRAMEWORK = "";
+    private const string FRAMEWORK = ".NET 4.0";
 #endif
     private const string RELEASE_DATE = "April 2024";
 
