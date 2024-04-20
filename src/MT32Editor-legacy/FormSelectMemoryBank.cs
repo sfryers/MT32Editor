@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Simple form allowing selection of a memory bank to copy preset timbre into

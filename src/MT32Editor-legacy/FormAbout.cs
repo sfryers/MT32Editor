@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 /// <summary>
 /// Form to display app information, version number
 /// and release date

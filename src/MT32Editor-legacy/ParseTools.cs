@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Simple tools for parsing text strings

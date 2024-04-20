@@ -1,4 +1,4 @@
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Main entry point for the MT-32 Editor application.

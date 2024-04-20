@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Filter and send debug/status messages to console

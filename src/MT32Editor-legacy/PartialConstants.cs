@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Read-only data class containing default and maximum values for MT-32 partial parameters, 

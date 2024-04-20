@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Data class containing names of MT-32 memory timbres and an interface to static read-only class PresetTimbreNames.

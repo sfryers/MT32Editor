@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Data structure representing user-accessible timbre memory areas of MT-32, 

@@ -1,5 +1,5 @@
 ﻿using System.Text;
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.

@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Read-only data class containing default values for MT-32 rhythm parameters.

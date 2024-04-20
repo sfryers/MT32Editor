@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured

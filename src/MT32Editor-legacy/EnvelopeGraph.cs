@@ -1,4 +1,4 @@
-﻿namespace MT32Edit;
+﻿namespace MT32Edit_legacy;
 
 /// <summary>
 /// Plot graphs to represent MT-32 pitch, filter and amplitude envelopes

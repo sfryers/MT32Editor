@@ -1,4 +1,4 @@
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Form provides visual access to all MT-32 timbre parameters,

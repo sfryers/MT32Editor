@@ -1,5 +1,5 @@
 ﻿using System.Text;
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)

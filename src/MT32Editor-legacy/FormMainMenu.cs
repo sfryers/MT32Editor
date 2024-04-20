@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Primary form for MT-32 Editor application, serving as menu bar and MDI
@@ -25,10 +25,8 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.9b";
-#if NET472
-    private const string FRAMEWORK = ".NET 4.7.2";
-#elif NET6_0
+    private const string VERSION_NO = "v0.9.9b-legacy";
+#if NET6_0
     private const string FRAMEWORK = ".NET 6.0";
 #else
     private const string FRAMEWORK = "";
@@ -102,7 +100,11 @@ public partial class FormMainMenu : Form
 
     private float DPIScale()
     {
+#if NET472_OR_GREATER
         float dpi = DeviceDpi;
+#else
+        float dpi = 96;
+#endif
         float scaleValue = (dpi / 96);
         return scaleValue;
     }

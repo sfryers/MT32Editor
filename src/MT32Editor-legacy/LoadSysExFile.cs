@@ -1,5 +1,5 @@
 ﻿using System.Text;
-namespace MT32Edit;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Tools to load MT-32 System Exclusive data files from local filesystem

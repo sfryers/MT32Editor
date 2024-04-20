@@ -1,6 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using System.Text;
-namespace MT32Edit;
+﻿using System.Text;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Tools to create and send MT32-compatible system exclusive messages
@@ -70,7 +69,7 @@ internal static class MT32SysEx
     public static bool echoSysExData {  get; set; } = false;
 
     private static readonly int channelNo = 1;
-    private static byte[] previousSysExMessage = Array.Empty<byte>();
+    private static byte[]? previousSysExMessage;
 
     /// <summary>
     /// Returns Roland-compatible SysEx checksum value
@@ -507,7 +506,7 @@ internal static class MT32SysEx
 
     private static bool MatchesPreviousMessage(byte[] sysExMessage)
     {
-        if (sysExMessage.Length != previousSysExMessage.Length)
+        if (sysExMessage is null || previousSysExMessage is null || sysExMessage.Length != previousSysExMessage.Length)
         {
             return false;
         }
