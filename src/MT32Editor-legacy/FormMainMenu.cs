@@ -479,6 +479,7 @@ public partial class FormMainMenu : Form
     {
         Midi.CloseInputDevice();
         Midi.CloseOutputDevice();
+        Application.Exit();
     }
 
     private void patchEditorToolStripMenuItem_Click(object sender, EventArgs e)
