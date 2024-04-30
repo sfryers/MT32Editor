@@ -6,7 +6,7 @@
 internal class EnvelopeGraph
 {
     // MT32Edit: EnvelopeGraph Class
-    // S.Fryers Feb 2023
+    // S.Fryers Apr 2024
 
     public const int PITCH_GRAPH = 0;
     public const int TVF_GRAPH = 1;

@@ -216,6 +216,9 @@
             labelEditPartialNo = new Label();
             labelUndo = new Label();
             labelRedo = new Label();
+            labelPitchTimeKF = new Label();
+            labelTVFBiasSettings = new Label();
+            labelTVABiasSettings = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFinePitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarPitchKeyFollow).BeginInit();
@@ -793,6 +796,7 @@
             // 
             // groupBoxPitchEnvelope
             // 
+            groupBoxPitchEnvelope.Controls.Add(labelPitchTimeKF);
             groupBoxPitchEnvelope.Controls.Add(labelColourPitchSettings);
             groupBoxPitchEnvelope.Controls.Add(labelNoActivePartials);
             groupBoxPitchEnvelope.Controls.Add(labelPitchRelease);
@@ -1340,6 +1344,7 @@
             // 
             // groupBoxTVFBias
             // 
+            groupBoxTVFBias.Controls.Add(labelTVFBiasSettings);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasLevel);
             groupBoxTVFBias.Controls.Add(trackBarTVFBiasPoint);
             groupBoxTVFBias.Controls.Add(labelTVFBiasPt);
@@ -2035,6 +2040,7 @@
             // 
             // groupBoxTVABias
             // 
+            groupBoxTVABias.Controls.Add(labelTVABiasSettings);
             groupBoxTVABias.Controls.Add(trackBarTVABiasLevel2);
             groupBoxTVABias.Controls.Add(labelTVABiasL2);
             groupBoxTVABias.Controls.Add(labelTVABiasL1);
@@ -2744,6 +2750,36 @@
             labelRedo.TabIndex = 98;
             labelRedo.Text = "Redo";
             // 
+            // labelPitchTimeKF
+            // 
+            labelPitchTimeKF.AccessibleDescription = "Pitch Time Keyfollow";
+            labelPitchTimeKF.AccessibleName = "Pitch Time Keyfollow";
+            labelPitchTimeKF.AutoSize = true;
+            labelPitchTimeKF.Location = new Point(120, 127);
+            labelPitchTimeKF.Name = "labelPitchTimeKF";
+            labelPitchTimeKF.Size = new Size(49, 15);
+            labelPitchTimeKF.TabIndex = 75;
+            labelPitchTimeKF.Text = "Time KF";
+            labelPitchTimeKF.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // labelTVFBiasSettings
+            // 
+            labelTVFBiasSettings.AutoSize = true;
+            labelTVFBiasSettings.Location = new Point(6, 2);
+            labelTVFBiasSettings.Name = "labelTVFBiasSettings";
+            labelTVFBiasSettings.Size = new Size(94, 15);
+            labelTVFBiasSettings.TabIndex = 74;
+            labelTVFBiasSettings.Text = "TVF Bias settings";
+            // 
+            // labelTVABiasSettings
+            // 
+            labelTVABiasSettings.AutoSize = true;
+            labelTVABiasSettings.Location = new Point(6, 0);
+            labelTVABiasSettings.Name = "labelTVABiasSettings";
+            labelTVABiasSettings.Size = new Size(95, 15);
+            labelTVABiasSettings.TabIndex = 75;
+            labelTVABiasSettings.Text = "TVA Bias settings";
+            // 
             // FormTimbreEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -3067,5 +3103,8 @@
         private Label labelUndo;
         private Label labelRedo;
         private Button buttonRedo;
+        private Label labelPitchTimeKF;
+        private Label labelTVFBiasSettings;
+        private Label labelTVABiasSettings;
     }
 }
