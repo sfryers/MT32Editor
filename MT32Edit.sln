@@ -5,8 +5,9 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MT32Edit", "src\MT32Editor\MT32Edit.csproj", "{B08B2A0B-8E79-45CA-8C85-01E74E0A285A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MT32Edit-legacy", "src\MT32Editor-legacy\MT32Edit_legacy.csproj", "{B01BE334-F0C5-4087-A2C7-24920778F4DA}"
-EndProject
+#Uncomment the below two lines to build the .NET 4.0 version
+#Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MT32Edit-legacy", "src\MT32Editor-legacy\MT32Edit_legacy.csproj", "{B01BE334-F0C5-4087-A2C7-24920778F4DA}"
+#EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
