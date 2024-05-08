@@ -8,7 +8,7 @@ namespace MT32Edit_legacy;
 public partial class FormTimbreEditor : Form
 {
     // MT32Edit: FormTimbreEditor
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
@@ -24,6 +24,9 @@ public partial class FormTimbreEditor : Form
     private int part12Image = -1;
     private int part34Image = -1;
     private readonly float UIScale;
+
+    private const int GRAPH_X = 200;
+    private const int GRAPH_Y = 40;
 
     public FormTimbreEditor(float DPIScale)
     {
@@ -58,11 +61,11 @@ public partial class FormTimbreEditor : Form
         Label[] labels =   {
                             labelCoarsePitch, labelCopy, labelEditPartialNo, labelEnablePartials, labelEnvGraphSettings, labelFinePitch, labelLFODepth, labelLFORate,
                             labelLoad, labelNewTimbre, labelPartial12, labelPartial34, labelPartialStruct, labelPartialStruct, labelPartialType, labelPaste,
-                            labelPCMSample, labelPitchEnvDepth, labelPitchEnvGraph, labelPitchEnvVeloSens, labelPitchKeyfollow, labelPitchL0, labelPitchL1,
+                            labelPCMSample, labelPitchEnvDepth, labelPitchEnvVeloSens, labelPitchKeyfollow, labelPitchL0, labelPitchL1,
                             labelPitchL2, labelPitchLFOModSens, labelPitchLFOSettings, labelPitchSustain, labelPitchT1, labelPitchT2, labelPitchT3, labelPitchT4,
                             labelPulseWidth, labelPWVeloSens, labelRefresh, labelResonance, labelSave, labelSaveAs, labelTimbreName, labelTVABiasPt1, labelTVABiasPt2,
                             labelTVABiasL1, labelTVABiasL2, labelTVAL1, labelTVAL2, labelTVAL3, labelTVALevel, labelTVASust, labelTVAT1, labelTVAT2, labelTVAT3,
-                            labelTVAT4, labelTVAT5, labelTVATimeKF, labelTVATVFEnvGraph, labelTVAVeloSens, labelTVFBiasLevel, labelTVFBiasPt, labelTVFCutoff,
+                            labelTVAT4, labelTVAT5, labelTVATimeKF, labelTVAVeloSens, labelTVFBiasLevel, labelTVFBiasPt, labelTVFCutoff,
                             labelTVFDepth, labelTVFDepthKF, labelTVFDisabled, labelTVFKeyfollow, labelTVFL1, labelTVFL2, labelTVFL3, labelTVFSustain, labelTVFT1,
                             labelTVFT2, labelTVFT3, labelTVFT4, labelTVFT5, labelTVFTimeKF, labelTVFVeloKF, labelTVFVeloSens, labelUndo, labelRedo
                            };
@@ -154,7 +157,6 @@ public partial class FormTimbreEditor : Form
 
     private void SetAllControlValues()
     {
-        //activePartial = timbre.GetActivePartial();
         SetMainControls();
         SetControlsforLeftPartial(timbre.GetPart12Structure());
         UpdatePartialControls();
@@ -1265,7 +1267,7 @@ public partial class FormTimbreEditor : Form
     {
         //plot pitch envelope
         Graphics envelope = groupBoxPitchEnvelope.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(220 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(220 * UIScale) - 55, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.PITCH_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 
@@ -1277,7 +1279,7 @@ public partial class FormTimbreEditor : Form
         }
         //plot TVF envelope
         Graphics envelope = groupBoxTVF.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 85, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.TVF_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 
@@ -1285,7 +1287,7 @@ public partial class FormTimbreEditor : Form
     {
         //plot TVA envelope
         Graphics envelope = groupBoxTVA.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 85, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.TVA_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 }

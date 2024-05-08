@@ -29,73 +29,73 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectMemoryBank));
-            labelSelectMemoryBank = new Label();
-            comboBoxMemoryBank = new ComboBox();
-            buttonOK = new Button();
-            buttonCancel = new Button();
-            SuspendLayout();
+            this.labelSelectMemoryBank = new System.Windows.Forms.Label();
+            this.comboBoxMemoryBank = new System.Windows.Forms.ComboBox();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // labelSelectMemoryBank
             // 
-            labelSelectMemoryBank.AutoSize = true;
-            labelSelectMemoryBank.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelSelectMemoryBank.ForeColor = SystemColors.ControlLight;
-            labelSelectMemoryBank.Location = new Point(12, 18);
-            labelSelectMemoryBank.Name = "labelSelectMemoryBank";
-            labelSelectMemoryBank.Size = new Size(225, 15);
-            labelSelectMemoryBank.TabIndex = 0;
-            labelSelectMemoryBank.Text = "Select memory bank slot for AcouPiano1:";
+            this.labelSelectMemoryBank.AutoSize = true;
+            this.labelSelectMemoryBank.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.labelSelectMemoryBank.Location = new System.Drawing.Point(10, 16);
+            this.labelSelectMemoryBank.Name = "labelSelectMemoryBank";
+            this.labelSelectMemoryBank.Size = new System.Drawing.Size(201, 13);
+            this.labelSelectMemoryBank.TabIndex = 0;
+            this.labelSelectMemoryBank.Text = "Select memory bank slot for AcouPiano1:";
             // 
             // comboBoxMemoryBank
             // 
-            comboBoxMemoryBank.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxMemoryBank.FormattingEnabled = true;
-            comboBoxMemoryBank.Location = new Point(15, 45);
-            comboBoxMemoryBank.Name = "comboBoxMemoryBank";
-            comboBoxMemoryBank.Size = new Size(172, 23);
-            comboBoxMemoryBank.TabIndex = 1;
-            comboBoxMemoryBank.SelectedIndexChanged += comboBoxMemoryBank_SelectedIndexChanged;
+            this.comboBoxMemoryBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMemoryBank.FormattingEnabled = true;
+            this.comboBoxMemoryBank.Location = new System.Drawing.Point(13, 39);
+            this.comboBoxMemoryBank.Name = "comboBoxMemoryBank";
+            this.comboBoxMemoryBank.Size = new System.Drawing.Size(148, 21);
+            this.comboBoxMemoryBank.TabIndex = 1;
+            this.comboBoxMemoryBank.SelectedIndexChanged += new System.EventHandler(this.comboBoxMemoryBank_SelectedIndexChanged);
             // 
             // buttonOK
             // 
-            buttonOK.BackColor = Color.FromArgb(224, 224, 224);
-            buttonOK.Location = new Point(212, 45);
-            buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(71, 25);
-            buttonOK.TabIndex = 3;
-            buttonOK.Text = "OK";
-            buttonOK.UseVisualStyleBackColor = false;
-            buttonOK.Click += buttonOK_Click;
+            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonOK.Location = new System.Drawing.Point(201, 37);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(61, 22);
+            this.buttonOK.TabIndex = 3;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = false;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
-            buttonCancel.BackColor = Color.FromArgb(224, 224, 224);
-            buttonCancel.Location = new Point(212, 74);
-            buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(71, 26);
-            buttonCancel.TabIndex = 4;
-            buttonCancel.Text = "Cancel";
-            buttonCancel.UseVisualStyleBackColor = false;
-            buttonCancel.Click += buttonCancel_Click;
+            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonCancel.Location = new System.Drawing.Point(201, 62);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(61, 23);
+            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormSelectMemoryBank
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(308, 109);
-            Controls.Add(buttonCancel);
-            Controls.Add(buttonOK);
-            Controls.Add(comboBoxMemoryBank);
-            Controls.Add(labelSelectMemoryBank);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            Name = "FormSelectMemoryBank";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Select Memory Bank";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(283, 94);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.comboBoxMemoryBank);
+            this.Controls.Add(this.labelSelectMemoryBank);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "FormSelectMemoryBank";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Select Memory Bank";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

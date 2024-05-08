@@ -28,328 +28,373 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
-            toolTips = new ToolTip(components);
-            menuStrip = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            loadSysExFileToolStripMenuItem = new ToolStripMenuItem();
-            saveSysExFileAsToolStripMenuItem = new ToolStripMenuItem();
-            saveSysExToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            loadTimbreFileToolStripMenuItem = new ToolStripMenuItem();
-            saveTimbreFileToolStripMenuItem = new ToolStripMenuItem();
-            saveAllTimbresToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator2 = new ToolStripSeparator();
-            closeToolStripMenuItem = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
-            patchEditorToolStripMenuItem = new ToolStripMenuItem();
-            rhythmEditorToolStripMenuItem = new ToolStripMenuItem();
-            optionsToolStripMenuItem = new ToolStripMenuItem();
-            masterSettingsToolStripMenuItem = new ToolStripMenuItem();
-            autosaveEvery5MinutesToolStripMenuItem = new ToolStripMenuItem();
-            ignoreSysConfigOnLoadToolStripMenuItem = new ToolStripMenuItem();
-            excludeSysConfigonSaveToolStripMenuItem = new ToolStripMenuItem();
-            hardwareMT32ConnectedToolStripMenuItem = new ToolStripMenuItem();
-            sendMessagesToMT32DisplayToolStripMenuItem = new ToolStripMenuItem();
-            allowMT32ResetToolStripMenuItem = new ToolStripMenuItem();
-            darkModeToolStripMenuItem = new ToolStripMenuItem();
-            showConsoleToolStripMenuItem = new ToolStripMenuItem();
-            verboseConsoleMessagesToolStripMenuItem = new ToolStripMenuItem();
-            helpToolStripMenuItem1 = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
-            MidiInLabelToolStripMenuItem = new ToolStripMenuItem();
-            midiInToolStripMenuItem = new ToolStripComboBox();
-            MidiOutLabelToolStripMenuItem = new ToolStripMenuItem();
-            midiOutToolStripMenuItem = new ToolStripComboBox();
-            timer = new System.Windows.Forms.Timer(components);
-            timerAutoSave = new System.Windows.Forms.Timer(components);
-            menuStrip.SuspendLayout();
-            SuspendLayout();
+            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadSysExFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSysExFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSysExToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.loadTimbreFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveTimbreFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAllTimbresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.patchEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rhythmEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timbreEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.masterSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autosaveEvery5MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ignoreSysConfigOnLoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excludeSysConfigonSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hardwareMT32ConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendMessagesToMT32DisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allowMT32ResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verboseConsoleMessagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MidiInLabelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.midiInToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
+            this.MidiOutLabelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.midiOutToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerAutoSave = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip.SuspendLayout();
+            this.SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            menuStrip.AutoSize = false;
-            menuStrip.BackColor = SystemColors.MenuBar;
-            menuStrip.Dock = DockStyle.None;
-            menuStrip.ImageScalingSize = new Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, optionsToolStripMenuItem, helpToolStripMenuItem1, MidiInLabelToolStripMenuItem, midiInToolStripMenuItem, MidiOutLabelToolStripMenuItem, midiOutToolStripMenuItem });
-            menuStrip.Location = new Point(1, 1);
-            menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(2192, 30);
-            menuStrip.Stretch = false;
-            menuStrip.TabIndex = 40;
-            menuStrip.Text = "menuStrip";
+            this.menuStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip.AutoSize = false;
+            this.menuStrip.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.helpToolStripMenuItem1,
+            this.MidiInLabelToolStripMenuItem,
+            this.midiInToolStripMenuItem,
+            this.MidiOutLabelToolStripMenuItem,
+            this.midiOutToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(1, 1);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(1351, 26);
+            this.menuStrip.Stretch = false;
+            this.menuStrip.TabIndex = 40;
+            this.menuStrip.Text = "menuStrip";
+            this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadSysExFileToolStripMenuItem, saveSysExFileAsToolStripMenuItem, saveSysExToolStripMenuItem, toolStripSeparator1, loadTimbreFileToolStripMenuItem, saveTimbreFileToolStripMenuItem, saveAllTimbresToolStripMenuItem, toolStripSeparator2, closeToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 26);
-            fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadSysExFileToolStripMenuItem,
+            this.saveSysExFileAsToolStripMenuItem,
+            this.saveSysExToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.loadTimbreFileToolStripMenuItem,
+            this.saveTimbreFileToolStripMenuItem,
+            this.saveAllTimbresToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
+            this.fileToolStripMenuItem.Text = "File";
             // 
             // loadSysExFileToolStripMenuItem
             // 
-            loadSysExFileToolStripMenuItem.Image = (Image)resources.GetObject("loadSysExFileToolStripMenuItem.Image");
-            loadSysExFileToolStripMenuItem.Name = "loadSysExFileToolStripMenuItem";
-            loadSysExFileToolStripMenuItem.Size = new Size(173, 22);
-            loadSysExFileToolStripMenuItem.Text = "Load SysEx File";
-            loadSysExFileToolStripMenuItem.Click += loadSysExFileToolStripMenuItem_Click;
+            this.loadSysExFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadSysExFileToolStripMenuItem.Image")));
+            this.loadSysExFileToolStripMenuItem.Name = "loadSysExFileToolStripMenuItem";
+            this.loadSysExFileToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.loadSysExFileToolStripMenuItem.Text = "Load SysEx File";
+            this.loadSysExFileToolStripMenuItem.Click += new System.EventHandler(this.loadSysExFileToolStripMenuItem_Click);
             // 
             // saveSysExFileAsToolStripMenuItem
             // 
-            saveSysExFileAsToolStripMenuItem.Image = Properties.Resources.SaveAs;
-            saveSysExFileAsToolStripMenuItem.Name = "saveSysExFileAsToolStripMenuItem";
-            saveSysExFileAsToolStripMenuItem.Size = new Size(173, 22);
-            saveSysExFileAsToolStripMenuItem.Text = "Save SysEx File As..";
-            saveSysExFileAsToolStripMenuItem.Click += saveSysExFileAsToolStripMenuItem_Click;
+            this.saveSysExFileAsToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.SaveAs;
+            this.saveSysExFileAsToolStripMenuItem.Name = "saveSysExFileAsToolStripMenuItem";
+            this.saveSysExFileAsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.saveSysExFileAsToolStripMenuItem.Text = "Save SysEx File As..";
+            this.saveSysExFileAsToolStripMenuItem.Click += new System.EventHandler(this.saveSysExFileAsToolStripMenuItem_Click);
             // 
             // saveSysExToolStripMenuItem
             // 
-            saveSysExToolStripMenuItem.Enabled = false;
-            saveSysExToolStripMenuItem.Image = Properties.Resources.Save;
-            saveSysExToolStripMenuItem.Name = "saveSysExToolStripMenuItem";
-            saveSysExToolStripMenuItem.Size = new Size(173, 22);
-            saveSysExToolStripMenuItem.Text = "Save SysEx File";
-            saveSysExToolStripMenuItem.Click += saveSysExToolStripMenuItem_Click;
+            this.saveSysExToolStripMenuItem.Enabled = false;
+            this.saveSysExToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.Save;
+            this.saveSysExToolStripMenuItem.Name = "saveSysExToolStripMenuItem";
+            this.saveSysExToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.saveSysExToolStripMenuItem.Text = "Save SysEx File";
+            this.saveSysExToolStripMenuItem.Click += new System.EventHandler(this.saveSysExToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(170, 6);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // loadTimbreFileToolStripMenuItem
             // 
-            loadTimbreFileToolStripMenuItem.Image = Properties.Resources.Open;
-            loadTimbreFileToolStripMenuItem.Name = "loadTimbreFileToolStripMenuItem";
-            loadTimbreFileToolStripMenuItem.Size = new Size(173, 22);
-            loadTimbreFileToolStripMenuItem.Text = "Load Timbre File";
-            loadTimbreFileToolStripMenuItem.Click += loadTimbreFileToolStripMenuItem_Click;
+            this.loadTimbreFileToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.Open;
+            this.loadTimbreFileToolStripMenuItem.Name = "loadTimbreFileToolStripMenuItem";
+            this.loadTimbreFileToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.loadTimbreFileToolStripMenuItem.Text = "Load Timbre File";
+            this.loadTimbreFileToolStripMenuItem.Click += new System.EventHandler(this.loadTimbreFileToolStripMenuItem_Click);
             // 
             // saveTimbreFileToolStripMenuItem
             // 
-            saveTimbreFileToolStripMenuItem.Image = Properties.Resources.Save;
-            saveTimbreFileToolStripMenuItem.Name = "saveTimbreFileToolStripMenuItem";
-            saveTimbreFileToolStripMenuItem.Size = new Size(173, 22);
-            saveTimbreFileToolStripMenuItem.Text = "Save Timbre File";
-            saveTimbreFileToolStripMenuItem.Click += saveTimbreFileToolStripMenuItem_Click;
+            this.saveTimbreFileToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.Save;
+            this.saveTimbreFileToolStripMenuItem.Name = "saveTimbreFileToolStripMenuItem";
+            this.saveTimbreFileToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.saveTimbreFileToolStripMenuItem.Text = "Save Timbre File";
+            this.saveTimbreFileToolStripMenuItem.Click += new System.EventHandler(this.saveTimbreFileToolStripMenuItem_Click);
             // 
             // saveAllTimbresToolStripMenuItem
             // 
-            saveAllTimbresToolStripMenuItem.Name = "saveAllTimbresToolStripMenuItem";
-            saveAllTimbresToolStripMenuItem.Size = new Size(173, 22);
-            saveAllTimbresToolStripMenuItem.Text = "Save All Timbres";
-            saveAllTimbresToolStripMenuItem.Click += saveAllTimbresToolStripMenuItem_Click;
+            this.saveAllTimbresToolStripMenuItem.Name = "saveAllTimbresToolStripMenuItem";
+            this.saveAllTimbresToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.saveAllTimbresToolStripMenuItem.Text = "Save All Timbres";
+            this.saveAllTimbresToolStripMenuItem.Click += new System.EventHandler(this.saveAllTimbresToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(170, 6);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(170, 6);
             // 
             // closeToolStripMenuItem
             // 
-            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(173, 22);
-            closeToolStripMenuItem.Text = "Exit";
-            closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.closeToolStripMenuItem.Text = "Exit";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { patchEditorToolStripMenuItem, rhythmEditorToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(44, 26);
-            viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.patchEditorToolStripMenuItem,
+            this.rhythmEditorToolStripMenuItem,
+            this.timbreEditorToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
+            this.viewToolStripMenuItem.Text = "View";
             // 
             // patchEditorToolStripMenuItem
             // 
-            patchEditorToolStripMenuItem.Checked = true;
-            patchEditorToolStripMenuItem.CheckState = CheckState.Checked;
-            patchEditorToolStripMenuItem.Name = "patchEditorToolStripMenuItem";
-            patchEditorToolStripMenuItem.Size = new Size(179, 22);
-            patchEditorToolStripMenuItem.Text = "Patch Editor";
-            patchEditorToolStripMenuItem.Click += patchEditorToolStripMenuItem_Click;
+            this.patchEditorToolStripMenuItem.Checked = true;
+            this.patchEditorToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.patchEditorToolStripMenuItem.Name = "patchEditorToolStripMenuItem";
+            this.patchEditorToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.patchEditorToolStripMenuItem.Text = "Patch Editor";
+            this.patchEditorToolStripMenuItem.Click += new System.EventHandler(this.patchEditorToolStripMenuItem_Click);
             // 
             // rhythmEditorToolStripMenuItem
             // 
-            rhythmEditorToolStripMenuItem.Name = "rhythmEditorToolStripMenuItem";
-            rhythmEditorToolStripMenuItem.Size = new Size(179, 22);
-            rhythmEditorToolStripMenuItem.Text = "Rhythm Bank Editor";
-            rhythmEditorToolStripMenuItem.Click += rhythmEditorToolStripMenuItem_Click;
+            this.rhythmEditorToolStripMenuItem.Name = "rhythmEditorToolStripMenuItem";
+            this.rhythmEditorToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.rhythmEditorToolStripMenuItem.Text = "Rhythm Bank Editor";
+            this.rhythmEditorToolStripMenuItem.Click += new System.EventHandler(this.rhythmEditorToolStripMenuItem_Click);
+            // 
+            // timbreEditorToolStripMenuItem
+            // 
+            this.timbreEditorToolStripMenuItem.Name = "timbreEditorToolStripMenuItem";
+            this.timbreEditorToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.timbreEditorToolStripMenuItem.Text = "Timbre Editor";
+            this.timbreEditorToolStripMenuItem.CheckedChanged += new System.EventHandler(this.timbreEditorToolStripMenuItem_CheckedChanged);
+            this.timbreEditorToolStripMenuItem.Click += new System.EventHandler(this.timbreEditorToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, autosaveEvery5MinutesToolStripMenuItem, ignoreSysConfigOnLoadToolStripMenuItem, excludeSysConfigonSaveToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, darkModeToolStripMenuItem, showConsoleToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
-            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new Size(61, 26);
-            optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.masterSettingsToolStripMenuItem,
+            this.autosaveEvery5MinutesToolStripMenuItem,
+            this.ignoreSysConfigOnLoadToolStripMenuItem,
+            this.excludeSysConfigonSaveToolStripMenuItem,
+            this.hardwareMT32ConnectedToolStripMenuItem,
+            this.sendMessagesToMT32DisplayToolStripMenuItem,
+            this.allowMT32ResetToolStripMenuItem,
+            this.darkModeToolStripMenuItem,
+            this.showConsoleToolStripMenuItem,
+            this.verboseConsoleMessagesToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
             // 
             // masterSettingsToolStripMenuItem
             // 
-            masterSettingsToolStripMenuItem.Image = Properties.Resources.Settings;
-            masterSettingsToolStripMenuItem.Name = "masterSettingsToolStripMenuItem";
-            masterSettingsToolStripMenuItem.Size = new Size(370, 26);
-            masterSettingsToolStripMenuItem.Text = "System area settings";
-            masterSettingsToolStripMenuItem.Click += masterSettingsToolStripMenuItem_Click;
+            this.masterSettingsToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.Settings;
+            this.masterSettingsToolStripMenuItem.Name = "masterSettingsToolStripMenuItem";
+            this.masterSettingsToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.masterSettingsToolStripMenuItem.Text = "System area settings";
+            this.masterSettingsToolStripMenuItem.Click += new System.EventHandler(this.masterSettingsToolStripMenuItem_Click);
             // 
             // autosaveEvery5MinutesToolStripMenuItem
             // 
-            autosaveEvery5MinutesToolStripMenuItem.Checked = true;
-            autosaveEvery5MinutesToolStripMenuItem.CheckState = CheckState.Checked;
-            autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
-            autosaveEvery5MinutesToolStripMenuItem.Size = new Size(370, 26);
-            autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
-            autosaveEvery5MinutesToolStripMenuItem.ToolTipText = "Saves current status to autosave.syx";
-            autosaveEvery5MinutesToolStripMenuItem.Click += autosaveEvery5MinutesToolStripMenuItem_Click;
+            this.autosaveEvery5MinutesToolStripMenuItem.Checked = true;
+            this.autosaveEvery5MinutesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
+            this.autosaveEvery5MinutesToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
+            this.autosaveEvery5MinutesToolStripMenuItem.ToolTipText = "Saves current status to autosave.syx";
+            this.autosaveEvery5MinutesToolStripMenuItem.Click += new System.EventHandler(this.autosaveEvery5MinutesToolStripMenuItem_Click);
             // 
             // ignoreSysConfigOnLoadToolStripMenuItem
             // 
-            ignoreSysConfigOnLoadToolStripMenuItem.Name = "ignoreSysConfigOnLoadToolStripMenuItem";
-            ignoreSysConfigOnLoadToolStripMenuItem.Size = new Size(370, 26);
-            ignoreSysConfigOnLoadToolStripMenuItem.Text = "Ignore system config messages when loading SysEx file";
-            ignoreSysConfigOnLoadToolStripMenuItem.Click += ignoreSysConfigOnLoadToolStripMenuItem_Click;
+            this.ignoreSysConfigOnLoadToolStripMenuItem.Name = "ignoreSysConfigOnLoadToolStripMenuItem";
+            this.ignoreSysConfigOnLoadToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.ignoreSysConfigOnLoadToolStripMenuItem.Text = "Ignore system config messages when loading SysEx file";
+            this.ignoreSysConfigOnLoadToolStripMenuItem.Click += new System.EventHandler(this.ignoreSysConfigOnLoadToolStripMenuItem_Click);
             // 
             // excludeSysConfigonSaveToolStripMenuItem
             // 
-            excludeSysConfigonSaveToolStripMenuItem.Name = "excludeSysConfigonSaveToolStripMenuItem";
-            excludeSysConfigonSaveToolStripMenuItem.Size = new Size(370, 26);
-            excludeSysConfigonSaveToolStripMenuItem.Text = "Exclude system config messages when saving SysEx file";
-            excludeSysConfigonSaveToolStripMenuItem.Click += excludeSysConfigonSaveToolStripMenuItem_Click;
+            this.excludeSysConfigonSaveToolStripMenuItem.Name = "excludeSysConfigonSaveToolStripMenuItem";
+            this.excludeSysConfigonSaveToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.excludeSysConfigonSaveToolStripMenuItem.Text = "Exclude system config messages when saving SysEx file";
+            this.excludeSysConfigonSaveToolStripMenuItem.Click += new System.EventHandler(this.excludeSysConfigonSaveToolStripMenuItem_Click);
             // 
             // hardwareMT32ConnectedToolStripMenuItem
             // 
-            hardwareMT32ConnectedToolStripMenuItem.Checked = true;
-            hardwareMT32ConnectedToolStripMenuItem.CheckState = CheckState.Checked;
-            hardwareMT32ConnectedToolStripMenuItem.Name = "hardwareMT32ConnectedToolStripMenuItem";
-            hardwareMT32ConnectedToolStripMenuItem.Size = new Size(370, 26);
-            hardwareMT32ConnectedToolStripMenuItem.Text = "Hardware MT-32 connected";
-            hardwareMT32ConnectedToolStripMenuItem.Click += hardwareMT32ConnectedToolStripMenuItem_Click;
+            this.hardwareMT32ConnectedToolStripMenuItem.Checked = true;
+            this.hardwareMT32ConnectedToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hardwareMT32ConnectedToolStripMenuItem.Name = "hardwareMT32ConnectedToolStripMenuItem";
+            this.hardwareMT32ConnectedToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.hardwareMT32ConnectedToolStripMenuItem.Text = "Hardware MT-32 connected";
+            this.hardwareMT32ConnectedToolStripMenuItem.Click += new System.EventHandler(this.hardwareMT32ConnectedToolStripMenuItem_Click);
             // 
             // sendMessagesToMT32DisplayToolStripMenuItem
             // 
-            sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
-            sendMessagesToMT32DisplayToolStripMenuItem.CheckState = CheckState.Checked;
-            sendMessagesToMT32DisplayToolStripMenuItem.Name = "sendMessagesToMT32DisplayToolStripMenuItem";
-            sendMessagesToMT32DisplayToolStripMenuItem.Size = new Size(370, 26);
-            sendMessagesToMT32DisplayToolStripMenuItem.Text = "Send info to MT-32 display";
-            sendMessagesToMT32DisplayToolStripMenuItem.Click += sendMessagesToMT32DisplayToolStripMenuItem_Click;
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
+            this.sendMessagesToMT32DisplayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Name = "sendMessagesToMT32DisplayToolStripMenuItem";
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Text = "Send info to MT-32 display";
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Click += new System.EventHandler(this.sendMessagesToMT32DisplayToolStripMenuItem_Click);
             // 
             // allowMT32ResetToolStripMenuItem
             // 
-            allowMT32ResetToolStripMenuItem.Name = "allowMT32ResetToolStripMenuItem";
-            allowMT32ResetToolStripMenuItem.Size = new Size(370, 26);
-            allowMT32ResetToolStripMenuItem.Text = "Allow MT-32 reset from SysEx";
-            allowMT32ResetToolStripMenuItem.Click += allowMT32ResetToolStripMenuItem_Click;
+            this.allowMT32ResetToolStripMenuItem.Name = "allowMT32ResetToolStripMenuItem";
+            this.allowMT32ResetToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.allowMT32ResetToolStripMenuItem.Text = "Allow MT-32 reset from SysEx";
+            this.allowMT32ResetToolStripMenuItem.Click += new System.EventHandler(this.allowMT32ResetToolStripMenuItem_Click);
             // 
             // darkModeToolStripMenuItem
             // 
-            darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
-            darkModeToolStripMenuItem.Size = new Size(370, 26);
-            darkModeToolStripMenuItem.Text = "Dark mode";
-            darkModeToolStripMenuItem.Click += darkModeToolStripMenuItem_Click;
+            this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
+            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.darkModeToolStripMenuItem.Text = "Dark mode";
+            this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
             // 
             // showConsoleToolStripMenuItem
             // 
-            showConsoleToolStripMenuItem.Checked = true;
-            showConsoleToolStripMenuItem.CheckState = CheckState.Checked;
-            showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
-            showConsoleToolStripMenuItem.Size = new Size(370, 26);
-            showConsoleToolStripMenuItem.Text = "Show console";
-            showConsoleToolStripMenuItem.Click += showConsoleToolStripMenuItem_Click;
+            this.showConsoleToolStripMenuItem.Checked = true;
+            this.showConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
+            this.showConsoleToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.showConsoleToolStripMenuItem.Text = "Show console";
+            this.showConsoleToolStripMenuItem.Click += new System.EventHandler(this.showConsoleToolStripMenuItem_Click);
             // 
             // verboseConsoleMessagesToolStripMenuItem
             // 
-            verboseConsoleMessagesToolStripMenuItem.Name = "verboseConsoleMessagesToolStripMenuItem";
-            verboseConsoleMessagesToolStripMenuItem.Size = new Size(370, 26);
-            verboseConsoleMessagesToolStripMenuItem.Text = "Verbose console messages";
-            verboseConsoleMessagesToolStripMenuItem.Click += verboseConsoleMessagesToolStripMenuItem_Click;
+            this.verboseConsoleMessagesToolStripMenuItem.Name = "verboseConsoleMessagesToolStripMenuItem";
+            this.verboseConsoleMessagesToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.verboseConsoleMessagesToolStripMenuItem.Text = "Verbose console messages";
+            this.verboseConsoleMessagesToolStripMenuItem.Click += new System.EventHandler(this.verboseConsoleMessagesToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem1
             // 
-            helpToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
-            helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            helpToolStripMenuItem1.Size = new Size(44, 26);
-            helpToolStripMenuItem1.Text = "Help";
+            this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 22);
+            this.helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(107, 22);
-            aboutToolStripMenuItem.Text = "About";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MidiInLabelToolStripMenuItem
             // 
-            MidiInLabelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            MidiInLabelToolStripMenuItem.Enabled = false;
-            MidiInLabelToolStripMenuItem.Margin = new Padding(60, 0, 0, 0);
-            MidiInLabelToolStripMenuItem.Name = "MidiInLabelToolStripMenuItem";
-            MidiInLabelToolStripMenuItem.Size = new Size(57, 26);
-            MidiInLabelToolStripMenuItem.Text = "MIDI In";
+            this.MidiInLabelToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.MidiInLabelToolStripMenuItem.Enabled = false;
+            this.MidiInLabelToolStripMenuItem.Margin = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.MidiInLabelToolStripMenuItem.Name = "MidiInLabelToolStripMenuItem";
+            this.MidiInLabelToolStripMenuItem.Size = new System.Drawing.Size(57, 22);
+            this.MidiInLabelToolStripMenuItem.Text = "MIDI In";
             // 
             // midiInToolStripMenuItem
             // 
-            midiInToolStripMenuItem.AutoSize = false;
-            midiInToolStripMenuItem.CausesValidation = false;
-            midiInToolStripMenuItem.DropDownStyle = ComboBoxStyle.DropDownList;
-            midiInToolStripMenuItem.DropDownWidth = 200;
-            midiInToolStripMenuItem.FlatStyle = FlatStyle.Standard;
-            midiInToolStripMenuItem.MaxDropDownItems = 10;
-            midiInToolStripMenuItem.Name = "midiInToolStripMenuItem";
-            midiInToolStripMenuItem.Size = new Size(250, 23);
-            midiInToolStripMenuItem.DropDownClosed += midiInToolStripMenuItem_DropDownClosed;
+            this.midiInToolStripMenuItem.AutoSize = false;
+            this.midiInToolStripMenuItem.CausesValidation = false;
+            this.midiInToolStripMenuItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.midiInToolStripMenuItem.DropDownWidth = 200;
+            this.midiInToolStripMenuItem.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.midiInToolStripMenuItem.MaxDropDownItems = 10;
+            this.midiInToolStripMenuItem.Name = "midiInToolStripMenuItem";
+            this.midiInToolStripMenuItem.Size = new System.Drawing.Size(215, 23);
+            this.midiInToolStripMenuItem.DropDownClosed += new System.EventHandler(this.midiInToolStripMenuItem_DropDownClosed);
             // 
             // MidiOutLabelToolStripMenuItem
             // 
-            MidiOutLabelToolStripMenuItem.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            MidiOutLabelToolStripMenuItem.Enabled = false;
-            MidiOutLabelToolStripMenuItem.Margin = new Padding(20, 0, 0, 0);
-            MidiOutLabelToolStripMenuItem.Name = "MidiOutLabelToolStripMenuItem";
-            MidiOutLabelToolStripMenuItem.Size = new Size(67, 26);
-            MidiOutLabelToolStripMenuItem.Text = "MIDI Out";
+            this.MidiOutLabelToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.MidiOutLabelToolStripMenuItem.Enabled = false;
+            this.MidiOutLabelToolStripMenuItem.Margin = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.MidiOutLabelToolStripMenuItem.Name = "MidiOutLabelToolStripMenuItem";
+            this.MidiOutLabelToolStripMenuItem.Size = new System.Drawing.Size(67, 22);
+            this.MidiOutLabelToolStripMenuItem.Text = "MIDI Out";
             // 
             // midiOutToolStripMenuItem
             // 
-            midiOutToolStripMenuItem.AutoSize = false;
-            midiOutToolStripMenuItem.CausesValidation = false;
-            midiOutToolStripMenuItem.DropDownStyle = ComboBoxStyle.DropDownList;
-            midiOutToolStripMenuItem.FlatStyle = FlatStyle.Standard;
-            midiOutToolStripMenuItem.MaxDropDownItems = 10;
-            midiOutToolStripMenuItem.Name = "midiOutToolStripMenuItem";
-            midiOutToolStripMenuItem.Size = new Size(250, 23);
-            midiOutToolStripMenuItem.DropDownClosed += midiOutToolStripMenuItem_DropDownClosed;
+            this.midiOutToolStripMenuItem.AutoSize = false;
+            this.midiOutToolStripMenuItem.CausesValidation = false;
+            this.midiOutToolStripMenuItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.midiOutToolStripMenuItem.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.midiOutToolStripMenuItem.MaxDropDownItems = 10;
+            this.midiOutToolStripMenuItem.Name = "midiOutToolStripMenuItem";
+            this.midiOutToolStripMenuItem.Size = new System.Drawing.Size(215, 23);
+            this.midiOutToolStripMenuItem.DropDownClosed += new System.EventHandler(this.midiOutToolStripMenuItem_DropDownClosed);
             // 
             // timer
             // 
-            timer.Enabled = true;
-            timer.Tick += timer_Tick;
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // timerAutoSave
             // 
-            timerAutoSave.Enabled = true;
-            timerAutoSave.Interval = 300000;
-            timerAutoSave.Tick += timerAutoSave_Tick;
+            this.timerAutoSave.Enabled = true;
+            this.timerAutoSave.Interval = 300000;
+            this.timerAutoSave.Tick += new System.EventHandler(this.timerAutoSave_Tick);
             // 
             // FormMainMenu
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(48, 48, 48);
-            ClientSize = new Size(1758, 1001);
-            Controls.Add(menuStrip);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            IsMdiContainer = true;
-            MainMenuStrip = menuStrip;
-            MinimumSize = new Size(1774, 1038);
-            Name = "FormMainMenu";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Untitled - MT-32 Editor";
-            FormClosed += FormMainMenu_FormClosed;
-            Load += FormMainMenu_Load;
-            Resize += FormMainMenu_Resize;
-            menuStrip.ResumeLayout(false);
-            menuStrip.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.ClientSize = new System.Drawing.Size(979, 656);
+            this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.menuStrip;
+            this.MinimumSize = new System.Drawing.Size(995, 695);
+            this.Name = "FormMainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Untitled - MT-32 Editor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMainMenu_FormClosed);
+            this.Load += new System.EventHandler(this.FormMainMenu_Load);
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.FormMainMenu_Scroll);
+            this.Resize += new System.EventHandler(this.FormMainMenu_Resize);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -387,5 +432,6 @@
         private System.Windows.Forms.Timer timerAutoSave;
         private ToolStripMenuItem autosaveEvery5MinutesToolStripMenuItem;
         private ToolStripMenuItem darkModeToolStripMenuItem;
+        private ToolStripMenuItem timbreEditorToolStripMenuItem;
     }
 }

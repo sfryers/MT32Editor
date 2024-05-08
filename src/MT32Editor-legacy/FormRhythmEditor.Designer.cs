@@ -28,335 +28,357 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            ListViewItem listViewItem1 = new ListViewItem("");
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRhythmEditor));
-            labelReverb = new Label();
-            labelPan = new Label();
-            labelLevel = new Label();
-            radioButtonReverbOff = new RadioButton();
-            radioButtonReverbOn = new RadioButton();
-            trackBarPanPot = new TrackBar();
-            trackBarLevel = new TrackBar();
-            labelTimbreName = new Label();
-            labelTimbreGroup = new Label();
-            labelKeyNo = new Label();
-            comboBoxTimbreName = new ComboBox();
-            numericUpDownKeyNo = new NumericUpDown();
-            comboBoxTimbreGroup = new ComboBox();
-            listViewRhythmBank = new ListView();
-            columnHeaderKeyNo = new ColumnHeader();
-            columnHeaderNote = new ColumnHeader();
-            columnHeaderTimbreGroup = new ColumnHeader();
-            columnHeaderTimbreName = new ColumnHeader();
-            columnHeaderReverb = new ColumnHeader();
-            columnHeaderPanPot = new ColumnHeader();
-            columnHeaderLevel = new ColumnHeader();
-            toolTipParameterValue = new ToolTip(components);
-            buttonPlayNote = new Button();
-            labelUnitNoWarning = new Label();
-            labelHeading = new Label();
-            timer = new System.Windows.Forms.Timer(components);
-            labelNoChannelAssigned = new Label();
-            ((System.ComponentModel.ISupportInitialize)trackBarPanPot).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarLevel).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownKeyNo).BeginInit();
-            SuspendLayout();
+            this.labelReverb = new System.Windows.Forms.Label();
+            this.labelPan = new System.Windows.Forms.Label();
+            this.labelLevel = new System.Windows.Forms.Label();
+            this.radioButtonReverbOff = new System.Windows.Forms.RadioButton();
+            this.radioButtonReverbOn = new System.Windows.Forms.RadioButton();
+            this.trackBarPanPot = new System.Windows.Forms.TrackBar();
+            this.trackBarLevel = new System.Windows.Forms.TrackBar();
+            this.labelTimbreName = new System.Windows.Forms.Label();
+            this.labelTimbreGroup = new System.Windows.Forms.Label();
+            this.labelKeyNo = new System.Windows.Forms.Label();
+            this.comboBoxTimbreName = new System.Windows.Forms.ComboBox();
+            this.numericUpDownKeyNo = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxTimbreGroup = new System.Windows.Forms.ComboBox();
+            this.listViewRhythmBank = new System.Windows.Forms.ListView();
+            this.columnHeaderKeyNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderNote = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTimbreGroup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTimbreName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderReverb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderPanPot = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolTipParameterValue = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonPlayNote = new System.Windows.Forms.Button();
+            this.labelUnitNoWarning = new System.Windows.Forms.Label();
+            this.labelHeading = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.labelNoChannelAssigned = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPanPot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyNo)).BeginInit();
+            this.SuspendLayout();
             // 
             // labelReverb
             // 
-            labelReverb.AutoSize = true;
-            labelReverb.ForeColor = SystemColors.Control;
-            labelReverb.Location = new Point(174, 159);
-            labelReverb.Name = "labelReverb";
-            labelReverb.Size = new Size(43, 15);
-            labelReverb.TabIndex = 47;
-            labelReverb.Text = "Reverb";
+            this.labelReverb.AutoSize = true;
+            this.labelReverb.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverb.Location = new System.Drawing.Point(204, 139);
+            this.labelReverb.Name = "labelReverb";
+            this.labelReverb.Size = new System.Drawing.Size(42, 13);
+            this.labelReverb.TabIndex = 47;
+            this.labelReverb.Text = "Reverb";
             // 
             // labelPan
             // 
-            labelPan.AutoSize = true;
-            labelPan.ForeColor = SystemColors.Control;
-            labelPan.Location = new Point(246, 206);
-            labelPan.Name = "labelPan";
-            labelPan.Size = new Size(94, 15);
-            labelPan.TabIndex = 45;
-            labelPan.Text = "L         Pan         R";
+            this.labelPan.AutoSize = true;
+            this.labelPan.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPan.Location = new System.Drawing.Point(115, 182);
+            this.labelPan.Name = "labelPan";
+            this.labelPan.Size = new System.Drawing.Size(76, 13);
+            this.labelPan.TabIndex = 45;
+            this.labelPan.Text = "L      Pan      R";
             // 
             // labelLevel
             // 
-            labelLevel.AutoSize = true;
-            labelLevel.ForeColor = SystemColors.Control;
-            labelLevel.Location = new Point(119, 159);
-            labelLevel.Name = "labelLevel";
-            labelLevel.Size = new Size(34, 15);
-            labelLevel.TabIndex = 44;
-            labelLevel.Text = "Level";
+            this.labelLevel.AutoSize = true;
+            this.labelLevel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelLevel.Location = new System.Drawing.Point(60, 214);
+            this.labelLevel.Name = "labelLevel";
+            this.labelLevel.Size = new System.Drawing.Size(33, 13);
+            this.labelLevel.TabIndex = 44;
+            this.labelLevel.Text = "Level";
             // 
             // radioButtonReverbOff
             // 
-            radioButtonReverbOff.AutoSize = true;
-            radioButtonReverbOff.ForeColor = SystemColors.Control;
-            radioButtonReverbOff.Location = new Point(176, 202);
-            radioButtonReverbOff.Name = "radioButtonReverbOff";
-            radioButtonReverbOff.Size = new Size(42, 19);
-            radioButtonReverbOff.TabIndex = 43;
-            radioButtonReverbOff.TabStop = true;
-            radioButtonReverbOff.Text = "Off";
-            radioButtonReverbOff.UseVisualStyleBackColor = true;
+            this.radioButtonReverbOff.AutoSize = true;
+            this.radioButtonReverbOff.ForeColor = System.Drawing.SystemColors.Control;
+            this.radioButtonReverbOff.Location = new System.Drawing.Point(206, 176);
+            this.radioButtonReverbOff.Name = "radioButtonReverbOff";
+            this.radioButtonReverbOff.Size = new System.Drawing.Size(39, 17);
+            this.radioButtonReverbOff.TabIndex = 43;
+            this.radioButtonReverbOff.TabStop = true;
+            this.radioButtonReverbOff.Text = "Off";
+            this.radioButtonReverbOff.UseVisualStyleBackColor = true;
             // 
             // radioButtonReverbOn
             // 
-            radioButtonReverbOn.AutoSize = true;
-            radioButtonReverbOn.ForeColor = SystemColors.Control;
-            radioButtonReverbOn.Location = new Point(176, 177);
-            radioButtonReverbOn.Name = "radioButtonReverbOn";
-            radioButtonReverbOn.Size = new Size(41, 19);
-            radioButtonReverbOn.TabIndex = 42;
-            radioButtonReverbOn.TabStop = true;
-            radioButtonReverbOn.Text = "On";
-            radioButtonReverbOn.UseVisualStyleBackColor = true;
-            radioButtonReverbOn.CheckedChanged += radioButtonReverbOn_CheckedChanged;
+            this.radioButtonReverbOn.AutoSize = true;
+            this.radioButtonReverbOn.ForeColor = System.Drawing.SystemColors.Control;
+            this.radioButtonReverbOn.Location = new System.Drawing.Point(206, 154);
+            this.radioButtonReverbOn.Name = "radioButtonReverbOn";
+            this.radioButtonReverbOn.Size = new System.Drawing.Size(39, 17);
+            this.radioButtonReverbOn.TabIndex = 42;
+            this.radioButtonReverbOn.TabStop = true;
+            this.radioButtonReverbOn.Text = "On";
+            this.radioButtonReverbOn.UseVisualStyleBackColor = true;
+            this.radioButtonReverbOn.CheckedChanged += new System.EventHandler(this.radioButtonReverbOn_CheckedChanged);
             // 
             // trackBarPanPot
             // 
-            trackBarPanPot.LargeChange = 2;
-            trackBarPanPot.Location = new Point(240, 159);
-            trackBarPanPot.Maximum = 7;
-            trackBarPanPot.Minimum = -7;
-            trackBarPanPot.Name = "trackBarPanPot";
-            trackBarPanPot.Size = new Size(104, 45);
-            trackBarPanPot.TabIndex = 40;
-            trackBarPanPot.TickStyle = TickStyle.Both;
-            trackBarPanPot.ValueChanged += trackBarPanPot_ValueChanged;
+            this.trackBarPanPot.LargeChange = 2;
+            this.trackBarPanPot.Location = new System.Drawing.Point(107, 136);
+            this.trackBarPanPot.Maximum = 7;
+            this.trackBarPanPot.Minimum = -7;
+            this.trackBarPanPot.Name = "trackBarPanPot";
+            this.trackBarPanPot.Size = new System.Drawing.Size(89, 45);
+            this.trackBarPanPot.TabIndex = 40;
+            this.trackBarPanPot.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarPanPot.ValueChanged += new System.EventHandler(this.trackBarPanPot_ValueChanged);
             // 
             // trackBarLevel
             // 
-            trackBarLevel.LargeChange = 10;
-            trackBarLevel.Location = new Point(114, 175);
-            trackBarLevel.Maximum = 100;
-            trackBarLevel.Name = "trackBarLevel";
-            trackBarLevel.Orientation = Orientation.Vertical;
-            trackBarLevel.Size = new Size(45, 104);
-            trackBarLevel.TabIndex = 39;
-            trackBarLevel.TickFrequency = 10;
-            trackBarLevel.TickStyle = TickStyle.Both;
-            trackBarLevel.Value = 75;
-            trackBarLevel.ValueChanged += trackBarLevel_ValueChanged;
+            this.trackBarLevel.LargeChange = 10;
+            this.trackBarLevel.Location = new System.Drawing.Point(56, 126);
+            this.trackBarLevel.Maximum = 100;
+            this.trackBarLevel.Name = "trackBarLevel";
+            this.trackBarLevel.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarLevel.Size = new System.Drawing.Size(45, 90);
+            this.trackBarLevel.TabIndex = 39;
+            this.trackBarLevel.TickFrequency = 10;
+            this.trackBarLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarLevel.Value = 75;
+            this.trackBarLevel.ValueChanged += new System.EventHandler(this.trackBarLevel_ValueChanged);
             // 
             // labelTimbreName
             // 
-            labelTimbreName.AutoSize = true;
-            labelTimbreName.ForeColor = SystemColors.Control;
-            labelTimbreName.Location = new Point(219, 95);
-            labelTimbreName.Name = "labelTimbreName";
-            labelTimbreName.Size = new Size(79, 15);
-            labelTimbreName.TabIndex = 38;
-            labelTimbreName.Text = "Timbre Name";
+            this.labelTimbreName.AutoSize = true;
+            this.labelTimbreName.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTimbreName.Location = new System.Drawing.Point(104, 83);
+            this.labelTimbreName.Name = "labelTimbreName";
+            this.labelTimbreName.Size = new System.Drawing.Size(70, 13);
+            this.labelTimbreName.TabIndex = 38;
+            this.labelTimbreName.Text = "Timbre Name";
             // 
             // labelTimbreGroup
             // 
-            labelTimbreGroup.AutoSize = true;
-            labelTimbreGroup.ForeColor = SystemColors.Control;
-            labelTimbreGroup.Location = new Point(92, 95);
-            labelTimbreGroup.Name = "labelTimbreGroup";
-            labelTimbreGroup.Size = new Size(80, 15);
-            labelTimbreGroup.TabIndex = 37;
-            labelTimbreGroup.Text = "Timbre Group";
+            this.labelTimbreGroup.AutoSize = true;
+            this.labelTimbreGroup.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTimbreGroup.Location = new System.Drawing.Point(16, 83);
+            this.labelTimbreGroup.Name = "labelTimbreGroup";
+            this.labelTimbreGroup.Size = new System.Drawing.Size(71, 13);
+            this.labelTimbreGroup.TabIndex = 37;
+            this.labelTimbreGroup.Text = "Timbre Group";
             // 
             // labelKeyNo
             // 
-            labelKeyNo.AutoSize = true;
-            labelKeyNo.ForeColor = SystemColors.Control;
-            labelKeyNo.Location = new Point(328, 46);
-            labelKeyNo.Name = "labelKeyNo";
-            labelKeyNo.Size = new Size(48, 15);
-            labelKeyNo.TabIndex = 36;
-            labelKeyNo.Text = "Key No.";
+            this.labelKeyNo.AutoSize = true;
+            this.labelKeyNo.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelKeyNo.Location = new System.Drawing.Point(225, 40);
+            this.labelKeyNo.Name = "labelKeyNo";
+            this.labelKeyNo.Size = new System.Drawing.Size(45, 13);
+            this.labelKeyNo.TabIndex = 36;
+            this.labelKeyNo.Text = "Key No.";
             // 
             // comboBoxTimbreName
             // 
-            comboBoxTimbreName.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTimbreName.FormattingEnabled = true;
-            comboBoxTimbreName.Location = new Point(219, 113);
-            comboBoxTimbreName.Name = "comboBoxTimbreName";
-            comboBoxTimbreName.Size = new Size(125, 23);
-            comboBoxTimbreName.TabIndex = 35;
-            comboBoxTimbreName.SelectionChangeCommitted += comboBoxTimbreName_SelectionChangeCommitted;
+            this.comboBoxTimbreName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTimbreName.FormattingEnabled = true;
+            this.comboBoxTimbreName.Location = new System.Drawing.Point(104, 99);
+            this.comboBoxTimbreName.Name = "comboBoxTimbreName";
+            this.comboBoxTimbreName.Size = new System.Drawing.Size(108, 21);
+            this.comboBoxTimbreName.TabIndex = 35;
+            this.comboBoxTimbreName.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTimbreName_SelectionChangeCommitted);
             // 
             // numericUpDownKeyNo
             // 
-            numericUpDownKeyNo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numericUpDownKeyNo.Location = new Point(385, 39);
-            numericUpDownKeyNo.Maximum = new decimal(new int[] { 108, 0, 0, 0 });
-            numericUpDownKeyNo.Minimum = new decimal(new int[] { 24, 0, 0, 0 });
-            numericUpDownKeyNo.Name = "numericUpDownKeyNo";
-            numericUpDownKeyNo.Size = new Size(56, 29);
-            numericUpDownKeyNo.TabIndex = 34;
-            numericUpDownKeyNo.Value = new decimal(new int[] { 24, 0, 0, 0 });
-            numericUpDownKeyNo.ValueChanged += numericUpDownKeyNo_ValueChanged;
+            this.numericUpDownKeyNo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.numericUpDownKeyNo.Location = new System.Drawing.Point(278, 34);
+            this.numericUpDownKeyNo.Maximum = new decimal(new int[] {
+            108,
+            0,
+            0,
+            0});
+            this.numericUpDownKeyNo.Minimum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericUpDownKeyNo.Name = "numericUpDownKeyNo";
+            this.numericUpDownKeyNo.Size = new System.Drawing.Size(60, 29);
+            this.numericUpDownKeyNo.TabIndex = 34;
+            this.numericUpDownKeyNo.Value = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericUpDownKeyNo.ValueChanged += new System.EventHandler(this.numericUpDownKeyNo_ValueChanged);
             // 
             // comboBoxTimbreGroup
             // 
-            comboBoxTimbreGroup.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTimbreGroup.FormattingEnabled = true;
-            comboBoxTimbreGroup.Items.AddRange(new object[] { "Memory", "Rhythm" });
-            comboBoxTimbreGroup.Location = new Point(92, 113);
-            comboBoxTimbreGroup.Name = "comboBoxTimbreGroup";
-            comboBoxTimbreGroup.Size = new Size(121, 23);
-            comboBoxTimbreGroup.TabIndex = 33;
-            comboBoxTimbreGroup.SelectionChangeCommitted += comboBoxTimbreGroup_SelectionChangeCommitted;
+            this.comboBoxTimbreGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTimbreGroup.FormattingEnabled = true;
+            this.comboBoxTimbreGroup.Items.AddRange(new object[] {
+            "Memory",
+            "Rhythm"});
+            this.comboBoxTimbreGroup.Location = new System.Drawing.Point(16, 99);
+            this.comboBoxTimbreGroup.Name = "comboBoxTimbreGroup";
+            this.comboBoxTimbreGroup.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxTimbreGroup.TabIndex = 33;
+            this.comboBoxTimbreGroup.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTimbreGroup_SelectionChangeCommitted);
             // 
             // listViewRhythmBank
             // 
-            listViewRhythmBank.BackColor = Color.FromArgb(84, 84, 84);
-            listViewRhythmBank.Columns.AddRange(new ColumnHeader[] { columnHeaderKeyNo, columnHeaderNote, columnHeaderTimbreGroup, columnHeaderTimbreName, columnHeaderReverb, columnHeaderPanPot, columnHeaderLevel });
-            listViewRhythmBank.ForeColor = SystemColors.Control;
-            listViewRhythmBank.FullRowSelect = true;
-            listViewRhythmBank.GridLines = true;
-            listViewRhythmBank.Items.AddRange(new ListViewItem[] { listViewItem1 });
-            listViewRhythmBank.Location = new Point(14, 305);
-            listViewRhythmBank.MinimumSize = new Size(0, 28);
-            listViewRhythmBank.MultiSelect = false;
-            listViewRhythmBank.Name = "listViewRhythmBank";
-            listViewRhythmBank.Size = new Size(495, 591);
-            listViewRhythmBank.TabIndex = 32;
-            listViewRhythmBank.TileSize = new Size(50, 20);
-            listViewRhythmBank.UseCompatibleStateImageBehavior = false;
-            listViewRhythmBank.View = View.Details;
-            listViewRhythmBank.SelectedIndexChanged += listViewRhythmBank_SelectedIndexChanged;
+            this.listViewRhythmBank.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(84)))));
+            this.listViewRhythmBank.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderKeyNo,
+            this.columnHeaderNote,
+            this.columnHeaderTimbreGroup,
+            this.columnHeaderTimbreName,
+            this.columnHeaderReverb,
+            this.columnHeaderPanPot,
+            this.columnHeaderLevel});
+            this.listViewRhythmBank.ForeColor = System.Drawing.SystemColors.Control;
+            this.listViewRhythmBank.FullRowSelect = true;
+            this.listViewRhythmBank.GridLines = true;
+            this.listViewRhythmBank.HideSelection = false;
+            this.listViewRhythmBank.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.listViewRhythmBank.Location = new System.Drawing.Point(12, 264);
+            this.listViewRhythmBank.MinimumSize = new System.Drawing.Size(4, 25);
+            this.listViewRhythmBank.MultiSelect = false;
+            this.listViewRhythmBank.Name = "listViewRhythmBank";
+            this.listViewRhythmBank.Size = new System.Drawing.Size(425, 513);
+            this.listViewRhythmBank.TabIndex = 32;
+            this.listViewRhythmBank.TileSize = new System.Drawing.Size(50, 20);
+            this.listViewRhythmBank.UseCompatibleStateImageBehavior = false;
+            this.listViewRhythmBank.View = System.Windows.Forms.View.Details;
+            this.listViewRhythmBank.SelectedIndexChanged += new System.EventHandler(this.listViewRhythmBank_SelectedIndexChanged);
             // 
             // columnHeaderKeyNo
             // 
-            columnHeaderKeyNo.Text = "Key#";
-            columnHeaderKeyNo.Width = 42;
+            this.columnHeaderKeyNo.Text = "Key#";
+            this.columnHeaderKeyNo.Width = 42;
             // 
             // columnHeaderNote
             // 
-            columnHeaderNote.Text = "Note";
+            this.columnHeaderNote.Text = "Note";
             // 
             // columnHeaderTimbreGroup
             // 
-            columnHeaderTimbreGroup.Text = "Timbre Group";
-            columnHeaderTimbreGroup.Width = 86;
+            this.columnHeaderTimbreGroup.Text = "Timbre Group";
+            this.columnHeaderTimbreGroup.Width = 86;
             // 
             // columnHeaderTimbreName
             // 
-            columnHeaderTimbreName.Text = "Timbre Name";
-            columnHeaderTimbreName.Width = 90;
+            this.columnHeaderTimbreName.Text = "Timbre Name";
+            this.columnHeaderTimbreName.Width = 90;
             // 
             // columnHeaderReverb
             // 
-            columnHeaderReverb.Text = "Reverb";
-            columnHeaderReverb.Width = 48;
+            this.columnHeaderReverb.Text = "Reverb";
+            this.columnHeaderReverb.Width = 48;
             // 
             // columnHeaderPanPot
             // 
-            columnHeaderPanPot.Text = "Pan";
-            columnHeaderPanPot.Width = 38;
+            this.columnHeaderPanPot.Text = "Pan";
+            this.columnHeaderPanPot.Width = 38;
             // 
             // columnHeaderLevel
             // 
-            columnHeaderLevel.Text = "Level";
-            columnHeaderLevel.Width = 42;
+            this.columnHeaderLevel.Text = "Level";
+            this.columnHeaderLevel.Width = 42;
             // 
             // buttonPlayNote
             // 
-            buttonPlayNote.Image = (Image)resources.GetObject("buttonPlayNote.Image");
-            buttonPlayNote.Location = new Point(14, 269);
-            buttonPlayNote.Name = "buttonPlayNote";
-            buttonPlayNote.Size = new Size(41, 30);
-            buttonPlayNote.TabIndex = 58;
-            toolTipParameterValue.SetToolTip(buttonPlayNote, "Play selected sound on device");
-            buttonPlayNote.UseVisualStyleBackColor = true;
-            buttonPlayNote.MouseDown += buttonPlayNote_MouseDown;
-            buttonPlayNote.MouseUp += buttonPlayNote_MouseUp;
+            this.buttonPlayNote.Image = ((System.Drawing.Image)(resources.GetObject("buttonPlayNote.Image")));
+            this.buttonPlayNote.Location = new System.Drawing.Point(12, 233);
+            this.buttonPlayNote.Name = "buttonPlayNote";
+            this.buttonPlayNote.Size = new System.Drawing.Size(35, 26);
+            this.buttonPlayNote.TabIndex = 58;
+            this.toolTipParameterValue.SetToolTip(this.buttonPlayNote, "Play selected sound on device");
+            this.buttonPlayNote.UseVisualStyleBackColor = true;
+            this.buttonPlayNote.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonPlayNote_MouseDown);
+            this.buttonPlayNote.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonPlayNote_MouseUp);
             // 
             // labelUnitNoWarning
             // 
-            labelUnitNoWarning.AutoSize = true;
-            labelUnitNoWarning.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            labelUnitNoWarning.ForeColor = Color.Yellow;
-            labelUnitNoWarning.Location = new Point(15, 74);
-            labelUnitNoWarning.Name = "labelUnitNoWarning";
-            labelUnitNoWarning.Size = new Size(439, 15);
-            labelUnitNoWarning.TabIndex = 63;
-            labelUnitNoWarning.Text = "⚠ Unit No. set to non-default value! To revert, edit/delete MT32Edit.ini and reload.";
-            toolTipParameterValue.SetToolTip(labelUnitNoWarning, resources.GetString("labelUnitNoWarning.ToolTip"));
-            labelUnitNoWarning.Visible = false;
+            this.labelUnitNoWarning.AutoSize = true;
+            this.labelUnitNoWarning.ForeColor = System.Drawing.Color.Yellow;
+            this.labelUnitNoWarning.Location = new System.Drawing.Point(13, 64);
+            this.labelUnitNoWarning.Name = "labelUnitNoWarning";
+            this.labelUnitNoWarning.Size = new System.Drawing.Size(384, 13);
+            this.labelUnitNoWarning.TabIndex = 63;
+            this.labelUnitNoWarning.Text = "Unit No. set to non-default value! To revert, edit/delete MT32Edit.ini and reload" +
+    ".";
+            this.labelUnitNoWarning.Visible = false;
             // 
             // labelHeading
             // 
-            labelHeading.AutoSize = true;
-            labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(14, 41);
-            labelHeading.Name = "labelHeading";
-            labelHeading.Size = new Size(153, 21);
-            labelHeading.TabIndex = 59;
-            labelHeading.Text = "Rhythm Bank Editor";
+            this.labelHeading.AutoSize = true;
+            this.labelHeading.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.labelHeading.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelHeading.Location = new System.Drawing.Point(12, 36);
+            this.labelHeading.Name = "labelHeading";
+            this.labelHeading.Size = new System.Drawing.Size(153, 21);
+            this.labelHeading.TabIndex = 59;
+            this.labelHeading.Text = "Rhythm Bank Editor";
             // 
             // timer
             // 
-            timer.Enabled = true;
-            timer.Interval = 500;
-            timer.Tick += timer_Tick;
+            this.timer.Enabled = true;
+            this.timer.Interval = 500;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // labelNoChannelAssigned
             // 
-            labelNoChannelAssigned.AutoSize = true;
-            labelNoChannelAssigned.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            labelNoChannelAssigned.ForeColor = Color.Yellow;
-            labelNoChannelAssigned.Location = new Point(58, 277);
-            labelNoChannelAssigned.Name = "labelNoChannelAssigned";
-            labelNoChannelAssigned.Size = new Size(460, 15);
-            labelNoChannelAssigned.TabIndex = 60;
-            labelNoChannelAssigned.Text = "Rhythm part muted- no MIDI channel assigned. Open System Area Settings to resolve.";
-            labelNoChannelAssigned.Visible = false;
+            this.labelNoChannelAssigned.AutoSize = true;
+            this.labelNoChannelAssigned.ForeColor = System.Drawing.Color.Yellow;
+            this.labelNoChannelAssigned.Location = new System.Drawing.Point(50, 240);
+            this.labelNoChannelAssigned.Name = "labelNoChannelAssigned";
+            this.labelNoChannelAssigned.Size = new System.Drawing.Size(300, 13);
+            this.labelNoChannelAssigned.TabIndex = 60;
+            this.labelNoChannelAssigned.Text = "Rhythm part muted- assign a MIDI channel in System Settings.";
+            this.labelNoChannelAssigned.Visible = false;
             // 
             // FormRhythmEditor
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(24, 24, 24);
-            ClientSize = new Size(533, 960);
-            ControlBox = false;
-            Controls.Add(labelUnitNoWarning);
-            Controls.Add(labelNoChannelAssigned);
-            Controls.Add(labelHeading);
-            Controls.Add(buttonPlayNote);
-            Controls.Add(labelReverb);
-            Controls.Add(labelPan);
-            Controls.Add(labelLevel);
-            Controls.Add(radioButtonReverbOff);
-            Controls.Add(radioButtonReverbOn);
-            Controls.Add(trackBarPanPot);
-            Controls.Add(trackBarLevel);
-            Controls.Add(labelTimbreName);
-            Controls.Add(labelTimbreGroup);
-            Controls.Add(labelKeyNo);
-            Controls.Add(comboBoxTimbreName);
-            Controls.Add(numericUpDownKeyNo);
-            Controls.Add(comboBoxTimbreGroup);
-            Controls.Add(listViewRhythmBank);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            MinimumSize = new Size(350, 200);
-            Name = "FormRhythmEditor";
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.Manual;
-            Text = "MT-32 Rhythm Bank Editor";
-            Activated += FormRhythmEditor_Activated;
-            FormClosing += FormRhythmEditor_FormClosing;
-            Leave += FormRhythmEditor_Leave;
-            Resize += FormRhythmEditor_Resize;
-            ((System.ComponentModel.ISupportInitialize)trackBarPanPot).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarLevel).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownKeyNo).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.ClientSize = new System.Drawing.Size(457, 832);
+            this.ControlBox = false;
+            this.Controls.Add(this.labelUnitNoWarning);
+            this.Controls.Add(this.labelNoChannelAssigned);
+            this.Controls.Add(this.labelHeading);
+            this.Controls.Add(this.buttonPlayNote);
+            this.Controls.Add(this.labelReverb);
+            this.Controls.Add(this.labelPan);
+            this.Controls.Add(this.labelLevel);
+            this.Controls.Add(this.radioButtonReverbOff);
+            this.Controls.Add(this.radioButtonReverbOn);
+            this.Controls.Add(this.trackBarPanPot);
+            this.Controls.Add(this.trackBarLevel);
+            this.Controls.Add(this.labelTimbreName);
+            this.Controls.Add(this.labelTimbreGroup);
+            this.Controls.Add(this.labelKeyNo);
+            this.Controls.Add(this.comboBoxTimbreName);
+            this.Controls.Add(this.numericUpDownKeyNo);
+            this.Controls.Add(this.comboBoxTimbreGroup);
+            this.Controls.Add(this.listViewRhythmBank);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(348, 263);
+            this.Name = "FormRhythmEditor";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "MT-32 Rhythm Bank Editor";
+            this.TopMost = true;
+            this.Activated += new System.EventHandler(this.FormRhythmEditor_Activated);
+            this.Leave += new System.EventHandler(this.FormRhythmEditor_Leave);
+            this.Resize += new System.EventHandler(this.FormRhythmEditor_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPanPot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKeyNo)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

@@ -16,6 +16,7 @@ internal static class UITools
     /// If false, will set UI theme to light background.
     /// </summary>
     public static bool DarkMode { get; set; } = true;
+    public static bool PrioritiseTimbreEditor { get; set; } = false;
 
     /// <summary>
     /// Creates OK/Cancel MessageBox using specified prompt and title.

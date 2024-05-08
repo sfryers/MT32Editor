@@ -24,7 +24,7 @@ internal static class MT32SysEx
     public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0x0E
 
     public const int NO_OF_SYSTEM_PARAMETERS = 0x17;//no of parameters in system area
-    public const int MT32_DELAY = 75;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
+    public const int MT32_DELAY = 150;              //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
 
 
 

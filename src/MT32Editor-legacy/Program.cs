@@ -15,10 +15,10 @@ internal static class Program
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 #endif
-
         try
         {
             Application.Run(new FormMainMenu(args));
+            Environment.Exit(0);
         }
         catch (Exception)
         {

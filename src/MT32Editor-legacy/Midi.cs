@@ -208,15 +208,15 @@ internal static class Midi
     {
         if (midiOutDevice is not null && !midiOutDevice.IsDisposed)
         {
-            try
-            {
+           try
+           {
+                midiOutDevice.Reset();
                 midiOutDevice.Close();
-                midiOutDevice.Dispose();
-            }
-            catch
-            {
-                ConsoleMessage.SendLine("MIDI Out device closed.");
-            }
+           }
+           catch
+           {
+                ConsoleMessage.SendVerboseLine("MIDI Out device closed.");
+           }
         }
     }
 
@@ -227,16 +227,16 @@ internal static class Midi
     {
         if (midiInDevice is not null && !midiInDevice.IsDisposed)
         {
-            try
-            {
+           try
+           {
                 midiInDevice.StopRecording();
+                midiInDevice.Reset();
                 midiInDevice.Close();
-                midiInDevice.Dispose();
-            }
-            catch
-            {
-                ConsoleMessage.SendLine("MIDI In device closed.");
-            }
+           }
+           catch
+           {
+                ConsoleMessage.SendVerboseLine("MIDI In device closed.");
+           }
         }
     }
 

@@ -6,7 +6,7 @@
 public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private MT32State memoryState;
     private FormTimbreEditor timbreEditor;
@@ -35,10 +35,12 @@ public partial class FormMemoryBankEditor : Form
         if (memoryState.patchEditorActive)
         {
             selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
+            memoryState.memoryBankEditorActive = false;
         }
         else if (memoryState.rhythmEditorActive)
         {
             selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
+            memoryState.memoryBankEditorActive = false;
         }
         if (memoryState.returnFocusToMemoryBankList)
         {
@@ -73,15 +75,15 @@ public partial class FormMemoryBankEditor : Form
     {
         //Scale listView to form size
         listViewTimbres.Width = (Width * 88) / 100;
-        listViewTimbres.Height = Height - (int)(270 * Math.Pow(UIScale, 1.3));
+        listViewTimbres.Height = Height - (int)(230 * Math.Pow(UIScale, 1.3));
     }
 
     private void ScaleListViewColumns()
     {
         //Set column widths to fill the available space
         int listWidth = listViewTimbres.Width;
-        listViewTimbres.Columns[0].Width = (int)(listWidth * 0.31);
-        listViewTimbres.Columns[1].Width = (int)(listWidth * 0.55);
+        listViewTimbres.Columns[0].Width = (int)(listWidth * 0.30);
+        listViewTimbres.Columns[1].Width = (int)(listWidth * 0.54);
     }
 
     private void PopulateMemoryBankListView(int selectedTimbre)
@@ -333,6 +335,7 @@ public partial class FormMemoryBankEditor : Form
         memoryState.SetMemoryTimbre(timbreEditor.TimbreData, selectedTimbre);
         memoryState.rhythmEditorActive = false;
         memoryState.patchEditorActive = false;
+        memoryState.memoryBankEditorActive = true;
         memoryState.SetTimbreIsEditable(true);
         MT32SysEx.SendMemoryTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
         MT32SysEx.PreviewTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));

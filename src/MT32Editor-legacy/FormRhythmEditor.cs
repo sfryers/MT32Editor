@@ -99,8 +99,8 @@ public partial class FormRhythmEditor : Form
     /// </summary>
     private void ScaleListView()
     {
-        listViewRhythmBank.Width = Width - 30;
-        listViewRhythmBank.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
+        listViewRhythmBank.Width = Width - 20;
+        listViewRhythmBank.Height = Height - (int)(272 * Math.Pow(UIScale, 1.3));
     }
 
     private void ScaleListViewColumns()

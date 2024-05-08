@@ -130,8 +130,6 @@
             this.trackBarTVFCutoff = new System.Windows.Forms.TrackBar();
             this.groupBoxTVA = new System.Windows.Forms.GroupBox();
             this.labelColourTVASettings = new System.Windows.Forms.Label();
-            this.trackBarTVABiasLevel1 = new System.Windows.Forms.TrackBar();
-            this.trackBarTVABiasPoint1 = new System.Windows.Forms.TrackBar();
             this.labelTVFVeloKF = new System.Windows.Forms.Label();
             this.trackBarTVAVelocityKeyfollow = new System.Windows.Forms.TrackBar();
             this.labelTVAT5 = new System.Windows.Forms.Label();
@@ -160,6 +158,8 @@
             this.trackBarTVALevel = new System.Windows.Forms.TrackBar();
             this.groupBoxTVABias = new System.Windows.Forms.GroupBox();
             this.labelTVABiasSettings = new System.Windows.Forms.Label();
+            this.trackBarTVABiasPoint1 = new System.Windows.Forms.TrackBar();
+            this.trackBarTVABiasLevel1 = new System.Windows.Forms.TrackBar();
             this.trackBarTVABiasLevel2 = new System.Windows.Forms.TrackBar();
             this.labelTVABiasL2 = new System.Windows.Forms.Label();
             this.labelTVABiasL1 = new System.Windows.Forms.Label();
@@ -183,16 +183,12 @@
             this.comboBoxPart34Struct = new System.Windows.Forms.ComboBox();
             this.labelPartial12 = new System.Windows.Forms.Label();
             this.labelPartial34 = new System.Windows.Forms.Label();
-            this.checkBoxShowLabels = new System.Windows.Forms.CheckBox();
             this.checkBoxShowAllPartials = new System.Windows.Forms.CheckBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.labelHeading = new System.Windows.Forms.Label();
-            this.pictureBoxTVATVF = new System.Windows.Forms.PictureBox();
-            this.labelPitchEnvGraph = new System.Windows.Forms.Label();
-            this.labelTVATVFEnvGraph = new System.Windows.Forms.Label();
             this.groupBoxEnvGraph = new System.Windows.Forms.GroupBox();
+            this.checkBoxShowLabels = new System.Windows.Forms.CheckBox();
             this.labelEnvGraphSettings = new System.Windows.Forms.Label();
-            this.pictureBoxPitch = new System.Windows.Forms.PictureBox();
             this.labelRefresh = new System.Windows.Forms.Label();
             this.labelNewTimbre = new System.Windows.Forms.Label();
             this.labelSaveAs = new System.Windows.Forms.Label();
@@ -264,8 +260,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVFResonance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVFCutoff)).BeginInit();
             this.groupBoxTVA.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVAVelocityKeyfollow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVAT5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVASustain)).BeginInit();
@@ -280,11 +274,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVAVeloSensitivity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVALevel)).BeginInit();
             this.groupBoxTVABias.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTVATVF)).BeginInit();
             this.groupBoxEnvGraph.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPitch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPartial12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPartial34)).BeginInit();
             this.groupBoxPartialStructure.SuspendLayout();
@@ -299,7 +293,7 @@
             this.trackBarPitch.Maximum = 96;
             this.trackBarPitch.Name = "trackBarPitch";
             this.trackBarPitch.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitch.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPitch.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitch.TabIndex = 0;
             this.trackBarPitch.TickFrequency = 12;
             this.trackBarPitch.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -311,7 +305,7 @@
             // labelWaveform
             // 
             this.labelWaveform.AutoSize = true;
-            this.labelWaveform.Location = new System.Drawing.Point(22, 24);
+            this.labelWaveform.Location = new System.Drawing.Point(21, 25);
             this.labelWaveform.Name = "labelWaveform";
             this.labelWaveform.Size = new System.Drawing.Size(56, 13);
             this.labelWaveform.TabIndex = 1;
@@ -321,7 +315,7 @@
             // labelFinePitch
             // 
             this.labelFinePitch.AutoSize = true;
-            this.labelFinePitch.Location = new System.Drawing.Point(70, 101);
+            this.labelFinePitch.Location = new System.Drawing.Point(70, 71);
             this.labelFinePitch.Name = "labelFinePitch";
             this.labelFinePitch.Size = new System.Drawing.Size(27, 13);
             this.labelFinePitch.TabIndex = 3;
@@ -338,7 +332,7 @@
             this.trackBarFinePitch.Minimum = -50;
             this.trackBarFinePitch.Name = "trackBarFinePitch";
             this.trackBarFinePitch.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarFinePitch.Size = new System.Drawing.Size(45, 90);
+            this.trackBarFinePitch.Size = new System.Drawing.Size(45, 64);
             this.trackBarFinePitch.TabIndex = 2;
             this.trackBarFinePitch.TickFrequency = 10;
             this.trackBarFinePitch.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -349,7 +343,7 @@
             // labelPitchKeyfollow
             // 
             this.labelPitchKeyfollow.AutoSize = true;
-            this.labelPitchKeyfollow.Location = new System.Drawing.Point(109, 101);
+            this.labelPitchKeyfollow.Location = new System.Drawing.Point(109, 71);
             this.labelPitchKeyfollow.Name = "labelPitchKeyfollow";
             this.labelPitchKeyfollow.Size = new System.Drawing.Size(52, 13);
             this.labelPitchKeyfollow.TabIndex = 5;
@@ -365,7 +359,7 @@
             this.trackBarPitchKeyFollow.Maximum = 16;
             this.trackBarPitchKeyFollow.Name = "trackBarPitchKeyFollow";
             this.trackBarPitchKeyFollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchKeyFollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPitchKeyFollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchKeyFollow.TabIndex = 4;
             this.trackBarPitchKeyFollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarPitchKeyFollow.Value = 11;
@@ -376,7 +370,7 @@
             // labelCoarsePitch
             // 
             this.labelCoarsePitch.AutoSize = true;
-            this.labelCoarsePitch.Location = new System.Drawing.Point(14, 101);
+            this.labelCoarsePitch.Location = new System.Drawing.Point(14, 71);
             this.labelCoarsePitch.Name = "labelCoarsePitch";
             this.labelCoarsePitch.Size = new System.Drawing.Size(40, 13);
             this.labelCoarsePitch.TabIndex = 6;
@@ -390,7 +384,7 @@
             this.checkBoxPitchBend.AutoSize = true;
             this.checkBoxPitchBend.Checked = true;
             this.checkBoxPitchBend.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPitchBend.Location = new System.Drawing.Point(34, 120);
+            this.checkBoxPitchBend.Location = new System.Drawing.Point(38, 87);
             this.checkBoxPitchBend.Name = "checkBoxPitchBend";
             this.checkBoxPitchBend.Size = new System.Drawing.Size(114, 17);
             this.checkBoxPitchBend.TabIndex = 7;
@@ -411,7 +405,7 @@
             this.groupBoxPitch.Controls.Add(this.trackBarPitch);
             this.groupBoxPitch.Location = new System.Drawing.Point(219, 31);
             this.groupBoxPitch.Name = "groupBoxPitch";
-            this.groupBoxPitch.Size = new System.Drawing.Size(183, 148);
+            this.groupBoxPitch.Size = new System.Drawing.Size(183, 108);
             this.groupBoxPitch.TabIndex = 8;
             this.groupBoxPitch.TabStop = false;
             // 
@@ -431,9 +425,9 @@
             this.comboBoxWaveform.Items.AddRange(new object[] {
             "Square",
             "Saw"});
-            this.comboBoxWaveform.Location = new System.Drawing.Point(94, 17);
+            this.comboBoxWaveform.Location = new System.Drawing.Point(82, 22);
             this.comboBoxWaveform.Name = "comboBoxWaveform";
-            this.comboBoxWaveform.Size = new System.Drawing.Size(67, 21);
+            this.comboBoxWaveform.Size = new System.Drawing.Size(78, 21);
             this.comboBoxWaveform.TabIndex = 9;
             this.comboBoxWaveform.SelectedValueChanged += new System.EventHandler(this.comboBoxWaveform_SelectedValueChanged);
             this.comboBoxWaveform.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
@@ -572,9 +566,9 @@
             "Percussion loop 3",
             "Bass & Percussion loop",
             "Bass & Snare loop"});
-            this.comboBoxPCMSample.Location = new System.Drawing.Point(88, 163);
+            this.comboBoxPCMSample.Location = new System.Drawing.Point(83, 124);
             this.comboBoxPCMSample.Name = "comboBoxPCMSample";
-            this.comboBoxPCMSample.Size = new System.Drawing.Size(106, 21);
+            this.comboBoxPCMSample.Size = new System.Drawing.Size(113, 21);
             this.comboBoxPCMSample.TabIndex = 11;
             this.comboBoxPCMSample.SelectedValueChanged += new System.EventHandler(this.comboBoxPCMSample_SelectedValueChanged);
             this.comboBoxPCMSample.EnabledChanged += new System.EventHandler(this.comboBoxPCMSample_EnabledChanged);
@@ -583,7 +577,7 @@
             // labelPCMSample
             // 
             this.labelPCMSample.AutoSize = true;
-            this.labelPCMSample.Location = new System.Drawing.Point(19, 170);
+            this.labelPCMSample.Location = new System.Drawing.Point(13, 127);
             this.labelPCMSample.Name = "labelPCMSample";
             this.labelPCMSample.Size = new System.Drawing.Size(68, 13);
             this.labelPCMSample.TabIndex = 10;
@@ -604,9 +598,9 @@
             this.groupBoxWaveform.Controls.Add(this.trackBarPWVeloSens);
             this.groupBoxWaveform.Controls.Add(this.labelWaveform);
             this.groupBoxWaveform.Controls.Add(this.trackBarPulseWidth);
-            this.groupBoxWaveform.Location = new System.Drawing.Point(9, 389);
+            this.groupBoxWaveform.Location = new System.Drawing.Point(8, 410);
             this.groupBoxWaveform.Name = "groupBoxWaveform";
-            this.groupBoxWaveform.Size = new System.Drawing.Size(201, 219);
+            this.groupBoxWaveform.Size = new System.Drawing.Size(202, 182);
             this.groupBoxWaveform.TabIndex = 12;
             this.groupBoxWaveform.TabStop = false;
             // 
@@ -623,7 +617,7 @@
             // 
             this.radioButtonPCMBank2.AutoSize = true;
             this.radioButtonPCMBank2.Enabled = false;
-            this.radioButtonPCMBank2.Location = new System.Drawing.Point(139, 194);
+            this.radioButtonPCMBank2.Location = new System.Drawing.Point(134, 155);
             this.radioButtonPCMBank2.Name = "radioButtonPCMBank2";
             this.radioButtonPCMBank2.Size = new System.Drawing.Size(59, 17);
             this.radioButtonPCMBank2.TabIndex = 16;
@@ -638,7 +632,7 @@
             this.radioButtonPCMBank1.AutoSize = true;
             this.radioButtonPCMBank1.Checked = true;
             this.radioButtonPCMBank1.Enabled = false;
-            this.radioButtonPCMBank1.Location = new System.Drawing.Point(85, 194);
+            this.radioButtonPCMBank1.Location = new System.Drawing.Point(69, 155);
             this.radioButtonPCMBank1.Name = "radioButtonPCMBank1";
             this.radioButtonPCMBank1.Size = new System.Drawing.Size(59, 17);
             this.radioButtonPCMBank1.TabIndex = 15;
@@ -652,7 +646,7 @@
             this.labelPWVeloSens.AccessibleDescription = "Pulse Width Velocity Sensitivity";
             this.labelPWVeloSens.AccessibleName = "Pulse Width Velocity Sensitivity";
             this.labelPWVeloSens.AutoSize = true;
-            this.labelPWVeloSens.Location = new System.Drawing.Point(120, 135);
+            this.labelPWVeloSens.Location = new System.Drawing.Point(119, 104);
             this.labelPWVeloSens.Name = "labelPWVeloSens";
             this.labelPWVeloSens.Size = new System.Drawing.Size(54, 13);
             this.labelPWVeloSens.TabIndex = 14;
@@ -663,7 +657,7 @@
             this.labelWidth.AccessibleDescription = "Pulse Width";
             this.labelWidth.AccessibleName = "Pulse Width";
             this.labelWidth.AutoSize = true;
-            this.labelWidth.Location = new System.Drawing.Point(84, 135);
+            this.labelWidth.Location = new System.Drawing.Point(81, 104);
             this.labelWidth.Name = "labelWidth";
             this.labelWidth.Size = new System.Drawing.Size(35, 13);
             this.labelWidth.TabIndex = 13;
@@ -674,7 +668,7 @@
             this.labelPulseWidth.AccessibleDescription = "Pulse Width";
             this.labelPulseWidth.AccessibleName = "Pulse Width";
             this.labelPulseWidth.AutoSize = true;
-            this.labelPulseWidth.Location = new System.Drawing.Point(19, 83);
+            this.labelPulseWidth.Location = new System.Drawing.Point(13, 65);
             this.labelPulseWidth.Name = "labelPulseWidth";
             this.labelPulseWidth.Size = new System.Drawing.Size(64, 13);
             this.labelPulseWidth.TabIndex = 12;
@@ -685,12 +679,12 @@
             this.trackBarPWVeloSens.AccessibleDescription = "Pulse Width Velocity Sensitivity";
             this.trackBarPWVeloSens.AccessibleName = "Pulse Width Velocity Sensitivity";
             this.trackBarPWVeloSens.LargeChange = 3;
-            this.trackBarPWVeloSens.Location = new System.Drawing.Point(128, 42);
+            this.trackBarPWVeloSens.Location = new System.Drawing.Point(122, 42);
             this.trackBarPWVeloSens.Maximum = 7;
             this.trackBarPWVeloSens.Minimum = -7;
             this.trackBarPWVeloSens.Name = "trackBarPWVeloSens";
             this.trackBarPWVeloSens.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPWVeloSens.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPWVeloSens.Size = new System.Drawing.Size(45, 64);
             this.trackBarPWVeloSens.TabIndex = 4;
             this.trackBarPWVeloSens.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarPWVeloSens.ValueChanged += new System.EventHandler(this.trackBarPWVeloSens_ValueChanged);
@@ -702,11 +696,11 @@
             this.trackBarPulseWidth.AccessibleDescription = "Pulse Width";
             this.trackBarPulseWidth.AccessibleName = "Pulse Width";
             this.trackBarPulseWidth.LargeChange = 10;
-            this.trackBarPulseWidth.Location = new System.Drawing.Point(84, 42);
+            this.trackBarPulseWidth.Location = new System.Drawing.Point(78, 42);
             this.trackBarPulseWidth.Maximum = 100;
             this.trackBarPulseWidth.Name = "trackBarPulseWidth";
             this.trackBarPulseWidth.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPulseWidth.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPulseWidth.Size = new System.Drawing.Size(45, 64);
             this.trackBarPulseWidth.TabIndex = 2;
             this.trackBarPulseWidth.TickFrequency = 10;
             this.trackBarPulseWidth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -720,10 +714,10 @@
             this.trackBarPitchEnvelopeDepth.AccessibleDescription = "Pitch Envelope Depth";
             this.trackBarPitchEnvelopeDepth.AccessibleName = "Pitch Envelope Depth";
             this.trackBarPitchEnvelopeDepth.LargeChange = 2;
-            this.trackBarPitchEnvelopeDepth.Location = new System.Drawing.Point(6, 17);
+            this.trackBarPitchEnvelopeDepth.Location = new System.Drawing.Point(9, 12);
             this.trackBarPitchEnvelopeDepth.Name = "trackBarPitchEnvelopeDepth";
             this.trackBarPitchEnvelopeDepth.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvelopeDepth.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPitchEnvelopeDepth.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvelopeDepth.TabIndex = 13;
             this.trackBarPitchEnvelopeDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarPitchEnvelopeDepth.ValueChanged += new System.EventHandler(this.trackBarPitchEnvelopeDepth_ValueChanged);
@@ -733,7 +727,7 @@
             // labelPitchEnvDepth
             // 
             this.labelPitchEnvDepth.AutoSize = true;
-            this.labelPitchEnvDepth.Location = new System.Drawing.Point(7, 110);
+            this.labelPitchEnvDepth.Location = new System.Drawing.Point(10, 76);
             this.labelPitchEnvDepth.Name = "labelPitchEnvDepth";
             this.labelPitchEnvDepth.Size = new System.Drawing.Size(36, 13);
             this.labelPitchEnvDepth.TabIndex = 14;
@@ -745,11 +739,11 @@
             this.trackBarPitchEnvVeloSens.AccessibleDescription = "Pitch Envelope Velocity Sensitivity";
             this.trackBarPitchEnvVeloSens.AccessibleName = "Pitch Envelope Velocity Sensitivity";
             this.trackBarPitchEnvVeloSens.LargeChange = 10;
-            this.trackBarPitchEnvVeloSens.Location = new System.Drawing.Point(52, 17);
+            this.trackBarPitchEnvVeloSens.Location = new System.Drawing.Point(55, 12);
             this.trackBarPitchEnvVeloSens.Maximum = 100;
             this.trackBarPitchEnvVeloSens.Name = "trackBarPitchEnvVeloSens";
             this.trackBarPitchEnvVeloSens.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvVeloSens.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPitchEnvVeloSens.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvVeloSens.TabIndex = 15;
             this.trackBarPitchEnvVeloSens.TickFrequency = 10;
             this.trackBarPitchEnvVeloSens.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -762,7 +756,7 @@
             this.labelPitchEnvVeloSens.AccessibleDescription = "Pitch Envelope Velocity Sensitivity";
             this.labelPitchEnvVeloSens.AccessibleName = "Pitch Envelope Velocity Sensitivity";
             this.labelPitchEnvVeloSens.AutoSize = true;
-            this.labelPitchEnvVeloSens.Location = new System.Drawing.Point(45, 110);
+            this.labelPitchEnvVeloSens.Location = new System.Drawing.Point(48, 76);
             this.labelPitchEnvVeloSens.Name = "labelPitchEnvVeloSens";
             this.labelPitchEnvVeloSens.Size = new System.Drawing.Size(58, 13);
             this.labelPitchEnvVeloSens.TabIndex = 16;
@@ -773,11 +767,11 @@
             this.trackBarPitchEnvTimeKeyfollow.AccessibleDescription = "Pitch Envelope Time Keyfollow";
             this.trackBarPitchEnvTimeKeyfollow.AccessibleName = "Pitch Envelope Time Keyfollow";
             this.trackBarPitchEnvTimeKeyfollow.LargeChange = 2;
-            this.trackBarPitchEnvTimeKeyfollow.Location = new System.Drawing.Point(103, 17);
+            this.trackBarPitchEnvTimeKeyfollow.Location = new System.Drawing.Point(106, 12);
             this.trackBarPitchEnvTimeKeyfollow.Maximum = 4;
             this.trackBarPitchEnvTimeKeyfollow.Name = "trackBarPitchEnvTimeKeyfollow";
             this.trackBarPitchEnvTimeKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvTimeKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarPitchEnvTimeKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvTimeKeyfollow.TabIndex = 17;
             this.trackBarPitchEnvTimeKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarPitchEnvTimeKeyfollow.ValueChanged += new System.EventHandler(this.trackBarPitchEnvTimeKeyfollow_ValueChanged);
@@ -789,11 +783,10 @@
             this.trackBarPitchEnvT1.AccessibleDescription = "Pitch Envelope Time 1";
             this.trackBarPitchEnvT1.AccessibleName = "Pitch Envelope Time 1";
             this.trackBarPitchEnvT1.LargeChange = 10;
-            this.trackBarPitchEnvT1.Location = new System.Drawing.Point(52, 221);
+            this.trackBarPitchEnvT1.Location = new System.Drawing.Point(23, 154);
             this.trackBarPitchEnvT1.Maximum = 100;
             this.trackBarPitchEnvT1.Name = "trackBarPitchEnvT1";
-            this.trackBarPitchEnvT1.Size = new System.Drawing.Size(83, 45);
-            this.trackBarPitchEnvT1.SmallChange = 10;
+            this.trackBarPitchEnvT1.Size = new System.Drawing.Size(77, 45);
             this.trackBarPitchEnvT1.TabIndex = 19;
             this.trackBarPitchEnvT1.TickFrequency = 10;
             this.trackBarPitchEnvT1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -806,11 +799,10 @@
             this.trackBarPitchEnvT2.AccessibleDescription = "Pitch Envelope Time 2";
             this.trackBarPitchEnvT2.AccessibleName = "Pitch Envelope Time 2";
             this.trackBarPitchEnvT2.LargeChange = 10;
-            this.trackBarPitchEnvT2.Location = new System.Drawing.Point(145, 221);
+            this.trackBarPitchEnvT2.Location = new System.Drawing.Point(115, 154);
             this.trackBarPitchEnvT2.Maximum = 100;
             this.trackBarPitchEnvT2.Name = "trackBarPitchEnvT2";
-            this.trackBarPitchEnvT2.Size = new System.Drawing.Size(83, 45);
-            this.trackBarPitchEnvT2.SmallChange = 10;
+            this.trackBarPitchEnvT2.Size = new System.Drawing.Size(77, 45);
             this.trackBarPitchEnvT2.TabIndex = 20;
             this.trackBarPitchEnvT2.TickFrequency = 10;
             this.trackBarPitchEnvT2.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -823,11 +815,10 @@
             this.trackBarPitchEnvT3.AccessibleDescription = "Pitch Envelope Time 3";
             this.trackBarPitchEnvT3.AccessibleName = "Pitch Envelope Time 3";
             this.trackBarPitchEnvT3.LargeChange = 10;
-            this.trackBarPitchEnvT3.Location = new System.Drawing.Point(239, 221);
+            this.trackBarPitchEnvT3.Location = new System.Drawing.Point(206, 154);
             this.trackBarPitchEnvT3.Maximum = 100;
             this.trackBarPitchEnvT3.Name = "trackBarPitchEnvT3";
-            this.trackBarPitchEnvT3.Size = new System.Drawing.Size(83, 45);
-            this.trackBarPitchEnvT3.SmallChange = 10;
+            this.trackBarPitchEnvT3.Size = new System.Drawing.Size(77, 45);
             this.trackBarPitchEnvT3.TabIndex = 21;
             this.trackBarPitchEnvT3.TickFrequency = 10;
             this.trackBarPitchEnvT3.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -840,11 +831,10 @@
             this.trackBarPitchEnvT4.AccessibleDescription = "Pitch Envelope Time 4";
             this.trackBarPitchEnvT4.AccessibleName = "Pitch Envelope Time 4";
             this.trackBarPitchEnvT4.LargeChange = 10;
-            this.trackBarPitchEnvT4.Location = new System.Drawing.Point(333, 221);
+            this.trackBarPitchEnvT4.Location = new System.Drawing.Point(294, 154);
             this.trackBarPitchEnvT4.Maximum = 100;
             this.trackBarPitchEnvT4.Name = "trackBarPitchEnvT4";
-            this.trackBarPitchEnvT4.Size = new System.Drawing.Size(83, 45);
-            this.trackBarPitchEnvT4.SmallChange = 10;
+            this.trackBarPitchEnvT4.Size = new System.Drawing.Size(77, 45);
             this.trackBarPitchEnvT4.TabIndex = 22;
             this.trackBarPitchEnvT4.TickFrequency = 10;
             this.trackBarPitchEnvT4.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -857,12 +847,12 @@
             this.trackBarPitchEnvL0.AccessibleDescription = "Pitch Envelope Level 0";
             this.trackBarPitchEnvL0.AccessibleName = "Pitch Envelope Level 0";
             this.trackBarPitchEnvL0.LargeChange = 12;
-            this.trackBarPitchEnvL0.Location = new System.Drawing.Point(70, 140);
+            this.trackBarPitchEnvL0.Location = new System.Drawing.Point(24, 92);
             this.trackBarPitchEnvL0.Maximum = 50;
             this.trackBarPitchEnvL0.Minimum = -50;
             this.trackBarPitchEnvL0.Name = "trackBarPitchEnvL0";
             this.trackBarPitchEnvL0.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvL0.Size = new System.Drawing.Size(45, 81);
+            this.trackBarPitchEnvL0.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvL0.TabIndex = 23;
             this.trackBarPitchEnvL0.TickFrequency = 12;
             this.trackBarPitchEnvL0.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -875,12 +865,12 @@
             this.trackBarPitchEnvL1.AccessibleDescription = "Pitch Envelope Level 1";
             this.trackBarPitchEnvL1.AccessibleName = "Pitch Envelope Level 1";
             this.trackBarPitchEnvL1.LargeChange = 12;
-            this.trackBarPitchEnvL1.Location = new System.Drawing.Point(142, 140);
+            this.trackBarPitchEnvL1.Location = new System.Drawing.Point(96, 92);
             this.trackBarPitchEnvL1.Maximum = 50;
             this.trackBarPitchEnvL1.Minimum = -50;
             this.trackBarPitchEnvL1.Name = "trackBarPitchEnvL1";
             this.trackBarPitchEnvL1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvL1.Size = new System.Drawing.Size(45, 81);
+            this.trackBarPitchEnvL1.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvL1.TabIndex = 24;
             this.trackBarPitchEnvL1.TickFrequency = 12;
             this.trackBarPitchEnvL1.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -893,12 +883,12 @@
             this.trackBarPitchEnvL2.AccessibleDescription = "Pitch Envelope Level 2";
             this.trackBarPitchEnvL2.AccessibleName = "Pitch Envelope Level 2";
             this.trackBarPitchEnvL2.LargeChange = 12;
-            this.trackBarPitchEnvL2.Location = new System.Drawing.Point(212, 140);
+            this.trackBarPitchEnvL2.Location = new System.Drawing.Point(166, 92);
             this.trackBarPitchEnvL2.Maximum = 50;
             this.trackBarPitchEnvL2.Minimum = -50;
             this.trackBarPitchEnvL2.Name = "trackBarPitchEnvL2";
             this.trackBarPitchEnvL2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvL2.Size = new System.Drawing.Size(45, 81);
+            this.trackBarPitchEnvL2.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvL2.TabIndex = 25;
             this.trackBarPitchEnvL2.TickFrequency = 12;
             this.trackBarPitchEnvL2.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -911,12 +901,12 @@
             this.trackBarPitchEnvSust.AccessibleDescription = "Pitch Envelope Sustain Level";
             this.trackBarPitchEnvSust.AccessibleName = "Pitch Envelope Sustain Level";
             this.trackBarPitchEnvSust.LargeChange = 12;
-            this.trackBarPitchEnvSust.Location = new System.Drawing.Point(299, 140);
+            this.trackBarPitchEnvSust.Location = new System.Drawing.Point(253, 92);
             this.trackBarPitchEnvSust.Maximum = 50;
             this.trackBarPitchEnvSust.Minimum = -50;
             this.trackBarPitchEnvSust.Name = "trackBarPitchEnvSust";
             this.trackBarPitchEnvSust.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvSust.Size = new System.Drawing.Size(45, 81);
+            this.trackBarPitchEnvSust.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvSust.TabIndex = 26;
             this.trackBarPitchEnvSust.TickFrequency = 12;
             this.trackBarPitchEnvSust.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -954,7 +944,7 @@
             this.groupBoxPitchEnvelope.Controls.Add(this.labelPitchEnvDepth);
             this.groupBoxPitchEnvelope.Location = new System.Drawing.Point(409, 31);
             this.groupBoxPitchEnvelope.Name = "groupBoxPitchEnvelope";
-            this.groupBoxPitchEnvelope.Size = new System.Drawing.Size(433, 271);
+            this.groupBoxPitchEnvelope.Size = new System.Drawing.Size(384, 206);
             this.groupBoxPitchEnvelope.TabIndex = 28;
             this.groupBoxPitchEnvelope.TabStop = false;
             this.groupBoxPitchEnvelope.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxPitchEnvelope_Paint);
@@ -964,7 +954,7 @@
             this.labelPitchTimeKF.AccessibleDescription = "Pitch Envelope Time Keyfollow";
             this.labelPitchTimeKF.AccessibleName = "Pitch Envelope Time Keyfollow";
             this.labelPitchTimeKF.AutoSize = true;
-            this.labelPitchTimeKF.Location = new System.Drawing.Point(104, 110);
+            this.labelPitchTimeKF.Location = new System.Drawing.Point(107, 76);
             this.labelPitchTimeKF.Name = "labelPitchTimeKF";
             this.labelPitchTimeKF.Size = new System.Drawing.Size(46, 13);
             this.labelPitchTimeKF.TabIndex = 75;
@@ -985,17 +975,17 @@
             // 
             this.labelNoActivePartials.AutoSize = true;
             this.labelNoActivePartials.ForeColor = System.Drawing.Color.Yellow;
-            this.labelNoActivePartials.Location = new System.Drawing.Point(152, 51);
+            this.labelNoActivePartials.Location = new System.Drawing.Point(163, 41);
             this.labelNoActivePartials.Name = "labelNoActivePartials";
-            this.labelNoActivePartials.Size = new System.Drawing.Size(245, 13);
+            this.labelNoActivePartials.Size = new System.Drawing.Size(198, 13);
             this.labelNoActivePartials.TabIndex = 74;
-            this.labelNoActivePartials.Text = "No active partials: cannot display envelope graphs";
+            this.labelNoActivePartials.Text = "No active partials: cannot display graphs";
             this.labelNoActivePartials.Visible = false;
             // 
             // labelPitchRelease
             // 
             this.labelPitchRelease.AutoSize = true;
-            this.labelPitchRelease.Location = new System.Drawing.Point(343, 170);
+            this.labelPitchRelease.Location = new System.Drawing.Point(294, 118);
             this.labelPitchRelease.Name = "labelPitchRelease";
             this.labelPitchRelease.Size = new System.Drawing.Size(46, 13);
             this.labelPitchRelease.TabIndex = 38;
@@ -1004,7 +994,7 @@
             // labelPitchSustain
             // 
             this.labelPitchSustain.AutoSize = true;
-            this.labelPitchSustain.Location = new System.Drawing.Point(257, 170);
+            this.labelPitchSustain.Location = new System.Drawing.Point(208, 118);
             this.labelPitchSustain.Name = "labelPitchSustain";
             this.labelPitchSustain.Size = new System.Drawing.Size(42, 13);
             this.labelPitchSustain.TabIndex = 37;
@@ -1013,7 +1003,7 @@
             // labelPitchL2
             // 
             this.labelPitchL2.AutoSize = true;
-            this.labelPitchL2.Location = new System.Drawing.Point(190, 170);
+            this.labelPitchL2.Location = new System.Drawing.Point(144, 118);
             this.labelPitchL2.Name = "labelPitchL2";
             this.labelPitchL2.Size = new System.Drawing.Size(19, 13);
             this.labelPitchL2.TabIndex = 36;
@@ -1022,7 +1012,7 @@
             // labelPitchL1
             // 
             this.labelPitchL1.AutoSize = true;
-            this.labelPitchL1.Location = new System.Drawing.Point(123, 170);
+            this.labelPitchL1.Location = new System.Drawing.Point(74, 118);
             this.labelPitchL1.Name = "labelPitchL1";
             this.labelPitchL1.Size = new System.Drawing.Size(19, 13);
             this.labelPitchL1.TabIndex = 35;
@@ -1031,7 +1021,7 @@
             // labelPitchL0
             // 
             this.labelPitchL0.AutoSize = true;
-            this.labelPitchL0.Location = new System.Drawing.Point(49, 170);
+            this.labelPitchL0.Location = new System.Drawing.Point(3, 118);
             this.labelPitchL0.Name = "labelPitchL0";
             this.labelPitchL0.Size = new System.Drawing.Size(19, 13);
             this.labelPitchL0.TabIndex = 34;
@@ -1040,7 +1030,7 @@
             // labelPitchT4
             // 
             this.labelPitchT4.AutoSize = true;
-            this.labelPitchT4.Location = new System.Drawing.Point(373, 247);
+            this.labelPitchT4.Location = new System.Drawing.Point(326, 186);
             this.labelPitchT4.Name = "labelPitchT4";
             this.labelPitchT4.Size = new System.Drawing.Size(20, 13);
             this.labelPitchT4.TabIndex = 33;
@@ -1049,7 +1039,7 @@
             // labelPitchT3
             // 
             this.labelPitchT3.AutoSize = true;
-            this.labelPitchT3.Location = new System.Drawing.Point(275, 247);
+            this.labelPitchT3.Location = new System.Drawing.Point(238, 186);
             this.labelPitchT3.Name = "labelPitchT3";
             this.labelPitchT3.Size = new System.Drawing.Size(20, 13);
             this.labelPitchT3.TabIndex = 32;
@@ -1058,7 +1048,7 @@
             // labelPitchT2
             // 
             this.labelPitchT2.AutoSize = true;
-            this.labelPitchT2.Location = new System.Drawing.Point(182, 248);
+            this.labelPitchT2.Location = new System.Drawing.Point(145, 186);
             this.labelPitchT2.Name = "labelPitchT2";
             this.labelPitchT2.Size = new System.Drawing.Size(20, 13);
             this.labelPitchT2.TabIndex = 31;
@@ -1067,7 +1057,7 @@
             // labelPitchT1
             // 
             this.labelPitchT1.AutoSize = true;
-            this.labelPitchT1.Location = new System.Drawing.Point(88, 248);
+            this.labelPitchT1.Location = new System.Drawing.Point(54, 187);
             this.labelPitchT1.Name = "labelPitchT1";
             this.labelPitchT1.Size = new System.Drawing.Size(20, 13);
             this.labelPitchT1.TabIndex = 30;
@@ -1078,12 +1068,12 @@
             this.trackBarPitchEnvReleaseLevel.AccessibleDescription = "Pitch Envelope Release Level";
             this.trackBarPitchEnvReleaseLevel.AccessibleName = "Pitch Envelope Release Level";
             this.trackBarPitchEnvReleaseLevel.LargeChange = 12;
-            this.trackBarPitchEnvReleaseLevel.Location = new System.Drawing.Point(382, 140);
+            this.trackBarPitchEnvReleaseLevel.Location = new System.Drawing.Point(336, 92);
             this.trackBarPitchEnvReleaseLevel.Maximum = 50;
             this.trackBarPitchEnvReleaseLevel.Minimum = -50;
             this.trackBarPitchEnvReleaseLevel.Name = "trackBarPitchEnvReleaseLevel";
             this.trackBarPitchEnvReleaseLevel.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarPitchEnvReleaseLevel.Size = new System.Drawing.Size(45, 81);
+            this.trackBarPitchEnvReleaseLevel.Size = new System.Drawing.Size(45, 64);
             this.trackBarPitchEnvReleaseLevel.TabIndex = 27;
             this.trackBarPitchEnvReleaseLevel.TickFrequency = 12;
             this.trackBarPitchEnvReleaseLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1100,9 +1090,9 @@
             this.groupBoxLFO.Controls.Add(this.trackBarLFODepth);
             this.groupBoxLFO.Controls.Add(this.labelLFORate);
             this.groupBoxLFO.Controls.Add(this.trackBarLFORate);
-            this.groupBoxLFO.Location = new System.Drawing.Point(219, 182);
+            this.groupBoxLFO.Location = new System.Drawing.Point(219, 141);
             this.groupBoxLFO.Name = "groupBoxLFO";
-            this.groupBoxLFO.Size = new System.Drawing.Size(183, 120);
+            this.groupBoxLFO.Size = new System.Drawing.Size(183, 96);
             this.groupBoxLFO.TabIndex = 29;
             this.groupBoxLFO.TabStop = false;
             // 
@@ -1120,7 +1110,7 @@
             this.labelPitchLFOModSens.AccessibleDescription = "Pitch LFO Modulation Sensitivity";
             this.labelPitchLFOModSens.AccessibleName = "Pitch LFO Modulation Sensitivity";
             this.labelPitchLFOModSens.AutoSize = true;
-            this.labelPitchLFOModSens.Location = new System.Drawing.Point(107, 99);
+            this.labelPitchLFOModSens.Location = new System.Drawing.Point(105, 76);
             this.labelPitchLFOModSens.Name = "labelPitchLFOModSens";
             this.labelPitchLFOModSens.Size = new System.Drawing.Size(67, 13);
             this.labelPitchLFOModSens.TabIndex = 33;
@@ -1129,7 +1119,7 @@
             // labelLFODepth
             // 
             this.labelLFODepth.AutoSize = true;
-            this.labelLFODepth.Location = new System.Drawing.Point(62, 99);
+            this.labelLFODepth.Location = new System.Drawing.Point(60, 76);
             this.labelLFODepth.Name = "labelLFODepth";
             this.labelLFODepth.Size = new System.Drawing.Size(44, 13);
             this.labelLFODepth.TabIndex = 32;
@@ -1145,7 +1135,7 @@
             this.trackBarLFOModSens.Maximum = 100;
             this.trackBarLFOModSens.Name = "trackBarLFOModSens";
             this.trackBarLFOModSens.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarLFOModSens.Size = new System.Drawing.Size(45, 90);
+            this.trackBarLFOModSens.Size = new System.Drawing.Size(45, 64);
             this.trackBarLFOModSens.TabIndex = 31;
             this.trackBarLFOModSens.TickFrequency = 10;
             this.trackBarLFOModSens.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1162,7 +1152,7 @@
             this.trackBarLFODepth.Maximum = 100;
             this.trackBarLFODepth.Name = "trackBarLFODepth";
             this.trackBarLFODepth.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarLFODepth.Size = new System.Drawing.Size(45, 90);
+            this.trackBarLFODepth.Size = new System.Drawing.Size(45, 64);
             this.trackBarLFODepth.TabIndex = 30;
             this.trackBarLFODepth.TickFrequency = 10;
             this.trackBarLFODepth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1173,7 +1163,7 @@
             // labelLFORate
             // 
             this.labelLFORate.AutoSize = true;
-            this.labelLFORate.Location = new System.Drawing.Point(15, 99);
+            this.labelLFORate.Location = new System.Drawing.Point(13, 76);
             this.labelLFORate.Name = "labelLFORate";
             this.labelLFORate.Size = new System.Drawing.Size(36, 13);
             this.labelLFORate.TabIndex = 29;
@@ -1189,7 +1179,7 @@
             this.trackBarLFORate.Maximum = 100;
             this.trackBarLFORate.Name = "trackBarLFORate";
             this.trackBarLFORate.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarLFORate.Size = new System.Drawing.Size(45, 90);
+            this.trackBarLFORate.Size = new System.Drawing.Size(45, 64);
             this.trackBarLFORate.TabIndex = 28;
             this.trackBarLFORate.TickFrequency = 10;
             this.trackBarLFORate.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1235,9 +1225,9 @@
             this.groupBoxTVF.Controls.Add(this.labelTVFCutoff);
             this.groupBoxTVF.Controls.Add(this.trackBarTVFCutoff);
             this.groupBoxTVF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBoxTVF.Location = new System.Drawing.Point(219, 305);
+            this.groupBoxTVF.Location = new System.Drawing.Point(219, 239);
             this.groupBoxTVF.Name = "groupBoxTVF";
-            this.groupBoxTVF.Size = new System.Drawing.Size(623, 271);
+            this.groupBoxTVF.Size = new System.Drawing.Size(574, 199);
             this.groupBoxTVF.TabIndex = 29;
             this.groupBoxTVF.TabStop = false;
             this.groupBoxTVF.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxTVF_Paint);
@@ -1255,7 +1245,7 @@
             // labelTVFDisabled
             // 
             this.labelTVFDisabled.AutoSize = true;
-            this.labelTVFDisabled.Location = new System.Drawing.Point(342, 53);
+            this.labelTVFDisabled.Location = new System.Drawing.Point(334, 43);
             this.labelTVFDisabled.Name = "labelTVFDisabled";
             this.labelTVFDisabled.Size = new System.Drawing.Size(219, 13);
             this.labelTVFDisabled.TabIndex = 55;
@@ -1265,7 +1255,7 @@
             // labelTVFTimeKF
             // 
             this.labelTVFTimeKF.AutoSize = true;
-            this.labelTVFTimeKF.Location = new System.Drawing.Point(249, 114);
+            this.labelTVFTimeKF.Location = new System.Drawing.Point(250, 80);
             this.labelTVFTimeKF.Name = "labelTVFTimeKF";
             this.labelTVFTimeKF.Size = new System.Drawing.Size(46, 13);
             this.labelTVFTimeKF.TabIndex = 53;
@@ -1277,11 +1267,11 @@
             this.trackBarTVFTimeKeyfollow.AccessibleDescription = " TVF Time Keyfollow";
             this.trackBarTVFTimeKeyfollow.AccessibleName = " TVF Time Keyfollow";
             this.trackBarTVFTimeKeyfollow.LargeChange = 2;
-            this.trackBarTVFTimeKeyfollow.Location = new System.Drawing.Point(249, 21);
+            this.trackBarTVFTimeKeyfollow.Location = new System.Drawing.Point(247, 19);
             this.trackBarTVFTimeKeyfollow.Maximum = 4;
             this.trackBarTVFTimeKeyfollow.Name = "trackBarTVFTimeKeyfollow";
             this.trackBarTVFTimeKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFTimeKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFTimeKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFTimeKeyfollow.TabIndex = 52;
             this.trackBarTVFTimeKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVFTimeKeyfollow.ValueChanged += new System.EventHandler(this.trackBarTVFTimeKeyfollow_ValueChanged);
@@ -1291,7 +1281,7 @@
             // labelTVFDepthKF
             // 
             this.labelTVFDepthKF.AutoSize = true;
-            this.labelTVFDepthKF.Location = new System.Drawing.Point(196, 114);
+            this.labelTVFDepthKF.Location = new System.Drawing.Point(197, 80);
             this.labelTVFDepthKF.Name = "labelTVFDepthKF";
             this.labelTVFDepthKF.Size = new System.Drawing.Size(52, 13);
             this.labelTVFDepthKF.TabIndex = 51;
@@ -1303,11 +1293,11 @@
             this.trackBarTVFDepthKeyfollow.AccessibleDescription = " TVF Depth Keyfollow";
             this.trackBarTVFDepthKeyfollow.AccessibleName = " TVF Depth Keyfollow";
             this.trackBarTVFDepthKeyfollow.LargeChange = 2;
-            this.trackBarTVFDepthKeyfollow.Location = new System.Drawing.Point(203, 21);
+            this.trackBarTVFDepthKeyfollow.Location = new System.Drawing.Point(201, 19);
             this.trackBarTVFDepthKeyfollow.Maximum = 4;
             this.trackBarTVFDepthKeyfollow.Name = "trackBarTVFDepthKeyfollow";
             this.trackBarTVFDepthKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFDepthKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFDepthKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFDepthKeyfollow.TabIndex = 50;
             this.trackBarTVFDepthKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVFDepthKeyfollow.ValueChanged += new System.EventHandler(this.trackBarTVFDepthKeyfollow_ValueChanged);
@@ -1319,7 +1309,7 @@
             this.labelTVFVeloSens.AccessibleDescription = "TVF Envelope Velocity Sensitivity";
             this.labelTVFVeloSens.AccessibleName = "TVF Envelope Velocity Sensitivity";
             this.labelTVFVeloSens.AutoSize = true;
-            this.labelTVFVeloSens.Location = new System.Drawing.Point(131, 241);
+            this.labelTVFVeloSens.Location = new System.Drawing.Point(141, 171);
             this.labelTVFVeloSens.Name = "labelTVFVeloSens";
             this.labelTVFVeloSens.Size = new System.Drawing.Size(58, 13);
             this.labelTVFVeloSens.TabIndex = 49;
@@ -1328,7 +1318,7 @@
             // labelTVFDepth
             // 
             this.labelTVFDepth.AutoSize = true;
-            this.labelTVFDepth.Location = new System.Drawing.Point(155, 114);
+            this.labelTVFDepth.Location = new System.Drawing.Point(156, 80);
             this.labelTVFDepth.Name = "labelTVFDepth";
             this.labelTVFDepth.Size = new System.Drawing.Size(36, 13);
             this.labelTVFDepth.TabIndex = 47;
@@ -1340,11 +1330,11 @@
             this.trackBarTVFEnvDepth.AccessibleDescription = "TVF Envelope Depth";
             this.trackBarTVFEnvDepth.AccessibleName = "TVF Envelope Depth";
             this.trackBarTVFEnvDepth.LargeChange = 10;
-            this.trackBarTVFEnvDepth.Location = new System.Drawing.Point(155, 21);
+            this.trackBarTVFEnvDepth.Location = new System.Drawing.Point(153, 19);
             this.trackBarTVFEnvDepth.Maximum = 100;
             this.trackBarTVFEnvDepth.Name = "trackBarTVFEnvDepth";
             this.trackBarTVFEnvDepth.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFEnvDepth.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFEnvDepth.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFEnvDepth.TabIndex = 46;
             this.trackBarTVFEnvDepth.TickFrequency = 10;
             this.trackBarTVFEnvDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1357,11 +1347,11 @@
             this.trackBarTVFVeloSensitivity.AccessibleDescription = "TVF Envelope Velocity Sensitivity";
             this.trackBarTVFVeloSensitivity.AccessibleName = "TVF Envelope Velocity Sensitivity";
             this.trackBarTVFVeloSensitivity.LargeChange = 10;
-            this.trackBarTVFVeloSensitivity.Location = new System.Drawing.Point(138, 150);
+            this.trackBarTVFVeloSensitivity.Location = new System.Drawing.Point(148, 107);
             this.trackBarTVFVeloSensitivity.Maximum = 100;
             this.trackBarTVFVeloSensitivity.Name = "trackBarTVFVeloSensitivity";
             this.trackBarTVFVeloSensitivity.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFVeloSensitivity.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFVeloSensitivity.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFVeloSensitivity.TabIndex = 48;
             this.trackBarTVFVeloSensitivity.TickFrequency = 10;
             this.trackBarTVFVeloSensitivity.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1372,7 +1362,7 @@
             // labelTVFT5
             // 
             this.labelTVFT5.AutoSize = true;
-            this.labelTVFT5.Location = new System.Drawing.Point(561, 249);
+            this.labelTVFT5.Location = new System.Drawing.Point(519, 179);
             this.labelTVFT5.Name = "labelTVFT5";
             this.labelTVFT5.Size = new System.Drawing.Size(20, 13);
             this.labelTVFT5.TabIndex = 39;
@@ -1383,11 +1373,10 @@
             this.trackBarTVFT5.AccessibleDescription = "TVF Envelope Time 5";
             this.trackBarTVFT5.AccessibleName = "TVF Envelope Time 5";
             this.trackBarTVFT5.LargeChange = 10;
-            this.trackBarTVFT5.Location = new System.Drawing.Point(527, 220);
+            this.trackBarTVFT5.Location = new System.Drawing.Point(490, 146);
             this.trackBarTVFT5.Maximum = 100;
             this.trackBarTVFT5.Name = "trackBarTVFT5";
-            this.trackBarTVFT5.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVFT5.SmallChange = 10;
+            this.trackBarTVFT5.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVFT5.TabIndex = 38;
             this.trackBarTVFT5.TickFrequency = 10;
             this.trackBarTVFT5.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1398,7 +1387,7 @@
             // labelTVFSustain
             // 
             this.labelTVFSustain.AutoSize = true;
-            this.labelTVFSustain.Location = new System.Drawing.Point(498, 159);
+            this.labelTVFSustain.Location = new System.Drawing.Point(479, 112);
             this.labelTVFSustain.Name = "labelTVFSustain";
             this.labelTVFSustain.Size = new System.Drawing.Size(42, 13);
             this.labelTVFSustain.TabIndex = 37;
@@ -1407,7 +1396,7 @@
             // labelTVFL3
             // 
             this.labelTVFL3.AutoSize = true;
-            this.labelTVFL3.Location = new System.Drawing.Point(436, 159);
+            this.labelTVFL3.Location = new System.Drawing.Point(417, 112);
             this.labelTVFL3.Name = "labelTVFL3";
             this.labelTVFL3.Size = new System.Drawing.Size(19, 13);
             this.labelTVFL3.TabIndex = 36;
@@ -1416,7 +1405,7 @@
             // labelTVFL2
             // 
             this.labelTVFL2.AutoSize = true;
-            this.labelTVFL2.Location = new System.Drawing.Point(369, 159);
+            this.labelTVFL2.Location = new System.Drawing.Point(350, 112);
             this.labelTVFL2.Name = "labelTVFL2";
             this.labelTVFL2.Size = new System.Drawing.Size(19, 13);
             this.labelTVFL2.TabIndex = 35;
@@ -1425,7 +1414,7 @@
             // labelTVFL1
             // 
             this.labelTVFL1.AutoSize = true;
-            this.labelTVFL1.Location = new System.Drawing.Point(302, 159);
+            this.labelTVFL1.Location = new System.Drawing.Point(283, 112);
             this.labelTVFL1.Name = "labelTVFL1";
             this.labelTVFL1.Size = new System.Drawing.Size(19, 13);
             this.labelTVFL1.TabIndex = 34;
@@ -1434,7 +1423,7 @@
             // labelTVFT4
             // 
             this.labelTVFT4.AutoSize = true;
-            this.labelTVFT4.Location = new System.Drawing.Point(483, 249);
+            this.labelTVFT4.Location = new System.Drawing.Point(450, 179);
             this.labelTVFT4.Name = "labelTVFT4";
             this.labelTVFT4.Size = new System.Drawing.Size(20, 13);
             this.labelTVFT4.TabIndex = 33;
@@ -1443,7 +1432,7 @@
             // labelTVFT3
             // 
             this.labelTVFT3.AutoSize = true;
-            this.labelTVFT3.Location = new System.Drawing.Point(404, 249);
+            this.labelTVFT3.Location = new System.Drawing.Point(382, 179);
             this.labelTVFT3.Name = "labelTVFT3";
             this.labelTVFT3.Size = new System.Drawing.Size(20, 13);
             this.labelTVFT3.TabIndex = 32;
@@ -1452,7 +1441,7 @@
             // labelTVFT2
             // 
             this.labelTVFT2.AutoSize = true;
-            this.labelTVFT2.Location = new System.Drawing.Point(318, 249);
+            this.labelTVFT2.Location = new System.Drawing.Point(312, 179);
             this.labelTVFT2.Name = "labelTVFT2";
             this.labelTVFT2.Size = new System.Drawing.Size(20, 13);
             this.labelTVFT2.TabIndex = 31;
@@ -1461,7 +1450,7 @@
             // labelTVFT1
             // 
             this.labelTVFT1.AutoSize = true;
-            this.labelTVFT1.Location = new System.Drawing.Point(242, 249);
+            this.labelTVFT1.Location = new System.Drawing.Point(245, 179);
             this.labelTVFT1.Name = "labelTVFT1";
             this.labelTVFT1.Size = new System.Drawing.Size(20, 13);
             this.labelTVFT1.TabIndex = 30;
@@ -1472,11 +1461,11 @@
             this.trackBarTVFSustain.AccessibleDescription = "TVF Envelope Sustain Level";
             this.trackBarTVFSustain.AccessibleName = "TVF Envelope Sustain Level";
             this.trackBarTVFSustain.LargeChange = 10;
-            this.trackBarTVFSustain.Location = new System.Drawing.Point(537, 131);
+            this.trackBarTVFSustain.Location = new System.Drawing.Point(518, 88);
             this.trackBarTVFSustain.Maximum = 100;
             this.trackBarTVFSustain.Name = "trackBarTVFSustain";
             this.trackBarTVFSustain.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFSustain.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVFSustain.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFSustain.TabIndex = 26;
             this.trackBarTVFSustain.TickFrequency = 10;
             this.trackBarTVFSustain.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1491,9 +1480,9 @@
             this.groupBoxTVFBias.Controls.Add(this.trackBarTVFBiasPoint);
             this.groupBoxTVFBias.Controls.Add(this.labelTVFBiasPt);
             this.groupBoxTVFBias.Controls.Add(this.labelTVFBiasLevel);
-            this.groupBoxTVFBias.Location = new System.Drawing.Point(6, 131);
+            this.groupBoxTVFBias.Location = new System.Drawing.Point(6, 96);
             this.groupBoxTVFBias.Name = "groupBoxTVFBias";
-            this.groupBoxTVFBias.Size = new System.Drawing.Size(111, 129);
+            this.groupBoxTVFBias.Size = new System.Drawing.Size(111, 97);
             this.groupBoxTVFBias.TabIndex = 54;
             this.groupBoxTVFBias.TabStop = false;
             // 
@@ -1511,12 +1500,12 @@
             this.trackBarTVFBiasLevel.AccessibleDescription = " TVF Bias Level";
             this.trackBarTVFBiasLevel.AccessibleName = " TVF Bias Level";
             this.trackBarTVFBiasLevel.LargeChange = 2;
-            this.trackBarTVFBiasLevel.Location = new System.Drawing.Point(57, 17);
+            this.trackBarTVFBiasLevel.Location = new System.Drawing.Point(57, 13);
             this.trackBarTVFBiasLevel.Maximum = 7;
             this.trackBarTVFBiasLevel.Minimum = -7;
             this.trackBarTVFBiasLevel.Name = "trackBarTVFBiasLevel";
             this.trackBarTVFBiasLevel.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFBiasLevel.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFBiasLevel.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFBiasLevel.TabIndex = 44;
             this.trackBarTVFBiasLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVFBiasLevel.ValueChanged += new System.EventHandler(this.trackBarTVFBiasLevel_ValueChanged);
@@ -1528,11 +1517,11 @@
             this.trackBarTVFBiasPoint.AccessibleDescription = " TVF Bias Point";
             this.trackBarTVFBiasPoint.AccessibleName = " TVF Bias Point";
             this.trackBarTVFBiasPoint.LargeChange = 10;
-            this.trackBarTVFBiasPoint.Location = new System.Drawing.Point(8, 17);
+            this.trackBarTVFBiasPoint.Location = new System.Drawing.Point(8, 13);
             this.trackBarTVFBiasPoint.Maximum = 127;
             this.trackBarTVFBiasPoint.Name = "trackBarTVFBiasPoint";
             this.trackBarTVFBiasPoint.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFBiasPoint.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFBiasPoint.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFBiasPoint.TabIndex = 42;
             this.trackBarTVFBiasPoint.TickFrequency = 10;
             this.trackBarTVFBiasPoint.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1544,7 +1533,7 @@
             // labelTVFBiasPt
             // 
             this.labelTVFBiasPt.AutoSize = true;
-            this.labelTVFBiasPt.Location = new System.Drawing.Point(11, 110);
+            this.labelTVFBiasPt.Location = new System.Drawing.Point(15, 77);
             this.labelTVFBiasPt.Name = "labelTVFBiasPt";
             this.labelTVFBiasPt.Size = new System.Drawing.Size(31, 13);
             this.labelTVFBiasPt.TabIndex = 43;
@@ -1554,7 +1543,7 @@
             // labelTVFBiasLevel
             // 
             this.labelTVFBiasLevel.AutoSize = true;
-            this.labelTVFBiasLevel.Location = new System.Drawing.Point(62, 110);
+            this.labelTVFBiasLevel.Location = new System.Drawing.Point(62, 77);
             this.labelTVFBiasLevel.Name = "labelTVFBiasLevel";
             this.labelTVFBiasLevel.Size = new System.Drawing.Size(33, 13);
             this.labelTVFBiasLevel.TabIndex = 45;
@@ -1566,11 +1555,11 @@
             this.trackBarTVFL3.AccessibleDescription = "TVF Envelope Level 3";
             this.trackBarTVFL3.AccessibleName = "TVF Envelope Level 3";
             this.trackBarTVFL3.LargeChange = 10;
-            this.trackBarTVFL3.Location = new System.Drawing.Point(457, 131);
+            this.trackBarTVFL3.Location = new System.Drawing.Point(438, 88);
             this.trackBarTVFL3.Maximum = 100;
             this.trackBarTVFL3.Name = "trackBarTVFL3";
             this.trackBarTVFL3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFL3.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVFL3.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFL3.TabIndex = 25;
             this.trackBarTVFL3.TickFrequency = 10;
             this.trackBarTVFL3.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1583,11 +1572,11 @@
             this.trackBarTVFL2.AccessibleDescription = "TVF Envelope Level 2";
             this.trackBarTVFL2.AccessibleName = "TVF Envelope Level 2";
             this.trackBarTVFL2.LargeChange = 10;
-            this.trackBarTVFL2.Location = new System.Drawing.Point(387, 131);
+            this.trackBarTVFL2.Location = new System.Drawing.Point(368, 88);
             this.trackBarTVFL2.Maximum = 100;
             this.trackBarTVFL2.Name = "trackBarTVFL2";
             this.trackBarTVFL2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFL2.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVFL2.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFL2.TabIndex = 24;
             this.trackBarTVFL2.TickFrequency = 10;
             this.trackBarTVFL2.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1600,11 +1589,11 @@
             this.trackBarTVFL1.AccessibleDescription = "TVF Envelope Level 1";
             this.trackBarTVFL1.AccessibleName = "TVF Envelope Level 1";
             this.trackBarTVFL1.LargeChange = 10;
-            this.trackBarTVFL1.Location = new System.Drawing.Point(325, 131);
+            this.trackBarTVFL1.Location = new System.Drawing.Point(306, 88);
             this.trackBarTVFL1.Maximum = 100;
             this.trackBarTVFL1.Name = "trackBarTVFL1";
             this.trackBarTVFL1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFL1.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVFL1.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFL1.TabIndex = 23;
             this.trackBarTVFL1.TickFrequency = 10;
             this.trackBarTVFL1.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1617,11 +1606,10 @@
             this.trackBarTVFT4.AccessibleDescription = "TVF Envelope Time 4";
             this.trackBarTVFT4.AccessibleName = "TVF Envelope Time 4";
             this.trackBarTVFT4.LargeChange = 10;
-            this.trackBarTVFT4.Location = new System.Drawing.Point(449, 220);
+            this.trackBarTVFT4.Location = new System.Drawing.Point(422, 146);
             this.trackBarTVFT4.Maximum = 100;
             this.trackBarTVFT4.Name = "trackBarTVFT4";
-            this.trackBarTVFT4.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVFT4.SmallChange = 10;
+            this.trackBarTVFT4.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVFT4.TabIndex = 22;
             this.trackBarTVFT4.TickFrequency = 10;
             this.trackBarTVFT4.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1634,11 +1622,10 @@
             this.trackBarTVFT3.AccessibleDescription = "TVF Envelope Time 3";
             this.trackBarTVFT3.AccessibleName = "TVF Envelope Time 3";
             this.trackBarTVFT3.LargeChange = 10;
-            this.trackBarTVFT3.Location = new System.Drawing.Point(366, 220);
+            this.trackBarTVFT3.Location = new System.Drawing.Point(352, 146);
             this.trackBarTVFT3.Maximum = 100;
             this.trackBarTVFT3.Name = "trackBarTVFT3";
-            this.trackBarTVFT3.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVFT3.SmallChange = 10;
+            this.trackBarTVFT3.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVFT3.TabIndex = 21;
             this.trackBarTVFT3.TickFrequency = 10;
             this.trackBarTVFT3.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1651,11 +1638,10 @@
             this.trackBarTVFT2.AccessibleDescription = "TVF Envelope Time 2";
             this.trackBarTVFT2.AccessibleName = "TVF Envelope Time 2";
             this.trackBarTVFT2.LargeChange = 10;
-            this.trackBarTVFT2.Location = new System.Drawing.Point(282, 220);
+            this.trackBarTVFT2.Location = new System.Drawing.Point(281, 146);
             this.trackBarTVFT2.Maximum = 100;
             this.trackBarTVFT2.Name = "trackBarTVFT2";
-            this.trackBarTVFT2.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVFT2.SmallChange = 10;
+            this.trackBarTVFT2.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVFT2.TabIndex = 20;
             this.trackBarTVFT2.TickFrequency = 10;
             this.trackBarTVFT2.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1668,11 +1654,10 @@
             this.trackBarTVFT1.AccessibleDescription = "TVF Envelope Time 1";
             this.trackBarTVFT1.AccessibleName = "TVF Envelope Time 1";
             this.trackBarTVFT1.LargeChange = 10;
-            this.trackBarTVFT1.Location = new System.Drawing.Point(202, 220);
+            this.trackBarTVFT1.Location = new System.Drawing.Point(213, 146);
             this.trackBarTVFT1.Maximum = 100;
             this.trackBarTVFT1.Name = "trackBarTVFT1";
-            this.trackBarTVFT1.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVFT1.SmallChange = 10;
+            this.trackBarTVFT1.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVFT1.TabIndex = 19;
             this.trackBarTVFT1.TickFrequency = 10;
             this.trackBarTVFT1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1683,7 +1668,7 @@
             // labelTVFKeyfollow
             // 
             this.labelTVFKeyfollow.AutoSize = true;
-            this.labelTVFKeyfollow.Location = new System.Drawing.Point(104, 114);
+            this.labelTVFKeyfollow.Location = new System.Drawing.Point(105, 80);
             this.labelTVFKeyfollow.Name = "labelTVFKeyfollow";
             this.labelTVFKeyfollow.Size = new System.Drawing.Size(52, 13);
             this.labelTVFKeyfollow.TabIndex = 18;
@@ -1695,11 +1680,11 @@
             this.trackBarTVFKeyfollow.AccessibleDescription = " TVF Keyfollow";
             this.trackBarTVFKeyfollow.AccessibleName = " TVF Keyfollow";
             this.trackBarTVFKeyfollow.LargeChange = 2;
-            this.trackBarTVFKeyfollow.Location = new System.Drawing.Point(109, 21);
+            this.trackBarTVFKeyfollow.Location = new System.Drawing.Point(107, 19);
             this.trackBarTVFKeyfollow.Maximum = 16;
             this.trackBarTVFKeyfollow.Name = "trackBarTVFKeyfollow";
             this.trackBarTVFKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFKeyfollow.TabIndex = 17;
             this.trackBarTVFKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVFKeyfollow.Value = 11;
@@ -1712,7 +1697,7 @@
             this.labelResonance.AccessibleDescription = "Pitch Envelope Velocity Sensitivity";
             this.labelResonance.AccessibleName = "Pitch Envelope Velocity Sensitivity";
             this.labelResonance.AutoSize = true;
-            this.labelResonance.Location = new System.Drawing.Point(47, 114);
+            this.labelResonance.Location = new System.Drawing.Point(47, 80);
             this.labelResonance.Name = "labelResonance";
             this.labelResonance.Size = new System.Drawing.Size(62, 13);
             this.labelResonance.TabIndex = 16;
@@ -1722,11 +1707,11 @@
             // 
             this.trackBarTVFResonance.AccessibleDescription = "TVF Resonance";
             this.trackBarTVFResonance.AccessibleName = "TVF Resonance";
-            this.trackBarTVFResonance.Location = new System.Drawing.Point(58, 21);
+            this.trackBarTVFResonance.Location = new System.Drawing.Point(56, 19);
             this.trackBarTVFResonance.Maximum = 30;
             this.trackBarTVFResonance.Name = "trackBarTVFResonance";
             this.trackBarTVFResonance.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFResonance.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFResonance.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFResonance.TabIndex = 15;
             this.trackBarTVFResonance.TickFrequency = 5;
             this.trackBarTVFResonance.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1737,7 +1722,7 @@
             // labelTVFCutoff
             // 
             this.labelTVFCutoff.AutoSize = true;
-            this.labelTVFCutoff.Location = new System.Drawing.Point(12, 114);
+            this.labelTVFCutoff.Location = new System.Drawing.Point(13, 80);
             this.labelTVFCutoff.Name = "labelTVFCutoff";
             this.labelTVFCutoff.Size = new System.Drawing.Size(35, 13);
             this.labelTVFCutoff.TabIndex = 14;
@@ -1753,7 +1738,7 @@
             this.trackBarTVFCutoff.Maximum = 100;
             this.trackBarTVFCutoff.Name = "trackBarTVFCutoff";
             this.trackBarTVFCutoff.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVFCutoff.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVFCutoff.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVFCutoff.TabIndex = 13;
             this.trackBarTVFCutoff.TickFrequency = 10;
             this.trackBarTVFCutoff.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1764,8 +1749,6 @@
             // groupBoxTVA
             // 
             this.groupBoxTVA.Controls.Add(this.labelColourTVASettings);
-            this.groupBoxTVA.Controls.Add(this.trackBarTVABiasLevel1);
-            this.groupBoxTVA.Controls.Add(this.trackBarTVABiasPoint1);
             this.groupBoxTVA.Controls.Add(this.labelTVFVeloKF);
             this.groupBoxTVA.Controls.Add(this.trackBarTVAVelocityKeyfollow);
             this.groupBoxTVA.Controls.Add(this.labelTVAT5);
@@ -1793,9 +1776,9 @@
             this.groupBoxTVA.Controls.Add(this.labelTVALevel);
             this.groupBoxTVA.Controls.Add(this.trackBarTVALevel);
             this.groupBoxTVA.Controls.Add(this.groupBoxTVABias);
-            this.groupBoxTVA.Location = new System.Drawing.Point(219, 579);
+            this.groupBoxTVA.Location = new System.Drawing.Point(219, 440);
             this.groupBoxTVA.Name = "groupBoxTVA";
-            this.groupBoxTVA.Size = new System.Drawing.Size(623, 271);
+            this.groupBoxTVA.Size = new System.Drawing.Size(574, 204);
             this.groupBoxTVA.TabIndex = 30;
             this.groupBoxTVA.TabStop = false;
             this.groupBoxTVA.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxTVA_Paint);
@@ -1810,45 +1793,10 @@
             this.labelColourTVASettings.TabIndex = 52;
             this.labelColourTVASettings.Text = "Time Variant Amplitude (TVA) settings";
             // 
-            // trackBarTVABiasLevel1
-            // 
-            this.trackBarTVABiasLevel1.AccessibleDescription = "TVA Bias Level 1";
-            this.trackBarTVABiasLevel1.AccessibleName = "TVA Bias Level 1";
-            this.trackBarTVABiasLevel1.LargeChange = 2;
-            this.trackBarTVABiasLevel1.Location = new System.Drawing.Point(58, 142);
-            this.trackBarTVABiasLevel1.Maximum = 0;
-            this.trackBarTVABiasLevel1.Minimum = -12;
-            this.trackBarTVABiasLevel1.Name = "trackBarTVABiasLevel1";
-            this.trackBarTVABiasLevel1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVABiasLevel1.Size = new System.Drawing.Size(45, 90);
-            this.trackBarTVABiasLevel1.TabIndex = 45;
-            this.trackBarTVABiasLevel1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarTVABiasLevel1.ValueChanged += new System.EventHandler(this.trackBarTVABiasLevel1_ValueChanged);
-            this.trackBarTVABiasLevel1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
-            this.trackBarTVABiasLevel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
-            // 
-            // trackBarTVABiasPoint1
-            // 
-            this.trackBarTVABiasPoint1.AccessibleDescription = "TVA Bias Point 1";
-            this.trackBarTVABiasPoint1.AccessibleName = "TVA Bias Point 1";
-            this.trackBarTVABiasPoint1.LargeChange = 10;
-            this.trackBarTVABiasPoint1.Location = new System.Drawing.Point(12, 140);
-            this.trackBarTVABiasPoint1.Maximum = 127;
-            this.trackBarTVABiasPoint1.Name = "trackBarTVABiasPoint1";
-            this.trackBarTVABiasPoint1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVABiasPoint1.Size = new System.Drawing.Size(45, 90);
-            this.trackBarTVABiasPoint1.TabIndex = 43;
-            this.trackBarTVABiasPoint1.TickFrequency = 10;
-            this.trackBarTVABiasPoint1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarTVABiasPoint1.Value = 64;
-            this.trackBarTVABiasPoint1.ValueChanged += new System.EventHandler(this.trackBarTVABiasPoint1_ValueChanged);
-            this.trackBarTVABiasPoint1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
-            this.trackBarTVABiasPoint1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
-            // 
             // labelTVFVeloKF
             // 
             this.labelTVFVeloKF.AutoSize = true;
-            this.labelTVFVeloKF.Location = new System.Drawing.Point(153, 110);
+            this.labelTVFVeloKF.Location = new System.Drawing.Point(155, 77);
             this.labelTVFVeloKF.Name = "labelTVFVeloKF";
             this.labelTVFVeloKF.Size = new System.Drawing.Size(44, 13);
             this.labelTVFVeloKF.TabIndex = 42;
@@ -1860,11 +1808,11 @@
             this.trackBarTVAVelocityKeyfollow.AccessibleDescription = "TVA Velocity Keyfollow";
             this.trackBarTVAVelocityKeyfollow.AccessibleName = "TVA Velocity Keyfollow";
             this.trackBarTVAVelocityKeyfollow.LargeChange = 2;
-            this.trackBarTVAVelocityKeyfollow.Location = new System.Drawing.Point(155, 21);
+            this.trackBarTVAVelocityKeyfollow.Location = new System.Drawing.Point(155, 14);
             this.trackBarTVAVelocityKeyfollow.Maximum = 4;
             this.trackBarTVAVelocityKeyfollow.Name = "trackBarTVAVelocityKeyfollow";
             this.trackBarTVAVelocityKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVAVelocityKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVAVelocityKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVAVelocityKeyfollow.TabIndex = 41;
             this.trackBarTVAVelocityKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVAVelocityKeyfollow.ValueChanged += new System.EventHandler(this.trackBarTVAVelocityKeyfollow_ValueChanged);
@@ -1874,7 +1822,7 @@
             // labelTVAT5
             // 
             this.labelTVAT5.AutoSize = true;
-            this.labelTVAT5.Location = new System.Drawing.Point(563, 248);
+            this.labelTVAT5.Location = new System.Drawing.Point(523, 184);
             this.labelTVAT5.Name = "labelTVAT5";
             this.labelTVAT5.Size = new System.Drawing.Size(20, 13);
             this.labelTVAT5.TabIndex = 39;
@@ -1885,11 +1833,10 @@
             this.trackBarTVAT5.AccessibleDescription = "TVA Envelope Time 5";
             this.trackBarTVAT5.AccessibleName = "TVA Envelope Time 4";
             this.trackBarTVAT5.LargeChange = 10;
-            this.trackBarTVAT5.Location = new System.Drawing.Point(529, 222);
+            this.trackBarTVAT5.Location = new System.Drawing.Point(494, 150);
             this.trackBarTVAT5.Maximum = 100;
             this.trackBarTVAT5.Name = "trackBarTVAT5";
-            this.trackBarTVAT5.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVAT5.SmallChange = 10;
+            this.trackBarTVAT5.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVAT5.TabIndex = 38;
             this.trackBarTVAT5.TickFrequency = 10;
             this.trackBarTVAT5.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -1900,7 +1847,7 @@
             // labelTVASust
             // 
             this.labelTVASust.AutoSize = true;
-            this.labelTVASust.Location = new System.Drawing.Point(498, 160);
+            this.labelTVASust.Location = new System.Drawing.Point(479, 113);
             this.labelTVASust.Name = "labelTVASust";
             this.labelTVASust.Size = new System.Drawing.Size(42, 13);
             this.labelTVASust.TabIndex = 37;
@@ -1909,7 +1856,7 @@
             // labelTVAL3
             // 
             this.labelTVAL3.AutoSize = true;
-            this.labelTVAL3.Location = new System.Drawing.Point(437, 160);
+            this.labelTVAL3.Location = new System.Drawing.Point(418, 113);
             this.labelTVAL3.Name = "labelTVAL3";
             this.labelTVAL3.Size = new System.Drawing.Size(19, 13);
             this.labelTVAL3.TabIndex = 36;
@@ -1918,7 +1865,7 @@
             // labelTVAL2
             // 
             this.labelTVAL2.AutoSize = true;
-            this.labelTVAL2.Location = new System.Drawing.Point(369, 160);
+            this.labelTVAL2.Location = new System.Drawing.Point(350, 113);
             this.labelTVAL2.Name = "labelTVAL2";
             this.labelTVAL2.Size = new System.Drawing.Size(19, 13);
             this.labelTVAL2.TabIndex = 35;
@@ -1927,7 +1874,7 @@
             // labelTVAL1
             // 
             this.labelTVAL1.AutoSize = true;
-            this.labelTVAL1.Location = new System.Drawing.Point(304, 160);
+            this.labelTVAL1.Location = new System.Drawing.Point(285, 113);
             this.labelTVAL1.Name = "labelTVAL1";
             this.labelTVAL1.Size = new System.Drawing.Size(19, 13);
             this.labelTVAL1.TabIndex = 34;
@@ -1936,7 +1883,7 @@
             // labelTVAT4
             // 
             this.labelTVAT4.AutoSize = true;
-            this.labelTVAT4.Location = new System.Drawing.Point(485, 248);
+            this.labelTVAT4.Location = new System.Drawing.Point(454, 184);
             this.labelTVAT4.Name = "labelTVAT4";
             this.labelTVAT4.Size = new System.Drawing.Size(20, 13);
             this.labelTVAT4.TabIndex = 33;
@@ -1945,7 +1892,7 @@
             // labelTVAT3
             // 
             this.labelTVAT3.AutoSize = true;
-            this.labelTVAT3.Location = new System.Drawing.Point(405, 248);
+            this.labelTVAT3.Location = new System.Drawing.Point(386, 184);
             this.labelTVAT3.Name = "labelTVAT3";
             this.labelTVAT3.Size = new System.Drawing.Size(20, 13);
             this.labelTVAT3.TabIndex = 32;
@@ -1954,7 +1901,7 @@
             // labelTVAT2
             // 
             this.labelTVAT2.AutoSize = true;
-            this.labelTVAT2.Location = new System.Drawing.Point(320, 248);
+            this.labelTVAT2.Location = new System.Drawing.Point(316, 184);
             this.labelTVAT2.Name = "labelTVAT2";
             this.labelTVAT2.Size = new System.Drawing.Size(20, 13);
             this.labelTVAT2.TabIndex = 31;
@@ -1963,7 +1910,7 @@
             // labelTVAT1
             // 
             this.labelTVAT1.AutoSize = true;
-            this.labelTVAT1.Location = new System.Drawing.Point(243, 248);
+            this.labelTVAT1.Location = new System.Drawing.Point(249, 184);
             this.labelTVAT1.Name = "labelTVAT1";
             this.labelTVAT1.Size = new System.Drawing.Size(20, 13);
             this.labelTVAT1.TabIndex = 30;
@@ -1974,11 +1921,11 @@
             this.trackBarTVASustain.AccessibleDescription = "TVA Envelope Sustain Level";
             this.trackBarTVASustain.AccessibleName = "TVA Envelope Sustain Level";
             this.trackBarTVASustain.LargeChange = 10;
-            this.trackBarTVASustain.Location = new System.Drawing.Point(538, 132);
+            this.trackBarTVASustain.Location = new System.Drawing.Point(519, 91);
             this.trackBarTVASustain.Maximum = 100;
             this.trackBarTVASustain.Name = "trackBarTVASustain";
             this.trackBarTVASustain.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVASustain.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVASustain.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVASustain.TabIndex = 26;
             this.trackBarTVASustain.TickFrequency = 10;
             this.trackBarTVASustain.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -1991,11 +1938,11 @@
             this.trackBarTVAL3.AccessibleDescription = "TVA Envelope Level 3";
             this.trackBarTVAL3.AccessibleName = "TVA Envelope Level 3";
             this.trackBarTVAL3.LargeChange = 10;
-            this.trackBarTVAL3.Location = new System.Drawing.Point(458, 132);
+            this.trackBarTVAL3.Location = new System.Drawing.Point(439, 91);
             this.trackBarTVAL3.Maximum = 100;
             this.trackBarTVAL3.Name = "trackBarTVAL3";
             this.trackBarTVAL3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVAL3.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVAL3.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVAL3.TabIndex = 25;
             this.trackBarTVAL3.TickFrequency = 10;
             this.trackBarTVAL3.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2008,11 +1955,11 @@
             this.trackBarTVAL2.AccessibleDescription = "TVA Envelope Level 2";
             this.trackBarTVAL2.AccessibleName = "TVA Envelope Level 2";
             this.trackBarTVAL2.LargeChange = 10;
-            this.trackBarTVAL2.Location = new System.Drawing.Point(388, 132);
+            this.trackBarTVAL2.Location = new System.Drawing.Point(369, 91);
             this.trackBarTVAL2.Maximum = 100;
             this.trackBarTVAL2.Name = "trackBarTVAL2";
             this.trackBarTVAL2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVAL2.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVAL2.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVAL2.TabIndex = 24;
             this.trackBarTVAL2.TickFrequency = 10;
             this.trackBarTVAL2.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2025,11 +1972,11 @@
             this.trackBarTVAL1.AccessibleDescription = "TVA Envelope Level 1";
             this.trackBarTVAL1.AccessibleName = "TVA Envelope Level 1";
             this.trackBarTVAL1.LargeChange = 10;
-            this.trackBarTVAL1.Location = new System.Drawing.Point(326, 132);
+            this.trackBarTVAL1.Location = new System.Drawing.Point(307, 91);
             this.trackBarTVAL1.Maximum = 100;
             this.trackBarTVAL1.Name = "trackBarTVAL1";
             this.trackBarTVAL1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVAL1.Size = new System.Drawing.Size(45, 88);
+            this.trackBarTVAL1.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVAL1.TabIndex = 23;
             this.trackBarTVAL1.TickFrequency = 10;
             this.trackBarTVAL1.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2042,11 +1989,10 @@
             this.trackBarTVAT4.AccessibleDescription = "TVA Envelope Time 4";
             this.trackBarTVAT4.AccessibleName = "TVA Envelope Time 4";
             this.trackBarTVAT4.LargeChange = 10;
-            this.trackBarTVAT4.Location = new System.Drawing.Point(448, 222);
+            this.trackBarTVAT4.Location = new System.Drawing.Point(429, 150);
             this.trackBarTVAT4.Maximum = 100;
             this.trackBarTVAT4.Name = "trackBarTVAT4";
-            this.trackBarTVAT4.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVAT4.SmallChange = 10;
+            this.trackBarTVAT4.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVAT4.TabIndex = 22;
             this.trackBarTVAT4.TickFrequency = 10;
             this.trackBarTVAT4.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -2059,11 +2005,10 @@
             this.trackBarTVAT3.AccessibleDescription = "TVA Envelope Time 3";
             this.trackBarTVAT3.AccessibleName = "TVA Envelope Time 3";
             this.trackBarTVAT3.LargeChange = 10;
-            this.trackBarTVAT3.Location = new System.Drawing.Point(365, 222);
+            this.trackBarTVAT3.Location = new System.Drawing.Point(359, 150);
             this.trackBarTVAT3.Maximum = 100;
             this.trackBarTVAT3.Name = "trackBarTVAT3";
-            this.trackBarTVAT3.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVAT3.SmallChange = 10;
+            this.trackBarTVAT3.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVAT3.TabIndex = 21;
             this.trackBarTVAT3.TickFrequency = 10;
             this.trackBarTVAT3.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -2076,11 +2021,10 @@
             this.trackBarTVAT2.AccessibleDescription = "TVA Envelope Time 2";
             this.trackBarTVAT2.AccessibleName = "TVA Envelope Time 2";
             this.trackBarTVAT2.LargeChange = 10;
-            this.trackBarTVAT2.Location = new System.Drawing.Point(283, 222);
+            this.trackBarTVAT2.Location = new System.Drawing.Point(288, 150);
             this.trackBarTVAT2.Maximum = 100;
             this.trackBarTVAT2.Name = "trackBarTVAT2";
-            this.trackBarTVAT2.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVAT2.SmallChange = 10;
+            this.trackBarTVAT2.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVAT2.TabIndex = 20;
             this.trackBarTVAT2.TickFrequency = 10;
             this.trackBarTVAT2.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -2093,11 +2037,10 @@
             this.trackBarTVAT1.AccessibleDescription = "TVA Envelope Time 1";
             this.trackBarTVAT1.AccessibleName = "TVA Envelope Time 1";
             this.trackBarTVAT1.LargeChange = 10;
-            this.trackBarTVAT1.Location = new System.Drawing.Point(204, 222);
+            this.trackBarTVAT1.Location = new System.Drawing.Point(220, 150);
             this.trackBarTVAT1.Maximum = 100;
             this.trackBarTVAT1.Name = "trackBarTVAT1";
-            this.trackBarTVAT1.Size = new System.Drawing.Size(83, 45);
-            this.trackBarTVAT1.SmallChange = 10;
+            this.trackBarTVAT1.Size = new System.Drawing.Size(72, 45);
             this.trackBarTVAT1.TabIndex = 19;
             this.trackBarTVAT1.TickFrequency = 10;
             this.trackBarTVAT1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -2108,7 +2051,7 @@
             // labelTVATimeKF
             // 
             this.labelTVATimeKF.AutoSize = true;
-            this.labelTVATimeKF.Location = new System.Drawing.Point(106, 110);
+            this.labelTVATimeKF.Location = new System.Drawing.Point(107, 77);
             this.labelTVATimeKF.Name = "labelTVATimeKF";
             this.labelTVATimeKF.Size = new System.Drawing.Size(46, 13);
             this.labelTVATimeKF.TabIndex = 18;
@@ -2120,11 +2063,11 @@
             this.trackBarTVATimeKeyfollow.AccessibleDescription = "TVA Time Keyfollow";
             this.trackBarTVATimeKeyfollow.AccessibleName = "TVA Time Keyfollow";
             this.trackBarTVATimeKeyfollow.LargeChange = 2;
-            this.trackBarTVATimeKeyfollow.Location = new System.Drawing.Point(109, 21);
+            this.trackBarTVATimeKeyfollow.Location = new System.Drawing.Point(109, 14);
             this.trackBarTVATimeKeyfollow.Maximum = 4;
             this.trackBarTVATimeKeyfollow.Name = "trackBarTVATimeKeyfollow";
             this.trackBarTVATimeKeyfollow.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVATimeKeyfollow.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVATimeKeyfollow.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVATimeKeyfollow.TabIndex = 17;
             this.trackBarTVATimeKeyfollow.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVATimeKeyfollow.ValueChanged += new System.EventHandler(this.trackBarTVATimeKeyfollow_ValueChanged);
@@ -2136,7 +2079,7 @@
             this.labelTVAVeloSens.AccessibleDescription = "TVA Velocity Sensitivity";
             this.labelTVAVeloSens.AccessibleName = "TVA Velocity Sensitivity";
             this.labelTVAVeloSens.AutoSize = true;
-            this.labelTVAVeloSens.Location = new System.Drawing.Point(50, 110);
+            this.labelTVAVeloSens.Location = new System.Drawing.Point(52, 77);
             this.labelTVAVeloSens.Name = "labelTVAVeloSens";
             this.labelTVAVeloSens.Size = new System.Drawing.Size(58, 13);
             this.labelTVAVeloSens.TabIndex = 16;
@@ -2147,11 +2090,11 @@
             this.trackBarTVAVeloSensitivity.AccessibleDescription = "TVA Envelope Velocity Sensitivity";
             this.trackBarTVAVeloSensitivity.AccessibleName = "TVA Envelope Velocity Sensitivity";
             this.trackBarTVAVeloSensitivity.LargeChange = 10;
-            this.trackBarTVAVeloSensitivity.Location = new System.Drawing.Point(58, 21);
+            this.trackBarTVAVeloSensitivity.Location = new System.Drawing.Point(58, 14);
             this.trackBarTVAVeloSensitivity.Maximum = 100;
             this.trackBarTVAVeloSensitivity.Name = "trackBarTVAVeloSensitivity";
             this.trackBarTVAVeloSensitivity.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVAVeloSensitivity.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVAVeloSensitivity.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVAVeloSensitivity.TabIndex = 15;
             this.trackBarTVAVeloSensitivity.TickFrequency = 10;
             this.trackBarTVAVeloSensitivity.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2164,10 +2107,9 @@
             this.labelTVALevel.AccessibleDescription = "TVA Level";
             this.labelTVALevel.AccessibleName = "TVA Level";
             this.labelTVALevel.AutoSize = true;
-            this.labelTVALevel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelTVALevel.Location = new System.Drawing.Point(15, 109);
+            this.labelTVALevel.Location = new System.Drawing.Point(13, 77);
             this.labelTVALevel.Name = "labelTVALevel";
-            this.labelTVALevel.Size = new System.Drawing.Size(38, 15);
+            this.labelTVALevel.Size = new System.Drawing.Size(40, 13);
             this.labelTVALevel.TabIndex = 14;
             this.labelTVALevel.Text = "LEVEL";
             this.labelTVALevel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2177,11 +2119,11 @@
             this.trackBarTVALevel.AccessibleDescription = "TVA Level";
             this.trackBarTVALevel.AccessibleName = "TVA Level";
             this.trackBarTVALevel.LargeChange = 10;
-            this.trackBarTVALevel.Location = new System.Drawing.Point(12, 19);
+            this.trackBarTVALevel.Location = new System.Drawing.Point(12, 14);
             this.trackBarTVALevel.Maximum = 100;
             this.trackBarTVALevel.Name = "trackBarTVALevel";
             this.trackBarTVALevel.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVALevel.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVALevel.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVALevel.TabIndex = 13;
             this.trackBarTVALevel.TickFrequency = 10;
             this.trackBarTVALevel.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2192,15 +2134,17 @@
             // groupBoxTVABias
             // 
             this.groupBoxTVABias.Controls.Add(this.labelTVABiasSettings);
+            this.groupBoxTVABias.Controls.Add(this.trackBarTVABiasPoint1);
+            this.groupBoxTVABias.Controls.Add(this.trackBarTVABiasLevel1);
             this.groupBoxTVABias.Controls.Add(this.trackBarTVABiasLevel2);
             this.groupBoxTVABias.Controls.Add(this.labelTVABiasL2);
             this.groupBoxTVABias.Controls.Add(this.labelTVABiasL1);
             this.groupBoxTVABias.Controls.Add(this.trackBarTVABiasPoint2);
             this.groupBoxTVABias.Controls.Add(this.labelTVABiasPt2);
             this.groupBoxTVABias.Controls.Add(this.labelTVABiasPt1);
-            this.groupBoxTVABias.Location = new System.Drawing.Point(6, 129);
+            this.groupBoxTVABias.Location = new System.Drawing.Point(6, 98);
             this.groupBoxTVABias.Name = "groupBoxTVABias";
-            this.groupBoxTVABias.Size = new System.Drawing.Size(195, 133);
+            this.groupBoxTVABias.Size = new System.Drawing.Size(195, 100);
             this.groupBoxTVABias.TabIndex = 51;
             this.groupBoxTVABias.TabStop = false;
             // 
@@ -2213,6 +2157,41 @@
             this.labelTVABiasSettings.TabIndex = 75;
             this.labelTVABiasSettings.Text = "TVA Bias settings";
             // 
+            // trackBarTVABiasPoint1
+            // 
+            this.trackBarTVABiasPoint1.AccessibleDescription = "TVA Bias Point 1";
+            this.trackBarTVABiasPoint1.AccessibleName = "TVA Bias Point 1";
+            this.trackBarTVABiasPoint1.LargeChange = 10;
+            this.trackBarTVABiasPoint1.Location = new System.Drawing.Point(6, 13);
+            this.trackBarTVABiasPoint1.Maximum = 127;
+            this.trackBarTVABiasPoint1.Name = "trackBarTVABiasPoint1";
+            this.trackBarTVABiasPoint1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarTVABiasPoint1.Size = new System.Drawing.Size(45, 64);
+            this.trackBarTVABiasPoint1.TabIndex = 43;
+            this.trackBarTVABiasPoint1.TickFrequency = 10;
+            this.trackBarTVABiasPoint1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarTVABiasPoint1.Value = 64;
+            this.trackBarTVABiasPoint1.ValueChanged += new System.EventHandler(this.trackBarTVABiasPoint1_ValueChanged);
+            this.trackBarTVABiasPoint1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
+            this.trackBarTVABiasPoint1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
+            // 
+            // trackBarTVABiasLevel1
+            // 
+            this.trackBarTVABiasLevel1.AccessibleDescription = "TVA Bias Level 1";
+            this.trackBarTVABiasLevel1.AccessibleName = "TVA Bias Level 1";
+            this.trackBarTVABiasLevel1.LargeChange = 2;
+            this.trackBarTVABiasLevel1.Location = new System.Drawing.Point(51, 13);
+            this.trackBarTVABiasLevel1.Maximum = 0;
+            this.trackBarTVABiasLevel1.Minimum = -12;
+            this.trackBarTVABiasLevel1.Name = "trackBarTVABiasLevel1";
+            this.trackBarTVABiasLevel1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarTVABiasLevel1.Size = new System.Drawing.Size(45, 64);
+            this.trackBarTVABiasLevel1.TabIndex = 45;
+            this.trackBarTVABiasLevel1.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarTVABiasLevel1.ValueChanged += new System.EventHandler(this.trackBarTVABiasLevel1_ValueChanged);
+            this.trackBarTVABiasLevel1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
+            this.trackBarTVABiasLevel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
+            // 
             // trackBarTVABiasLevel2
             // 
             this.trackBarTVABiasLevel2.AccessibleDescription = "TVA Bias Level 2";
@@ -2223,7 +2202,7 @@
             this.trackBarTVABiasLevel2.Minimum = -12;
             this.trackBarTVABiasLevel2.Name = "trackBarTVABiasLevel2";
             this.trackBarTVABiasLevel2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVABiasLevel2.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVABiasLevel2.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVABiasLevel2.TabIndex = 45;
             this.trackBarTVABiasLevel2.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarTVABiasLevel2.ValueChanged += new System.EventHandler(this.trackBarTVABiasLevel2_ValueChanged);
@@ -2235,7 +2214,7 @@
             this.labelTVABiasL2.AccessibleDescription = "TVA Bias Level 2";
             this.labelTVABiasL2.AccessibleName = "TVA Bias Level 2";
             this.labelTVABiasL2.AutoSize = true;
-            this.labelTVABiasL2.Location = new System.Drawing.Point(147, 106);
+            this.labelTVABiasL2.Location = new System.Drawing.Point(147, 76);
             this.labelTVABiasL2.Name = "labelTVABiasL2";
             this.labelTVABiasL2.Size = new System.Drawing.Size(42, 13);
             this.labelTVABiasL2.TabIndex = 46;
@@ -2246,7 +2225,7 @@
             this.labelTVABiasL1.AccessibleDescription = "TVA Bias Level 1";
             this.labelTVABiasL1.AccessibleName = "TVA Bias Level 1";
             this.labelTVABiasL1.AutoSize = true;
-            this.labelTVABiasL1.Location = new System.Drawing.Point(52, 106);
+            this.labelTVABiasL1.Location = new System.Drawing.Point(52, 76);
             this.labelTVABiasL1.Name = "labelTVABiasL1";
             this.labelTVABiasL1.Size = new System.Drawing.Size(42, 13);
             this.labelTVABiasL1.TabIndex = 46;
@@ -2257,11 +2236,11 @@
             this.trackBarTVABiasPoint2.AccessibleDescription = "TVA Bias Point 2";
             this.trackBarTVABiasPoint2.AccessibleName = "TVA Bias Point 2";
             this.trackBarTVABiasPoint2.LargeChange = 10;
-            this.trackBarTVABiasPoint2.Location = new System.Drawing.Point(101, 11);
+            this.trackBarTVABiasPoint2.Location = new System.Drawing.Point(101, 13);
             this.trackBarTVABiasPoint2.Maximum = 127;
             this.trackBarTVABiasPoint2.Name = "trackBarTVABiasPoint2";
             this.trackBarTVABiasPoint2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarTVABiasPoint2.Size = new System.Drawing.Size(45, 90);
+            this.trackBarTVABiasPoint2.Size = new System.Drawing.Size(45, 64);
             this.trackBarTVABiasPoint2.TabIndex = 43;
             this.trackBarTVABiasPoint2.TickFrequency = 10;
             this.trackBarTVABiasPoint2.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2275,7 +2254,7 @@
             this.labelTVABiasPt2.AccessibleDescription = "TVA Bias Point 2";
             this.labelTVABiasPt2.AccessibleName = "TVA Bias Point 2";
             this.labelTVABiasPt2.AutoSize = true;
-            this.labelTVABiasPt2.Location = new System.Drawing.Point(101, 106);
+            this.labelTVABiasPt2.Location = new System.Drawing.Point(101, 76);
             this.labelTVABiasPt2.Name = "labelTVABiasPt2";
             this.labelTVABiasPt2.Size = new System.Drawing.Size(40, 13);
             this.labelTVABiasPt2.TabIndex = 44;
@@ -2287,7 +2266,7 @@
             this.labelTVABiasPt1.AccessibleDescription = "TVA Bias Point 1";
             this.labelTVABiasPt1.AccessibleName = "TVA Bias Point 1";
             this.labelTVABiasPt1.AutoSize = true;
-            this.labelTVABiasPt1.Location = new System.Drawing.Point(6, 106);
+            this.labelTVABiasPt1.Location = new System.Drawing.Point(6, 76);
             this.labelTVABiasPt1.Name = "labelTVABiasPt1";
             this.labelTVABiasPt1.Size = new System.Drawing.Size(40, 13);
             this.labelTVABiasPt1.TabIndex = 44;
@@ -2300,7 +2279,7 @@
             this.buttonRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonRefresh.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.Location = new System.Drawing.Point(141, 96);
+            this.buttonRefresh.Location = new System.Drawing.Point(133, 99);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(24, 24);
             this.buttonRefresh.TabIndex = 49;
@@ -2315,7 +2294,7 @@
             this.buttonReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonReset.Image = ((System.Drawing.Image)(resources.GetObject("buttonReset.Image")));
-            this.buttonReset.Location = new System.Drawing.Point(20, 96);
+            this.buttonReset.Location = new System.Drawing.Point(12, 99);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(24, 24);
             this.buttonReset.TabIndex = 50;
@@ -2331,7 +2310,7 @@
             this.buttonSaveTimbreAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonSaveTimbreAs.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonSaveTimbreAs.Image = global::MT32Edit_legacy.Properties.Resources.SaveAs;
-            this.buttonSaveTimbreAs.Location = new System.Drawing.Point(141, 125);
+            this.buttonSaveTimbreAs.Location = new System.Drawing.Point(133, 131);
             this.buttonSaveTimbreAs.Name = "buttonSaveTimbreAs";
             this.buttonSaveTimbreAs.Size = new System.Drawing.Size(24, 24);
             this.buttonSaveTimbreAs.TabIndex = 54;
@@ -2347,7 +2326,7 @@
             this.buttonQuickSaveTimbre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonQuickSaveTimbre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonQuickSaveTimbre.Image = global::MT32Edit_legacy.Properties.Resources.Save;
-            this.buttonQuickSaveTimbre.Location = new System.Drawing.Point(83, 125);
+            this.buttonQuickSaveTimbre.Location = new System.Drawing.Point(75, 131);
             this.buttonQuickSaveTimbre.Name = "buttonQuickSaveTimbre";
             this.buttonQuickSaveTimbre.Size = new System.Drawing.Size(24, 24);
             this.buttonQuickSaveTimbre.TabIndex = 55;
@@ -2363,7 +2342,7 @@
             this.buttonLoadTimbre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonLoadTimbre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonLoadTimbre.Image = ((System.Drawing.Image)(resources.GetObject("buttonLoadTimbre.Image")));
-            this.buttonLoadTimbre.Location = new System.Drawing.Point(20, 126);
+            this.buttonLoadTimbre.Location = new System.Drawing.Point(12, 132);
             this.buttonLoadTimbre.Name = "buttonLoadTimbre";
             this.buttonLoadTimbre.Size = new System.Drawing.Size(24, 24);
             this.buttonLoadTimbre.TabIndex = 56;
@@ -2379,7 +2358,7 @@
             this.buttonPastePartial.Enabled = false;
             this.buttonPastePartial.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonPastePartial.Image = ((System.Drawing.Image)(resources.GetObject("buttonPastePartial.Image")));
-            this.buttonPastePartial.Location = new System.Drawing.Point(141, 176);
+            this.buttonPastePartial.Location = new System.Drawing.Point(141, 182);
             this.buttonPastePartial.Name = "buttonPastePartial";
             this.buttonPastePartial.Size = new System.Drawing.Size(24, 24);
             this.buttonPastePartial.TabIndex = 102;
@@ -2394,7 +2373,7 @@
             this.buttonCopyPartial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonCopyPartial.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonCopyPartial.Image = ((System.Drawing.Image)(resources.GetObject("buttonCopyPartial.Image")));
-            this.buttonCopyPartial.Location = new System.Drawing.Point(141, 149);
+            this.buttonCopyPartial.Location = new System.Drawing.Point(141, 155);
             this.buttonCopyPartial.Name = "buttonCopyPartial";
             this.buttonCopyPartial.Size = new System.Drawing.Size(24, 24);
             this.buttonCopyPartial.TabIndex = 101;
@@ -2410,7 +2389,7 @@
             this.buttonUndo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonUndo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
-            this.buttonUndo.Location = new System.Drawing.Point(83, 153);
+            this.buttonUndo.Location = new System.Drawing.Point(75, 165);
             this.buttonUndo.Name = "buttonUndo";
             this.buttonUndo.Size = new System.Drawing.Size(24, 24);
             this.buttonUndo.TabIndex = 95;
@@ -2427,7 +2406,7 @@
             this.buttonRedo.Enabled = false;
             this.buttonRedo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonRedo.Image = global::MT32Edit_legacy.Properties.Resources.Redo;
-            this.buttonRedo.Location = new System.Drawing.Point(141, 153);
+            this.buttonRedo.Location = new System.Drawing.Point(133, 165);
             this.buttonRedo.Name = "buttonRedo";
             this.buttonRedo.Size = new System.Drawing.Size(24, 24);
             this.buttonRedo.TabIndex = 97;
@@ -2439,10 +2418,10 @@
             // textBoxTimbreName
             // 
             this.textBoxTimbreName.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.textBoxTimbreName.Location = new System.Drawing.Point(102, 64);
+            this.textBoxTimbreName.Location = new System.Drawing.Point(92, 64);
             this.textBoxTimbreName.MaxLength = 10;
             this.textBoxTimbreName.Name = "textBoxTimbreName";
-            this.textBoxTimbreName.Size = new System.Drawing.Size(107, 27);
+            this.textBoxTimbreName.Size = new System.Drawing.Size(117, 27);
             this.textBoxTimbreName.TabIndex = 42;
             this.textBoxTimbreName.TextChanged += new System.EventHandler(this.textBoxTimbreName_TextChanged);
             // 
@@ -2460,7 +2439,7 @@
             this.checkBoxSustain.AutoSize = true;
             this.checkBoxSustain.Checked = true;
             this.checkBoxSustain.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSustain.Location = new System.Drawing.Point(21, 157);
+            this.checkBoxSustain.Location = new System.Drawing.Point(13, 169);
             this.checkBoxSustain.Name = "checkBoxSustain";
             this.checkBoxSustain.Size = new System.Drawing.Size(61, 17);
             this.checkBoxSustain.TabIndex = 44;
@@ -2489,9 +2468,9 @@
             "(PS)R",
             "(SP)R",
             "(PP)R"});
-            this.comboBoxPart12Struct.Location = new System.Drawing.Point(76, 23);
+            this.comboBoxPart12Struct.Location = new System.Drawing.Point(69, 23);
             this.comboBoxPart12Struct.Name = "comboBoxPart12Struct";
-            this.comboBoxPart12Struct.Size = new System.Drawing.Size(68, 21);
+            this.comboBoxPart12Struct.Size = new System.Drawing.Size(75, 21);
             this.comboBoxPart12Struct.TabIndex = 45;
             this.comboBoxPart12Struct.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxPart12Struct_DrawItem);
             this.comboBoxPart12Struct.SelectedIndexChanged += new System.EventHandler(this.comboBoxPart12Struct_SelectedIndexChanged);
@@ -2517,9 +2496,9 @@
             "(PS)R",
             "(SP)R",
             "(PP)R"});
-            this.comboBoxPart34Struct.Location = new System.Drawing.Point(76, 48);
+            this.comboBoxPart34Struct.Location = new System.Drawing.Point(69, 48);
             this.comboBoxPart34Struct.Name = "comboBoxPart34Struct";
-            this.comboBoxPart34Struct.Size = new System.Drawing.Size(68, 21);
+            this.comboBoxPart34Struct.Size = new System.Drawing.Size(75, 21);
             this.comboBoxPart34Struct.TabIndex = 46;
             this.comboBoxPart34Struct.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxPart34Struct_DrawItem);
             this.comboBoxPart34Struct.SelectedIndexChanged += new System.EventHandler(this.comboBoxPart34Struct_SelectedIndexChanged);
@@ -2528,7 +2507,7 @@
             // labelPartial12
             // 
             this.labelPartial12.AutoSize = true;
-            this.labelPartial12.Location = new System.Drawing.Point(6, 25);
+            this.labelPartial12.Location = new System.Drawing.Point(4, 26);
             this.labelPartial12.Name = "labelPartial12";
             this.labelPartial12.Size = new System.Drawing.Size(63, 13);
             this.labelPartial12.TabIndex = 47;
@@ -2537,28 +2516,16 @@
             // labelPartial34
             // 
             this.labelPartial34.AutoSize = true;
-            this.labelPartial34.Location = new System.Drawing.Point(6, 50);
+            this.labelPartial34.Location = new System.Drawing.Point(4, 51);
             this.labelPartial34.Name = "labelPartial34";
             this.labelPartial34.Size = new System.Drawing.Size(63, 13);
             this.labelPartial34.TabIndex = 48;
             this.labelPartial34.Text = "Partial 3 && 4";
             // 
-            // checkBoxShowLabels
-            // 
-            this.checkBoxShowLabels.AutoSize = true;
-            this.checkBoxShowLabels.Location = new System.Drawing.Point(7, 22);
-            this.checkBoxShowLabels.Name = "checkBoxShowLabels";
-            this.checkBoxShowLabels.Size = new System.Drawing.Size(83, 17);
-            this.checkBoxShowLabels.TabIndex = 72;
-            this.checkBoxShowLabels.Text = "Show labels";
-            this.checkBoxShowLabels.UseVisualStyleBackColor = true;
-            this.checkBoxShowLabels.CheckedChanged += new System.EventHandler(this.checkBoxShowLabels_CheckedChanged);
-            this.checkBoxShowLabels.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
-            // 
             // checkBoxShowAllPartials
             // 
             this.checkBoxShowAllPartials.AutoSize = true;
-            this.checkBoxShowAllPartials.Location = new System.Drawing.Point(93, 22);
+            this.checkBoxShowAllPartials.Location = new System.Drawing.Point(97, 24);
             this.checkBoxShowAllPartials.Name = "checkBoxShowAllPartials";
             this.checkBoxShowAllPartials.Size = new System.Drawing.Size(102, 17);
             this.checkBoxShowAllPartials.TabIndex = 73;
@@ -2582,46 +2549,28 @@
             this.labelHeading.TabIndex = 75;
             this.labelHeading.Text = "Timbre Editor";
             // 
-            // pictureBoxTVATVF
-            // 
-            this.pictureBoxTVATVF.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxTVATVF.Image")));
-            this.pictureBoxTVATVF.Location = new System.Drawing.Point(9, 779);
-            this.pictureBoxTVATVF.Name = "pictureBoxTVATVF";
-            this.pictureBoxTVATVF.Size = new System.Drawing.Size(202, 71);
-            this.pictureBoxTVATVF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxTVATVF.TabIndex = 77;
-            this.pictureBoxTVATVF.TabStop = false;
-            // 
-            // labelPitchEnvGraph
-            // 
-            this.labelPitchEnvGraph.AutoSize = true;
-            this.labelPitchEnvGraph.Location = new System.Drawing.Point(12, 672);
-            this.labelPitchEnvGraph.Name = "labelPitchEnvGraph";
-            this.labelPitchEnvGraph.Size = new System.Drawing.Size(163, 13);
-            this.labelPitchEnvGraph.TabIndex = 78;
-            this.labelPitchEnvGraph.Text = "Pitch envelope graph parameters";
-            this.labelPitchEnvGraph.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelTVATVFEnvGraph
-            // 
-            this.labelTVATVFEnvGraph.AutoSize = true;
-            this.labelTVATVFEnvGraph.Location = new System.Drawing.Point(14, 764);
-            this.labelTVATVFEnvGraph.Name = "labelTVATVFEnvGraph";
-            this.labelTVATVFEnvGraph.Size = new System.Drawing.Size(185, 13);
-            this.labelTVATVFEnvGraph.TabIndex = 79;
-            this.labelTVATVFEnvGraph.Text = "TVA/TVF envelope graph parameters";
-            this.labelTVATVFEnvGraph.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // groupBoxEnvGraph
             // 
-            this.groupBoxEnvGraph.Controls.Add(this.labelEnvGraphSettings);
             this.groupBoxEnvGraph.Controls.Add(this.checkBoxShowLabels);
+            this.groupBoxEnvGraph.Controls.Add(this.labelEnvGraphSettings);
             this.groupBoxEnvGraph.Controls.Add(this.checkBoxShowAllPartials);
-            this.groupBoxEnvGraph.Location = new System.Drawing.Point(9, 614);
+            this.groupBoxEnvGraph.Location = new System.Drawing.Point(8, 594);
             this.groupBoxEnvGraph.Name = "groupBoxEnvGraph";
-            this.groupBoxEnvGraph.Size = new System.Drawing.Size(202, 51);
+            this.groupBoxEnvGraph.Size = new System.Drawing.Size(202, 50);
             this.groupBoxEnvGraph.TabIndex = 80;
             this.groupBoxEnvGraph.TabStop = false;
+            // 
+            // checkBoxShowLabels
+            // 
+            this.checkBoxShowLabels.AutoSize = true;
+            this.checkBoxShowLabels.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.checkBoxShowLabels.Location = new System.Drawing.Point(10, 24);
+            this.checkBoxShowLabels.Name = "checkBoxShowLabels";
+            this.checkBoxShowLabels.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxShowLabels.TabIndex = 75;
+            this.checkBoxShowLabels.Text = "Show labels";
+            this.checkBoxShowLabels.UseVisualStyleBackColor = true;
+            this.checkBoxShowLabels.CheckedChanged += new System.EventHandler(this.checkBoxShowLabels_CheckedChanged);
             // 
             // labelEnvGraphSettings
             // 
@@ -2632,20 +2581,10 @@
             this.labelEnvGraphSettings.TabIndex = 74;
             this.labelEnvGraphSettings.Text = "Envelope graph settings";
             // 
-            // pictureBoxPitch
-            // 
-            this.pictureBoxPitch.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxPitch.Image")));
-            this.pictureBoxPitch.Location = new System.Drawing.Point(9, 687);
-            this.pictureBoxPitch.Name = "pictureBoxPitch";
-            this.pictureBoxPitch.Size = new System.Drawing.Size(202, 70);
-            this.pictureBoxPitch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxPitch.TabIndex = 81;
-            this.pictureBoxPitch.TabStop = false;
-            // 
             // labelRefresh
             // 
             this.labelRefresh.AutoSize = true;
-            this.labelRefresh.Location = new System.Drawing.Point(164, 101);
+            this.labelRefresh.Location = new System.Drawing.Point(163, 105);
             this.labelRefresh.Name = "labelRefresh";
             this.labelRefresh.Size = new System.Drawing.Size(44, 13);
             this.labelRefresh.TabIndex = 82;
@@ -2654,7 +2593,7 @@
             // labelNewTimbre
             // 
             this.labelNewTimbre.AutoSize = true;
-            this.labelNewTimbre.Location = new System.Drawing.Point(45, 100);
+            this.labelNewTimbre.Location = new System.Drawing.Point(37, 103);
             this.labelNewTimbre.Name = "labelNewTimbre";
             this.labelNewTimbre.Size = new System.Drawing.Size(64, 13);
             this.labelNewTimbre.TabIndex = 83;
@@ -2663,7 +2602,7 @@
             // labelSaveAs
             // 
             this.labelSaveAs.AutoSize = true;
-            this.labelSaveAs.Location = new System.Drawing.Point(164, 129);
+            this.labelSaveAs.Location = new System.Drawing.Point(163, 135);
             this.labelSaveAs.Name = "labelSaveAs";
             this.labelSaveAs.Size = new System.Drawing.Size(47, 13);
             this.labelSaveAs.TabIndex = 84;
@@ -2672,7 +2611,7 @@
             // labelSave
             // 
             this.labelSave.AutoSize = true;
-            this.labelSave.Location = new System.Drawing.Point(108, 129);
+            this.labelSave.Location = new System.Drawing.Point(100, 135);
             this.labelSave.Name = "labelSave";
             this.labelSave.Size = new System.Drawing.Size(32, 13);
             this.labelSave.TabIndex = 85;
@@ -2681,7 +2620,7 @@
             // labelLoad
             // 
             this.labelLoad.AutoSize = true;
-            this.labelLoad.Location = new System.Drawing.Point(46, 129);
+            this.labelLoad.Location = new System.Drawing.Point(38, 135);
             this.labelLoad.Name = "labelLoad";
             this.labelLoad.Size = new System.Drawing.Size(31, 13);
             this.labelLoad.TabIndex = 86;
@@ -2736,7 +2675,7 @@
             // 
             this.labelPartialType.AutoSize = true;
             this.labelPartialType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
-            this.labelPartialType.Location = new System.Drawing.Point(30, 77);
+            this.labelPartialType.Location = new System.Drawing.Point(14, 78);
             this.labelPartialType.Name = "labelPartialType";
             this.labelPartialType.Size = new System.Drawing.Size(165, 15);
             this.labelPartialType.TabIndex = 93;
@@ -2767,9 +2706,9 @@
             this.groupBoxPartialStructure.Controls.Add(this.labelPartial34);
             this.groupBoxPartialStructure.Controls.Add(this.pictureBoxPartial34);
             this.groupBoxPartialStructure.Controls.Add(this.pictureBoxPartial12);
-            this.groupBoxPartialStructure.Location = new System.Drawing.Point(9, 182);
+            this.groupBoxPartialStructure.Location = new System.Drawing.Point(8, 195);
             this.groupBoxPartialStructure.Name = "groupBoxPartialStructure";
-            this.groupBoxPartialStructure.Size = new System.Drawing.Size(201, 205);
+            this.groupBoxPartialStructure.Size = new System.Drawing.Size(202, 213);
             this.groupBoxPartialStructure.TabIndex = 94;
             this.groupBoxPartialStructure.TabStop = false;
             this.groupBoxPartialStructure.Text = "Partial Structure";
@@ -2777,7 +2716,7 @@
             // radioButtonPartial4
             // 
             this.radioButtonPartial4.AutoSize = true;
-            this.radioButtonPartial4.Location = new System.Drawing.Point(108, 168);
+            this.radioButtonPartial4.Location = new System.Drawing.Point(108, 174);
             this.radioButtonPartial4.Name = "radioButtonPartial4";
             this.radioButtonPartial4.Size = new System.Drawing.Size(31, 17);
             this.radioButtonPartial4.TabIndex = 109;
@@ -2789,7 +2728,7 @@
             // radioButtonPartial3
             // 
             this.radioButtonPartial3.AutoSize = true;
-            this.radioButtonPartial3.Location = new System.Drawing.Point(76, 168);
+            this.radioButtonPartial3.Location = new System.Drawing.Point(76, 174);
             this.radioButtonPartial3.Name = "radioButtonPartial3";
             this.radioButtonPartial3.Size = new System.Drawing.Size(31, 17);
             this.radioButtonPartial3.TabIndex = 108;
@@ -2801,7 +2740,7 @@
             // radioButtonPartial2
             // 
             this.radioButtonPartial2.AutoSize = true;
-            this.radioButtonPartial2.Location = new System.Drawing.Point(44, 168);
+            this.radioButtonPartial2.Location = new System.Drawing.Point(44, 174);
             this.radioButtonPartial2.Name = "radioButtonPartial2";
             this.radioButtonPartial2.Size = new System.Drawing.Size(31, 17);
             this.radioButtonPartial2.TabIndex = 107;
@@ -2813,7 +2752,7 @@
             // radioButtonPartial1
             // 
             this.radioButtonPartial1.AutoSize = true;
-            this.radioButtonPartial1.Location = new System.Drawing.Point(13, 168);
+            this.radioButtonPartial1.Location = new System.Drawing.Point(13, 174);
             this.radioButtonPartial1.Name = "radioButtonPartial1";
             this.radioButtonPartial1.Size = new System.Drawing.Size(31, 17);
             this.radioButtonPartial1.TabIndex = 106;
@@ -2825,7 +2764,7 @@
             // labelPaste
             // 
             this.labelPaste.AutoSize = true;
-            this.labelPaste.Location = new System.Drawing.Point(166, 180);
+            this.labelPaste.Location = new System.Drawing.Point(166, 186);
             this.labelPaste.Name = "labelPaste";
             this.labelPaste.Size = new System.Drawing.Size(34, 13);
             this.labelPaste.TabIndex = 105;
@@ -2834,7 +2773,7 @@
             // labelCopy
             // 
             this.labelCopy.AutoSize = true;
-            this.labelCopy.Location = new System.Drawing.Point(166, 153);
+            this.labelCopy.Location = new System.Drawing.Point(166, 159);
             this.labelCopy.Name = "labelCopy";
             this.labelCopy.Size = new System.Drawing.Size(31, 13);
             this.labelCopy.TabIndex = 104;
@@ -2844,7 +2783,7 @@
             // 
             this.labelPartialWarning.AutoSize = true;
             this.labelPartialWarning.ForeColor = System.Drawing.Color.Yellow;
-            this.labelPartialWarning.Location = new System.Drawing.Point(12, 132);
+            this.labelPartialWarning.Location = new System.Drawing.Point(12, 139);
             this.labelPartialWarning.Name = "labelPartialWarning";
             this.labelPartialWarning.Size = new System.Drawing.Size(153, 13);
             this.labelPartialWarning.TabIndex = 103;
@@ -2854,7 +2793,7 @@
             // checkBoxPartial4
             // 
             this.checkBoxPartial4.AutoSize = true;
-            this.checkBoxPartial4.Location = new System.Drawing.Point(108, 115);
+            this.checkBoxPartial4.Location = new System.Drawing.Point(108, 122);
             this.checkBoxPartial4.Name = "checkBoxPartial4";
             this.checkBoxPartial4.Size = new System.Drawing.Size(32, 17);
             this.checkBoxPartial4.TabIndex = 100;
@@ -2866,7 +2805,7 @@
             // checkBoxPartial3
             // 
             this.checkBoxPartial3.AutoSize = true;
-            this.checkBoxPartial3.Location = new System.Drawing.Point(76, 115);
+            this.checkBoxPartial3.Location = new System.Drawing.Point(76, 122);
             this.checkBoxPartial3.Name = "checkBoxPartial3";
             this.checkBoxPartial3.Size = new System.Drawing.Size(32, 17);
             this.checkBoxPartial3.TabIndex = 99;
@@ -2878,7 +2817,7 @@
             // checkBoxPartial2
             // 
             this.checkBoxPartial2.AutoSize = true;
-            this.checkBoxPartial2.Location = new System.Drawing.Point(44, 115);
+            this.checkBoxPartial2.Location = new System.Drawing.Point(44, 122);
             this.checkBoxPartial2.Name = "checkBoxPartial2";
             this.checkBoxPartial2.Size = new System.Drawing.Size(32, 17);
             this.checkBoxPartial2.TabIndex = 98;
@@ -2890,7 +2829,7 @@
             // checkBoxPartial1
             // 
             this.checkBoxPartial1.AutoSize = true;
-            this.checkBoxPartial1.Location = new System.Drawing.Point(13, 115);
+            this.checkBoxPartial1.Location = new System.Drawing.Point(13, 122);
             this.checkBoxPartial1.Name = "checkBoxPartial1";
             this.checkBoxPartial1.Size = new System.Drawing.Size(32, 17);
             this.checkBoxPartial1.TabIndex = 97;
@@ -2902,7 +2841,7 @@
             // labelEnablePartials
             // 
             this.labelEnablePartials.AutoSize = true;
-            this.labelEnablePartials.Location = new System.Drawing.Point(8, 97);
+            this.labelEnablePartials.Location = new System.Drawing.Point(8, 104);
             this.labelEnablePartials.Name = "labelEnablePartials";
             this.labelEnablePartials.Size = new System.Drawing.Size(77, 13);
             this.labelEnablePartials.TabIndex = 96;
@@ -2911,7 +2850,7 @@
             // labelEditPartialNo
             // 
             this.labelEditPartialNo.AutoSize = true;
-            this.labelEditPartialNo.Location = new System.Drawing.Point(8, 153);
+            this.labelEditPartialNo.Location = new System.Drawing.Point(8, 159);
             this.labelEditPartialNo.Name = "labelEditPartialNo";
             this.labelEditPartialNo.Size = new System.Drawing.Size(77, 13);
             this.labelEditPartialNo.TabIndex = 95;
@@ -2920,7 +2859,7 @@
             // labelUndo
             // 
             this.labelUndo.AutoSize = true;
-            this.labelUndo.Location = new System.Drawing.Point(106, 159);
+            this.labelUndo.Location = new System.Drawing.Point(100, 170);
             this.labelUndo.Name = "labelUndo";
             this.labelUndo.Size = new System.Drawing.Size(33, 13);
             this.labelUndo.TabIndex = 96;
@@ -2929,7 +2868,7 @@
             // labelRedo
             // 
             this.labelRedo.AutoSize = true;
-            this.labelRedo.Location = new System.Drawing.Point(164, 159);
+            this.labelRedo.Location = new System.Drawing.Point(163, 170);
             this.labelRedo.Name = "labelRedo";
             this.labelRedo.Size = new System.Drawing.Size(33, 13);
             this.labelRedo.TabIndex = 98;
@@ -2941,7 +2880,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(849, 866);
+            this.ClientSize = new System.Drawing.Size(800, 648);
             this.ControlBox = false;
             this.Controls.Add(this.labelRedo);
             this.Controls.Add(this.buttonRedo);
@@ -2953,11 +2892,7 @@
             this.Controls.Add(this.labelSaveAs);
             this.Controls.Add(this.labelNewTimbre);
             this.Controls.Add(this.labelRefresh);
-            this.Controls.Add(this.pictureBoxPitch);
             this.Controls.Add(this.groupBoxEnvGraph);
-            this.Controls.Add(this.labelTVATVFEnvGraph);
-            this.Controls.Add(this.labelPitchEnvGraph);
-            this.Controls.Add(this.pictureBoxTVATVF);
             this.Controls.Add(this.labelHeading);
             this.Controls.Add(this.buttonLoadTimbre);
             this.Controls.Add(this.buttonQuickSaveTimbre);
@@ -2976,8 +2911,9 @@
             this.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(2000, 1800);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(849, 832);
+            this.MinimumSize = new System.Drawing.Size(215, 648);
             this.Name = "FormTimbreEditor";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ShowIcon = false;
@@ -3039,8 +2975,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVFCutoff)).EndInit();
             this.groupBoxTVA.ResumeLayout(false);
             this.groupBoxTVA.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVAVelocityKeyfollow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVAT5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVASustain)).EndInit();
@@ -3056,12 +2990,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVALevel)).EndInit();
             this.groupBoxTVABias.ResumeLayout(false);
             this.groupBoxTVABias.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasLevel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTVABiasPoint2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTVATVF)).EndInit();
             this.groupBoxEnvGraph.ResumeLayout(false);
             this.groupBoxEnvGraph.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPitch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPartial12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPartial34)).EndInit();
             this.groupBoxPartialStructure.ResumeLayout(false);
@@ -3212,7 +3146,6 @@
         private Label labelTVFDisabled;
         private RadioButton radioButtonPCMBank2;
         private RadioButton radioButtonPCMBank1;
-        private CheckBox checkBoxShowLabels;
         private Label labelPitchSettings;
         private Label labelWaveFormSettings;
         private Label labelColourPitchSettings;
@@ -3223,12 +3156,8 @@
         private System.Windows.Forms.Timer timer;
         private Label labelHeading;
         private Label labelNoActivePartials;
-        private PictureBox pictureBoxTVATVF;
-        private Label labelPitchEnvGraph;
-        private Label labelTVATVFEnvGraph;
         private GroupBox groupBoxEnvGraph;
         private Label labelEnvGraphSettings;
-        private PictureBox pictureBoxPitch;
         private Label labelRefresh;
         private Label labelNewTimbre;
         private Label labelSaveAs;
@@ -3262,5 +3191,6 @@
         private Label labelPitchTimeKF;
         private Label labelTVFBiasSettings;
         private Label labelTVABiasSettings;
+        private CheckBox checkBoxShowLabels;
     }
 }

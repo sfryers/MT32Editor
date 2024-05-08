@@ -51,7 +51,6 @@ public partial class FormPatchEditor : Form
         darkMode = UITools.DarkMode;
     }
 
-
     private void InitialisePatchArray()
     {
         listViewPatches.Items.Clear();
@@ -103,8 +102,8 @@ public partial class FormPatchEditor : Form
     /// </summary>
     private void ScaleListView()
     {
-        listViewPatches.Width = Width - 30;
-        listViewPatches.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
+        listViewPatches.Width = Width - 20;
+        listViewPatches.Height = Height - (int)(272 * Math.Pow(UIScale, 1.3));
     }
 
     /// <summary>
@@ -113,7 +112,7 @@ public partial class FormPatchEditor : Form
     private void ScaleListViewColumns()
     {
         int listWidth = listViewPatches.Width;
-        double[] columnWidth = {0.10, 0.19, 0.19, 0.08, 0.08, 0.09, 0.11, 0.12};
+        double[] columnWidth = {0.10, 0.19, 0.19, 0.08, 0.08, 0.10, 0.12, 0.12};
         for (int i = 0; i < 8; i++)
         {
             listViewPatches.Columns[i].Width = (int)(listWidth * columnWidth[i]);

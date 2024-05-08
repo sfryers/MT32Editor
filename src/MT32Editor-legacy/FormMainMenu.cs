@@ -31,10 +31,11 @@ public partial class FormMainMenu : Form
 #else
     private const string FRAMEWORK = ".NET 4.0";
 #endif
-    private const string RELEASE_DATE = "April 2024";
+    private const string RELEASE_DATE = "May 2024";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
+    private const int TIMBRE_EDITOR_FULL_WIDTH = 800;
 
     private bool midiInError = false;
     private bool midiOutError = false;
@@ -114,6 +115,7 @@ public partial class FormMainMenu : Form
         timbreEditor = new FormTimbreEditor(DPIScale());
         timbreEditor.MdiParent = this;
         timbreEditor.Show();
+        timbreEditorToolStripMenuItem.Checked = UITools.PrioritiseTimbreEditor;
     }
 
     private void OpenPatchEditor()
@@ -173,7 +175,7 @@ public partial class FormMainMenu : Form
 
         void ScaleTimbreEditor()
         {
-            if (timbreEditor is null || memoryBankEditor is null)
+            if (timbreEditor is null || patchEditor is null || memoryBankEditor is null)
             {
                 return;
             }
@@ -183,6 +185,14 @@ public partial class FormMainMenu : Form
             {
                 timbreEditor.Height = Height - yMargin;
             }
+            if (Width < memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH || Width > memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + patchEditor.MinimumSize.Width + xMargin)
+            {
+                timbreEditor.Width = TIMBRE_EDITOR_FULL_WIDTH;
+            }
+            else
+            {
+                timbreEditor.Width = Width - memoryBankEditor.Width - xMargin;
+            }
         }
 
         void ScalePatchEditor()
@@ -191,13 +201,34 @@ public partial class FormMainMenu : Form
             {
                 return;
             }
-            patchEditor.Left = (Width * 68) / 100;
-            patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+            patchEditor.Left = timbreEditor.Left + timbreEditor.MinimumSize.Width + 1;
             patchEditor.Top = 0;
-            patchEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+            patchEditor.Width = Width - (timbreEditor.MinimumSize.Width + memoryBankEditor.Width + xMargin);
             if (Height > patchEditor.MinimumSize.Height)
             {
                 patchEditor.Height = Height - yMargin;
+            }
+            if (Width > patchEditor.MinimumSize.Width + memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + xMargin)
+            {
+                //If sufficient width is available, show patch editor to right of timbre editor
+                patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+                patchEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+                if (timbreEditorToolStripMenuItem.Checked)
+                {
+                    patchEditor.Visible = true;
+                    patchEditorToolStripMenuItem.Checked = true;
+                }
+                timbreEditorToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                //If insufficient width, allow overlapping forms
+                timbreEditorToolStripMenuItem.Enabled = true;
+                if (timbreEditorToolStripMenuItem.Checked)
+                {
+                    patchEditor.Visible = false;
+                    patchEditorToolStripMenuItem.Checked = false;
+                }
             }
         }
 
@@ -207,13 +238,29 @@ public partial class FormMainMenu : Form
             {
                 return;
             }
-            rhythmEditor.Left = (Width * 68) / 100;
-            rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+            rhythmEditor.Left = timbreEditor.Left + timbreEditor.MinimumSize.Width + 1;
             rhythmEditor.Top = 0;
-            rhythmEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+            rhythmEditor.Width = Width - (timbreEditor.MinimumSize.Width + memoryBankEditor.Width + xMargin);
             if (Height > rhythmEditor.MinimumSize.Height)
             {
                 rhythmEditor.Height = Height - yMargin;
+            }
+            if (Width > rhythmEditor.MinimumSize.Width + memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + xMargin)
+            {
+                //If sufficient width is available, show rhythm editor to right of timbre editor
+                rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
+                rhythmEditor.Width = Width - (timbreEditor.Width + memoryBankEditor.Width + xMargin);
+                timbreEditorToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                //If insufficient width, allow overlapping forms
+                timbreEditorToolStripMenuItem.Enabled = true;
+                if (timbreEditorToolStripMenuItem.Checked)
+                {
+                    rhythmEditor.Visible = false;
+                    rhythmEditorToolStripMenuItem.Checked = false;
+                }
             }
         }
     }
@@ -225,9 +272,9 @@ public partial class FormMainMenu : Form
 
     private void ReadConfigFile()
     {
-        string[] configFile = ConfigFile.Load();
-        InitialiseMidiInConnection();
-        InitialiseMidiOutConnection();
+        string[] midiDeviceNames = ConfigFile.Load();
+        InitialiseMidiInConnection(midiDeviceNames[0]);
+        InitialiseMidiOutConnection(midiDeviceNames[1]);
         ConfigureConsole();
         SetOptionMenuFlags();
         if (midiInError || midiOutError)
@@ -261,9 +308,9 @@ public partial class FormMainMenu : Form
             allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
         }
 
-        void InitialiseMidiInConnection()
+        void InitialiseMidiInConnection(string midiInDeviceName)
         {
-            int inDeviceNo = 0;
+            int midiInDeviceNo = 0;
             //List available MIDI In devices in combo box
             midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());
             if (midiInToolStripMenuItem.Items.Count == 0)
@@ -273,22 +320,22 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountInputDevices(); device++)
             {
-                if (Midi.GetInputDeviceName(device).ToString() == configFile[0])
+                if (Midi.GetInputDeviceName(device).ToString() == midiInDeviceName)
                 {
                     //Set active MIDI In device
-                    inDeviceNo = device;
+                    midiInDeviceNo = device;
                 }
             }
-            midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
+            midiInToolStripMenuItem.SelectedIndex = midiInDeviceNo;
             if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
             {
                 midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
             }
         }
 
-        void InitialiseMidiOutConnection()
+        void InitialiseMidiOutConnection(string midiOutDeviceName)
         {
-            int outDeviceNo = 0;
+            int midiOutDeviceNo = 0;
             //List available MIDI Out devices in combo box
             midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());
             if (midiOutToolStripMenuItem.Items.Count == 0)
@@ -298,13 +345,13 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountOutputDevices(); device++)
             {
-                if (Midi.GetOutputDeviceName(device).ToString() == configFile[1])
+                if (Midi.GetOutputDeviceName(device).ToString() == midiOutDeviceName)
                 {
                     //Set active MIDI Out device
-                    outDeviceNo = device;
+                    midiOutDeviceNo = device;
                 }
             }
-            midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
+            midiOutToolStripMenuItem.SelectedIndex = midiOutDeviceNo;
             if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
             {
                 midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
@@ -479,12 +526,21 @@ public partial class FormMainMenu : Form
     {
         Midi.CloseInputDevice();
         Midi.CloseOutputDevice();
-        Application.Exit();
+    }
+
+    private void FormMainMenu_Scroll(object sender, ScrollEventArgs e)
+    {
+        if (patchEditor is null || memoryBankEditor is null || timbreEditor is null || rhythmEditor is null)
+        {
+            return;
+        }
+        patchEditor.Left = HorizontalScroll.Value + memoryBankEditor.Width + timbreEditor.Width;
+        rhythmEditor.Left = patchEditor.Left;
     }
 
     private void patchEditorToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (patchEditor is null || rhythmEditor is null)
+        if (patchEditor is null || rhythmEditor is null || timbreEditor is null || memoryBankEditor is null)
         {
             return;
         }
@@ -492,11 +548,17 @@ public partial class FormMainMenu : Form
         patchEditorToolStripMenuItem.Checked = true;
         rhythmEditor.Visible = false;
         rhythmEditorToolStripMenuItem.Checked = false;
+        timbreEditorToolStripMenuItem.Checked = false;
+        if (Width < memoryBankEditor.MinimumSize.Width + TIMBRE_EDITOR_FULL_WIDTH)
+        {
+            timbreEditor.Width = Width - memoryBankEditor.MinimumSize.Width;
+        }
+        HorizontalScroll.Value = 0;
     }
 
     private void rhythmEditorToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (patchEditor is null || rhythmEditor is null)
+        if (patchEditor is null || rhythmEditor is null || timbreEditor is null || memoryBankEditor is null)
         {
             return;
         }
@@ -504,6 +566,36 @@ public partial class FormMainMenu : Form
         patchEditorToolStripMenuItem.Checked = false;
         rhythmEditor.Visible = true;
         rhythmEditorToolStripMenuItem.Checked = true;
+        timbreEditorToolStripMenuItem.Checked = false;
+        if (Width < memoryBankEditor.MinimumSize.Width + TIMBRE_EDITOR_FULL_WIDTH)
+        {
+            timbreEditor.Width = Width - memoryBankEditor.MinimumSize.Width;
+        }
+        HorizontalScroll.Value = 0;
+    }
+
+    private void timbreEditorToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        EnableTimbreEditor();
+    }
+
+    private void EnableTimbreEditor()
+    {
+        if (patchEditor is null || rhythmEditor is null || timbreEditor is null || memoryBankEditor is null)
+        {
+            return;
+        }
+        timbreEditorToolStripMenuItem.Checked = true;
+        patchEditorToolStripMenuItem.Checked = false;
+        rhythmEditorToolStripMenuItem.Checked = false;
+        patchEditor.Visible = false;
+        rhythmEditor.Visible = false;
+    }
+
+    private void timbreEditorToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        UITools.PrioritiseTimbreEditor = timbreEditorToolStripMenuItem.Checked;
+        ConfigFile.Save();
     }
 
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -518,15 +610,20 @@ public partial class FormMainMenu : Form
         systemSettings.ShowDialog();
     }
 
+    private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    {
+        ShowPatchOrRhythmEditorIfEnabled();
+    }
+
     private void timer_Tick(object sender, EventArgs e)
     {
-        if (timbreEditor is not null)
+        if (timbreEditor is null || patchEditor is null || memoryBankEditor is null)
         {
-            timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
+            return;
         }
-
+        timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
         saveTimbreFileToolStripMenuItem.Enabled = memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() != MT32Strings.EMPTY;
-
+        ShowPatchOrRhythmEditorIfEnabled(memoryState.memoryBankEditorActive);
         if (midiInError || midiOutError)
         {
             Close();
@@ -536,6 +633,28 @@ public partial class FormMainMenu : Form
         {
             memoryBankEditor.Select();
             moveFocusToMemoryBankEditor = false;
+        }
+    }
+
+    void ShowPatchOrRhythmEditorIfEnabled(bool condition = true)
+    {
+        if (patchEditor is null || rhythmEditor is null || memoryBankEditor is null)
+        {
+            return;
+        }
+        if (condition && patchEditorToolStripMenuItem.Checked)
+        {
+            //Ensure patch editor is displayed, if selected in menu, when timbre editor loses focus
+            patchEditor.BringToFront();
+            memoryBankEditor.BringToFront();
+            memoryState.memoryBankEditorActive = false;
+        }
+        if (condition && rhythmEditorToolStripMenuItem.Checked)
+        {
+            //Ensure rhythm editor displayed, if selected in menu, when timbre editor loses focus
+            rhythmEditor.BringToFront();
+            memoryBankEditor.BringToFront();
+            memoryState.memoryBankEditorActive = false;
         }
     }
 

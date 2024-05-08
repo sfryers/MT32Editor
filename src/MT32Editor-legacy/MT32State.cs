@@ -26,6 +26,7 @@ public class MT32State
 
     public bool patchEditorActive { get; set; } = false;
     public bool rhythmEditorActive { get; set; } = false;
+    public bool memoryBankEditorActive { get; set; } = false;
     public bool returnFocusToPatchEditor { get; set; } = false;
     public bool returnFocusToRhythmEditor { get; set; } = false;
     public bool returnFocusToMemoryBankList { get; set; } = false;

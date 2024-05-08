@@ -37,7 +37,7 @@ public partial class FormLoadSysEx : Form
         memoryState = inputMemoryState;
         SetTextLabels();
         SetTheme();
-        timer.Interval = MT32SysEx.hardwareMT32Connected ? MT32SysEx.MT32_DELAY : 5;
+        timer.Interval = MT32SysEx.hardwareMT32Connected ? MT32SysEx.MT32_DELAY : 75;
         progressBar.Maximum = 66 + (88 / RHYTHM_BANKS_PER_BLOCK) + (128 / PATCHES_PER_BLOCK);
         MT32SysEx.blockSysExMessages = false;
         timer.Start();

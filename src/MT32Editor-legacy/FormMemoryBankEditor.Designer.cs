@@ -28,245 +28,262 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            ListViewItem listViewItem1 = new ListViewItem("");
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMemoryBankEditor));
-            listViewTimbres = new ListView();
-            columnHeaderTimbreNo = new ColumnHeader();
-            columnHeaderTimbreName = new ColumnHeader();
-            labelTimbreNo = new Label();
-            numericUpDownTimbreNo = new NumericUpDown();
-            buttonCopyTimbre = new Button();
-            buttonPasteTimbre = new Button();
-            buttonClearTimbre = new Button();
-            buttonClearAll = new Button();
-            toolTip = new ToolTip(components);
-            labelHeading = new Label();
-            timer = new System.Windows.Forms.Timer(components);
-            labelTimbreName = new Label();
-            labelCopy = new Label();
-            labelPaste = new Label();
-            labelClearSelected = new Label();
-            labelClearAll = new Label();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownTimbreNo).BeginInit();
-            SuspendLayout();
+            this.listViewTimbres = new System.Windows.Forms.ListView();
+            this.columnHeaderTimbreNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTimbreName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelTimbreNo = new System.Windows.Forms.Label();
+            this.numericUpDownTimbreNo = new System.Windows.Forms.NumericUpDown();
+            this.buttonCopyTimbre = new System.Windows.Forms.Button();
+            this.buttonPasteTimbre = new System.Windows.Forms.Button();
+            this.buttonClearTimbre = new System.Windows.Forms.Button();
+            this.buttonClearAll = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.labelHeading = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.labelTimbreName = new System.Windows.Forms.Label();
+            this.labelCopy = new System.Windows.Forms.Label();
+            this.labelPaste = new System.Windows.Forms.Label();
+            this.labelClearSelected = new System.Windows.Forms.Label();
+            this.labelClearAll = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimbreNo)).BeginInit();
+            this.SuspendLayout();
             // 
             // listViewTimbres
             // 
-            listViewTimbres.BackColor = Color.FromArgb(84, 84, 84);
-            listViewTimbres.Columns.AddRange(new ColumnHeader[] { columnHeaderTimbreNo, columnHeaderTimbreName });
-            listViewTimbres.ForeColor = SystemColors.Control;
-            listViewTimbres.FullRowSelect = true;
-            listViewTimbres.GridLines = true;
-            listViewTimbres.Items.AddRange(new ListViewItem[] { listViewItem1 });
-            listViewTimbres.Location = new Point(14, 256);
-            listViewTimbres.MinimumSize = new Size(0, 28);
-            listViewTimbres.MultiSelect = false;
-            listViewTimbres.Name = "listViewTimbres";
-            listViewTimbres.Size = new Size(192, 489);
-            listViewTimbres.TabIndex = 2;
-            listViewTimbres.TileSize = new Size(50, 20);
-            listViewTimbres.UseCompatibleStateImageBehavior = false;
-            listViewTimbres.View = View.Details;
-            listViewTimbres.SelectedIndexChanged += listViewTimbres_SelectedIndexChanged;
+            this.listViewTimbres.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(84)))), ((int)(((byte)(84)))));
+            this.listViewTimbres.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderTimbreNo,
+            this.columnHeaderTimbreName});
+            this.listViewTimbres.ForeColor = System.Drawing.SystemColors.Control;
+            this.listViewTimbres.FullRowSelect = true;
+            this.listViewTimbres.GridLines = true;
+            this.listViewTimbres.HideSelection = false;
+            this.listViewTimbres.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3});
+            this.listViewTimbres.Location = new System.Drawing.Point(12, 222);
+            this.listViewTimbres.MinimumSize = new System.Drawing.Size(4, 25);
+            this.listViewTimbres.MultiSelect = false;
+            this.listViewTimbres.Name = "listViewTimbres";
+            this.listViewTimbres.Size = new System.Drawing.Size(165, 424);
+            this.listViewTimbres.TabIndex = 2;
+            this.listViewTimbres.TileSize = new System.Drawing.Size(50, 20);
+            this.listViewTimbres.UseCompatibleStateImageBehavior = false;
+            this.listViewTimbres.View = System.Windows.Forms.View.Details;
+            this.listViewTimbres.SelectedIndexChanged += new System.EventHandler(this.listViewTimbres_SelectedIndexChanged);
             // 
             // columnHeaderTimbreNo
             // 
-            columnHeaderTimbreNo.Text = "Mem#";
-            columnHeaderTimbreNo.Width = 48;
+            this.columnHeaderTimbreNo.Text = "Mem";
+            this.columnHeaderTimbreNo.Width = 48;
             // 
             // columnHeaderTimbreName
             // 
-            columnHeaderTimbreName.Text = "Timbre Name";
-            columnHeaderTimbreName.Width = 90;
+            this.columnHeaderTimbreName.Text = "Timbre Name";
+            this.columnHeaderTimbreName.Width = 90;
             // 
             // labelTimbreNo
             // 
-            labelTimbreNo.AutoSize = true;
-            labelTimbreNo.ForeColor = SystemColors.Control;
-            labelTimbreNo.Location = new Point(31, 82);
-            labelTimbreNo.Name = "labelTimbreNo";
-            labelTimbreNo.Size = new Size(74, 15);
-            labelTimbreNo.TabIndex = 8;
-            labelTimbreNo.Text = "Memory No.";
+            this.labelTimbreNo.AutoSize = true;
+            this.labelTimbreNo.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTimbreNo.Location = new System.Drawing.Point(46, 70);
+            this.labelTimbreNo.Name = "labelTimbreNo";
+            this.labelTimbreNo.Size = new System.Drawing.Size(64, 13);
+            this.labelTimbreNo.TabIndex = 8;
+            this.labelTimbreNo.Text = "Memory No.";
             // 
             // numericUpDownTimbreNo
             // 
-            numericUpDownTimbreNo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            numericUpDownTimbreNo.Location = new Point(117, 75);
-            numericUpDownTimbreNo.Maximum = new decimal(new int[] { 64, 0, 0, 0 });
-            numericUpDownTimbreNo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDownTimbreNo.Name = "numericUpDownTimbreNo";
-            numericUpDownTimbreNo.Size = new Size(51, 29);
-            numericUpDownTimbreNo.TabIndex = 7;
-            numericUpDownTimbreNo.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDownTimbreNo.ValueChanged += numericUpDownTimbreNo_ValueChanged;
+            this.numericUpDownTimbreNo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.numericUpDownTimbreNo.Location = new System.Drawing.Point(119, 64);
+            this.numericUpDownTimbreNo.Maximum = new decimal(new int[] {
+            64,
+            0,
+            0,
+            0});
+            this.numericUpDownTimbreNo.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownTimbreNo.Name = "numericUpDownTimbreNo";
+            this.numericUpDownTimbreNo.Size = new System.Drawing.Size(44, 29);
+            this.numericUpDownTimbreNo.TabIndex = 7;
+            this.numericUpDownTimbreNo.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownTimbreNo.ValueChanged += new System.EventHandler(this.numericUpDownTimbreNo_ValueChanged);
             // 
             // buttonCopyTimbre
             // 
-            buttonCopyTimbre.AccessibleDescription = "Copy timbre";
-            buttonCopyTimbre.AccessibleName = "Copy timbre";
-            buttonCopyTimbre.BackColor = Color.FromArgb(224, 224, 224);
-            buttonCopyTimbre.ForeColor = SystemColors.ActiveCaptionText;
-            buttonCopyTimbre.Image = Properties.Resources.Copy;
-            buttonCopyTimbre.Location = new Point(17, 156);
-            buttonCopyTimbre.Name = "buttonCopyTimbre";
-            buttonCopyTimbre.Size = new Size(28, 28);
-            buttonCopyTimbre.TabIndex = 58;
-            buttonCopyTimbre.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(buttonCopyTimbre, "Copy the selected timbre");
-            buttonCopyTimbre.UseVisualStyleBackColor = false;
-            buttonCopyTimbre.Click += buttonCopyTimbre_Click;
+            this.buttonCopyTimbre.AccessibleDescription = "Copy timbre";
+            this.buttonCopyTimbre.AccessibleName = "Copy timbre";
+            this.buttonCopyTimbre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonCopyTimbre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonCopyTimbre.Image = global::MT32Edit_legacy.Properties.Resources.Copy;
+            this.buttonCopyTimbre.Location = new System.Drawing.Point(15, 135);
+            this.buttonCopyTimbre.Name = "buttonCopyTimbre";
+            this.buttonCopyTimbre.Size = new System.Drawing.Size(24, 24);
+            this.buttonCopyTimbre.TabIndex = 58;
+            this.buttonCopyTimbre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.buttonCopyTimbre, "Copy the selected timbre");
+            this.buttonCopyTimbre.UseVisualStyleBackColor = false;
+            this.buttonCopyTimbre.Click += new System.EventHandler(this.buttonCopyTimbre_Click);
             // 
             // buttonPasteTimbre
             // 
-            buttonPasteTimbre.AccessibleDescription = "Paste timbre";
-            buttonPasteTimbre.BackColor = Color.FromArgb(224, 224, 224);
-            buttonPasteTimbre.Enabled = false;
-            buttonPasteTimbre.ForeColor = SystemColors.ActiveCaptionText;
-            buttonPasteTimbre.Image = Properties.Resources.Paste;
-            buttonPasteTimbre.Location = new Point(101, 156);
-            buttonPasteTimbre.Name = "buttonPasteTimbre";
-            buttonPasteTimbre.Size = new Size(28, 28);
-            buttonPasteTimbre.TabIndex = 57;
-            buttonPasteTimbre.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(buttonPasteTimbre, "Paste timbre into the selected position");
-            buttonPasteTimbre.UseVisualStyleBackColor = false;
-            buttonPasteTimbre.Click += buttonPasteTimbre_Click;
+            this.buttonPasteTimbre.AccessibleDescription = "Paste timbre";
+            this.buttonPasteTimbre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonPasteTimbre.Enabled = false;
+            this.buttonPasteTimbre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonPasteTimbre.Image = global::MT32Edit_legacy.Properties.Resources.Paste;
+            this.buttonPasteTimbre.Location = new System.Drawing.Point(87, 135);
+            this.buttonPasteTimbre.Name = "buttonPasteTimbre";
+            this.buttonPasteTimbre.Size = new System.Drawing.Size(24, 24);
+            this.buttonPasteTimbre.TabIndex = 57;
+            this.buttonPasteTimbre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.buttonPasteTimbre, "Paste timbre into the selected position");
+            this.buttonPasteTimbre.UseVisualStyleBackColor = false;
+            this.buttonPasteTimbre.Click += new System.EventHandler(this.buttonPasteTimbre_Click);
             // 
             // buttonClearTimbre
             // 
-            buttonClearTimbre.AccessibleDescription = "Clear timbre";
-            buttonClearTimbre.AccessibleName = "Clear timbre";
-            buttonClearTimbre.BackColor = Color.FromArgb(224, 224, 224);
-            buttonClearTimbre.ForeColor = SystemColors.ActiveCaptionText;
-            buttonClearTimbre.Image = (Image)resources.GetObject("buttonClearTimbre.Image");
-            buttonClearTimbre.Location = new Point(17, 186);
-            buttonClearTimbre.Name = "buttonClearTimbre";
-            buttonClearTimbre.Size = new Size(28, 28);
-            buttonClearTimbre.TabIndex = 59;
-            buttonClearTimbre.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(buttonClearTimbre, "Clear the selected timbre");
-            buttonClearTimbre.UseVisualStyleBackColor = false;
-            buttonClearTimbre.Click += buttonClearTimbre_Click;
+            this.buttonClearTimbre.AccessibleDescription = "Clear timbre";
+            this.buttonClearTimbre.AccessibleName = "Clear timbre";
+            this.buttonClearTimbre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonClearTimbre.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonClearTimbre.Image = ((System.Drawing.Image)(resources.GetObject("buttonClearTimbre.Image")));
+            this.buttonClearTimbre.Location = new System.Drawing.Point(15, 161);
+            this.buttonClearTimbre.Name = "buttonClearTimbre";
+            this.buttonClearTimbre.Size = new System.Drawing.Size(24, 24);
+            this.buttonClearTimbre.TabIndex = 59;
+            this.buttonClearTimbre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.buttonClearTimbre, "Clear the selected timbre");
+            this.buttonClearTimbre.UseVisualStyleBackColor = false;
+            this.buttonClearTimbre.Click += new System.EventHandler(this.buttonClearTimbre_Click);
             // 
             // buttonClearAll
             // 
-            buttonClearAll.AccessibleDescription = "Clear All";
-            buttonClearAll.AccessibleName = "Clear All";
-            buttonClearAll.BackColor = Color.FromArgb(224, 224, 224);
-            buttonClearAll.ForeColor = SystemColors.ActiveCaptionText;
-            buttonClearAll.Image = (Image)resources.GetObject("buttonClearAll.Image");
-            buttonClearAll.Location = new Point(17, 216);
-            buttonClearAll.Name = "buttonClearAll";
-            buttonClearAll.Size = new Size(28, 28);
-            buttonClearAll.TabIndex = 60;
-            buttonClearAll.TextAlign = ContentAlignment.MiddleRight;
-            toolTip.SetToolTip(buttonClearAll, "Clear all memory timbres");
-            buttonClearAll.UseVisualStyleBackColor = false;
-            buttonClearAll.Click += buttonClearAll_Click;
+            this.buttonClearAll.AccessibleDescription = "Clear All";
+            this.buttonClearAll.AccessibleName = "Clear All";
+            this.buttonClearAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonClearAll.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonClearAll.Image = ((System.Drawing.Image)(resources.GetObject("buttonClearAll.Image")));
+            this.buttonClearAll.Location = new System.Drawing.Point(15, 187);
+            this.buttonClearAll.Name = "buttonClearAll";
+            this.buttonClearAll.Size = new System.Drawing.Size(24, 24);
+            this.buttonClearAll.TabIndex = 60;
+            this.buttonClearAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolTip.SetToolTip(this.buttonClearAll, "Clear all memory timbres");
+            this.buttonClearAll.UseVisualStyleBackColor = false;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
             // 
             // labelHeading
             // 
-            labelHeading.AutoSize = true;
-            labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelHeading.ForeColor = SystemColors.ActiveCaption;
-            labelHeading.Location = new Point(14, 39);
-            labelHeading.Name = "labelHeading";
-            labelHeading.Size = new Size(167, 21);
-            labelHeading.TabIndex = 62;
-            labelHeading.Text = "Timbre Memory Area";
+            this.labelHeading.AutoSize = true;
+            this.labelHeading.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.labelHeading.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelHeading.Location = new System.Drawing.Point(12, 34);
+            this.labelHeading.Name = "labelHeading";
+            this.labelHeading.Size = new System.Drawing.Size(129, 21);
+            this.labelHeading.TabIndex = 62;
+            this.labelHeading.Text = "Timbre Memory";
             // 
             // timer
             // 
-            timer.Enabled = true;
-            timer.Tick += timer_Tick;
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // labelTimbreName
             // 
-            labelTimbreName.AutoSize = true;
-            labelTimbreName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            labelTimbreName.ForeColor = SystemColors.Control;
-            labelTimbreName.Location = new Point(17, 114);
-            labelTimbreName.Name = "labelTimbreName";
-            labelTimbreName.Size = new Size(57, 21);
-            labelTimbreName.TabIndex = 63;
-            labelTimbreName.Text = "[none]";
+            this.labelTimbreName.AutoSize = true;
+            this.labelTimbreName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.labelTimbreName.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelTimbreName.Location = new System.Drawing.Point(15, 99);
+            this.labelTimbreName.Name = "labelTimbreName";
+            this.labelTimbreName.Size = new System.Drawing.Size(57, 21);
+            this.labelTimbreName.TabIndex = 63;
+            this.labelTimbreName.Text = "[none]";
             // 
             // labelCopy
             // 
-            labelCopy.AutoSize = true;
-            labelCopy.ForeColor = SystemColors.Control;
-            labelCopy.Location = new Point(47, 163);
-            labelCopy.Name = "labelCopy";
-            labelCopy.Size = new Size(35, 15);
-            labelCopy.TabIndex = 64;
-            labelCopy.Text = "Copy";
+            this.labelCopy.AutoSize = true;
+            this.labelCopy.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelCopy.Location = new System.Drawing.Point(40, 141);
+            this.labelCopy.Name = "labelCopy";
+            this.labelCopy.Size = new System.Drawing.Size(31, 13);
+            this.labelCopy.TabIndex = 64;
+            this.labelCopy.Text = "Copy";
             // 
             // labelPaste
             // 
-            labelPaste.AutoSize = true;
-            labelPaste.ForeColor = SystemColors.Control;
-            labelPaste.Location = new Point(135, 163);
-            labelPaste.Name = "labelPaste";
-            labelPaste.Size = new Size(35, 15);
-            labelPaste.TabIndex = 65;
-            labelPaste.Text = "Paste";
+            this.labelPaste.AutoSize = true;
+            this.labelPaste.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPaste.Location = new System.Drawing.Point(116, 141);
+            this.labelPaste.Name = "labelPaste";
+            this.labelPaste.Size = new System.Drawing.Size(34, 13);
+            this.labelPaste.TabIndex = 65;
+            this.labelPaste.Text = "Paste";
             // 
             // labelClearSelected
             // 
-            labelClearSelected.AutoSize = true;
-            labelClearSelected.ForeColor = SystemColors.Control;
-            labelClearSelected.Location = new Point(47, 193);
-            labelClearSelected.Name = "labelClearSelected";
-            labelClearSelected.Size = new Size(121, 15);
-            labelClearSelected.TabIndex = 66;
-            labelClearSelected.Text = "Clear Selected Timbre";
+            this.labelClearSelected.AutoSize = true;
+            this.labelClearSelected.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelClearSelected.Location = new System.Drawing.Point(40, 167);
+            this.labelClearSelected.Name = "labelClearSelected";
+            this.labelClearSelected.Size = new System.Drawing.Size(111, 13);
+            this.labelClearSelected.TabIndex = 66;
+            this.labelClearSelected.Text = "Clear Selected Timbre";
             // 
             // labelClearAll
             // 
-            labelClearAll.AutoSize = true;
-            labelClearAll.ForeColor = SystemColors.Control;
-            labelClearAll.Location = new Point(45, 223);
-            labelClearAll.Name = "labelClearAll";
-            labelClearAll.Size = new Size(96, 15);
-            labelClearAll.TabIndex = 67;
-            labelClearAll.Text = "Clear All Timbres";
+            this.labelClearAll.AutoSize = true;
+            this.labelClearAll.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelClearAll.Location = new System.Drawing.Point(39, 193);
+            this.labelClearAll.Name = "labelClearAll";
+            this.labelClearAll.Size = new System.Drawing.Size(85, 13);
+            this.labelClearAll.TabIndex = 67;
+            this.labelClearAll.Text = "Clear All Timbres";
             // 
             // FormMemoryBankEditor
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(32, 32, 32);
-            ClientSize = new Size(226, 960);
-            ControlBox = false;
-            Controls.Add(labelClearAll);
-            Controls.Add(labelClearSelected);
-            Controls.Add(labelPaste);
-            Controls.Add(labelCopy);
-            Controls.Add(labelTimbreName);
-            Controls.Add(labelHeading);
-            Controls.Add(buttonClearAll);
-            Controls.Add(buttonClearTimbre);
-            Controls.Add(buttonCopyTimbre);
-            Controls.Add(buttonPasteTimbre);
-            Controls.Add(labelTimbreNo);
-            Controls.Add(numericUpDownTimbreNo);
-            Controls.Add(listViewTimbres);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            MinimumSize = new Size(200, 150);
-            Name = "FormMemoryBankEditor";
-            ShowIcon = false;
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.Manual;
-            Text = "MT-32 Memory Bank Editor";
-            Activated += FormMemoryBankEditor_Activated;
-            Resize += FormMemoryBankEditor_Resize;
-            ((System.ComponentModel.ISupportInitialize)numericUpDownTimbreNo).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.ClientSize = new System.Drawing.Size(175, 712);
+            this.ControlBox = false;
+            this.Controls.Add(this.labelClearAll);
+            this.Controls.Add(this.labelClearSelected);
+            this.Controls.Add(this.labelPaste);
+            this.Controls.Add(this.labelCopy);
+            this.Controls.Add(this.labelTimbreName);
+            this.Controls.Add(this.labelHeading);
+            this.Controls.Add(this.buttonClearAll);
+            this.Controls.Add(this.buttonClearTimbre);
+            this.Controls.Add(this.buttonCopyTimbre);
+            this.Controls.Add(this.buttonPasteTimbre);
+            this.Controls.Add(this.labelTimbreNo);
+            this.Controls.Add(this.numericUpDownTimbreNo);
+            this.Controls.Add(this.listViewTimbres);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(175, 130);
+            this.Name = "FormMemoryBankEditor";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "MT-32 Memory Bank Editor";
+            this.Activated += new System.EventHandler(this.FormMemoryBankEditor_Activated);
+            this.Resize += new System.EventHandler(this.FormMemoryBankEditor_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimbreNo)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

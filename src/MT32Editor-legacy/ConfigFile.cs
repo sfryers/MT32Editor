@@ -22,6 +22,7 @@ internal static class ConfigFile
     private const string TEXT_IGNORE_SYSTEM_ON_LOAD = "Ignore system area on SysEx load";
     private const string TEXT_EXCLUDE_SYSTEM_ON_SAVE = "Exclude system area on SysEx save";
     private const string TEXT_SEND_SYSEX_DATA_TO_CONSOLE = "Show SysEx data in console";
+    private const string TEXT_PRIORITISE_TIMBRE_EDITOR = "Prioritise Timbre Editor";
 
     private static readonly string iniFileName = "MT32Edit.ini";
     private static readonly string iniFileLocation = Path.Combine($"{FileTools.applicationPath}", iniFileName);
@@ -37,7 +38,7 @@ internal static class ConfigFile
                                     TEXT_MIDI_IN, TEXT_MIDI_OUT, TEXT_UNIT_NO, TEXT_AUTOSAVE, TEXT_DARK_MODE,
                                     TEXT_SHOW_CONSOLE, TEXT_VERBOSE_MESSAGES, TEXT_HARDWARE_CONNECTED, TEXT_ALLOW_RESET,
                                     TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE,
-                                    TEXT_SEND_SYSEX_DATA_TO_CONSOLE
+                                    TEXT_SEND_SYSEX_DATA_TO_CONSOLE, TEXT_PRIORITISE_TIMBRE_EDITOR
                                   };
 
         if (!File.Exists(iniFileLocation))
@@ -119,6 +120,9 @@ internal static class ConfigFile
                     break;
                 case TEXT_SEND_SYSEX_DATA_TO_CONSOLE:
                     CheckSysExConsoleSetting(status);
+                    break;
+                case TEXT_PRIORITISE_TIMBRE_EDITOR:
+                    CheckTimbreEditorSetting(status);
                     break;
                 default:
                     break;
@@ -221,6 +225,14 @@ internal static class ConfigFile
                 MT32SysEx.echoSysExData = (bool)status;
             }
         }
+
+        void CheckTimbreEditorSetting(bool? status)
+        {
+            if (status.HasValue)
+            {
+                UITools.PrioritiseTimbreEditor = (bool)status;
+            }
+        }
     }
 
     /// <summary>
@@ -251,6 +263,7 @@ internal static class ConfigFile
             fs.WriteLine($"{TEXT_SEND_MESSAGES} = {MT32SysEx.sendTextToMT32}");
             fs.WriteLine($"{TEXT_IGNORE_SYSTEM_ON_LOAD} = {LoadSysExFile.ignoreSystemArea}");
             fs.WriteLine($"{TEXT_EXCLUDE_SYSTEM_ON_SAVE} = {SaveSysExFile.excludeSystemArea}");
+            fs.WriteLine($"{TEXT_PRIORITISE_TIMBRE_EDITOR} = {UITools.PrioritiseTimbreEditor}");
             fs.Close();
         }
         catch (Exception)
