@@ -66,6 +66,7 @@
             trackBarPitchEnvL2 = new TrackBar();
             trackBarPitchEnvSust = new TrackBar();
             groupBoxPitchEnvelope = new GroupBox();
+            labelPitchTimeKF = new Label();
             labelColourPitchSettings = new Label();
             labelNoActivePartials = new Label();
             labelPitchRelease = new Label();
@@ -109,6 +110,7 @@
             labelTVFT1 = new Label();
             trackBarTVFSustain = new TrackBar();
             groupBoxTVFBias = new GroupBox();
+            labelTVFBiasSettings = new Label();
             trackBarTVFBiasLevel = new TrackBar();
             trackBarTVFBiasPoint = new TrackBar();
             labelTVFBiasPt = new Label();
@@ -157,6 +159,7 @@
             labelTVALevel = new Label();
             trackBarTVALevel = new TrackBar();
             groupBoxTVABias = new GroupBox();
+            labelTVABiasSettings = new Label();
             trackBarTVABiasLevel2 = new TrackBar();
             labelTVABiasL2 = new Label();
             labelTVABiasL1 = new Label();
@@ -216,9 +219,6 @@
             labelEditPartialNo = new Label();
             labelUndo = new Label();
             labelRedo = new Label();
-            labelPitchTimeKF = new Label();
-            labelTVFBiasSettings = new Label();
-            labelTVABiasSettings = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFinePitch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarPitchKeyFollow).BeginInit();
@@ -663,7 +663,6 @@
             trackBarPitchEnvT1.Maximum = 100;
             trackBarPitchEnvT1.Name = "trackBarPitchEnvT1";
             trackBarPitchEnvT1.Size = new Size(97, 45);
-            trackBarPitchEnvT1.SmallChange = 10;
             trackBarPitchEnvT1.TabIndex = 19;
             trackBarPitchEnvT1.TickFrequency = 10;
             trackBarPitchEnvT1.TickStyle = TickStyle.TopLeft;
@@ -680,7 +679,6 @@
             trackBarPitchEnvT2.Maximum = 100;
             trackBarPitchEnvT2.Name = "trackBarPitchEnvT2";
             trackBarPitchEnvT2.Size = new Size(97, 45);
-            trackBarPitchEnvT2.SmallChange = 10;
             trackBarPitchEnvT2.TabIndex = 20;
             trackBarPitchEnvT2.TickFrequency = 10;
             trackBarPitchEnvT2.TickStyle = TickStyle.TopLeft;
@@ -697,7 +695,6 @@
             trackBarPitchEnvT3.Maximum = 100;
             trackBarPitchEnvT3.Name = "trackBarPitchEnvT3";
             trackBarPitchEnvT3.Size = new Size(97, 45);
-            trackBarPitchEnvT3.SmallChange = 10;
             trackBarPitchEnvT3.TabIndex = 21;
             trackBarPitchEnvT3.TickFrequency = 10;
             trackBarPitchEnvT3.TickStyle = TickStyle.TopLeft;
@@ -714,7 +711,6 @@
             trackBarPitchEnvT4.Maximum = 100;
             trackBarPitchEnvT4.Name = "trackBarPitchEnvT4";
             trackBarPitchEnvT4.Size = new Size(97, 45);
-            trackBarPitchEnvT4.SmallChange = 10;
             trackBarPitchEnvT4.TabIndex = 22;
             trackBarPitchEnvT4.TickFrequency = 10;
             trackBarPitchEnvT4.TickStyle = TickStyle.TopLeft;
@@ -828,6 +824,18 @@
             groupBoxPitchEnvelope.TabIndex = 28;
             groupBoxPitchEnvelope.TabStop = false;
             groupBoxPitchEnvelope.Paint += groupBoxPitchEnvelope_Paint;
+            // 
+            // labelPitchTimeKF
+            // 
+            labelPitchTimeKF.AccessibleDescription = "Pitch Time Keyfollow";
+            labelPitchTimeKF.AccessibleName = "Pitch Time Keyfollow";
+            labelPitchTimeKF.AutoSize = true;
+            labelPitchTimeKF.Location = new Point(120, 127);
+            labelPitchTimeKF.Name = "labelPitchTimeKF";
+            labelPitchTimeKF.Size = new Size(49, 15);
+            labelPitchTimeKF.TabIndex = 75;
+            labelPitchTimeKF.Text = "Time KF";
+            labelPitchTimeKF.TextAlign = ContentAlignment.TopCenter;
             // 
             // labelColourPitchSettings
             // 
@@ -1245,7 +1253,6 @@
             trackBarTVFT5.Maximum = 100;
             trackBarTVFT5.Name = "trackBarTVFT5";
             trackBarTVFT5.Size = new Size(97, 45);
-            trackBarTVFT5.SmallChange = 10;
             trackBarTVFT5.TabIndex = 38;
             trackBarTVFT5.TickFrequency = 10;
             trackBarTVFT5.TickStyle = TickStyle.TopLeft;
@@ -1354,6 +1361,15 @@
             groupBoxTVFBias.Size = new Size(130, 149);
             groupBoxTVFBias.TabIndex = 54;
             groupBoxTVFBias.TabStop = false;
+            // 
+            // labelTVFBiasSettings
+            // 
+            labelTVFBiasSettings.AutoSize = true;
+            labelTVFBiasSettings.Location = new Point(6, 2);
+            labelTVFBiasSettings.Name = "labelTVFBiasSettings";
+            labelTVFBiasSettings.Size = new Size(94, 15);
+            labelTVFBiasSettings.TabIndex = 74;
+            labelTVFBiasSettings.Text = "TVF Bias settings";
             // 
             // trackBarTVFBiasLevel
             // 
@@ -1470,7 +1486,6 @@
             trackBarTVFT4.Maximum = 100;
             trackBarTVFT4.Name = "trackBarTVFT4";
             trackBarTVFT4.Size = new Size(97, 45);
-            trackBarTVFT4.SmallChange = 10;
             trackBarTVFT4.TabIndex = 22;
             trackBarTVFT4.TickFrequency = 10;
             trackBarTVFT4.TickStyle = TickStyle.TopLeft;
@@ -1487,7 +1502,6 @@
             trackBarTVFT3.Maximum = 100;
             trackBarTVFT3.Name = "trackBarTVFT3";
             trackBarTVFT3.Size = new Size(97, 45);
-            trackBarTVFT3.SmallChange = 10;
             trackBarTVFT3.TabIndex = 21;
             trackBarTVFT3.TickFrequency = 10;
             trackBarTVFT3.TickStyle = TickStyle.TopLeft;
@@ -1504,7 +1518,6 @@
             trackBarTVFT2.Maximum = 100;
             trackBarTVFT2.Name = "trackBarTVFT2";
             trackBarTVFT2.Size = new Size(97, 45);
-            trackBarTVFT2.SmallChange = 10;
             trackBarTVFT2.TabIndex = 20;
             trackBarTVFT2.TickFrequency = 10;
             trackBarTVFT2.TickStyle = TickStyle.TopLeft;
@@ -1521,7 +1534,6 @@
             trackBarTVFT1.Maximum = 100;
             trackBarTVFT1.Name = "trackBarTVFT1";
             trackBarTVFT1.Size = new Size(97, 45);
-            trackBarTVFT1.SmallChange = 10;
             trackBarTVFT1.TabIndex = 19;
             trackBarTVFT1.TickFrequency = 10;
             trackBarTVFT1.TickStyle = TickStyle.TopLeft;
@@ -1738,7 +1750,6 @@
             trackBarTVAT5.Maximum = 100;
             trackBarTVAT5.Name = "trackBarTVAT5";
             trackBarTVAT5.Size = new Size(97, 45);
-            trackBarTVAT5.SmallChange = 10;
             trackBarTVAT5.TabIndex = 38;
             trackBarTVAT5.TickFrequency = 10;
             trackBarTVAT5.TickStyle = TickStyle.TopLeft;
@@ -1895,7 +1906,6 @@
             trackBarTVAT4.Maximum = 100;
             trackBarTVAT4.Name = "trackBarTVAT4";
             trackBarTVAT4.Size = new Size(97, 45);
-            trackBarTVAT4.SmallChange = 10;
             trackBarTVAT4.TabIndex = 22;
             trackBarTVAT4.TickFrequency = 10;
             trackBarTVAT4.TickStyle = TickStyle.TopLeft;
@@ -1912,7 +1922,6 @@
             trackBarTVAT3.Maximum = 100;
             trackBarTVAT3.Name = "trackBarTVAT3";
             trackBarTVAT3.Size = new Size(97, 45);
-            trackBarTVAT3.SmallChange = 10;
             trackBarTVAT3.TabIndex = 21;
             trackBarTVAT3.TickFrequency = 10;
             trackBarTVAT3.TickStyle = TickStyle.TopLeft;
@@ -1929,7 +1938,6 @@
             trackBarTVAT2.Maximum = 100;
             trackBarTVAT2.Name = "trackBarTVAT2";
             trackBarTVAT2.Size = new Size(97, 45);
-            trackBarTVAT2.SmallChange = 10;
             trackBarTVAT2.TabIndex = 20;
             trackBarTVAT2.TickFrequency = 10;
             trackBarTVAT2.TickStyle = TickStyle.TopLeft;
@@ -1946,7 +1954,6 @@
             trackBarTVAT1.Maximum = 100;
             trackBarTVAT1.Name = "trackBarTVAT1";
             trackBarTVAT1.Size = new Size(97, 45);
-            trackBarTVAT1.SmallChange = 10;
             trackBarTVAT1.TabIndex = 19;
             trackBarTVAT1.TickFrequency = 10;
             trackBarTVAT1.TickStyle = TickStyle.TopLeft;
@@ -2052,6 +2059,15 @@
             groupBoxTVABias.Size = new Size(227, 154);
             groupBoxTVABias.TabIndex = 51;
             groupBoxTVABias.TabStop = false;
+            // 
+            // labelTVABiasSettings
+            // 
+            labelTVABiasSettings.AutoSize = true;
+            labelTVABiasSettings.Location = new Point(6, 0);
+            labelTVABiasSettings.Name = "labelTVABiasSettings";
+            labelTVABiasSettings.Size = new Size(95, 15);
+            labelTVABiasSettings.TabIndex = 75;
+            labelTVABiasSettings.Text = "TVA Bias settings";
             // 
             // trackBarTVABiasLevel2
             // 
@@ -2749,36 +2765,6 @@
             labelRedo.Size = new Size(34, 15);
             labelRedo.TabIndex = 98;
             labelRedo.Text = "Redo";
-            // 
-            // labelPitchTimeKF
-            // 
-            labelPitchTimeKF.AccessibleDescription = "Pitch Time Keyfollow";
-            labelPitchTimeKF.AccessibleName = "Pitch Time Keyfollow";
-            labelPitchTimeKF.AutoSize = true;
-            labelPitchTimeKF.Location = new Point(120, 127);
-            labelPitchTimeKF.Name = "labelPitchTimeKF";
-            labelPitchTimeKF.Size = new Size(49, 15);
-            labelPitchTimeKF.TabIndex = 75;
-            labelPitchTimeKF.Text = "Time KF";
-            labelPitchTimeKF.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // labelTVFBiasSettings
-            // 
-            labelTVFBiasSettings.AutoSize = true;
-            labelTVFBiasSettings.Location = new Point(6, 2);
-            labelTVFBiasSettings.Name = "labelTVFBiasSettings";
-            labelTVFBiasSettings.Size = new Size(94, 15);
-            labelTVFBiasSettings.TabIndex = 74;
-            labelTVFBiasSettings.Text = "TVF Bias settings";
-            // 
-            // labelTVABiasSettings
-            // 
-            labelTVABiasSettings.AutoSize = true;
-            labelTVABiasSettings.Location = new Point(6, 0);
-            labelTVABiasSettings.Name = "labelTVABiasSettings";
-            labelTVABiasSettings.Size = new Size(95, 15);
-            labelTVABiasSettings.TabIndex = 75;
-            labelTVABiasSettings.Text = "TVA Bias settings";
             // 
             // FormTimbreEditor
             // 

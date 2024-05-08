@@ -24,6 +24,9 @@ public partial class FormTimbreEditor : Form
     private int part12Image = -1;
     private int part34Image = -1;
     private readonly float UIScale;
+	
+	private const int GRAPH_X = 280;
+    private const int GRAPH_Y = 100;
 
     public FormTimbreEditor(float DPIScale)
     {
@@ -1265,7 +1268,7 @@ public partial class FormTimbreEditor : Form
     {
         //plot pitch envelope
         Graphics envelope = groupBoxPitchEnvelope.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(220 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(220 * UIScale) - 35, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.PITCH_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 
@@ -1277,7 +1280,7 @@ public partial class FormTimbreEditor : Form
         }
         //plot TVF envelope
         Graphics envelope = groupBoxTVF.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.TVF_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 
@@ -1285,7 +1288,7 @@ public partial class FormTimbreEditor : Form
     {
         //plot TVA envelope
         Graphics envelope = groupBoxTVA.CreateGraphics();
-        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale));
+        EnvelopeGraph graph = new EnvelopeGraph((int)(440 * UIScale) - 35, (int)(30 * UIScale), GRAPH_X, GRAPH_Y);
         graph.Plot(envelope, timbre, EnvelopeGraph.TVA_GRAPH, activePartial, checkBoxShowAllPartials.Checked, checkBoxShowLabels.Checked);
     }
 }

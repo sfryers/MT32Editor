@@ -23,7 +23,8 @@ public partial class FormMainMenu : Form
     private static extern IntPtr GetConsoleWindow();
 
     [DllImport("user32.dll")]
-    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
     private const string VERSION_NO = "v0.9.9b";
 #if NET472
     private const string FRAMEWORK = ".NET 4.7.2";
@@ -222,9 +223,9 @@ public partial class FormMainMenu : Form
 
     private void ReadConfigFile()
     {
-        string[] configFile = ConfigFile.Load();
-        InitialiseMidiInConnection();
-        InitialiseMidiOutConnection();
+        string[] midiDeviceNames = ConfigFile.Load();
+        InitialiseMidiInConnection(midiDeviceNames[0]);
+        InitialiseMidiOutConnection(midiDeviceNames[1]);
         ConfigureConsole();
         SetOptionMenuFlags();
         if (midiInError || midiOutError)
@@ -258,9 +259,9 @@ public partial class FormMainMenu : Form
             allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
         }
 
-        void InitialiseMidiInConnection()
+        void InitialiseMidiInConnection(string midiInDeviceName)
         {
-            int inDeviceNo = 0;
+            int midiInDeviceNo = 0;
             //List available MIDI In devices in combo box
             midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());
             if (midiInToolStripMenuItem.Items.Count == 0)
@@ -270,22 +271,22 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountInputDevices(); device++)
             {
-                if (Midi.GetInputDeviceName(device).ToString() == configFile[0])
+                if (Midi.GetInputDeviceName(device).ToString() == midiInDeviceName)
                 {
                     //Set active MIDI In device
-                    inDeviceNo = device;
+                    midiInDeviceNo = device;
                 }
             }
-            midiInToolStripMenuItem.SelectedIndex = inDeviceNo;
+            midiInToolStripMenuItem.SelectedIndex = midiInDeviceNo;
             if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
             {
                 midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
             }
         }
 
-        void InitialiseMidiOutConnection()
+        void InitialiseMidiOutConnection(string midiOutDeviceName)
         {
-            int outDeviceNo = 0;
+            int midiOutDeviceNo = 0;
             //List available MIDI Out devices in combo box
             midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());
             if (midiOutToolStripMenuItem.Items.Count == 0)
@@ -295,13 +296,13 @@ public partial class FormMainMenu : Form
 
             for (int device = 0; device <= Midi.CountOutputDevices(); device++)
             {
-                if (Midi.GetOutputDeviceName(device).ToString() == configFile[1])
+                if (Midi.GetOutputDeviceName(device).ToString() == midiOutDeviceName)
                 {
                     //Set active MIDI Out device
-                    outDeviceNo = device;
+                    midiOutDeviceNo = device;
                 }
             }
-            midiOutToolStripMenuItem.SelectedIndex = outDeviceNo;
+            midiOutToolStripMenuItem.SelectedIndex = midiOutDeviceNo;
             if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
             {
                 midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
