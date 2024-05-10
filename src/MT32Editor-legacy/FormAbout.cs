@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy;
+﻿using System;
+using System.Windows.Forms;
+namespace MT32Edit_legacy;
 /// <summary>
 /// Form to display app information, version number
 /// and release date
@@ -16,7 +18,7 @@ public partial class FormAbout : Form
     {
         InitializeComponent();
         version = versionNo;
-        framework = string.IsNullOrWhiteSpace(frameworkID) ? "" : $"({frameworkID})";
+        framework = ParseTools.IsNullOrWhiteSpace(frameworkID) ? "" : $"({frameworkID})";
         releaseDate = date;
     }
 

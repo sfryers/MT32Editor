@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System;
+using System.Threading;
 namespace MT32Edit_legacy;
 
 /// <summary>

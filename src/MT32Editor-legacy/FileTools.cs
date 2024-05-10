@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy;
+﻿using System.Windows.Forms;
+using System.IO;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Basic filename/filepath tools
@@ -44,7 +46,7 @@ internal static class FileTools
             {
                 return ERROR;
             }
-            else if (string.IsNullOrWhiteSpace(pathName))
+            else if (ParseTools.IsNullOrWhiteSpace(pathName))
             {
                 return CANCELLED;
             }

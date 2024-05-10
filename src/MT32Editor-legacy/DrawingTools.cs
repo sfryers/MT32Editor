@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy;
+﻿using System.Windows.Forms;
+using System.Drawing;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Custom drawing tools for MT-32 Editor UI

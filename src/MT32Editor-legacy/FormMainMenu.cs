@@ -1,5 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-
+using System.Windows.Forms;
+using System.IO;
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -28,8 +30,16 @@ public partial class FormMainMenu : Form
     private const string VERSION_NO = "v0.9.9b-legacy";
 #if NET6_0
     private const string FRAMEWORK = ".NET 6.0";
-#else
+#elif NET472
+    private const string FRAMEWORK = ".NET 4.7.2";
+#elif NET45
+    private const string FRAMEWORK = ".NET 4.5";
+#elif NET40
     private const string FRAMEWORK = ".NET 4.0";
+#elif NET35
+    private const string FRAMEWORK = ".NET 3.5";
+#elif NET20
+    private const string FRAMEWORK = ".NET 2.0";
 #endif
     private const string RELEASE_DATE = "May 2024";
 

@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy
+﻿using System.Windows.Forms;
+using System.Drawing;
+namespace MT32Edit_legacy
 {
     partial class FormLoadSysEx
     {
@@ -28,91 +30,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoadSysEx));
-            progressBar = new ProgressBar();
-            labelLoadProgress = new Label();
-            timer = new System.Windows.Forms.Timer(components);
-            buttonClose = new Button();
-            labelMT32Text1 = new Label();
-            labelMT32Text2 = new Label();
-            SuspendLayout();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.labelLoadProgress = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.labelMT32Text1 = new System.Windows.Forms.Label();
+            this.labelMT32Text2 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(12, 38);
-            progressBar.MarqueeAnimationSpeed = 30;
-            progressBar.Maximum = 72;
-            progressBar.Name = "progressBar";
-            progressBar.Size = new Size(312, 23);
-            progressBar.TabIndex = 0;
+            this.progressBar.Location = new System.Drawing.Point(10, 33);
+            this.progressBar.MarqueeAnimationSpeed = 30;
+            this.progressBar.Maximum = 72;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(267, 20);
+            this.progressBar.TabIndex = 0;
             // 
             // labelLoadProgress
             // 
-            labelLoadProgress.AutoSize = true;
-            labelLoadProgress.ForeColor = SystemColors.Control;
-            labelLoadProgress.Location = new Point(12, 74);
-            labelLoadProgress.Name = "labelLoadProgress";
-            labelLoadProgress.Size = new Size(120, 15);
-            labelLoadProgress.TabIndex = 1;
-            labelLoadProgress.Text = "Uploading SysEx data";
+            this.labelLoadProgress.AutoSize = true;
+            this.labelLoadProgress.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelLoadProgress.Location = new System.Drawing.Point(10, 64);
+            this.labelLoadProgress.Name = "labelLoadProgress";
+            this.labelLoadProgress.Size = new System.Drawing.Size(111, 13);
+            this.labelLoadProgress.TabIndex = 1;
+            this.labelLoadProgress.Text = "Uploading SysEx data";
             // 
             // timer
             // 
-            timer.Interval = 50;
-            timer.Tick += timer_Tick;
+            this.timer.Interval = 50;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // buttonClose
             // 
-            buttonClose.BackColor = Color.FromArgb(224, 224, 224);
-            buttonClose.Location = new Point(266, 68);
-            buttonClose.Name = "buttonClose";
-            buttonClose.Size = new Size(58, 26);
-            buttonClose.TabIndex = 2;
-            buttonClose.Text = "Close";
-            buttonClose.UseVisualStyleBackColor = false;
-            buttonClose.Visible = false;
-            buttonClose.Click += buttonClose_Click;
+            this.buttonClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonClose.Location = new System.Drawing.Point(228, 59);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(50, 23);
+            this.buttonClose.TabIndex = 2;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = false;
+            this.buttonClose.Visible = false;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // labelMT32Text1
             // 
-            labelMT32Text1.AutoSize = true;
-            labelMT32Text1.ForeColor = SystemColors.ControlLightLight;
-            labelMT32Text1.Location = new Point(12, 9);
-            labelMT32Text1.Name = "labelMT32Text1";
-            labelMT32Text1.Size = new Size(42, 15);
-            labelMT32Text1.TabIndex = 3;
-            labelMT32Text1.Text = "[none]";
+            this.labelMT32Text1.AutoSize = true;
+            this.labelMT32Text1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelMT32Text1.Location = new System.Drawing.Point(10, 8);
+            this.labelMT32Text1.Name = "labelMT32Text1";
+            this.labelMT32Text1.Size = new System.Drawing.Size(37, 13);
+            this.labelMT32Text1.TabIndex = 3;
+            this.labelMT32Text1.Text = "[none]";
             // 
             // labelMT32Text2
             // 
-            labelMT32Text2.AutoSize = true;
-            labelMT32Text2.ForeColor = SystemColors.ControlLightLight;
-            labelMT32Text2.Location = new Point(159, 9);
-            labelMT32Text2.Name = "labelMT32Text2";
-            labelMT32Text2.Size = new Size(42, 15);
-            labelMT32Text2.TabIndex = 4;
-            labelMT32Text2.Text = "[none]";
+            this.labelMT32Text2.AutoSize = true;
+            this.labelMT32Text2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelMT32Text2.Location = new System.Drawing.Point(136, 8);
+            this.labelMT32Text2.Name = "labelMT32Text2";
+            this.labelMT32Text2.Size = new System.Drawing.Size(37, 13);
+            this.labelMT32Text2.TabIndex = 4;
+            this.labelMT32Text2.Text = "[none]";
             // 
             // FormLoadSysEx
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(48, 48, 48);
-            ClientSize = new Size(336, 103);
-            Controls.Add(labelMT32Text2);
-            Controls.Add(labelMT32Text1);
-            Controls.Add(buttonClose);
-            Controls.Add(labelLoadProgress);
-            Controls.Add(progressBar);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            Name = "FormLoadSysEx";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Uploading SysEx Data";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.ClientSize = new System.Drawing.Size(288, 89);
+            this.Controls.Add(this.labelMT32Text2);
+            this.Controls.Add(this.labelMT32Text1);
+            this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.labelLoadProgress);
+            this.Controls.Add(this.progressBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "FormLoadSysEx";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Uploading SysEx Data";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

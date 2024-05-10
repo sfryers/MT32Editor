@@ -1,4 +1,8 @@
-﻿namespace MT32Edit_legacy;
+﻿using System.Windows.Forms;
+using System.IO;
+using System.Drawing;
+using System;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Static class containing shared user interface tools for forms in the MT32 Editor application.

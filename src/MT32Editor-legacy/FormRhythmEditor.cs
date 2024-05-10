@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy;
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured

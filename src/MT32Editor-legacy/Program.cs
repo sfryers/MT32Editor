@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>

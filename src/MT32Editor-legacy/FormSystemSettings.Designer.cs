@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy
+﻿using System.Windows.Forms;
+using System.Drawing;
+namespace MT32Edit_legacy
 {
     partial class FormSystemSettings
     {
@@ -28,870 +30,983 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSystemSettings));
-            trackBarMasterLevel = new TrackBar();
-            trackBarMasterTune = new TrackBar();
-            labelMasterLevel = new Label();
-            labelMasterTune = new Label();
-            labelMasterTuneValue = new Label();
-            labelReverbRate = new Label();
-            labelReverbLevel = new Label();
-            trackBarReverbRate = new TrackBar();
-            trackBarReverbLevel = new TrackBar();
-            comboBoxReverbType = new ComboBox();
-            labelReverbType = new Label();
-            labelPart4Channel = new Label();
-            labelPart5Channel = new Label();
-            labelPart6Channel = new Label();
-            labelPart3Channel = new Label();
-            labelPart2Channel = new Label();
-            labelPart1Channel = new Label();
-            labelPart8Channel = new Label();
-            labelPart7Channel = new Label();
-            labelRhythmChannel = new Label();
-            labelMidiRxChannel = new Label();
-            labelPartialReserve = new Label();
-            panel1 = new Panel();
-            radioButtonChannelCustom = new RadioButton();
-            radioButtonChannels1to8 = new RadioButton();
-            radioButtonChannels2to9 = new RadioButton();
-            groupBoxReverb = new GroupBox();
-            labelReverbRateValue = new Label();
-            labelReverbLevelValue = new Label();
-            numericUpDownMIDIPart1 = new NumericUpDown();
-            numericUpDownMIDIPart2 = new NumericUpDown();
-            numericUpDownMIDIPart3 = new NumericUpDown();
-            numericUpDownMIDIPart6 = new NumericUpDown();
-            numericUpDownMIDIPart5 = new NumericUpDown();
-            numericUpDownMIDIPart4 = new NumericUpDown();
-            numericUpDownMIDIPartR = new NumericUpDown();
-            numericUpDownMIDIPart8 = new NumericUpDown();
-            numericUpDownMIDIPart7 = new NumericUpDown();
-            numericUpDownPartReserveR = new NumericUpDown();
-            numericUpDownPartReserve8 = new NumericUpDown();
-            numericUpDownPartReserve7 = new NumericUpDown();
-            numericUpDownPartReserve6 = new NumericUpDown();
-            numericUpDownPartReserve5 = new NumericUpDown();
-            numericUpDownPartReserve4 = new NumericUpDown();
-            numericUpDownPartReserve3 = new NumericUpDown();
-            numericUpDownPartReserve2 = new NumericUpDown();
-            numericUpDownPartReserve1 = new NumericUpDown();
-            labelMasterLevelValue = new Label();
-            groupBoxMessageSettings = new GroupBox();
-            textBoxMessage2 = new TextBox();
-            labelMessage2 = new Label();
-            labelMessage1 = new Label();
-            textBoxMessage1 = new TextBox();
-            toolTip = new ToolTip(components);
-            buttonSave = new Button();
-            groupBoxExportSystemSettings = new GroupBox();
-            labelIncludeParameters = new Label();
-            checkBoxTextMessages = new CheckBox();
-            checkBoxPartialReserve = new CheckBox();
-            checkBoxMIDIChannel = new CheckBox();
-            checkBoxReverb = new CheckBox();
-            checkBoxMasterTune = new CheckBox();
-            checkBoxMasterLevel = new CheckBox();
-            labelMidiOff = new Label();
-            ((System.ComponentModel.ISupportInitialize)trackBarMasterLevel).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarMasterTune).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarReverbRate).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarReverbLevel).BeginInit();
-            panel1.SuspendLayout();
-            groupBoxReverb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPartR).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserveR).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve1).BeginInit();
-            groupBoxMessageSettings.SuspendLayout();
-            groupBoxExportSystemSettings.SuspendLayout();
-            SuspendLayout();
+            this.trackBarMasterLevel = new System.Windows.Forms.TrackBar();
+            this.trackBarMasterTune = new System.Windows.Forms.TrackBar();
+            this.labelMasterLevel = new System.Windows.Forms.Label();
+            this.labelMasterTune = new System.Windows.Forms.Label();
+            this.labelMasterTuneValue = new System.Windows.Forms.Label();
+            this.labelReverbRate = new System.Windows.Forms.Label();
+            this.labelReverbLevel = new System.Windows.Forms.Label();
+            this.trackBarReverbRate = new System.Windows.Forms.TrackBar();
+            this.trackBarReverbLevel = new System.Windows.Forms.TrackBar();
+            this.comboBoxReverbType = new System.Windows.Forms.ComboBox();
+            this.labelReverbType = new System.Windows.Forms.Label();
+            this.labelPart4Channel = new System.Windows.Forms.Label();
+            this.labelPart5Channel = new System.Windows.Forms.Label();
+            this.labelPart6Channel = new System.Windows.Forms.Label();
+            this.labelPart3Channel = new System.Windows.Forms.Label();
+            this.labelPart2Channel = new System.Windows.Forms.Label();
+            this.labelPart1Channel = new System.Windows.Forms.Label();
+            this.labelPart8Channel = new System.Windows.Forms.Label();
+            this.labelPart7Channel = new System.Windows.Forms.Label();
+            this.labelRhythmChannel = new System.Windows.Forms.Label();
+            this.labelMidiRxChannel = new System.Windows.Forms.Label();
+            this.labelPartialReserve = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButtonChannelCustom = new System.Windows.Forms.RadioButton();
+            this.radioButtonChannels1to8 = new System.Windows.Forms.RadioButton();
+            this.radioButtonChannels2to9 = new System.Windows.Forms.RadioButton();
+            this.groupBoxReverb = new System.Windows.Forms.GroupBox();
+            this.labelReverbRateValue = new System.Windows.Forms.Label();
+            this.labelReverbLevelValue = new System.Windows.Forms.Label();
+            this.numericUpDownMIDIPart1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart6 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart5 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPartR = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart8 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMIDIPart7 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserveR = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve8 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve7 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve6 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve5 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownPartReserve1 = new System.Windows.Forms.NumericUpDown();
+            this.labelMasterLevelValue = new System.Windows.Forms.Label();
+            this.groupBoxMessageSettings = new System.Windows.Forms.GroupBox();
+            this.textBoxMessage2 = new System.Windows.Forms.TextBox();
+            this.labelMessage2 = new System.Windows.Forms.Label();
+            this.labelMessage1 = new System.Windows.Forms.Label();
+            this.textBoxMessage1 = new System.Windows.Forms.TextBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.groupBoxExportSystemSettings = new System.Windows.Forms.GroupBox();
+            this.labelIncludeParameters = new System.Windows.Forms.Label();
+            this.checkBoxTextMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxPartialReserve = new System.Windows.Forms.CheckBox();
+            this.checkBoxMIDIChannel = new System.Windows.Forms.CheckBox();
+            this.checkBoxReverb = new System.Windows.Forms.CheckBox();
+            this.checkBoxMasterTune = new System.Windows.Forms.CheckBox();
+            this.checkBoxMasterLevel = new System.Windows.Forms.CheckBox();
+            this.labelMidiOff = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMasterLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMasterTune)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarReverbRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarReverbLevel)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.groupBoxReverb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPartR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserveR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve1)).BeginInit();
+            this.groupBoxMessageSettings.SuspendLayout();
+            this.groupBoxExportSystemSettings.SuspendLayout();
+            this.SuspendLayout();
             // 
             // trackBarMasterLevel
             // 
-            trackBarMasterLevel.LargeChange = 10;
-            trackBarMasterLevel.Location = new Point(49, 48);
-            trackBarMasterLevel.Maximum = 100;
-            trackBarMasterLevel.Name = "trackBarMasterLevel";
-            trackBarMasterLevel.Orientation = Orientation.Vertical;
-            trackBarMasterLevel.Size = new Size(45, 104);
-            trackBarMasterLevel.TabIndex = 0;
-            trackBarMasterLevel.TickFrequency = 10;
-            trackBarMasterLevel.TickStyle = TickStyle.Both;
-            trackBarMasterLevel.Value = 80;
-            trackBarMasterLevel.ValueChanged += trackBarMasterLevel_ValueChanged;
+            this.trackBarMasterLevel.LargeChange = 10;
+            this.trackBarMasterLevel.Location = new System.Drawing.Point(42, 42);
+            this.trackBarMasterLevel.Maximum = 100;
+            this.trackBarMasterLevel.Name = "trackBarMasterLevel";
+            this.trackBarMasterLevel.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarMasterLevel.Size = new System.Drawing.Size(45, 90);
+            this.trackBarMasterLevel.TabIndex = 0;
+            this.trackBarMasterLevel.TickFrequency = 10;
+            this.trackBarMasterLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarMasterLevel.Value = 80;
+            this.trackBarMasterLevel.ValueChanged += new System.EventHandler(this.trackBarMasterLevel_ValueChanged);
             // 
             // trackBarMasterTune
             // 
-            trackBarMasterTune.Location = new Point(129, 48);
-            trackBarMasterTune.Maximum = 127;
-            trackBarMasterTune.Name = "trackBarMasterTune";
-            trackBarMasterTune.Orientation = Orientation.Vertical;
-            trackBarMasterTune.Size = new Size(45, 104);
-            trackBarMasterTune.TabIndex = 1;
-            trackBarMasterTune.TickFrequency = 10;
-            trackBarMasterTune.TickStyle = TickStyle.Both;
-            trackBarMasterTune.Value = 63;
-            trackBarMasterTune.ValueChanged += trackBarMasterTune_ValueChanged;
+            this.trackBarMasterTune.Location = new System.Drawing.Point(111, 42);
+            this.trackBarMasterTune.Maximum = 127;
+            this.trackBarMasterTune.Name = "trackBarMasterTune";
+            this.trackBarMasterTune.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarMasterTune.Size = new System.Drawing.Size(45, 90);
+            this.trackBarMasterTune.TabIndex = 1;
+            this.trackBarMasterTune.TickFrequency = 10;
+            this.trackBarMasterTune.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarMasterTune.Value = 63;
+            this.trackBarMasterTune.ValueChanged += new System.EventHandler(this.trackBarMasterTune_ValueChanged);
             // 
             // labelMasterLevel
             // 
-            labelMasterLevel.AutoSize = true;
-            labelMasterLevel.ForeColor = SystemColors.Control;
-            labelMasterLevel.Location = new Point(37, 30);
-            labelMasterLevel.Name = "labelMasterLevel";
-            labelMasterLevel.Size = new Size(73, 15);
-            labelMasterLevel.TabIndex = 2;
-            labelMasterLevel.Text = "Master Level";
+            this.labelMasterLevel.AutoSize = true;
+            this.labelMasterLevel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMasterLevel.Location = new System.Drawing.Point(32, 26);
+            this.labelMasterLevel.Name = "labelMasterLevel";
+            this.labelMasterLevel.Size = new System.Drawing.Size(68, 13);
+            this.labelMasterLevel.TabIndex = 2;
+            this.labelMasterLevel.Text = "Master Level";
             // 
             // labelMasterTune
             // 
-            labelMasterTune.AutoSize = true;
-            labelMasterTune.ForeColor = SystemColors.Control;
-            labelMasterTune.Location = new Point(116, 30);
-            labelMasterTune.Name = "labelMasterTune";
-            labelMasterTune.Size = new Size(72, 15);
-            labelMasterTune.TabIndex = 3;
-            labelMasterTune.Text = "Master Tune";
+            this.labelMasterTune.AutoSize = true;
+            this.labelMasterTune.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMasterTune.Location = new System.Drawing.Point(99, 26);
+            this.labelMasterTune.Name = "labelMasterTune";
+            this.labelMasterTune.Size = new System.Drawing.Size(67, 13);
+            this.labelMasterTune.TabIndex = 3;
+            this.labelMasterTune.Text = "Master Tune";
             // 
             // labelMasterTuneValue
             // 
-            labelMasterTuneValue.AutoSize = true;
-            labelMasterTuneValue.ForeColor = SystemColors.Control;
-            labelMasterTuneValue.Location = new Point(126, 155);
-            labelMasterTuneValue.Name = "labelMasterTuneValue";
-            labelMasterTuneValue.Size = new Size(48, 15);
-            labelMasterTuneValue.TabIndex = 4;
-            labelMasterTuneValue.Text = "440.0Hz";
+            this.labelMasterTuneValue.AutoSize = true;
+            this.labelMasterTuneValue.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMasterTuneValue.Location = new System.Drawing.Point(108, 134);
+            this.labelMasterTuneValue.Name = "labelMasterTuneValue";
+            this.labelMasterTuneValue.Size = new System.Drawing.Size(47, 13);
+            this.labelMasterTuneValue.TabIndex = 4;
+            this.labelMasterTuneValue.Text = "440.0Hz";
             // 
             // labelReverbRate
             // 
-            labelReverbRate.AutoSize = true;
-            labelReverbRate.ForeColor = SystemColors.Control;
-            labelReverbRate.Location = new Point(119, 64);
-            labelReverbRate.Name = "labelReverbRate";
-            labelReverbRate.Size = new Size(30, 15);
-            labelReverbRate.TabIndex = 8;
-            labelReverbRate.Text = "Rate";
-            labelReverbRate.TextAlign = ContentAlignment.TopCenter;
+            this.labelReverbRate.AutoSize = true;
+            this.labelReverbRate.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverbRate.Location = new System.Drawing.Point(102, 55);
+            this.labelReverbRate.Name = "labelReverbRate";
+            this.labelReverbRate.Size = new System.Drawing.Size(30, 13);
+            this.labelReverbRate.TabIndex = 8;
+            this.labelReverbRate.Text = "Rate";
+            this.labelReverbRate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelReverbLevel
             // 
-            labelReverbLevel.AutoSize = true;
-            labelReverbLevel.ForeColor = SystemColors.Control;
-            labelReverbLevel.Location = new Point(37, 64);
-            labelReverbLevel.Name = "labelReverbLevel";
-            labelReverbLevel.Size = new Size(34, 15);
-            labelReverbLevel.TabIndex = 7;
-            labelReverbLevel.Text = "Level";
-            labelReverbLevel.TextAlign = ContentAlignment.TopCenter;
+            this.labelReverbLevel.AutoSize = true;
+            this.labelReverbLevel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverbLevel.Location = new System.Drawing.Point(32, 55);
+            this.labelReverbLevel.Name = "labelReverbLevel";
+            this.labelReverbLevel.Size = new System.Drawing.Size(33, 13);
+            this.labelReverbLevel.TabIndex = 7;
+            this.labelReverbLevel.Text = "Level";
+            this.labelReverbLevel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // trackBarReverbRate
             // 
-            trackBarReverbRate.Location = new Point(115, 82);
-            trackBarReverbRate.Maximum = 7;
-            trackBarReverbRate.Name = "trackBarReverbRate";
-            trackBarReverbRate.Orientation = Orientation.Vertical;
-            trackBarReverbRate.Size = new Size(45, 104);
-            trackBarReverbRate.TabIndex = 6;
-            trackBarReverbRate.TickStyle = TickStyle.Both;
-            trackBarReverbRate.Value = 4;
-            trackBarReverbRate.ValueChanged += trackBarReverbRate_ValueChanged;
+            this.trackBarReverbRate.Location = new System.Drawing.Point(99, 71);
+            this.trackBarReverbRate.Maximum = 7;
+            this.trackBarReverbRate.Name = "trackBarReverbRate";
+            this.trackBarReverbRate.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarReverbRate.Size = new System.Drawing.Size(45, 90);
+            this.trackBarReverbRate.TabIndex = 6;
+            this.trackBarReverbRate.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarReverbRate.Value = 4;
+            this.trackBarReverbRate.ValueChanged += new System.EventHandler(this.trackBarReverbRate_ValueChanged);
             // 
             // trackBarReverbLevel
             // 
-            trackBarReverbLevel.Location = new Point(35, 82);
-            trackBarReverbLevel.Maximum = 7;
-            trackBarReverbLevel.Name = "trackBarReverbLevel";
-            trackBarReverbLevel.Orientation = Orientation.Vertical;
-            trackBarReverbLevel.Size = new Size(45, 104);
-            trackBarReverbLevel.TabIndex = 5;
-            trackBarReverbLevel.TickStyle = TickStyle.Both;
-            trackBarReverbLevel.Value = 4;
-            trackBarReverbLevel.ValueChanged += trackBarReverbLevel_ValueChanged;
+            this.trackBarReverbLevel.Location = new System.Drawing.Point(30, 71);
+            this.trackBarReverbLevel.Maximum = 7;
+            this.trackBarReverbLevel.Name = "trackBarReverbLevel";
+            this.trackBarReverbLevel.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarReverbLevel.Size = new System.Drawing.Size(45, 90);
+            this.trackBarReverbLevel.TabIndex = 5;
+            this.trackBarReverbLevel.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarReverbLevel.Value = 4;
+            this.trackBarReverbLevel.ValueChanged += new System.EventHandler(this.trackBarReverbLevel_ValueChanged);
             // 
             // comboBoxReverbType
             // 
-            comboBoxReverbType.FormattingEnabled = true;
-            comboBoxReverbType.Items.AddRange(new object[] { "Room", "Hall", "Plate", "Delay" });
-            comboBoxReverbType.Location = new Point(90, 34);
-            comboBoxReverbType.Name = "comboBoxReverbType";
-            comboBoxReverbType.Size = new Size(84, 23);
-            comboBoxReverbType.TabIndex = 12;
-            comboBoxReverbType.SelectedValueChanged += comboBoxReverbType_SelectedValueChanged;
+            this.comboBoxReverbType.FormattingEnabled = true;
+            this.comboBoxReverbType.Items.AddRange(new object[] {
+            "Room",
+            "Hall",
+            "Plate",
+            "Delay"});
+            this.comboBoxReverbType.Location = new System.Drawing.Point(77, 29);
+            this.comboBoxReverbType.Name = "comboBoxReverbType";
+            this.comboBoxReverbType.Size = new System.Drawing.Size(73, 21);
+            this.comboBoxReverbType.TabIndex = 12;
+            this.comboBoxReverbType.SelectedValueChanged += new System.EventHandler(this.comboBoxReverbType_SelectedValueChanged);
             // 
             // labelReverbType
             // 
-            labelReverbType.AutoSize = true;
-            labelReverbType.ForeColor = SystemColors.Control;
-            labelReverbType.Location = new Point(10, 37);
-            labelReverbType.Name = "labelReverbType";
-            labelReverbType.Size = new Size(70, 15);
-            labelReverbType.TabIndex = 13;
-            labelReverbType.Text = "Reverb Type";
+            this.labelReverbType.AutoSize = true;
+            this.labelReverbType.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverbType.Location = new System.Drawing.Point(9, 32);
+            this.labelReverbType.Name = "labelReverbType";
+            this.labelReverbType.Size = new System.Drawing.Size(69, 13);
+            this.labelReverbType.TabIndex = 13;
+            this.labelReverbType.Text = "Reverb Type";
             // 
             // labelPart4Channel
             // 
-            labelPart4Channel.AutoSize = true;
-            labelPart4Channel.ForeColor = SystemColors.Control;
-            labelPart4Channel.Location = new Point(259, 149);
-            labelPart4Channel.Name = "labelPart4Channel";
-            labelPart4Channel.Size = new Size(37, 15);
-            labelPart4Channel.TabIndex = 14;
-            labelPart4Channel.Text = "Part 4";
+            this.labelPart4Channel.AutoSize = true;
+            this.labelPart4Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart4Channel.Location = new System.Drawing.Point(222, 129);
+            this.labelPart4Channel.Name = "labelPart4Channel";
+            this.labelPart4Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart4Channel.TabIndex = 14;
+            this.labelPart4Channel.Text = "Part 4";
             // 
             // labelPart5Channel
             // 
-            labelPart5Channel.AutoSize = true;
-            labelPart5Channel.ForeColor = SystemColors.Control;
-            labelPart5Channel.Location = new Point(259, 178);
-            labelPart5Channel.Name = "labelPart5Channel";
-            labelPart5Channel.Size = new Size(37, 15);
-            labelPart5Channel.TabIndex = 15;
-            labelPart5Channel.Text = "Part 5";
+            this.labelPart5Channel.AutoSize = true;
+            this.labelPart5Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart5Channel.Location = new System.Drawing.Point(222, 154);
+            this.labelPart5Channel.Name = "labelPart5Channel";
+            this.labelPart5Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart5Channel.TabIndex = 15;
+            this.labelPart5Channel.Text = "Part 5";
             // 
             // labelPart6Channel
             // 
-            labelPart6Channel.AutoSize = true;
-            labelPart6Channel.ForeColor = SystemColors.Control;
-            labelPart6Channel.Location = new Point(259, 207);
-            labelPart6Channel.Name = "labelPart6Channel";
-            labelPart6Channel.Size = new Size(37, 15);
-            labelPart6Channel.TabIndex = 16;
-            labelPart6Channel.Text = "Part 6";
+            this.labelPart6Channel.AutoSize = true;
+            this.labelPart6Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart6Channel.Location = new System.Drawing.Point(222, 179);
+            this.labelPart6Channel.Name = "labelPart6Channel";
+            this.labelPart6Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart6Channel.TabIndex = 16;
+            this.labelPart6Channel.Text = "Part 6";
             // 
             // labelPart3Channel
             // 
-            labelPart3Channel.AutoSize = true;
-            labelPart3Channel.ForeColor = SystemColors.Control;
-            labelPart3Channel.Location = new Point(260, 120);
-            labelPart3Channel.Name = "labelPart3Channel";
-            labelPart3Channel.Size = new Size(37, 15);
-            labelPart3Channel.TabIndex = 19;
-            labelPart3Channel.Text = "Part 3";
+            this.labelPart3Channel.AutoSize = true;
+            this.labelPart3Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart3Channel.Location = new System.Drawing.Point(223, 104);
+            this.labelPart3Channel.Name = "labelPart3Channel";
+            this.labelPart3Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart3Channel.TabIndex = 19;
+            this.labelPart3Channel.Text = "Part 3";
             // 
             // labelPart2Channel
             // 
-            labelPart2Channel.AutoSize = true;
-            labelPart2Channel.ForeColor = SystemColors.Control;
-            labelPart2Channel.Location = new Point(260, 91);
-            labelPart2Channel.Name = "labelPart2Channel";
-            labelPart2Channel.Size = new Size(37, 15);
-            labelPart2Channel.TabIndex = 18;
-            labelPart2Channel.Text = "Part 2";
+            this.labelPart2Channel.AutoSize = true;
+            this.labelPart2Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart2Channel.Location = new System.Drawing.Point(223, 79);
+            this.labelPart2Channel.Name = "labelPart2Channel";
+            this.labelPart2Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart2Channel.TabIndex = 18;
+            this.labelPart2Channel.Text = "Part 2";
             // 
             // labelPart1Channel
             // 
-            labelPart1Channel.AutoSize = true;
-            labelPart1Channel.ForeColor = SystemColors.Control;
-            labelPart1Channel.Location = new Point(260, 62);
-            labelPart1Channel.Name = "labelPart1Channel";
-            labelPart1Channel.Size = new Size(37, 15);
-            labelPart1Channel.TabIndex = 17;
-            labelPart1Channel.Text = "Part 1";
+            this.labelPart1Channel.AutoSize = true;
+            this.labelPart1Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart1Channel.Location = new System.Drawing.Point(223, 54);
+            this.labelPart1Channel.Name = "labelPart1Channel";
+            this.labelPart1Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart1Channel.TabIndex = 17;
+            this.labelPart1Channel.Text = "Part 1";
             // 
             // labelPart8Channel
             // 
-            labelPart8Channel.AutoSize = true;
-            labelPart8Channel.ForeColor = SystemColors.Control;
-            labelPart8Channel.Location = new Point(259, 264);
-            labelPart8Channel.Name = "labelPart8Channel";
-            labelPart8Channel.Size = new Size(37, 15);
-            labelPart8Channel.TabIndex = 21;
-            labelPart8Channel.Text = "Part 8";
+            this.labelPart8Channel.AutoSize = true;
+            this.labelPart8Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart8Channel.Location = new System.Drawing.Point(222, 229);
+            this.labelPart8Channel.Name = "labelPart8Channel";
+            this.labelPart8Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart8Channel.TabIndex = 21;
+            this.labelPart8Channel.Text = "Part 8";
             // 
             // labelPart7Channel
             // 
-            labelPart7Channel.AutoSize = true;
-            labelPart7Channel.ForeColor = SystemColors.Control;
-            labelPart7Channel.Location = new Point(259, 235);
-            labelPart7Channel.Name = "labelPart7Channel";
-            labelPart7Channel.Size = new Size(37, 15);
-            labelPart7Channel.TabIndex = 20;
-            labelPart7Channel.Text = "Part 7";
+            this.labelPart7Channel.AutoSize = true;
+            this.labelPart7Channel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPart7Channel.Location = new System.Drawing.Point(222, 204);
+            this.labelPart7Channel.Name = "labelPart7Channel";
+            this.labelPart7Channel.Size = new System.Drawing.Size(35, 13);
+            this.labelPart7Channel.TabIndex = 20;
+            this.labelPart7Channel.Text = "Part 7";
             // 
             // labelRhythmChannel
             // 
-            labelRhythmChannel.AutoSize = true;
-            labelRhythmChannel.ForeColor = SystemColors.Control;
-            labelRhythmChannel.Location = new Point(259, 293);
-            labelRhythmChannel.Name = "labelRhythmChannel";
-            labelRhythmChannel.Size = new Size(49, 15);
-            labelRhythmChannel.TabIndex = 22;
-            labelRhythmChannel.Text = "Rhythm";
+            this.labelRhythmChannel.AutoSize = true;
+            this.labelRhythmChannel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelRhythmChannel.Location = new System.Drawing.Point(222, 254);
+            this.labelRhythmChannel.Name = "labelRhythmChannel";
+            this.labelRhythmChannel.Size = new System.Drawing.Size(43, 13);
+            this.labelRhythmChannel.TabIndex = 22;
+            this.labelRhythmChannel.Text = "Rhythm";
             // 
             // labelMidiRxChannel
             // 
-            labelMidiRxChannel.AutoSize = true;
-            labelMidiRxChannel.ForeColor = SystemColors.Control;
-            labelMidiRxChannel.Location = new Point(311, 20);
-            labelMidiRxChannel.Name = "labelMidiRxChannel";
-            labelMidiRxChannel.Size = new Size(77, 15);
-            labelMidiRxChannel.TabIndex = 23;
-            labelMidiRxChannel.Text = "MIDI channel";
+            this.labelMidiRxChannel.AutoSize = true;
+            this.labelMidiRxChannel.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMidiRxChannel.Location = new System.Drawing.Point(267, 17);
+            this.labelMidiRxChannel.Name = "labelMidiRxChannel";
+            this.labelMidiRxChannel.Size = new System.Drawing.Size(71, 13);
+            this.labelMidiRxChannel.TabIndex = 23;
+            this.labelMidiRxChannel.Text = "MIDI channel";
             // 
             // labelPartialReserve
             // 
-            labelPartialReserve.AutoSize = true;
-            labelPartialReserve.ForeColor = SystemColors.Control;
-            labelPartialReserve.Location = new Point(400, 20);
-            labelPartialReserve.Name = "labelPartialReserve";
-            labelPartialReserve.Size = new Size(80, 15);
-            labelPartialReserve.TabIndex = 24;
-            labelPartialReserve.Text = "Partial reserve";
+            this.labelPartialReserve.AutoSize = true;
+            this.labelPartialReserve.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelPartialReserve.Location = new System.Drawing.Point(343, 17);
+            this.labelPartialReserve.Name = "labelPartialReserve";
+            this.labelPartialReserve.Size = new System.Drawing.Size(74, 13);
+            this.labelPartialReserve.TabIndex = 24;
+            this.labelPartialReserve.Text = "Partial reserve";
             // 
             // panel1
             // 
-            panel1.Controls.Add(radioButtonChannelCustom);
-            panel1.Controls.Add(radioButtonChannels1to8);
-            panel1.Controls.Add(radioButtonChannels2to9);
-            panel1.Location = new Point(244, 326);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(307, 93);
-            panel1.TabIndex = 25;
+            this.panel1.Controls.Add(this.radioButtonChannelCustom);
+            this.panel1.Controls.Add(this.radioButtonChannels1to8);
+            this.panel1.Controls.Add(this.radioButtonChannels2to9);
+            this.panel1.Location = new System.Drawing.Point(209, 283);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(263, 81);
+            this.panel1.TabIndex = 25;
             // 
             // radioButtonChannelCustom
             // 
-            radioButtonChannelCustom.AutoSize = true;
-            radioButtonChannelCustom.ForeColor = SystemColors.Control;
-            radioButtonChannelCustom.Location = new Point(16, 62);
-            radioButtonChannelCustom.Name = "radioButtonChannelCustom";
-            radioButtonChannelCustom.Size = new Size(118, 19);
-            radioButtonChannelCustom.TabIndex = 14;
-            radioButtonChannelCustom.TabStop = true;
-            radioButtonChannelCustom.Text = "Custom mapping";
-            radioButtonChannelCustom.UseVisualStyleBackColor = true;
+            this.radioButtonChannelCustom.AutoSize = true;
+            this.radioButtonChannelCustom.ForeColor = System.Drawing.SystemColors.Control;
+            this.radioButtonChannelCustom.Location = new System.Drawing.Point(14, 54);
+            this.radioButtonChannelCustom.Name = "radioButtonChannelCustom";
+            this.radioButtonChannelCustom.Size = new System.Drawing.Size(103, 17);
+            this.radioButtonChannelCustom.TabIndex = 14;
+            this.radioButtonChannelCustom.TabStop = true;
+            this.radioButtonChannelCustom.Text = "Custom mapping";
+            this.radioButtonChannelCustom.UseVisualStyleBackColor = true;
             // 
             // radioButtonChannels1to8
             // 
-            radioButtonChannels1to8.AutoSize = true;
-            radioButtonChannels1to8.ForeColor = SystemColors.Control;
-            radioButtonChannels1to8.Location = new Point(16, 37);
-            radioButtonChannels1to8.Name = "radioButtonChannels1to8";
-            radioButtonChannels1to8.Size = new Size(266, 19);
-            radioButtonChannels1to8.TabIndex = 13;
-            radioButtonChannels1to8.TabStop = true;
-            radioButtonChannels1to8.Text = "1-8, 10 (improved General MIDI compatibility)";
-            radioButtonChannels1to8.UseVisualStyleBackColor = true;
-            radioButtonChannels1to8.CheckedChanged += radioButtonChannels1to8_CheckedChanged;
+            this.radioButtonChannels1to8.AutoSize = true;
+            this.radioButtonChannels1to8.ForeColor = System.Drawing.SystemColors.Control;
+            this.radioButtonChannels1to8.Location = new System.Drawing.Point(14, 32);
+            this.radioButtonChannels1to8.Name = "radioButtonChannels1to8";
+            this.radioButtonChannels1to8.Size = new System.Drawing.Size(236, 17);
+            this.radioButtonChannels1to8.TabIndex = 13;
+            this.radioButtonChannels1to8.TabStop = true;
+            this.radioButtonChannels1to8.Text = "1-8, 10 (improved General MIDI compatibility)";
+            this.radioButtonChannels1to8.UseVisualStyleBackColor = true;
+            this.radioButtonChannels1to8.CheckedChanged += new System.EventHandler(this.radioButtonChannels1to8_CheckedChanged);
             // 
             // radioButtonChannels2to9
             // 
-            radioButtonChannels2to9.AutoSize = true;
-            radioButtonChannels2to9.Checked = true;
-            radioButtonChannels2to9.ForeColor = SystemColors.Control;
-            radioButtonChannels2to9.Location = new Point(16, 12);
-            radioButtonChannels2to9.Name = "radioButtonChannels2to9";
-            radioButtonChannels2to9.Size = new Size(108, 19);
-            radioButtonChannels2to9.TabIndex = 12;
-            radioButtonChannels2to9.TabStop = true;
-            radioButtonChannels2to9.Text = "2-9, 10 (default)";
-            radioButtonChannels2to9.UseVisualStyleBackColor = true;
-            radioButtonChannels2to9.CheckedChanged += radioButtonChannels2to9_CheckedChanged;
+            this.radioButtonChannels2to9.AutoSize = true;
+            this.radioButtonChannels2to9.Checked = true;
+            this.radioButtonChannels2to9.ForeColor = System.Drawing.SystemColors.Control;
+            this.radioButtonChannels2to9.Location = new System.Drawing.Point(14, 10);
+            this.radioButtonChannels2to9.Name = "radioButtonChannels2to9";
+            this.radioButtonChannels2to9.Size = new System.Drawing.Size(99, 17);
+            this.radioButtonChannels2to9.TabIndex = 12;
+            this.radioButtonChannels2to9.TabStop = true;
+            this.radioButtonChannels2to9.Text = "2-9, 10 (default)";
+            this.radioButtonChannels2to9.UseVisualStyleBackColor = true;
+            this.radioButtonChannels2to9.CheckedChanged += new System.EventHandler(this.radioButtonChannels2to9_CheckedChanged);
             // 
             // groupBoxReverb
             // 
-            groupBoxReverb.Controls.Add(labelReverbRateValue);
-            groupBoxReverb.Controls.Add(labelReverbLevelValue);
-            groupBoxReverb.Controls.Add(labelReverbType);
-            groupBoxReverb.Controls.Add(comboBoxReverbType);
-            groupBoxReverb.Controls.Add(trackBarReverbLevel);
-            groupBoxReverb.Controls.Add(trackBarReverbRate);
-            groupBoxReverb.Controls.Add(labelReverbLevel);
-            groupBoxReverb.Controls.Add(labelReverbRate);
-            groupBoxReverb.Location = new Point(14, 196);
-            groupBoxReverb.Name = "groupBoxReverb";
-            groupBoxReverb.Size = new Size(192, 223);
-            groupBoxReverb.TabIndex = 26;
-            groupBoxReverb.TabStop = false;
-            groupBoxReverb.Text = "Reverb settings";
+            this.groupBoxReverb.Controls.Add(this.labelReverbRateValue);
+            this.groupBoxReverb.Controls.Add(this.labelReverbLevelValue);
+            this.groupBoxReverb.Controls.Add(this.labelReverbType);
+            this.groupBoxReverb.Controls.Add(this.comboBoxReverbType);
+            this.groupBoxReverb.Controls.Add(this.trackBarReverbLevel);
+            this.groupBoxReverb.Controls.Add(this.trackBarReverbRate);
+            this.groupBoxReverb.Controls.Add(this.labelReverbLevel);
+            this.groupBoxReverb.Controls.Add(this.labelReverbRate);
+            this.groupBoxReverb.Location = new System.Drawing.Point(12, 170);
+            this.groupBoxReverb.Name = "groupBoxReverb";
+            this.groupBoxReverb.Size = new System.Drawing.Size(165, 193);
+            this.groupBoxReverb.TabIndex = 26;
+            this.groupBoxReverb.TabStop = false;
+            this.groupBoxReverb.Text = "Reverb settings";
             // 
             // labelReverbRateValue
             // 
-            labelReverbRateValue.AutoSize = true;
-            labelReverbRateValue.ForeColor = SystemColors.Control;
-            labelReverbRateValue.Location = new Point(129, 188);
-            labelReverbRateValue.Name = "labelReverbRateValue";
-            labelReverbRateValue.Size = new Size(13, 15);
-            labelReverbRateValue.TabIndex = 47;
-            labelReverbRateValue.Text = "0";
-            labelReverbRateValue.TextAlign = ContentAlignment.MiddleCenter;
+            this.labelReverbRateValue.AutoSize = true;
+            this.labelReverbRateValue.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverbRateValue.Location = new System.Drawing.Point(111, 163);
+            this.labelReverbRateValue.Name = "labelReverbRateValue";
+            this.labelReverbRateValue.Size = new System.Drawing.Size(13, 13);
+            this.labelReverbRateValue.TabIndex = 47;
+            this.labelReverbRateValue.Text = "0";
+            this.labelReverbRateValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelReverbLevelValue
             // 
-            labelReverbLevelValue.AutoSize = true;
-            labelReverbLevelValue.ForeColor = SystemColors.Control;
-            labelReverbLevelValue.Location = new Point(49, 188);
-            labelReverbLevelValue.Name = "labelReverbLevelValue";
-            labelReverbLevelValue.Size = new Size(13, 15);
-            labelReverbLevelValue.TabIndex = 46;
-            labelReverbLevelValue.Text = "0";
-            labelReverbLevelValue.TextAlign = ContentAlignment.MiddleCenter;
+            this.labelReverbLevelValue.AutoSize = true;
+            this.labelReverbLevelValue.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelReverbLevelValue.Location = new System.Drawing.Point(42, 163);
+            this.labelReverbLevelValue.Name = "labelReverbLevelValue";
+            this.labelReverbLevelValue.Size = new System.Drawing.Size(13, 13);
+            this.labelReverbLevelValue.TabIndex = 46;
+            this.labelReverbLevelValue.Text = "0";
+            this.labelReverbLevelValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numericUpDownMIDIPart1
             // 
-            numericUpDownMIDIPart1.Location = new Point(325, 60);
-            numericUpDownMIDIPart1.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart1.Name = "numericUpDownMIDIPart1";
-            numericUpDownMIDIPart1.Size = new Size(43, 23);
-            numericUpDownMIDIPart1.TabIndex = 27;
-            numericUpDownMIDIPart1.Value = new decimal(new int[] { 2, 0, 0, 0 });
-            numericUpDownMIDIPart1.ValueChanged += numericUpDownMIDIPart1_ValueChanged;
+            this.numericUpDownMIDIPart1.Location = new System.Drawing.Point(279, 52);
+            this.numericUpDownMIDIPart1.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart1.Name = "numericUpDownMIDIPart1";
+            this.numericUpDownMIDIPart1.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart1.TabIndex = 27;
+            this.numericUpDownMIDIPart1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart1.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart1_ValueChanged);
             // 
             // numericUpDownMIDIPart2
             // 
-            numericUpDownMIDIPart2.Location = new Point(325, 89);
-            numericUpDownMIDIPart2.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart2.Name = "numericUpDownMIDIPart2";
-            numericUpDownMIDIPart2.Size = new Size(43, 23);
-            numericUpDownMIDIPart2.TabIndex = 28;
-            numericUpDownMIDIPart2.Value = new decimal(new int[] { 3, 0, 0, 0 });
-            numericUpDownMIDIPart2.ValueChanged += numericUpDownMIDIPart2_ValueChanged;
+            this.numericUpDownMIDIPart2.Location = new System.Drawing.Point(279, 77);
+            this.numericUpDownMIDIPart2.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart2.Name = "numericUpDownMIDIPart2";
+            this.numericUpDownMIDIPart2.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart2.TabIndex = 28;
+            this.numericUpDownMIDIPart2.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart2.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart2_ValueChanged);
             // 
             // numericUpDownMIDIPart3
             // 
-            numericUpDownMIDIPart3.Location = new Point(325, 118);
-            numericUpDownMIDIPart3.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart3.Name = "numericUpDownMIDIPart3";
-            numericUpDownMIDIPart3.Size = new Size(43, 23);
-            numericUpDownMIDIPart3.TabIndex = 29;
-            numericUpDownMIDIPart3.Value = new decimal(new int[] { 4, 0, 0, 0 });
-            numericUpDownMIDIPart3.ValueChanged += numericUpDownMIDIPart3_ValueChanged;
+            this.numericUpDownMIDIPart3.Location = new System.Drawing.Point(279, 102);
+            this.numericUpDownMIDIPart3.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart3.Name = "numericUpDownMIDIPart3";
+            this.numericUpDownMIDIPart3.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart3.TabIndex = 29;
+            this.numericUpDownMIDIPart3.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart3.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart3_ValueChanged);
             // 
             // numericUpDownMIDIPart6
             // 
-            numericUpDownMIDIPart6.Location = new Point(325, 205);
-            numericUpDownMIDIPart6.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart6.Name = "numericUpDownMIDIPart6";
-            numericUpDownMIDIPart6.Size = new Size(43, 23);
-            numericUpDownMIDIPart6.TabIndex = 32;
-            numericUpDownMIDIPart6.Value = new decimal(new int[] { 7, 0, 0, 0 });
-            numericUpDownMIDIPart6.ValueChanged += numericUpDownMIDIPart6_ValueChanged;
+            this.numericUpDownMIDIPart6.Location = new System.Drawing.Point(279, 178);
+            this.numericUpDownMIDIPart6.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart6.Name = "numericUpDownMIDIPart6";
+            this.numericUpDownMIDIPart6.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart6.TabIndex = 32;
+            this.numericUpDownMIDIPart6.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart6.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart6_ValueChanged);
             // 
             // numericUpDownMIDIPart5
             // 
-            numericUpDownMIDIPart5.Location = new Point(325, 176);
-            numericUpDownMIDIPart5.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart5.Name = "numericUpDownMIDIPart5";
-            numericUpDownMIDIPart5.Size = new Size(43, 23);
-            numericUpDownMIDIPart5.TabIndex = 31;
-            numericUpDownMIDIPart5.Value = new decimal(new int[] { 6, 0, 0, 0 });
-            numericUpDownMIDIPart5.ValueChanged += numericUpDownMIDIPart5_ValueChanged;
+            this.numericUpDownMIDIPart5.Location = new System.Drawing.Point(279, 153);
+            this.numericUpDownMIDIPart5.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart5.Name = "numericUpDownMIDIPart5";
+            this.numericUpDownMIDIPart5.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart5.TabIndex = 31;
+            this.numericUpDownMIDIPart5.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart5.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart5_ValueChanged);
             // 
             // numericUpDownMIDIPart4
             // 
-            numericUpDownMIDIPart4.Location = new Point(325, 147);
-            numericUpDownMIDIPart4.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart4.Name = "numericUpDownMIDIPart4";
-            numericUpDownMIDIPart4.Size = new Size(43, 23);
-            numericUpDownMIDIPart4.TabIndex = 30;
-            numericUpDownMIDIPart4.Value = new decimal(new int[] { 5, 0, 0, 0 });
-            numericUpDownMIDIPart4.ValueChanged += numericUpDownMIDIPart4_ValueChanged;
+            this.numericUpDownMIDIPart4.Location = new System.Drawing.Point(279, 127);
+            this.numericUpDownMIDIPart4.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart4.Name = "numericUpDownMIDIPart4";
+            this.numericUpDownMIDIPart4.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart4.TabIndex = 30;
+            this.numericUpDownMIDIPart4.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart4.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart4_ValueChanged);
             // 
             // numericUpDownMIDIPartR
             // 
-            numericUpDownMIDIPartR.Location = new Point(325, 291);
-            numericUpDownMIDIPartR.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPartR.Name = "numericUpDownMIDIPartR";
-            numericUpDownMIDIPartR.Size = new Size(43, 23);
-            numericUpDownMIDIPartR.TabIndex = 35;
-            numericUpDownMIDIPartR.Value = new decimal(new int[] { 10, 0, 0, 0 });
-            numericUpDownMIDIPartR.ValueChanged += numericUpDownMIDIPartR_ValueChanged;
+            this.numericUpDownMIDIPartR.Location = new System.Drawing.Point(279, 252);
+            this.numericUpDownMIDIPartR.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPartR.Name = "numericUpDownMIDIPartR";
+            this.numericUpDownMIDIPartR.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPartR.TabIndex = 35;
+            this.numericUpDownMIDIPartR.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPartR.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPartR_ValueChanged);
             // 
             // numericUpDownMIDIPart8
             // 
-            numericUpDownMIDIPart8.Location = new Point(325, 262);
-            numericUpDownMIDIPart8.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart8.Name = "numericUpDownMIDIPart8";
-            numericUpDownMIDIPart8.Size = new Size(43, 23);
-            numericUpDownMIDIPart8.TabIndex = 34;
-            numericUpDownMIDIPart8.Value = new decimal(new int[] { 9, 0, 0, 0 });
-            numericUpDownMIDIPart8.ValueChanged += numericUpDownMIDIPart8_ValueChanged;
+            this.numericUpDownMIDIPart8.Location = new System.Drawing.Point(279, 227);
+            this.numericUpDownMIDIPart8.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart8.Name = "numericUpDownMIDIPart8";
+            this.numericUpDownMIDIPart8.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart8.TabIndex = 34;
+            this.numericUpDownMIDIPart8.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart8.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart8_ValueChanged);
             // 
             // numericUpDownMIDIPart7
             // 
-            numericUpDownMIDIPart7.Location = new Point(325, 233);
-            numericUpDownMIDIPart7.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            numericUpDownMIDIPart7.Name = "numericUpDownMIDIPart7";
-            numericUpDownMIDIPart7.Size = new Size(43, 23);
-            numericUpDownMIDIPart7.TabIndex = 33;
-            numericUpDownMIDIPart7.Value = new decimal(new int[] { 8, 0, 0, 0 });
-            numericUpDownMIDIPart7.ValueChanged += numericUpDownMIDIPart7_ValueChanged;
+            this.numericUpDownMIDIPart7.Location = new System.Drawing.Point(279, 202);
+            this.numericUpDownMIDIPart7.Maximum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart7.Name = "numericUpDownMIDIPart7";
+            this.numericUpDownMIDIPart7.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownMIDIPart7.TabIndex = 33;
+            this.numericUpDownMIDIPart7.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numericUpDownMIDIPart7.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart7_ValueChanged);
             // 
             // numericUpDownPartReserveR
             // 
-            numericUpDownPartReserveR.Location = new Point(416, 291);
-            numericUpDownPartReserveR.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserveR.Name = "numericUpDownPartReserveR";
-            numericUpDownPartReserveR.Size = new Size(43, 23);
-            numericUpDownPartReserveR.TabIndex = 44;
-            numericUpDownPartReserveR.ValueChanged += numericUpDownPartReserveR_ValueChanged;
+            this.numericUpDownPartReserveR.Location = new System.Drawing.Point(357, 252);
+            this.numericUpDownPartReserveR.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserveR.Name = "numericUpDownPartReserveR";
+            this.numericUpDownPartReserveR.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserveR.TabIndex = 44;
+            this.numericUpDownPartReserveR.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPartR_ValueChanged);
             // 
             // numericUpDownPartReserve8
             // 
-            numericUpDownPartReserve8.Location = new Point(416, 262);
-            numericUpDownPartReserve8.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve8.Name = "numericUpDownPartReserve8";
-            numericUpDownPartReserve8.Size = new Size(43, 23);
-            numericUpDownPartReserve8.TabIndex = 43;
-            numericUpDownPartReserve8.ValueChanged += numericUpDownPartReserve8_ValueChanged;
+            this.numericUpDownPartReserve8.Location = new System.Drawing.Point(357, 227);
+            this.numericUpDownPartReserve8.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve8.Name = "numericUpDownPartReserve8";
+            this.numericUpDownPartReserve8.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve8.TabIndex = 43;
+            this.numericUpDownPartReserve8.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart8_ValueChanged);
             // 
             // numericUpDownPartReserve7
             // 
-            numericUpDownPartReserve7.Location = new Point(416, 233);
-            numericUpDownPartReserve7.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve7.Name = "numericUpDownPartReserve7";
-            numericUpDownPartReserve7.Size = new Size(43, 23);
-            numericUpDownPartReserve7.TabIndex = 42;
-            numericUpDownPartReserve7.ValueChanged += numericUpDownPartReserve7_ValueChanged;
+            this.numericUpDownPartReserve7.Location = new System.Drawing.Point(357, 202);
+            this.numericUpDownPartReserve7.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve7.Name = "numericUpDownPartReserve7";
+            this.numericUpDownPartReserve7.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve7.TabIndex = 42;
+            this.numericUpDownPartReserve7.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart7_ValueChanged);
             // 
             // numericUpDownPartReserve6
             // 
-            numericUpDownPartReserve6.Location = new Point(416, 205);
-            numericUpDownPartReserve6.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve6.Name = "numericUpDownPartReserve6";
-            numericUpDownPartReserve6.Size = new Size(43, 23);
-            numericUpDownPartReserve6.TabIndex = 41;
-            numericUpDownPartReserve6.ValueChanged += numericUpDownPartReserve6_ValueChanged;
+            this.numericUpDownPartReserve6.Location = new System.Drawing.Point(357, 178);
+            this.numericUpDownPartReserve6.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve6.Name = "numericUpDownPartReserve6";
+            this.numericUpDownPartReserve6.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve6.TabIndex = 41;
+            this.numericUpDownPartReserve6.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart6_ValueChanged);
             // 
             // numericUpDownPartReserve5
             // 
-            numericUpDownPartReserve5.Location = new Point(416, 176);
-            numericUpDownPartReserve5.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve5.Name = "numericUpDownPartReserve5";
-            numericUpDownPartReserve5.Size = new Size(43, 23);
-            numericUpDownPartReserve5.TabIndex = 40;
-            numericUpDownPartReserve5.ValueChanged += numericUpDownPartReserve5_ValueChanged;
+            this.numericUpDownPartReserve5.Location = new System.Drawing.Point(357, 153);
+            this.numericUpDownPartReserve5.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve5.Name = "numericUpDownPartReserve5";
+            this.numericUpDownPartReserve5.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve5.TabIndex = 40;
+            this.numericUpDownPartReserve5.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart5_ValueChanged);
             // 
             // numericUpDownPartReserve4
             // 
-            numericUpDownPartReserve4.Location = new Point(416, 147);
-            numericUpDownPartReserve4.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve4.Name = "numericUpDownPartReserve4";
-            numericUpDownPartReserve4.Size = new Size(43, 23);
-            numericUpDownPartReserve4.TabIndex = 39;
-            numericUpDownPartReserve4.ValueChanged += numericUpDownPartReserve4_ValueChanged;
+            this.numericUpDownPartReserve4.Location = new System.Drawing.Point(357, 127);
+            this.numericUpDownPartReserve4.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve4.Name = "numericUpDownPartReserve4";
+            this.numericUpDownPartReserve4.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve4.TabIndex = 39;
+            this.numericUpDownPartReserve4.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart4_ValueChanged);
             // 
             // numericUpDownPartReserve3
             // 
-            numericUpDownPartReserve3.Location = new Point(416, 118);
-            numericUpDownPartReserve3.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve3.Name = "numericUpDownPartReserve3";
-            numericUpDownPartReserve3.Size = new Size(43, 23);
-            numericUpDownPartReserve3.TabIndex = 38;
-            numericUpDownPartReserve3.ValueChanged += numericUpDownPartReserve3_ValueChanged;
+            this.numericUpDownPartReserve3.Location = new System.Drawing.Point(357, 102);
+            this.numericUpDownPartReserve3.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve3.Name = "numericUpDownPartReserve3";
+            this.numericUpDownPartReserve3.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve3.TabIndex = 38;
+            this.numericUpDownPartReserve3.ValueChanged += new System.EventHandler(this.numericUpDownMIDIPart3_ValueChanged);
             // 
             // numericUpDownPartReserve2
             // 
-            numericUpDownPartReserve2.Location = new Point(416, 89);
-            numericUpDownPartReserve2.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve2.Name = "numericUpDownPartReserve2";
-            numericUpDownPartReserve2.Size = new Size(43, 23);
-            numericUpDownPartReserve2.TabIndex = 37;
-            numericUpDownPartReserve2.ValueChanged += numericUpDownPartReserve2_ValueChanged;
+            this.numericUpDownPartReserve2.Location = new System.Drawing.Point(357, 77);
+            this.numericUpDownPartReserve2.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve2.Name = "numericUpDownPartReserve2";
+            this.numericUpDownPartReserve2.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve2.TabIndex = 37;
+            this.numericUpDownPartReserve2.ValueChanged += new System.EventHandler(this.numericUpDownPartReserve2_ValueChanged);
             // 
             // numericUpDownPartReserve1
             // 
-            numericUpDownPartReserve1.Location = new Point(416, 60);
-            numericUpDownPartReserve1.Maximum = new decimal(new int[] { 32, 0, 0, 0 });
-            numericUpDownPartReserve1.Name = "numericUpDownPartReserve1";
-            numericUpDownPartReserve1.Size = new Size(43, 23);
-            numericUpDownPartReserve1.TabIndex = 36;
-            numericUpDownPartReserve1.ValueChanged += numericUpDownPartReserve1_ValueChanged;
+            this.numericUpDownPartReserve1.Location = new System.Drawing.Point(357, 52);
+            this.numericUpDownPartReserve1.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDownPartReserve1.Name = "numericUpDownPartReserve1";
+            this.numericUpDownPartReserve1.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDownPartReserve1.TabIndex = 36;
+            this.numericUpDownPartReserve1.ValueChanged += new System.EventHandler(this.numericUpDownPartReserve1_ValueChanged);
             // 
             // labelMasterLevelValue
             // 
-            labelMasterLevelValue.AutoSize = true;
-            labelMasterLevelValue.ForeColor = SystemColors.Control;
-            labelMasterLevelValue.Location = new Point(60, 155);
-            labelMasterLevelValue.Name = "labelMasterLevelValue";
-            labelMasterLevelValue.Size = new Size(19, 15);
-            labelMasterLevelValue.TabIndex = 45;
-            labelMasterLevelValue.Text = "80";
-            labelMasterLevelValue.TextAlign = ContentAlignment.MiddleCenter;
+            this.labelMasterLevelValue.AutoSize = true;
+            this.labelMasterLevelValue.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMasterLevelValue.Location = new System.Drawing.Point(51, 134);
+            this.labelMasterLevelValue.Name = "labelMasterLevelValue";
+            this.labelMasterLevelValue.Size = new System.Drawing.Size(19, 13);
+            this.labelMasterLevelValue.TabIndex = 45;
+            this.labelMasterLevelValue.Text = "80";
+            this.labelMasterLevelValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBoxMessageSettings
             // 
-            groupBoxMessageSettings.Controls.Add(textBoxMessage2);
-            groupBoxMessageSettings.Controls.Add(labelMessage2);
-            groupBoxMessageSettings.Controls.Add(labelMessage1);
-            groupBoxMessageSettings.Controls.Add(textBoxMessage1);
-            groupBoxMessageSettings.Location = new Point(14, 425);
-            groupBoxMessageSettings.Name = "groupBoxMessageSettings";
-            groupBoxMessageSettings.Size = new Size(537, 60);
-            groupBoxMessageSettings.TabIndex = 46;
-            groupBoxMessageSettings.TabStop = false;
-            groupBoxMessageSettings.Text = "Text messages";
+            this.groupBoxMessageSettings.Controls.Add(this.textBoxMessage2);
+            this.groupBoxMessageSettings.Controls.Add(this.labelMessage2);
+            this.groupBoxMessageSettings.Controls.Add(this.labelMessage1);
+            this.groupBoxMessageSettings.Controls.Add(this.textBoxMessage1);
+            this.groupBoxMessageSettings.Location = new System.Drawing.Point(12, 368);
+            this.groupBoxMessageSettings.Name = "groupBoxMessageSettings";
+            this.groupBoxMessageSettings.Size = new System.Drawing.Size(460, 52);
+            this.groupBoxMessageSettings.TabIndex = 46;
+            this.groupBoxMessageSettings.TabStop = false;
+            this.groupBoxMessageSettings.Text = "Text messages";
             // 
             // textBoxMessage2
             // 
-            textBoxMessage2.Location = new Point(344, 22);
-            textBoxMessage2.MaxLength = 20;
-            textBoxMessage2.Name = "textBoxMessage2";
-            textBoxMessage2.Size = new Size(180, 23);
-            textBoxMessage2.TabIndex = 18;
-            toolTip.SetToolTip(textBoxMessage2, "Enter a custom message to be shown on MT-32 display after loading SysEx file");
-            textBoxMessage2.Click += textBoxMessage2_Click;
-            textBoxMessage2.TextChanged += textBoxMessage2_TextChanged;
+            this.textBoxMessage2.Location = new System.Drawing.Point(295, 19);
+            this.textBoxMessage2.MaxLength = 20;
+            this.textBoxMessage2.Name = "textBoxMessage2";
+            this.textBoxMessage2.Size = new System.Drawing.Size(155, 20);
+            this.textBoxMessage2.TabIndex = 18;
+            this.toolTip.SetToolTip(this.textBoxMessage2, "Enter a custom message to be shown on MT-32 display after loading SysEx file");
+            this.textBoxMessage2.Click += new System.EventHandler(this.textBoxMessage2_Click);
+            this.textBoxMessage2.TextChanged += new System.EventHandler(this.textBoxMessage2_TextChanged);
             // 
             // labelMessage2
             // 
-            labelMessage2.AutoSize = true;
-            labelMessage2.ForeColor = SystemColors.Control;
-            labelMessage2.Location = new Point(272, 25);
-            labelMessage2.Name = "labelMessage2";
-            labelMessage2.Size = new Size(62, 15);
-            labelMessage2.TabIndex = 17;
-            labelMessage2.Text = "Message 2";
+            this.labelMessage2.AutoSize = true;
+            this.labelMessage2.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMessage2.Location = new System.Drawing.Point(233, 22);
+            this.labelMessage2.Name = "labelMessage2";
+            this.labelMessage2.Size = new System.Drawing.Size(59, 13);
+            this.labelMessage2.TabIndex = 17;
+            this.labelMessage2.Text = "Message 2";
             // 
             // labelMessage1
             // 
-            labelMessage1.AutoSize = true;
-            labelMessage1.ForeColor = SystemColors.Control;
-            labelMessage1.Location = new Point(10, 25);
-            labelMessage1.Name = "labelMessage1";
-            labelMessage1.Size = new Size(62, 15);
-            labelMessage1.TabIndex = 16;
-            labelMessage1.Text = "Message 1";
+            this.labelMessage1.AutoSize = true;
+            this.labelMessage1.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMessage1.Location = new System.Drawing.Point(9, 22);
+            this.labelMessage1.Name = "labelMessage1";
+            this.labelMessage1.Size = new System.Drawing.Size(59, 13);
+            this.labelMessage1.TabIndex = 16;
+            this.labelMessage1.Text = "Message 1";
             // 
             // textBoxMessage1
             // 
-            textBoxMessage1.Location = new Point(81, 22);
-            textBoxMessage1.MaxLength = 20;
-            textBoxMessage1.Name = "textBoxMessage1";
-            textBoxMessage1.Size = new Size(175, 23);
-            textBoxMessage1.TabIndex = 0;
-            toolTip.SetToolTip(textBoxMessage1, "Enter a custom message to be shown on MT-32 display when loading SysEx file");
-            textBoxMessage1.Click += textBoxMessage1_Click;
-            textBoxMessage1.TextChanged += textBoxMessage1_TextChanged;
+            this.textBoxMessage1.Location = new System.Drawing.Point(69, 19);
+            this.textBoxMessage1.MaxLength = 20;
+            this.textBoxMessage1.Name = "textBoxMessage1";
+            this.textBoxMessage1.Size = new System.Drawing.Size(151, 20);
+            this.textBoxMessage1.TabIndex = 0;
+            this.toolTip.SetToolTip(this.textBoxMessage1, "Enter a custom message to be shown on MT-32 display when loading SysEx file");
+            this.textBoxMessage1.Click += new System.EventHandler(this.textBoxMessage1_Click);
+            this.textBoxMessage1.TextChanged += new System.EventHandler(this.textBoxMessage1_TextChanged);
             // 
             // buttonSave
             // 
-            buttonSave.BackColor = Color.FromArgb(224, 224, 224);
-            buttonSave.ForeColor = Color.Black;
-            buttonSave.Location = new Point(71, 57);
-            buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(54, 23);
-            buttonSave.TabIndex = 60;
-            buttonSave.Text = "Save";
-            toolTip.SetToolTip(buttonSave, "Create a SysEx file containing only these System settings");
-            buttonSave.UseVisualStyleBackColor = false;
-            buttonSave.Click += buttonSave_Click;
+            this.buttonSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.buttonSave.ForeColor = System.Drawing.Color.Black;
+            this.buttonSave.Location = new System.Drawing.Point(61, 49);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(46, 20);
+            this.buttonSave.TabIndex = 60;
+            this.buttonSave.Text = "Save";
+            this.toolTip.SetToolTip(this.buttonSave, "Create a SysEx file containing only these System settings");
+            this.buttonSave.UseVisualStyleBackColor = false;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // groupBoxExportSystemSettings
             // 
-            groupBoxExportSystemSettings.Controls.Add(buttonSave);
-            groupBoxExportSystemSettings.Controls.Add(labelIncludeParameters);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxTextMessages);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxPartialReserve);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxMIDIChannel);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxReverb);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxMasterTune);
-            groupBoxExportSystemSettings.Controls.Add(checkBoxMasterLevel);
-            groupBoxExportSystemSettings.Location = new Point(14, 491);
-            groupBoxExportSystemSettings.Name = "groupBoxExportSystemSettings";
-            groupBoxExportSystemSettings.Size = new Size(537, 100);
-            groupBoxExportSystemSettings.TabIndex = 53;
-            groupBoxExportSystemSettings.TabStop = false;
-            groupBoxExportSystemSettings.Text = "Save system settings";
+            this.groupBoxExportSystemSettings.Controls.Add(this.buttonSave);
+            this.groupBoxExportSystemSettings.Controls.Add(this.labelIncludeParameters);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxTextMessages);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxPartialReserve);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxMIDIChannel);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxReverb);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxMasterTune);
+            this.groupBoxExportSystemSettings.Controls.Add(this.checkBoxMasterLevel);
+            this.groupBoxExportSystemSettings.Location = new System.Drawing.Point(12, 426);
+            this.groupBoxExportSystemSettings.Name = "groupBoxExportSystemSettings";
+            this.groupBoxExportSystemSettings.Size = new System.Drawing.Size(460, 87);
+            this.groupBoxExportSystemSettings.TabIndex = 53;
+            this.groupBoxExportSystemSettings.TabStop = false;
+            this.groupBoxExportSystemSettings.Text = "Save system settings";
             // 
             // labelIncludeParameters
             // 
-            labelIncludeParameters.AutoSize = true;
-            labelIncludeParameters.ForeColor = SystemColors.Control;
-            labelIncludeParameters.Location = new Point(19, 27);
-            labelIncludeParameters.Name = "labelIncludeParameters";
-            labelIncludeParameters.Size = new Size(111, 15);
-            labelIncludeParameters.TabIndex = 59;
-            labelIncludeParameters.Text = "Include parameters:";
+            this.labelIncludeParameters.AutoSize = true;
+            this.labelIncludeParameters.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelIncludeParameters.Location = new System.Drawing.Point(16, 23);
+            this.labelIncludeParameters.Name = "labelIncludeParameters";
+            this.labelIncludeParameters.Size = new System.Drawing.Size(100, 13);
+            this.labelIncludeParameters.TabIndex = 59;
+            this.labelIncludeParameters.Text = "Include parameters:";
             // 
             // checkBoxTextMessages
             // 
-            checkBoxTextMessages.AutoSize = true;
-            checkBoxTextMessages.Checked = true;
-            checkBoxTextMessages.CheckState = CheckState.Checked;
-            checkBoxTextMessages.ForeColor = SystemColors.Control;
-            checkBoxTextMessages.Location = new Point(311, 72);
-            checkBoxTextMessages.Name = "checkBoxTextMessages";
-            checkBoxTextMessages.Size = new Size(145, 19);
-            checkBoxTextMessages.TabIndex = 58;
-            checkBoxTextMessages.Text = "Custom text messages";
-            checkBoxTextMessages.UseVisualStyleBackColor = true;
+            this.checkBoxTextMessages.AutoSize = true;
+            this.checkBoxTextMessages.Checked = true;
+            this.checkBoxTextMessages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTextMessages.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxTextMessages.Location = new System.Drawing.Point(267, 62);
+            this.checkBoxTextMessages.Name = "checkBoxTextMessages";
+            this.checkBoxTextMessages.Size = new System.Drawing.Size(131, 17);
+            this.checkBoxTextMessages.TabIndex = 58;
+            this.checkBoxTextMessages.Text = "Custom text messages";
+            this.checkBoxTextMessages.UseVisualStyleBackColor = true;
             // 
             // checkBoxPartialReserve
             // 
-            checkBoxPartialReserve.AutoSize = true;
-            checkBoxPartialReserve.Checked = true;
-            checkBoxPartialReserve.CheckState = CheckState.Checked;
-            checkBoxPartialReserve.ForeColor = SystemColors.Control;
-            checkBoxPartialReserve.Location = new Point(311, 47);
-            checkBoxPartialReserve.Name = "checkBoxPartialReserve";
-            checkBoxPartialReserve.Size = new Size(143, 19);
-            checkBoxPartialReserve.TabIndex = 57;
-            checkBoxPartialReserve.Text = "Partial reserve settings";
-            checkBoxPartialReserve.UseVisualStyleBackColor = true;
+            this.checkBoxPartialReserve.AutoSize = true;
+            this.checkBoxPartialReserve.Checked = true;
+            this.checkBoxPartialReserve.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPartialReserve.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxPartialReserve.Location = new System.Drawing.Point(267, 41);
+            this.checkBoxPartialReserve.Name = "checkBoxPartialReserve";
+            this.checkBoxPartialReserve.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxPartialReserve.TabIndex = 57;
+            this.checkBoxPartialReserve.Text = "Partial reserve settings";
+            this.checkBoxPartialReserve.UseVisualStyleBackColor = true;
             // 
             // checkBoxMIDIChannel
             // 
-            checkBoxMIDIChannel.AutoSize = true;
-            checkBoxMIDIChannel.Checked = true;
-            checkBoxMIDIChannel.CheckState = CheckState.Checked;
-            checkBoxMIDIChannel.ForeColor = SystemColors.Control;
-            checkBoxMIDIChannel.Location = new Point(311, 22);
-            checkBoxMIDIChannel.Name = "checkBoxMIDIChannel";
-            checkBoxMIDIChannel.Size = new Size(165, 19);
-            checkBoxMIDIChannel.TabIndex = 56;
-            checkBoxMIDIChannel.Text = "MIDI channel assignments";
-            checkBoxMIDIChannel.UseVisualStyleBackColor = true;
+            this.checkBoxMIDIChannel.AutoSize = true;
+            this.checkBoxMIDIChannel.Checked = true;
+            this.checkBoxMIDIChannel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxMIDIChannel.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxMIDIChannel.Location = new System.Drawing.Point(267, 19);
+            this.checkBoxMIDIChannel.Name = "checkBoxMIDIChannel";
+            this.checkBoxMIDIChannel.Size = new System.Drawing.Size(151, 17);
+            this.checkBoxMIDIChannel.TabIndex = 56;
+            this.checkBoxMIDIChannel.Text = "MIDI channel assignments";
+            this.checkBoxMIDIChannel.UseVisualStyleBackColor = true;
             // 
             // checkBoxReverb
             // 
-            checkBoxReverb.AutoSize = true;
-            checkBoxReverb.Checked = true;
-            checkBoxReverb.CheckState = CheckState.Checked;
-            checkBoxReverb.ForeColor = SystemColors.Control;
-            checkBoxReverb.Location = new Point(156, 72);
-            checkBoxReverb.Name = "checkBoxReverb";
-            checkBoxReverb.Size = new Size(106, 19);
-            checkBoxReverb.TabIndex = 55;
-            checkBoxReverb.Text = "Reverb settings";
-            checkBoxReverb.UseVisualStyleBackColor = true;
+            this.checkBoxReverb.AutoSize = true;
+            this.checkBoxReverb.Checked = true;
+            this.checkBoxReverb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxReverb.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxReverb.Location = new System.Drawing.Point(134, 62);
+            this.checkBoxReverb.Name = "checkBoxReverb";
+            this.checkBoxReverb.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxReverb.TabIndex = 55;
+            this.checkBoxReverb.Text = "Reverb settings";
+            this.checkBoxReverb.UseVisualStyleBackColor = true;
             // 
             // checkBoxMasterTune
             // 
-            checkBoxMasterTune.AutoSize = true;
-            checkBoxMasterTune.Checked = true;
-            checkBoxMasterTune.CheckState = CheckState.Checked;
-            checkBoxMasterTune.ForeColor = SystemColors.Control;
-            checkBoxMasterTune.Location = new Point(156, 47);
-            checkBoxMasterTune.Name = "checkBoxMasterTune";
-            checkBoxMasterTune.Size = new Size(89, 19);
-            checkBoxMasterTune.TabIndex = 54;
-            checkBoxMasterTune.Text = "Master tune";
-            checkBoxMasterTune.UseVisualStyleBackColor = true;
+            this.checkBoxMasterTune.AutoSize = true;
+            this.checkBoxMasterTune.Checked = true;
+            this.checkBoxMasterTune.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxMasterTune.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxMasterTune.Location = new System.Drawing.Point(134, 41);
+            this.checkBoxMasterTune.Name = "checkBoxMasterTune";
+            this.checkBoxMasterTune.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxMasterTune.TabIndex = 54;
+            this.checkBoxMasterTune.Text = "Master tune";
+            this.checkBoxMasterTune.UseVisualStyleBackColor = true;
             // 
             // checkBoxMasterLevel
             // 
-            checkBoxMasterLevel.AutoSize = true;
-            checkBoxMasterLevel.Checked = true;
-            checkBoxMasterLevel.CheckState = CheckState.Checked;
-            checkBoxMasterLevel.ForeColor = SystemColors.Control;
-            checkBoxMasterLevel.Location = new Point(156, 22);
-            checkBoxMasterLevel.Name = "checkBoxMasterLevel";
-            checkBoxMasterLevel.Size = new Size(89, 19);
-            checkBoxMasterLevel.TabIndex = 53;
-            checkBoxMasterLevel.Text = "Master level";
-            checkBoxMasterLevel.UseVisualStyleBackColor = true;
+            this.checkBoxMasterLevel.AutoSize = true;
+            this.checkBoxMasterLevel.Checked = true;
+            this.checkBoxMasterLevel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxMasterLevel.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBoxMasterLevel.Location = new System.Drawing.Point(134, 19);
+            this.checkBoxMasterLevel.Name = "checkBoxMasterLevel";
+            this.checkBoxMasterLevel.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxMasterLevel.TabIndex = 53;
+            this.checkBoxMasterLevel.Text = "Master level";
+            this.checkBoxMasterLevel.UseVisualStyleBackColor = true;
             // 
             // labelMidiOff
             // 
-            labelMidiOff.AutoSize = true;
-            labelMidiOff.ForeColor = SystemColors.Control;
-            labelMidiOff.Location = new Point(322, 36);
-            labelMidiOff.Name = "labelMidiOff";
-            labelMidiOff.Size = new Size(50, 15);
-            labelMidiOff.TabIndex = 54;
-            labelMidiOff.Text = "(0 = off)";
+            this.labelMidiOff.AutoSize = true;
+            this.labelMidiOff.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelMidiOff.Location = new System.Drawing.Point(276, 31);
+            this.labelMidiOff.Name = "labelMidiOff";
+            this.labelMidiOff.Size = new System.Drawing.Size(43, 13);
+            this.labelMidiOff.TabIndex = 54;
+            this.labelMidiOff.Text = "(0 = off)";
             // 
             // FormSystemSettings
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(563, 597);
-            Controls.Add(labelMidiOff);
-            Controls.Add(groupBoxExportSystemSettings);
-            Controls.Add(groupBoxMessageSettings);
-            Controls.Add(labelMasterLevelValue);
-            Controls.Add(numericUpDownPartReserveR);
-            Controls.Add(numericUpDownPartReserve8);
-            Controls.Add(numericUpDownPartReserve7);
-            Controls.Add(numericUpDownPartReserve6);
-            Controls.Add(numericUpDownPartReserve5);
-            Controls.Add(numericUpDownPartReserve4);
-            Controls.Add(numericUpDownPartReserve3);
-            Controls.Add(numericUpDownPartReserve2);
-            Controls.Add(numericUpDownPartReserve1);
-            Controls.Add(numericUpDownMIDIPartR);
-            Controls.Add(numericUpDownMIDIPart8);
-            Controls.Add(numericUpDownMIDIPart7);
-            Controls.Add(numericUpDownMIDIPart6);
-            Controls.Add(numericUpDownMIDIPart5);
-            Controls.Add(numericUpDownMIDIPart4);
-            Controls.Add(numericUpDownMIDIPart3);
-            Controls.Add(numericUpDownMIDIPart2);
-            Controls.Add(numericUpDownMIDIPart1);
-            Controls.Add(groupBoxReverb);
-            Controls.Add(panel1);
-            Controls.Add(labelPartialReserve);
-            Controls.Add(labelMidiRxChannel);
-            Controls.Add(labelRhythmChannel);
-            Controls.Add(labelPart8Channel);
-            Controls.Add(labelPart7Channel);
-            Controls.Add(labelPart3Channel);
-            Controls.Add(labelPart2Channel);
-            Controls.Add(labelPart1Channel);
-            Controls.Add(labelPart6Channel);
-            Controls.Add(labelPart5Channel);
-            Controls.Add(labelPart4Channel);
-            Controls.Add(labelMasterTuneValue);
-            Controls.Add(labelMasterTune);
-            Controls.Add(labelMasterLevel);
-            Controls.Add(trackBarMasterTune);
-            Controls.Add(trackBarMasterLevel);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
-            Name = "FormSystemSettings";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "MT-32 System Settings";
-            ((System.ComponentModel.ISupportInitialize)trackBarMasterLevel).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarMasterTune).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarReverbRate).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarReverbLevel).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            groupBoxReverb.ResumeLayout(false);
-            groupBoxReverb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPartR).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownMIDIPart7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserveR).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDownPartReserve1).EndInit();
-            groupBoxMessageSettings.ResumeLayout(false);
-            groupBoxMessageSettings.PerformLayout();
-            groupBoxExportSystemSettings.ResumeLayout(false);
-            groupBoxExportSystemSettings.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(483, 517);
+            this.Controls.Add(this.labelMidiOff);
+            this.Controls.Add(this.groupBoxExportSystemSettings);
+            this.Controls.Add(this.groupBoxMessageSettings);
+            this.Controls.Add(this.labelMasterLevelValue);
+            this.Controls.Add(this.numericUpDownPartReserveR);
+            this.Controls.Add(this.numericUpDownPartReserve8);
+            this.Controls.Add(this.numericUpDownPartReserve7);
+            this.Controls.Add(this.numericUpDownPartReserve6);
+            this.Controls.Add(this.numericUpDownPartReserve5);
+            this.Controls.Add(this.numericUpDownPartReserve4);
+            this.Controls.Add(this.numericUpDownPartReserve3);
+            this.Controls.Add(this.numericUpDownPartReserve2);
+            this.Controls.Add(this.numericUpDownPartReserve1);
+            this.Controls.Add(this.numericUpDownMIDIPartR);
+            this.Controls.Add(this.numericUpDownMIDIPart8);
+            this.Controls.Add(this.numericUpDownMIDIPart7);
+            this.Controls.Add(this.numericUpDownMIDIPart6);
+            this.Controls.Add(this.numericUpDownMIDIPart5);
+            this.Controls.Add(this.numericUpDownMIDIPart4);
+            this.Controls.Add(this.numericUpDownMIDIPart3);
+            this.Controls.Add(this.numericUpDownMIDIPart2);
+            this.Controls.Add(this.numericUpDownMIDIPart1);
+            this.Controls.Add(this.groupBoxReverb);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.labelPartialReserve);
+            this.Controls.Add(this.labelMidiRxChannel);
+            this.Controls.Add(this.labelRhythmChannel);
+            this.Controls.Add(this.labelPart8Channel);
+            this.Controls.Add(this.labelPart7Channel);
+            this.Controls.Add(this.labelPart3Channel);
+            this.Controls.Add(this.labelPart2Channel);
+            this.Controls.Add(this.labelPart1Channel);
+            this.Controls.Add(this.labelPart6Channel);
+            this.Controls.Add(this.labelPart5Channel);
+            this.Controls.Add(this.labelPart4Channel);
+            this.Controls.Add(this.labelMasterTuneValue);
+            this.Controls.Add(this.labelMasterTune);
+            this.Controls.Add(this.labelMasterLevel);
+            this.Controls.Add(this.trackBarMasterTune);
+            this.Controls.Add(this.trackBarMasterLevel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "FormSystemSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "MT-32 System Settings";
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMasterLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMasterTune)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarReverbRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarReverbLevel)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBoxReverb.ResumeLayout(false);
+            this.groupBoxReverb.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPartR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMIDIPart7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserveR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPartReserve1)).EndInit();
+            this.groupBoxMessageSettings.ResumeLayout(false);
+            this.groupBoxMessageSettings.PerformLayout();
+            this.groupBoxExportSystemSettings.ResumeLayout(false);
+            this.groupBoxExportSystemSettings.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

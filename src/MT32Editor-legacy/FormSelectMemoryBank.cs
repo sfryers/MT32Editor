@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy;
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Simple form allowing selection of a memory bank to copy preset timbre into

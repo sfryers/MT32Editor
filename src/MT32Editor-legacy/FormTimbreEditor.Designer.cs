@@ -1,4 +1,5 @@
-﻿namespace MT32Edit_legacy
+﻿using System.Windows.Forms;
+namespace MT32Edit_legacy
 {
     partial class FormTimbreEditor
     {

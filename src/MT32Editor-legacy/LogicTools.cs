@@ -1,4 +1,5 @@
-﻿namespace MT32Edit_legacy;
+﻿using System;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Simple tools for boolean logic and data validation.

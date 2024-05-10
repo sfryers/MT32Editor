@@ -1,4 +1,7 @@
-﻿namespace MT32Edit_legacy;
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Saves and load system parameters from .ini file

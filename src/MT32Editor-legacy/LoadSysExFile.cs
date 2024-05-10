@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.IO;
+using System.Windows.Forms;
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -47,7 +50,7 @@ internal static class LoadSysExFile
                 return FileTools.CANCELLED; //file error or dialogue cancelled
             }
 
-            if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(loadSysExDialog.FileName))
             {
                 return FileTools.ERROR; //No file specified, abort loading process
             }
@@ -399,10 +402,10 @@ internal static class LoadSysExFile
             textChars[charNo] = (byte)sysExData[charNo];
         }
         string textMessage = Encoding.ASCII.GetString(textChars).Substring(0, textLength);
-        bool message1Present = string.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0));
+        bool message1Present = ParseTools.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0));
         int messageNo = LogicTools.BoolToInt(!message1Present);
         memoryState.GetSystem().SetMessage(messageNo, textMessage);
-        if (!string.IsNullOrWhiteSpace(textMessage))
+        if (!ParseTools.IsNullOrWhiteSpace(textMessage))
         {
             ConsoleMessage.SendLine($"Text found: {textMessage}", ConsoleColor.Yellow);
         }

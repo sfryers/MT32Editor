@@ -1,5 +1,7 @@
-﻿using Sanford.Multimedia.Midi;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using Sanford.Multimedia.Midi;
 namespace MT32Edit_legacy;
 /// <summary>
 /// Simple tools to interface with Sanford.Multimedia.Midi library.

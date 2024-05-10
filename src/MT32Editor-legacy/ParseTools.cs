@@ -1,5 +1,5 @@
-﻿using System.Text;
-
+﻿using System;
+using System.Text;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -32,6 +32,19 @@ internal static class ParseTools
             outputString.Append(" ");
         }
         return outputString.ToString();
+    }
+	
+	/// <summary>
+    /// Returns true if str is null or WhiteSpace- provided for compatibility with C# 7.3 and earlier versions
+    /// </summary>
+    public static bool IsNullOrWhiteSpace(string str)
+    {
+        if (str == null) return true;
+        for (int i = 0; i < str.Length; i++)
+        {
+            if (!char.IsWhiteSpace(str[i])) return false;
+        }
+        return true;
     }
 
     /// <summary>

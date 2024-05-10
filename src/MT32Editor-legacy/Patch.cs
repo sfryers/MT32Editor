@@ -1,4 +1,5 @@
-﻿namespace MT32Edit_legacy;
+﻿using System;
+namespace MT32Edit_legacy;
 
 /// <summary>
 /// Data structure representing user-accessible patch memory areas of MT-32, as per published MIDI implementation.

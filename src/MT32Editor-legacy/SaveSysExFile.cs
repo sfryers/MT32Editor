@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.IO;
+using System.Windows.Forms;
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -36,7 +39,7 @@ internal static class SaveSysExFile
                 //file error or cancelled dialogue
                 return FileTools.CANCELLED;
             }
-            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 //user didn't select a file
                 return FileTools.EMPTY;
@@ -255,12 +258,12 @@ internal static class SaveSysExFile
         {
             saveDialog.Title = "Save SysEx File";
             saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 saveDialog.FileName = "New MT32 system settings file.syx";
             }
 
-            if (saveDialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (saveDialog.ShowDialog() != DialogResult.OK || ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 //file error or user left filename blank
                 return;

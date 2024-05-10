@@ -1,5 +1,5 @@
 ﻿using System.Text;
-
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>

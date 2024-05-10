@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -35,7 +38,7 @@ internal static class TimbreFile
         SetUpFileDialog(loadTimbreDialog);
         string fileName = loadTimbreDialog.FileName;
         loadTimbreDialog.Dispose();
-        if (string.IsNullOrWhiteSpace(fileName))
+        if (ParseTools.IsNullOrWhiteSpace(fileName))
         {
             return FileTools.CANCELLED;
         }
@@ -136,7 +139,7 @@ internal static class TimbreFile
 
     public static void Save(TimbreStructure timbre, SaveFileDialog saveDialog)
     {
-        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+        if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             return;
         }

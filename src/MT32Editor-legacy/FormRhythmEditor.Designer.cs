@@ -1,4 +1,6 @@
-﻿namespace MT32Edit_legacy
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit_legacy
 {
     partial class FormRhythmEditor
     {
