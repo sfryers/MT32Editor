@@ -15,6 +15,11 @@ internal static class ConfigFile
     private const string TEXT_MIDI_IN = "Midi In";
     private const string TEXT_MIDI_OUT = "Midi Out";
     private const string TEXT_UNIT_NO = "Unit No. (should normally be set to 17)";
+    private const string TEXT_SAVE_WINDOW_SIZE_POSITION = "Save app window size & position";
+    private const string TEXT_WINDOW_X_POSITION = "App window X position";
+    private const string TEXT_WINDOW_Y_POSITION = "App window Y position";
+    private const string TEXT_WINDOW_WIDTH = "App window width";
+    private const string TEXT_WINDOW_HEIGHT = "App window height";
     private const string TEXT_AUTOSAVE = "Autosave every 5 mins";
     private const string TEXT_DARK_MODE = "Dark Mode";
     private const string TEXT_SHOW_CONSOLE = "Show Console";
@@ -41,7 +46,8 @@ internal static class ConfigFile
                                     TEXT_MIDI_IN, TEXT_MIDI_OUT, TEXT_UNIT_NO, TEXT_AUTOSAVE, TEXT_DARK_MODE,
                                     TEXT_SHOW_CONSOLE, TEXT_VERBOSE_MESSAGES, TEXT_HARDWARE_CONNECTED, TEXT_ALLOW_RESET,
                                     TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE,
-                                    TEXT_SEND_SYSEX_DATA_TO_CONSOLE, TEXT_PRIORITISE_TIMBRE_EDITOR
+                                    TEXT_SEND_SYSEX_DATA_TO_CONSOLE, TEXT_PRIORITISE_TIMBRE_EDITOR, TEXT_SAVE_WINDOW_SIZE_POSITION,
+                                    TEXT_WINDOW_X_POSITION, TEXT_WINDOW_Y_POSITION, TEXT_WINDOW_WIDTH, TEXT_WINDOW_HEIGHT
                                   };
 
         if (!File.Exists(iniFileLocation))
@@ -93,6 +99,21 @@ internal static class ConfigFile
                     break;
                 case TEXT_UNIT_NO:
                     CheckUnitNoSetting(inputText);
+                    break;
+                case TEXT_SAVE_WINDOW_SIZE_POSITION:
+                    CheckSaveWindowSizeSetting(status);
+                    break;
+                case TEXT_WINDOW_WIDTH:
+                    CheckWidthSetting(inputText);
+                    break;
+                case TEXT_WINDOW_HEIGHT:
+                    CheckHeightSetting(inputText);
+                    break;
+                case TEXT_WINDOW_X_POSITION:
+                    CheckXPosSetting(inputText);
+                    break;
+                case TEXT_WINDOW_Y_POSITION:
+                    CheckYPosSetting(inputText);
                     break;
                 case TEXT_AUTOSAVE:
                     CheckAutoSaveSetting(status);
@@ -146,6 +167,50 @@ internal static class ConfigFile
             if (unitNo > 0 && unitNo < 33)
             {
                 MT32SysEx.DeviceID = (byte)(unitNo - 1);
+            }
+        }
+
+        void CheckXPosSetting(string inputString)
+        {
+            int.TryParse(ParseTools.RightOfChar(inputString, '='), out int xPos);
+            if (xPos > 0 && xPos < 4000)
+            {
+                UITools.WindowLocation[0] = xPos;
+            }
+        }
+
+        void CheckYPosSetting(string inputString)
+        {
+            int.TryParse(ParseTools.RightOfChar(inputString, '='), out int yPos);
+            if (yPos > 0 && yPos < 4000)
+            {
+                UITools.WindowLocation[1] = yPos;
+            }
+        }
+
+        void CheckWidthSetting(string inputString)
+        {
+            int.TryParse(ParseTools.RightOfChar(inputString, '='), out int width);
+            if (width > 0 && width < 4000)
+            {
+                UITools.WindowSize[0] = width;
+            }
+        }
+
+        void CheckHeightSetting(string inputString)
+        {
+            int.TryParse(ParseTools.RightOfChar(inputString, '='), out int height);
+            if (height > 0 && height < 4000)
+            {
+                UITools.WindowSize[1] = height;
+            }
+        }
+
+        void CheckSaveWindowSizeSetting(bool? status)
+        {
+            if (status.HasValue)
+            {
+                UITools.SaveWindowSizeAndPosition = (bool)status;
             }
         }
 
@@ -256,6 +321,14 @@ internal static class ConfigFile
             fs.WriteLine($"{TEXT_MIDI_IN} = [{Midi.GetCurrentInputDeviceName()}]");
             fs.WriteLine($"{TEXT_MIDI_OUT} = [{Midi.GetCurrentOutputDeviceName()}]");
             fs.WriteLine($"{TEXT_UNIT_NO} = {MT32SysEx.DeviceID + 1}");
+            fs.WriteLine($"{TEXT_SAVE_WINDOW_SIZE_POSITION} = {UITools.SaveWindowSizeAndPosition}");
+            if (UITools.SaveWindowSizeAndPosition)
+            {
+                fs.WriteLine($"{TEXT_WINDOW_WIDTH} = {UITools.WindowSize[0]}");
+                fs.WriteLine($"{TEXT_WINDOW_HEIGHT} = {UITools.WindowSize[1]}");
+                fs.WriteLine($"{TEXT_WINDOW_X_POSITION} = {UITools.WindowLocation[0]}");
+                fs.WriteLine($"{TEXT_WINDOW_Y_POSITION} = {UITools.WindowLocation[1]}");
+            }
             fs.WriteLine($"{TEXT_AUTOSAVE} = {SaveSysExFile.autoSave}");
             fs.WriteLine($"{TEXT_DARK_MODE} = {UITools.DarkMode}");
             fs.WriteLine($"{TEXT_SHOW_CONSOLE} = {ConsoleMessage.Visible()}");

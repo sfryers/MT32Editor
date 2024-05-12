@@ -31,8 +31,7 @@ namespace MT32Edit_legacy
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRhythmEditor));
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.labelReverb = new System.Windows.Forms.Label();
             this.labelPan = new System.Windows.Forms.Label();
             this.labelLevel = new System.Windows.Forms.Label();
@@ -239,7 +238,7 @@ namespace MT32Edit_legacy
             this.listViewRhythmBank.GridLines = true;
             this.listViewRhythmBank.HideSelection = false;
             this.listViewRhythmBank.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.listViewRhythmBank.Location = new System.Drawing.Point(12, 264);
             this.listViewRhythmBank.MinimumSize = new System.Drawing.Size(4, 25);
             this.listViewRhythmBank.MultiSelect = false;
@@ -287,7 +286,7 @@ namespace MT32Edit_legacy
             // 
             // buttonPlayNote
             // 
-            this.buttonPlayNote.Image = ((System.Drawing.Image)(resources.GetObject("buttonPlayNote.Image")));
+            this.buttonPlayNote.Image = global::MT32Edit_legacy.Properties.Resources.Play;
             this.buttonPlayNote.Location = new System.Drawing.Point(12, 233);
             this.buttonPlayNote.Name = "buttonPlayNote";
             this.buttonPlayNote.Size = new System.Drawing.Size(35, 26);

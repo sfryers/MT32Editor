@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
+using System.Runtime.ConstrainedExecution;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -59,6 +60,7 @@ public partial class FormMainMenu : Form
     private string titleBarFileName = "Untitled";
     private string? loadedSysExFileName;
     private bool moveFocusToMemoryBankEditor = false;
+    private int auditionNote = 60;
 
     public FormMainMenu(string[] args)
     {
@@ -75,8 +77,8 @@ public partial class FormMainMenu : Form
         OpenMemoryBankEditor();
         OpenRhythmEditor();
         OpenPatchEditor();
+        SetWindowSizeAndLocation();
         ScaleUIElements();
-
         MT32SysEx.SendText($"MT32 Editor {ParseTools.TrimToLength(VERSION_NO, 8)}");
         timer.Interval = UITools.UI_REFRESH_INTERVAL;
         timer.Start();
@@ -152,6 +154,19 @@ public partial class FormMainMenu : Form
         memoryBankEditor = new FormMemoryBankEditor(DPIScale(), memoryState, timbreEditor);
         memoryBankEditor.MdiParent = this;
         memoryBankEditor.Show();
+    }
+
+    private void SetWindowSizeAndLocation()
+    {
+        if (!UITools.SaveWindowSizeAndPosition)
+        {
+            return;
+        }
+        StartPosition = FormStartPosition.Manual;
+        Left = UITools.WindowLocation[0];
+        Top = UITools.WindowLocation[1];
+        Width = UITools.WindowSize[0];
+        Height = UITools.WindowSize[1];
     }
 
     private void ScaleUIElements()
@@ -316,6 +331,7 @@ public partial class FormMainMenu : Form
             autosaveEvery5MinutesToolStripMenuItem.Checked = SaveSysExFile.autoSave;
             darkModeToolStripMenuItem.Checked = UITools.DarkMode;
             allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
+            saveWindowSizeAndLocationToolStripMenuItem.Checked = UITools.SaveWindowSizeAndPosition;
         }
 
         void InitialiseMidiInConnection(string midiInDeviceName)
@@ -614,13 +630,20 @@ public partial class FormMainMenu : Form
         about.Show();
     }
 
+
+    private void envelopeDiagramsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var envelopeDiagrams = new FormEnvelopeDiagrams();
+        envelopeDiagrams.Show();
+    }
+
     private void masterSettingsToolStripMenuItem_Click(object sender, EventArgs e)
     {
         var systemSettings = new FormSystemSettings(memoryState.GetSystem());
         systemSettings.ShowDialog();
     }
 
-    private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+    private void menuStrip_Item_Clicked(object sender, EventArgs e)
     {
         ShowPatchOrRhythmEditorIfEnabled();
     }
@@ -762,6 +785,37 @@ public partial class FormMainMenu : Form
     {
         darkModeToolStripMenuItem.Checked = !UITools.DarkMode;
         UITools.DarkMode ^= true;
+        ConfigFile.Save();
+    }
+
+    private void saveWindowSizeAndLocationToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        saveWindowSizeAndLocationToolStripMenuItem.Checked = !UITools.SaveWindowSizeAndPosition;
+        UITools.SaveWindowSizeAndPosition ^= true;
+        ConfigFile.Save();
+    }
+
+    private void auditionToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
+    {
+        Midi.NoteOn(auditionNote, 1);
+    }
+
+    private void auditionToolStripMenuItem_MouseUp(object sender, MouseEventArgs e)
+    {
+        Midi.NoteOff(auditionNote, 1);
+    }
+
+    private void auditionToolStripMenuItem_MouseLeave(object sender, EventArgs e)
+    {
+        Midi.NoteOff(auditionNote, 1);
+    }
+
+    private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        UITools.WindowSize[0] = Size.Width;
+        UITools.WindowSize[1] = Size.Height;
+        UITools.WindowLocation[0] = Left;
+        UITools.WindowLocation[1] = Top;
         ConfigFile.Save();
     }
 }

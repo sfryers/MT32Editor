@@ -2,6 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System;
+using System.Security.Policy;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -21,6 +22,9 @@ internal static class UITools
     /// </summary>
     public static bool DarkMode { get; set; } = true;
     public static bool PrioritiseTimbreEditor { get; set; } = false;
+    public static bool SaveWindowSizeAndPosition { get; set; } = false;
+    public static int[] WindowLocation { get; set; } = { 0, 0 };
+    public static int[] WindowSize { get; set; } = { 0, 0 };
 
     /// <summary>
     /// Creates OK/Cancel MessageBox using specified prompt and title.
