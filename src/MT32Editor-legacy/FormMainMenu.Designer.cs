@@ -50,6 +50,7 @@ namespace MT32Edit_legacy
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.masterSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autosaveEvery5MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveWindowSizeAndLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ignoreSysConfigOnLoadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excludeSysConfigonSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hardwareMT32ConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,6 @@ namespace MT32Edit_legacy
             this.auditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.timerAutoSave = new System.Windows.Forms.Timer(this.components);
-            this.saveWindowSizeAndLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +77,7 @@ namespace MT32Edit_legacy
             this.menuStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.menuStrip.AutoSize = false;
-            this.menuStrip.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.menuStrip.BackColor = System.Drawing.Color.WhiteSmoke;
             this.menuStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -119,7 +119,7 @@ namespace MT32Edit_legacy
             // 
             this.loadSysExFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadSysExFileToolStripMenuItem.Image")));
             this.loadSysExFileToolStripMenuItem.Name = "loadSysExFileToolStripMenuItem";
-            this.loadSysExFileToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.loadSysExFileToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.loadSysExFileToolStripMenuItem.Text = "Load SysEx File";
             this.loadSysExFileToolStripMenuItem.Click += new System.EventHandler(this.loadSysExFileToolStripMenuItem_Click);
             // 
@@ -238,7 +238,7 @@ namespace MT32Edit_legacy
             // 
             this.masterSettingsToolStripMenuItem.Image = global::MT32Edit_legacy.Properties.Resources.Settings;
             this.masterSettingsToolStripMenuItem.Name = "masterSettingsToolStripMenuItem";
-            this.masterSettingsToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.masterSettingsToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.masterSettingsToolStripMenuItem.Text = "System area settings";
             this.masterSettingsToolStripMenuItem.Click += new System.EventHandler(this.masterSettingsToolStripMenuItem_Click);
             // 
@@ -247,22 +247,29 @@ namespace MT32Edit_legacy
             this.autosaveEvery5MinutesToolStripMenuItem.Checked = true;
             this.autosaveEvery5MinutesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
-            this.autosaveEvery5MinutesToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.autosaveEvery5MinutesToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
             this.autosaveEvery5MinutesToolStripMenuItem.ToolTipText = "Saves current status to autosave.syx";
             this.autosaveEvery5MinutesToolStripMenuItem.Click += new System.EventHandler(this.autosaveEvery5MinutesToolStripMenuItem_Click);
             // 
+            // saveWindowSizeAndLocationToolStripMenuItem
+            // 
+            this.saveWindowSizeAndLocationToolStripMenuItem.Name = "saveWindowSizeAndLocationToolStripMenuItem";
+            this.saveWindowSizeAndLocationToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
+            this.saveWindowSizeAndLocationToolStripMenuItem.Text = "Save window size and position";
+            this.saveWindowSizeAndLocationToolStripMenuItem.Click += new System.EventHandler(this.saveWindowSizeAndLocationToolStripMenuItem_Click);
+            // 
             // ignoreSysConfigOnLoadToolStripMenuItem
             // 
             this.ignoreSysConfigOnLoadToolStripMenuItem.Name = "ignoreSysConfigOnLoadToolStripMenuItem";
-            this.ignoreSysConfigOnLoadToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.ignoreSysConfigOnLoadToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.ignoreSysConfigOnLoadToolStripMenuItem.Text = "Ignore system config messages when loading SysEx file";
             this.ignoreSysConfigOnLoadToolStripMenuItem.Click += new System.EventHandler(this.ignoreSysConfigOnLoadToolStripMenuItem_Click);
             // 
             // excludeSysConfigonSaveToolStripMenuItem
             // 
             this.excludeSysConfigonSaveToolStripMenuItem.Name = "excludeSysConfigonSaveToolStripMenuItem";
-            this.excludeSysConfigonSaveToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.excludeSysConfigonSaveToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.excludeSysConfigonSaveToolStripMenuItem.Text = "Exclude system config messages when saving SysEx file";
             this.excludeSysConfigonSaveToolStripMenuItem.Click += new System.EventHandler(this.excludeSysConfigonSaveToolStripMenuItem_Click);
             // 
@@ -271,7 +278,7 @@ namespace MT32Edit_legacy
             this.hardwareMT32ConnectedToolStripMenuItem.Checked = true;
             this.hardwareMT32ConnectedToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hardwareMT32ConnectedToolStripMenuItem.Name = "hardwareMT32ConnectedToolStripMenuItem";
-            this.hardwareMT32ConnectedToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.hardwareMT32ConnectedToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.hardwareMT32ConnectedToolStripMenuItem.Text = "Hardware MT-32 connected";
             this.hardwareMT32ConnectedToolStripMenuItem.Click += new System.EventHandler(this.hardwareMT32ConnectedToolStripMenuItem_Click);
             // 
@@ -280,21 +287,21 @@ namespace MT32Edit_legacy
             this.sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
             this.sendMessagesToMT32DisplayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.sendMessagesToMT32DisplayToolStripMenuItem.Name = "sendMessagesToMT32DisplayToolStripMenuItem";
-            this.sendMessagesToMT32DisplayToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.sendMessagesToMT32DisplayToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.sendMessagesToMT32DisplayToolStripMenuItem.Text = "Send info to MT-32 display";
             this.sendMessagesToMT32DisplayToolStripMenuItem.Click += new System.EventHandler(this.sendMessagesToMT32DisplayToolStripMenuItem_Click);
             // 
             // allowMT32ResetToolStripMenuItem
             // 
             this.allowMT32ResetToolStripMenuItem.Name = "allowMT32ResetToolStripMenuItem";
-            this.allowMT32ResetToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.allowMT32ResetToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.allowMT32ResetToolStripMenuItem.Text = "Allow MT-32 reset from SysEx";
             this.allowMT32ResetToolStripMenuItem.Click += new System.EventHandler(this.allowMT32ResetToolStripMenuItem_Click);
             // 
             // darkModeToolStripMenuItem
             // 
             this.darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
-            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.darkModeToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.darkModeToolStripMenuItem.Text = "Dark mode";
             this.darkModeToolStripMenuItem.Click += new System.EventHandler(this.darkModeToolStripMenuItem_Click);
             // 
@@ -303,14 +310,14 @@ namespace MT32Edit_legacy
             this.showConsoleToolStripMenuItem.Checked = true;
             this.showConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
-            this.showConsoleToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.showConsoleToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.showConsoleToolStripMenuItem.Text = "Show console";
             this.showConsoleToolStripMenuItem.Click += new System.EventHandler(this.showConsoleToolStripMenuItem_Click);
             // 
             // verboseConsoleMessagesToolStripMenuItem
             // 
             this.verboseConsoleMessagesToolStripMenuItem.Name = "verboseConsoleMessagesToolStripMenuItem";
-            this.verboseConsoleMessagesToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
+            this.verboseConsoleMessagesToolStripMenuItem.Size = new System.Drawing.Size(366, 22);
             this.verboseConsoleMessagesToolStripMenuItem.Text = "Verbose console messages";
             this.verboseConsoleMessagesToolStripMenuItem.Click += new System.EventHandler(this.verboseConsoleMessagesToolStripMenuItem_Click);
             // 
@@ -402,13 +409,6 @@ namespace MT32Edit_legacy
             this.timerAutoSave.Enabled = true;
             this.timerAutoSave.Interval = 300000;
             this.timerAutoSave.Tick += new System.EventHandler(this.timerAutoSave_Tick);
-            // 
-            // saveWindowSizeAndLocationToolStripMenuItem
-            // 
-            this.saveWindowSizeAndLocationToolStripMenuItem.Name = "saveWindowSizeAndLocationToolStripMenuItem";
-            this.saveWindowSizeAndLocationToolStripMenuItem.Size = new System.Drawing.Size(370, 26);
-            this.saveWindowSizeAndLocationToolStripMenuItem.Text = "Save window size and position";
-            this.saveWindowSizeAndLocationToolStripMenuItem.Click += new System.EventHandler(this.saveWindowSizeAndLocationToolStripMenuItem_Click);
             // 
             // FormMainMenu
             // 

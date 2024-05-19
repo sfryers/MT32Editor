@@ -310,6 +310,14 @@ public partial class FormMainMenu : Form
 
         void ConfigureConsole()
         {
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
+            {
+                //disable show/hide Console window on Win9x systems- prevents crash from occurring
+                showConsoleToolStripMenuItem.Checked = true;
+                showConsoleToolStripMenuItem.Enabled = false;
+                verboseConsoleMessagesToolStripMenuItem.Enabled = true;
+                return;
+            }
             if (ConsoleMessage.Visible())
             {
                 ShowWindow(GetConsoleWindow(), CONSOLE_SHOW);
@@ -729,6 +737,11 @@ public partial class FormMainMenu : Form
 
     private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
+        {
+            //prevent crash on Win9x systems
+            return;
+        }
         if (showConsoleToolStripMenuItem.Checked)
         {
             ConsoleMessage.Hide();
