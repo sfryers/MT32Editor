@@ -2,6 +2,17 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.10b - 26th May 2024
+  Bug Fixes:
+    - Changing between rhythm banks using numeric up/down selector no longer causes the Timbre Name comboBox to go blank.
+  New Features:
+    - Selectable CM-32L mode: when CM-32L mode is disabled, any CM-32L-specific elements (PCM sample bank 2, rhythm keys 88-108 and extended rhythm samples) which are incompatible with the original MT-32 spec are shown in red or grey. When CM-32L mode is disabled, UI appearance is unchanged from previous versions.
+    - Application window can now be resized smaller than previously, which causes the Patch/Rhythm editor to either be hidden or to overlap the Timbre editor.
+    - Size and position of application window can now optionally be saved and restored at next application start.
+    - Separate 'legacy' version added for compatibility with older Windows versions (98, ME, 2000, XP and Vista). Legacy build requires .NET Framework 2.0 and a minimum display resolution of 1024x768 or 1280x720. Aside from tweaked UI layout, underlying code base is largely identical to the main .NET 6.0 version.
+  Miscellaneous:
+    - Added MT32 Editor logo to 'About' box.
+
 v0.9.9b - 13th April 2024
   Bug Fixes:
     - Pitch Envelope Velocity Sensitivity parameter now stores the full range of permitted values from 0-100 (bug in previous versions caused the internal range of values for this parameter to be restricted to 0-14).
@@ -10,7 +21,7 @@ v0.9.9b - 13th April 2024
   New Features:
     - Timbre Editor now includes undo/redo function
     - Application now attempts to read incomplete patch data rather than ignoring it.
-    - Ability to display raw SysEx data in the console window- can be enabled by editing the .ini file.
+    - Added ability to display raw SysEx data in the console window- can be enabled by editing the .ini file.
   Miscellaneous:
     - Improved sizing and spacing of certain UI elements.
     - Code improvements- added further summary information and refactored some methods.
