@@ -169,6 +169,7 @@ public partial class FormTimbreEditor : Form
     private void SetMainControls()
     {
         textBoxTimbreName.Text = ParseTools.RemoveTrailingSpaces(timbre.GetTimbreName());
+		SetTimbreNameColour();
         comboBoxPart12Struct.SelectedIndex = timbre.GetPart12Structure();
         comboBoxPart34Struct.SelectedIndex = timbre.GetPart34Structure();
         UpdatePartialStructureImages();
@@ -182,6 +183,14 @@ public partial class FormTimbreEditor : Form
         labelPartialWarning.Visible = !checkBoxPartial1.Checked;
     }
 
+    private void SetTimbreNameColour()
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            return;
+        }
+        textBoxTimbreName.ForeColor = timbre.ContainsCM32LSamples() ? Color.Red : Color.Black;
+    }
     private void UpdatePartialStructureImages()
     {
         if (comboBoxPart12Struct.SelectedIndex > -1 && comboBoxPart12Struct.SelectedIndex != part12Image)
@@ -844,6 +853,7 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, 0x04, sysExValue);
         MT32SysEx.SendPCMBankNo(activePartial, sysExValue);
         UpdatePCMSampleList(bankNo);
+		SetTimbreNameColour();
         UpdateUndoHistory();
         changesMade = true;
     }
@@ -860,6 +870,7 @@ public partial class FormTimbreEditor : Form
         MT32SysEx.blockMT32text = true;
         comboBoxPCMSample.Items.Clear();
         comboBoxPCMSample.Items.AddRange(MT32Strings.GetAllSampleNames(bankNo));
+		comboBoxPCMSample.ForeColor = !MT32SysEx.cm32LMode && bankNo == 1 ? Color.Red : Color.Black;
         comboBoxPCMSample.Invalidate();
         comboBoxPCMSample.Text = MT32Strings.GetSampleName(bankNo, sampleNo);
         comboBoxPCMSample.SelectedIndex = sampleNo;

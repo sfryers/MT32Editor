@@ -2,7 +2,6 @@
 using System.IO;
 using System.Drawing;
 using System;
-using System.Security.Policy;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -12,7 +11,7 @@ namespace MT32Edit_legacy;
 internal static class UITools
 {
     // MT32Edit: UITools class (static)
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     public const int UI_REFRESH_INTERVAL = 200; //interval between form refreshes, in milliseconds 
 
@@ -21,9 +20,27 @@ internal static class UITools
     /// If false, will set UI theme to light background.
     /// </summary>
     public static bool DarkMode { get; set; } = true;
+
+    /// <summary>
+    /// If true, will always show full timbre editor when window size is reduced.
+    /// If false, will allow patch or rhythm editor to appear on top of timbre editor.
+    /// </summary>
     public static bool PrioritiseTimbreEditor { get; set; } = false;
+
+    /// <summary>
+    /// If true, will save current window size and position on exit
+    /// and restore upon next application start
+    /// </summary>
     public static bool SaveWindowSizeAndPosition { get; set; } = false;
+
+    /// <summary>
+    /// A two element array containing the {X,Y} positions of the top left corner of the main application window
+    /// </summary>
     public static int[] WindowLocation { get; set; } = { 0, 0 };
+
+    /// <summary>
+    /// A two element array containing the {X,Y} dimensions of the main application window
+    /// </summary>
     public static int[] WindowSize { get; set; } = { 0, 0 };
 
     /// <summary>
@@ -95,7 +112,7 @@ internal static class UITools
     /// <summary>
     /// Sets colours for specified UI elements, dependent on value of darkMode.
     /// </summary>
-    public static Color SetThemeColours(Label? titleLabel, Label[]? labels, Label[]? warningLabels, CheckBox[]? checkBoxes, 
+    public static Color SetThemeColours(Label? titleLabel, Label[]? labels, Label[]? warningLabels, CheckBox[]? checkBoxes,
                                         GroupBox[]? groupBoxes, ListView? listView, RadioButton[]? radioButtons, bool alternate = false)
     {
         Color titleColour;
@@ -210,7 +227,7 @@ internal static class UITools
     /// <summary>
     /// Sets colours for specified label elements, dependent on value of darkMode.
     /// </summary>
-    public static void SetGroupHeadingColours (Label labelPitch, Label labelTVF, Label labelTVA)
+    public static void SetGroupHeadingColours(Label labelPitch, Label labelTVF, Label labelTVA)
     {
         if (DarkMode)
         {
@@ -226,4 +243,3 @@ internal static class UITools
         }
     }
 }
-

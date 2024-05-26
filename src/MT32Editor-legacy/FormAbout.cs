@@ -8,7 +8,7 @@ namespace MT32Edit_legacy;
 public partial class FormAbout : Form
 {
     // MT32Edit: FormAbout
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private readonly string version;
     private readonly string framework;

@@ -233,7 +233,7 @@ internal static class SaveSysExFile
         //values of all parameters need to be totalled in order to calculate checksum
         int sumOfSysExValues = 0;
         string message = ParseTools.MakeNCharsLong(systemConfig.GetMessage(messageNo), 20);
-        if (message == "                    ")
+        if (message == ParseTools.MakeNCharsLong(string.Empty, 20))
         {
             //don't save blank messages
             return; 

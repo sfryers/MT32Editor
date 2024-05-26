@@ -9,7 +9,7 @@ namespace MT32Edit_legacy;
 public class TimbreStructure
 {
     // MT32Edit: TimbreStructure class
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     //each timbre consists of (up to) 4 partials
     public const int NO_OF_PARTIALS = 4;
@@ -124,6 +124,45 @@ public class TimbreStructure
         part34Structure = ValidateStructureNo(structure, autoCorrect);
     }
 
+    private bool IsPCM(int partialNo)
+    {
+        int structure = partialNo < 2 ? part12Structure : part34Structure;
+
+        if (partialNo == 0 || partialNo == 2)
+        {
+            switch (structure)
+            {
+                case 0:
+                case 1:
+                case 4:
+                case 7:
+                case 9:
+                case 11: //structure nos. with S on left hand side
+                    return false;
+
+                default:
+                    return true;
+            }
+        }
+        else
+        {
+            switch (structure)
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 7:
+                case 9:
+                case 10: //structure nos. with S on right hand side
+                   return false;
+
+                default:
+                    return true;
+            }
+        }
+    }
+
     private int ValidateStructureNo(int structure, bool autoCorrect)
     {
         return LogicTools.ValidateRange("Structure No.", structure, minPermitted: 0, maxPermitted: 12, autoCorrect);
@@ -168,6 +207,18 @@ public class TimbreStructure
     public string GetParameterName(int parameterNo)
     {
         return MT32Strings.partialParameterNames[parameterNo];
+    }
+
+    public bool ContainsCM32LSamples()
+    {
+        for (int partialNo = 0; partialNo < NO_OF_PARTIALS; partialNo++)
+        {
+            if (IsPCM(partialNo) && GetPCMBankNo(partialNo) == 1)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>

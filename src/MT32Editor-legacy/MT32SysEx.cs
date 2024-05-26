@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿
+
+
+using System.Text;
 using System;
 using System.Threading;
 namespace MT32Edit_legacy;
@@ -36,9 +39,15 @@ internal static class MT32SysEx
     public static bool uploadInProgress { get; set; } = false;
 
     /// <summary>
-    /// If set to true, short delay will be added between SysEx messages to avoid MT-32 hardware buffer overflow
+    /// If set to true, short delay will be added between SysEx messages to avoid MT-32 hardware buffer overflow.
     /// </summary>
     public static bool hardwareMT32Connected { get; set; } = true;
+
+    /// <summary>
+    /// If set to false, CM-32L-specific features will be marked in red or grey
+    /// and CM-32L-specific rhythm banks will not assigned a timbre by default.
+    /// </summary>
+    public static bool cm32LMode { get; set; } = true;
 
     /// <summary>
     /// If set to true, parameter changes will be displayed on MT-32 text display.
@@ -51,7 +60,7 @@ internal static class MT32SysEx
     public static bool blockMT32text { get; set; } = false;
 
     /// <summary>
-    /// If set to true, no system exclusive data will be sent to the selected MIDI Out device
+    /// If set to true, no system exclusive data will be sent to the selected MIDI Out device.
     /// </summary>
     public static bool blockSysExMessages { get; set; } = false;
 

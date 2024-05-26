@@ -8,7 +8,7 @@ namespace MT32Edit_legacy;
 internal static class ParseTools
 {
     // MT32Edit: ParseTools class (static)
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
    
     /// <summary>
     /// Ensures str is precisely the desiredLength by adding spaces or removing excess characters from right hand side
@@ -35,7 +35,7 @@ internal static class ParseTools
     }
 	
 	/// <summary>
-    /// Returns true if str is null or WhiteSpace- provided for compatibility with C# 7.3 and earlier versions
+    /// Returns true if str is null or WhiteSpace- provided for compatibility with legacy .NET Framework versions
     /// </summary>
     public static bool IsNullOrWhiteSpace(string str)
     {
@@ -208,11 +208,18 @@ internal static class ParseTools
         }
     }
 
+    /// <summary>
+    /// Checks whether the host OS is 32-bit or 64-bit.
+    /// </summary>
+    /// <returns>"x64" if 64-bit, "x86" if 32-bit.</returns>
     public static string Architecture()
     {
         return IntPtr.Size == 8 ? "x64" : "x86";
     }
-
+	
+    /// <summary>
+    /// Returns the version no. of the build and architecture of the host OS.
+    /// </summary>
     public static string GetVersion(string version)
     {
         return $"{version}_{Architecture()}";

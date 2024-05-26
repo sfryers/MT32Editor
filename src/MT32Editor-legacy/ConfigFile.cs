@@ -9,7 +9,7 @@ namespace MT32Edit_legacy;
 internal static class ConfigFile
 {
     // MT32Edit: ConfigFile class (static)
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private const string COMMENT_CHARACTER = "#";
     private const string TEXT_MIDI_IN = "Midi In";
@@ -22,6 +22,7 @@ internal static class ConfigFile
     private const string TEXT_WINDOW_HEIGHT = "App window height";
     private const string TEXT_AUTOSAVE = "Autosave every 5 mins";
     private const string TEXT_DARK_MODE = "Dark Mode";
+	private const string TEXT_CM32L_MODE = "CM-32L Mode";
     private const string TEXT_SHOW_CONSOLE = "Show Console";
     private const string TEXT_VERBOSE_MESSAGES = "Verbose messages";
     private const string TEXT_HARDWARE_CONNECTED = "Hardware MT-32 connected";
@@ -43,7 +44,7 @@ internal static class ConfigFile
     {
         string[] midiDeviceNames = { "", "" };
         string[] parameterNames = {
-                                    TEXT_MIDI_IN, TEXT_MIDI_OUT, TEXT_UNIT_NO, TEXT_AUTOSAVE, TEXT_DARK_MODE,
+                                    TEXT_MIDI_IN, TEXT_MIDI_OUT, TEXT_UNIT_NO, TEXT_AUTOSAVE, TEXT_DARK_MODE, TEXT_CM32L_MODE,
                                     TEXT_SHOW_CONSOLE, TEXT_VERBOSE_MESSAGES, TEXT_HARDWARE_CONNECTED, TEXT_ALLOW_RESET,
                                     TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE,
                                     TEXT_SEND_SYSEX_DATA_TO_CONSOLE, TEXT_PRIORITISE_TIMBRE_EDITOR, TEXT_SAVE_WINDOW_SIZE_POSITION,
@@ -121,6 +122,9 @@ internal static class ConfigFile
                 case TEXT_DARK_MODE:
                     CheckDarkModeSetting(status);
                     break;
+                case TEXT_CM32L_MODE:
+                    CheckCM32LModeSetting(status);
+                    break;
                 case TEXT_SHOW_CONSOLE:
                     CheckConsoleSetting(status);
                     break;
@@ -173,7 +177,7 @@ internal static class ConfigFile
         void CheckXPosSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int xPos);
-            if (xPos > 0 && xPos < 4000)
+            if (xPos > 0 && xPos < Screen.PrimaryScreen.WorkingArea.Width - 30)
             {
                 UITools.WindowLocation[0] = xPos;
             }
@@ -182,7 +186,7 @@ internal static class ConfigFile
         void CheckYPosSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int yPos);
-            if (yPos > 0 && yPos < 4000)
+            if (yPos > 0 && yPos < Screen.PrimaryScreen.WorkingArea.Height - 30)
             {
                 UITools.WindowLocation[1] = yPos;
             }
@@ -191,7 +195,7 @@ internal static class ConfigFile
         void CheckWidthSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int width);
-            if (width > 0 && width < 4000)
+            if (width > 0 && width < Screen.PrimaryScreen.WorkingArea.Width)
             {
                 UITools.WindowSize[0] = width;
             }
@@ -200,7 +204,7 @@ internal static class ConfigFile
         void CheckHeightSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int height);
-            if (height > 0 && height < 4000)
+            if (height > 0 && height < Screen.PrimaryScreen.WorkingArea.Height)
             {
                 UITools.WindowSize[1] = height;
             }
@@ -229,7 +233,15 @@ internal static class ConfigFile
                 UITools.DarkMode = (bool)status;
             }
         }
-
+        
+        void CheckCM32LModeSetting(bool? status)
+        {
+            if (status.HasValue)
+            {
+                MT32SysEx.cm32LMode = (bool)status;
+            }
+        }
+        
         void CheckIgnoreOnLoadSetting(bool? status)
         {
             if (status.HasValue)
@@ -331,6 +343,7 @@ internal static class ConfigFile
             }
             fs.WriteLine($"{TEXT_AUTOSAVE} = {SaveSysExFile.autoSave}");
             fs.WriteLine($"{TEXT_DARK_MODE} = {UITools.DarkMode}");
+            fs.WriteLine($"{TEXT_CM32L_MODE} = {MT32SysEx.cm32LMode}");
             fs.WriteLine($"{TEXT_SHOW_CONSOLE} = {ConsoleMessage.Visible()}");
             fs.WriteLine($"{TEXT_VERBOSE_MESSAGES} = {ConsoleMessage.Verbose()}");
             fs.WriteLine($"{TEXT_SEND_SYSEX_DATA_TO_CONSOLE} = {MT32SysEx.echoSysExData}");

@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System;
+using System.Drawing;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -8,12 +9,12 @@ namespace MT32Edit_legacy;
 /// </summary>
 
 // MT32Edit: FormPatchEditor
-// S.Fryers Feb 2024
+// S.Fryers May 2024
+
 public partial class FormPatchEditor : Form
 {
     private MT32State memoryState;
     private DateTime lastGlobalUpdate = DateTime.Now;
-    private bool changesMade;
     private bool thisFormIsActive = true;
     private bool darkMode = !UITools.DarkMode;
     private float UIScale;
@@ -30,7 +31,7 @@ public partial class FormPatchEditor : Form
         memoryState = parentMemoryState;
         InitialisePatchArray();
         ConfigureWarnings();
-        changesMade = false;
+        memoryState.changesMade = false;
         timer.Start();
     }
 
@@ -97,6 +98,7 @@ public partial class FormPatchEditor : Form
         }
         CheckPartStatus();
         SetTheme();
+        ColourListViewItems();
     }
 
     /// <summary>
@@ -157,9 +159,9 @@ public partial class FormPatchEditor : Form
     private void RefreshPatchList()
     {
         listViewPatches.Items.Clear();
-        for (int i = 0; i < 128; i++)
+        for (int patchNo = 0; patchNo < 128; patchNo++)
         {
-            AddListViewColumnItems(i);
+            AddListViewColumnItems(patchNo);
         }
         SelectPatchInListView(memoryState.GetSelectedPatchNo());
     }
@@ -178,6 +180,7 @@ public partial class FormPatchEditor : Form
         //modes are internally numbered 0-3, but show 1-4 in UI.
         item.SubItems.Add((memoryPatch.GetAssignMode() + 1).ToString());
         listViewPatches.Items.Add(item);
+        ColourListViewItem(patchNo);
     }
 
     private void SendPatch(int patchNo, bool sendSysExMessage)
@@ -214,9 +217,38 @@ public partial class FormPatchEditor : Form
         }
     }
 
+    private void ColourListViewItems()
+    {
+        for (int patchNo = 0; patchNo < listViewPatches.Items.Count; patchNo++)
+        {
+            ColourListViewItem(patchNo);
+        }
+    }
+
+    private void ColourListViewItem(int patchNo)
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            return;
+        }
+        Patch patch = memoryState.GetPatch(patchNo);
+        if (patch.GetTimbreGroupType() != "Memory")
+        {
+            return;
+        }
+        int timbreNo = patch.GetTimbreNo();
+        if (memoryState.GetMemoryTimbre(timbreNo).ContainsCM32LSamples())
+        {
+            Color mediumRed = Color.FromArgb(255, 90, 90);
+            listViewPatches.Items[patchNo].ForeColor = mediumRed;
+            return;
+        }
+        listViewPatches.Items[patchNo].ForeColor = Color.Empty;
+    }
+
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
-        if (changesMade)
+        if (memoryState.changesMade)
         {
             e.Cancel = !UITools.AskUserToConfirm("Unsaved changes will be lost!", "MT-32 Editor");
         }
@@ -329,7 +361,7 @@ public partial class FormPatchEditor : Form
             listViewPatches.SelectedItems[0].SubItems[2].Text = comboBoxTimbreName.Text;
         }
         SendPatch(selectedPatch, sendSysExMessage: true);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void comboBoxTimbreName_SelectionChangeCommitted(object sender, EventArgs e)
@@ -342,7 +374,7 @@ public partial class FormPatchEditor : Form
             listViewPatches.SelectedItems[0].SubItems[2].Text = memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup());
         }
         SendPatch(selectedPatch, sendSysExMessage: false);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void trackBarKeyShift_ValueChanged(object sender, EventArgs e)
@@ -355,7 +387,7 @@ public partial class FormPatchEditor : Form
         }
         SetKeyShiftToolTip();
         SendPatchParameterChange(selectedPatch, 0x02);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void trackBarFineTune_ValueChanged(object sender, EventArgs e)
@@ -368,7 +400,7 @@ public partial class FormPatchEditor : Form
         }
         SetFineTuneToolTip();
         SendPatchParameterChange(selectedPatch, 0x03);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void trackBarBenderRange_ValueChanged(object sender, EventArgs e)
@@ -382,7 +414,7 @@ public partial class FormPatchEditor : Form
 
         SetBendRangeToolTip();
         SendPatchParameterChange(selectedPatch, 0x04);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void comboBoxAssignMode_SelectedValueChanged(object sender, EventArgs e)
@@ -395,7 +427,7 @@ public partial class FormPatchEditor : Form
         }
 
         SendPatchParameterChange(selectedPatch, 0x05);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void radioButtonReverbOn_CheckedChanged(object sender, EventArgs e)
@@ -412,7 +444,7 @@ public partial class FormPatchEditor : Form
         }
 
         SendPatchParameterChange(selectedPatch, 0x06);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void FormPatchEditor_FormClosing(object sender, FormClosingEventArgs e)

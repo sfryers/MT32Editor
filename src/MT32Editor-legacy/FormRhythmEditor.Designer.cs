@@ -177,12 +177,14 @@ namespace MT32Edit_legacy
             // 
             // comboBoxTimbreName
             // 
+            this.comboBoxTimbreName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxTimbreName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTimbreName.FormattingEnabled = true;
             this.comboBoxTimbreName.Location = new System.Drawing.Point(104, 99);
             this.comboBoxTimbreName.Name = "comboBoxTimbreName";
             this.comboBoxTimbreName.Size = new System.Drawing.Size(108, 21);
             this.comboBoxTimbreName.TabIndex = 35;
+            this.comboBoxTimbreName.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxTimbreName_DrawItem);
             this.comboBoxTimbreName.SelectionChangeCommitted += new System.EventHandler(this.comboBoxTimbreName_SelectionChangeCommitted);
             // 
             // numericUpDownKeyNo

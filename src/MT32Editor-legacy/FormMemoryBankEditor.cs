@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Drawing;
 using System;
 namespace MT32Edit_legacy;
 
@@ -125,8 +126,23 @@ public partial class FormMemoryBankEditor : Form
         {
             item.SubItems.Add(memoryState.GetMemoryTimbre(timbreNo).GetTimbreName());
         }
-
         listViewTimbres.Items.Add(item);
+        ColourListViewItem(timbreNo);
+    }
+
+    private void ColourListViewItem(int timbreNo)
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            return;
+        }
+        if (memoryState.GetMemoryTimbre(timbreNo).ContainsCM32LSamples())
+        {
+            Color mediumRed = Color.FromArgb(255, 90, 90);
+            listViewTimbres.Items[timbreNo].ForeColor = mediumRed;
+            return;
+        }
+        listViewTimbres.Items[timbreNo].ForeColor = Color.Empty;
     }
 
     /// <summary>
@@ -324,6 +340,7 @@ public partial class FormMemoryBankEditor : Form
         {
             listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
         }
+		ColourListViewItem(selectedTimbre);
     }
 
     private void FormMemoryBankEditor_Resize(object sender, EventArgs e)

@@ -11,7 +11,7 @@ namespace MT32Edit_legacy;
 internal static class LoadSysExFile
 {
     // MT32Edit: LoadSysExFile class (static)
-    // S.Fryers Apr 2024 
+    // S.Fryers May 2024 
 
     /// <summary>
     /// If true, ignores system area data when loading SysEx file
@@ -208,7 +208,7 @@ internal static class LoadSysExFile
         if (!validSysExDataFound)
         {
             //reset memory state as soon as the first valid MT-32 sysex message is found
-            memoryState.ResetAll();
+            memoryState.ResetAll(MT32SysEx.cm32LMode);
             validSysExDataFound = true;
         }
 
@@ -331,7 +331,7 @@ internal static class LoadSysExFile
     {
         if (MT32SysEx.RequestMT32Reset())
         {
-            memoryState.ResetAll();
+            memoryState.ResetAll(MT32SysEx.cm32LMode);
         }
         else
         {

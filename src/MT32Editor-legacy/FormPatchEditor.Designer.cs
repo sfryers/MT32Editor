@@ -440,6 +440,7 @@ namespace MT32Edit_legacy
             this.Text = "MT-32 Patch Editor";
             this.TopMost = true;
             this.Activated += new System.EventHandler(this.FormPatchEditor_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPatchEditor_FormClosing);
             this.Leave += new System.EventHandler(this.FormPatchEditor_Leave);
             this.Resize += new System.EventHandler(this.FormPatchEditor_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPatchNo)).EndInit();

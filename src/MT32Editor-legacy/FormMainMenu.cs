@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
-using System.Runtime.ConstrainedExecution;
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -28,7 +27,7 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.9b-legacy";
+    private const string VERSION_NO = "v0.9.10b-legacy";
 #if NET6_0
     private const string FRAMEWORK = ".NET 6.0";
 #elif NET472
@@ -46,21 +45,26 @@ public partial class FormMainMenu : Form
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
-    private const int TIMBRE_EDITOR_FULL_WIDTH = 800;
+    private int timbreEditorFullWidth = 800;
 
     private bool midiInError = false;
     private bool midiOutError = false;
+    private readonly bool win9x = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+
     private readonly MT32State memoryState = new MT32State();
+    private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private FormMemoryBankEditor? memoryBankEditor;
     private FormTimbreEditor? timbreEditor;
     private FormPatchEditor? patchEditor;
     private FormRhythmEditor? rhythmEditor;
+    private FormAbout? about;
+    private FormEnvelopeDiagrams? envelopeDiagrams;
 
-    private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private string titleBarFileName = "Untitled";
     private string? loadedSysExFileName;
     private bool moveFocusToMemoryBankEditor = false;
-    private int auditionNote = 60;
+    private int auditionNote = 60; //Middle C
+
 
     public FormMainMenu(string[] args)
     {
@@ -69,6 +73,7 @@ public partial class FormMainMenu : Form
         AllocConsole();
         Console.WriteLine($"Welcome to MT32 Editor {ParseTools.GetVersion(VERSION_NO)} ({FRAMEWORK})");
         ReadConfigFile();
+		SetROMCapabilities();
         if (midiInError || midiOutError)
         {
             return;
@@ -77,7 +82,7 @@ public partial class FormMainMenu : Form
         OpenMemoryBankEditor();
         OpenRhythmEditor();
         OpenPatchEditor();
-        SetWindowSizeAndLocation();
+        SetWindowSizeAndPosition();
         ScaleUIElements();
         MT32SysEx.SendText($"MT32 Editor {ParseTools.TrimToLength(VERSION_NO, 8)}");
         timer.Interval = UITools.UI_REFRESH_INTERVAL;
@@ -122,12 +127,18 @@ public partial class FormMainMenu : Form
         return scaleValue;
     }
 
+    private void SetROMCapabilities()
+    {
+        if (!MT32SysEx.cm32LMode)
+        {
+            memoryState.SetDefaultMT32RhythmBanks();
+        }
+    }
     private void OpenTimbreEditor()
     {
         timbreEditor = new FormTimbreEditor(DPIScale());
         timbreEditor.MdiParent = this;
         timbreEditor.Show();
-        timbreEditorToolStripMenuItem.Checked = UITools.PrioritiseTimbreEditor;
     }
 
     private void OpenPatchEditor()
@@ -156,7 +167,7 @@ public partial class FormMainMenu : Form
         memoryBankEditor.Show();
     }
 
-    private void SetWindowSizeAndLocation()
+    private void SetWindowSizeAndPosition()
     {
         if (!UITools.SaveWindowSizeAndPosition)
         {
@@ -210,9 +221,9 @@ public partial class FormMainMenu : Form
             {
                 timbreEditor.Height = Height - yMargin;
             }
-            if (Width < memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH || Width > memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + patchEditor.MinimumSize.Width + xMargin)
+            if (Width < memoryBankEditor.Width + timbreEditorFullWidth || Width > memoryBankEditor.Width + timbreEditorFullWidth + patchEditor.MinimumSize.Width + xMargin)
             {
-                timbreEditor.Width = TIMBRE_EDITOR_FULL_WIDTH;
+                timbreEditor.Width = timbreEditorFullWidth;
             }
             else
             {
@@ -233,7 +244,7 @@ public partial class FormMainMenu : Form
             {
                 patchEditor.Height = Height - yMargin;
             }
-            if (Width > patchEditor.MinimumSize.Width + memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + xMargin)
+            if (Width > patchEditor.MinimumSize.Width + memoryBankEditor.Width + timbreEditorFullWidth + xMargin)
             {
                 //If sufficient width is available, show patch editor to right of timbre editor
                 patchEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
@@ -270,7 +281,7 @@ public partial class FormMainMenu : Form
             {
                 rhythmEditor.Height = Height - yMargin;
             }
-            if (Width > rhythmEditor.MinimumSize.Width + memoryBankEditor.Width + TIMBRE_EDITOR_FULL_WIDTH + xMargin)
+            if (Width > rhythmEditor.MinimumSize.Width + memoryBankEditor.Width + timbreEditorFullWidth + xMargin)
             {
                 //If sufficient width is available, show rhythm editor to right of timbre editor
                 rhythmEditor.Left = timbreEditor.Left + timbreEditor.Width + 1;
@@ -300,8 +311,8 @@ public partial class FormMainMenu : Form
         string[] midiDeviceNames = ConfigFile.Load();
         InitialiseMidiInConnection(midiDeviceNames[0]);
         InitialiseMidiOutConnection(midiDeviceNames[1]);
-        ConfigureConsole();
         SetOptionMenuFlags();
+        ConfigureConsole();
         if (midiInError || midiOutError)
         {
             Close();
@@ -310,11 +321,12 @@ public partial class FormMainMenu : Form
 
         void ConfigureConsole()
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
+            if (win9x) 
             {
                 //disable show/hide Console window on Win9x systems- prevents crash from occurring
                 showConsoleToolStripMenuItem.Checked = true;
                 showConsoleToolStripMenuItem.Enabled = false;
+                verboseConsoleMessagesToolStripMenuItem.Checked = ConsoleMessage.Verbose();
                 verboseConsoleMessagesToolStripMenuItem.Enabled = true;
                 return;
             }
@@ -338,8 +350,10 @@ public partial class FormMainMenu : Form
             excludeSysConfigonSaveToolStripMenuItem.Checked = SaveSysExFile.excludeSystemArea;
             autosaveEvery5MinutesToolStripMenuItem.Checked = SaveSysExFile.autoSave;
             darkModeToolStripMenuItem.Checked = UITools.DarkMode;
+			cM32LModeToolStripMenuItem.Checked = MT32SysEx.cm32LMode;
             allowMT32ResetToolStripMenuItem.Checked = MT32SysEx.allowReset;
-            saveWindowSizeAndLocationToolStripMenuItem.Checked = UITools.SaveWindowSizeAndPosition;
+            saveWindowSizeAndPositionToolStripMenuItem.Checked = UITools.SaveWindowSizeAndPosition;
+			timbreEditorToolStripMenuItem.Checked = UITools.PrioritiseTimbreEditor;
         }
 
         void InitialiseMidiInConnection(string midiInDeviceName)
@@ -583,7 +597,7 @@ public partial class FormMainMenu : Form
         rhythmEditor.Visible = false;
         rhythmEditorToolStripMenuItem.Checked = false;
         timbreEditorToolStripMenuItem.Checked = false;
-        if (Width < memoryBankEditor.MinimumSize.Width + TIMBRE_EDITOR_FULL_WIDTH)
+        if (Width < memoryBankEditor.MinimumSize.Width + timbreEditorFullWidth)
         {
             timbreEditor.Width = Width - memoryBankEditor.MinimumSize.Width;
         }
@@ -601,7 +615,7 @@ public partial class FormMainMenu : Form
         rhythmEditor.Visible = true;
         rhythmEditorToolStripMenuItem.Checked = true;
         timbreEditorToolStripMenuItem.Checked = false;
-        if (Width < memoryBankEditor.MinimumSize.Width + TIMBRE_EDITOR_FULL_WIDTH)
+        if (Width < memoryBankEditor.MinimumSize.Width + timbreEditorFullWidth)
         {
             timbreEditor.Width = Width - memoryBankEditor.MinimumSize.Width;
         }
@@ -613,6 +627,12 @@ public partial class FormMainMenu : Form
         EnableTimbreEditor();
     }
 
+    private void timbreEditorToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        UITools.PrioritiseTimbreEditor = timbreEditorToolStripMenuItem.Checked;
+        ConfigFile.Save();
+    }
+	
     private void EnableTimbreEditor()
     {
         if (patchEditor is null || rhythmEditor is null || timbreEditor is null || memoryBankEditor is null)
@@ -626,22 +646,23 @@ public partial class FormMainMenu : Form
         rhythmEditor.Visible = false;
     }
 
-    private void timbreEditorToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-    {
-        UITools.PrioritiseTimbreEditor = timbreEditorToolStripMenuItem.Checked;
-        ConfigFile.Save();
-    }
-
     private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        var about = new FormAbout(ParseTools.GetVersion(VERSION_NO), FRAMEWORK, RELEASE_DATE);
+        if (about is not null && about.Visible)
+        {
+            about.Close();
+        }
+        about = new FormAbout(ParseTools.GetVersion(VERSION_NO), FRAMEWORK, RELEASE_DATE);
         about.Show();
     }
 
-
     private void envelopeDiagramsToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        var envelopeDiagrams = new FormEnvelopeDiagrams();
+        if (envelopeDiagrams is not null && envelopeDiagrams.Visible)
+        {
+            envelopeDiagrams.Close();
+        }
+        envelopeDiagrams = new FormEnvelopeDiagrams();
         envelopeDiagrams.Show();
     }
 
@@ -737,7 +758,7 @@ public partial class FormMainMenu : Form
 
     private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
+        if (win9x)
         {
             //prevent crash on Win9x systems
             return;
@@ -801,14 +822,41 @@ public partial class FormMainMenu : Form
         ConfigFile.Save();
     }
 
-    private void saveWindowSizeAndLocationToolStripMenuItem_Click(object sender, EventArgs e)
+    private void cM32LModeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        saveWindowSizeAndLocationToolStripMenuItem.Checked = !UITools.SaveWindowSizeAndPosition;
+        cM32LModeToolStripMenuItem.Checked = !MT32SysEx.cm32LMode;
+        MT32SysEx.cm32LMode ^= true;
+        ConfigFile.Save();
+        OpenRhythmEditor();
+        var DialogResult = MessageBox.Show("MT-32 Editor will now restart.\nIf you have unsaved work, select\nCancel and retry after saving.", "MT-32 Editor", MessageBoxButtons.OKCancel);
+        if (DialogResult == DialogResult.Cancel) 
+        {
+            MT32SysEx.cm32LMode ^= true;
+            cM32LModeToolStripMenuItem.Checked ^= true;
+            return;
+        }
+        memoryState.changesMade = false;
+        Application.Restart();
+        Environment.Exit(0);
+    }
+
+    private void saveWindowSizeAndPositionToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        saveWindowSizeAndPositionToolStripMenuItem.Checked = !UITools.SaveWindowSizeAndPosition;
         UITools.SaveWindowSizeAndPosition ^= true;
         ConfigFile.Save();
     }
 
-    private void auditionToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
+    private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        UITools.WindowSize[0] = Size.Width;
+        UITools.WindowSize[1] = Size.Height;
+        UITools.WindowLocation[0] = Left;
+        UITools.WindowLocation[1] = Top;
+        ConfigFile.Save();
+    }
+	
+	private void auditionToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
     {
         Midi.NoteOn(auditionNote, 1);
     }
@@ -821,14 +869,5 @@ public partial class FormMainMenu : Form
     private void auditionToolStripMenuItem_MouseLeave(object sender, EventArgs e)
     {
         Midi.NoteOff(auditionNote, 1);
-    }
-
-    private void FormMainMenu_FormClosing(object sender, FormClosingEventArgs e)
-    {
-        UITools.WindowSize[0] = Size.Width;
-        UITools.WindowSize[1] = Size.Height;
-        UITools.WindowLocation[0] = Left;
-        UITools.WindowLocation[1] = Top;
-        ConfigFile.Save();
     }
 }

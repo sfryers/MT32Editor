@@ -61,7 +61,7 @@
             // labelPitchEnv
             // 
             this.labelPitchEnv.AutoSize = true;
-            this.labelPitchEnv.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelPitchEnv.ForeColor = System.Drawing.Color.Black;
             this.labelPitchEnv.Location = new System.Drawing.Point(9, 15);
             this.labelPitchEnv.Name = "labelPitchEnv";
             this.labelPitchEnv.Size = new System.Drawing.Size(170, 13);
@@ -71,7 +71,7 @@
             // labelTVATVFEnv
             // 
             this.labelTVATVFEnv.AutoSize = true;
-            this.labelTVATVFEnv.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelTVATVFEnv.ForeColor = System.Drawing.Color.Black;
             this.labelTVATVFEnv.Location = new System.Drawing.Point(9, 154);
             this.labelTVATVFEnv.Name = "labelTVATVFEnv";
             this.labelTVATVFEnv.Size = new System.Drawing.Size(192, 13);
@@ -80,28 +80,30 @@
             // 
             // buttonClose
             // 
+            this.buttonClose.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonClose.ForeColor = System.Drawing.Color.Black;
             this.buttonClose.Location = new System.Drawing.Point(270, 286);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(56, 25);
             this.buttonClose.TabIndex = 4;
             this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.UseVisualStyleBackColor = false;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // FormEnvelopeDiagrams
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(334, 321);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(160)))), ((int)(((byte)(150)))));
+            this.ClientSize = new System.Drawing.Size(334, 316);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.labelTVATVFEnv);
             this.Controls.Add(this.labelPitchEnv);
             this.Controls.Add(this.pictureBoxTVATVFEnvDiagram);
             this.Controls.Add(this.pictureBoxPitchEnvDiagram);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(350, 360);
-            this.MinimumSize = new System.Drawing.Size(350, 360);
+            this.MaximumSize = new System.Drawing.Size(350, 355);
+            this.MinimumSize = new System.Drawing.Size(350, 355);
             this.Name = "FormEnvelopeDiagrams";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Envelope Diagrams";
