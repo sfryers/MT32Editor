@@ -63,6 +63,7 @@
             timer = new System.Windows.Forms.Timer(components);
             buttonEditPreset = new Button();
             labelNoChannelAssigned = new Label();
+            labelMT32ModeWarning = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPatchNo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarKeyShift).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarFineTune).BeginInit();
@@ -323,7 +324,7 @@
             labelUnitNoWarning.AutoSize = true;
             labelUnitNoWarning.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             labelUnitNoWarning.ForeColor = Color.Yellow;
-            labelUnitNoWarning.Location = new Point(15, 74);
+            labelUnitNoWarning.Location = new Point(15, 139);
             labelUnitNoWarning.Name = "labelUnitNoWarning";
             labelUnitNoWarning.Size = new Size(439, 15);
             labelUnitNoWarning.TabIndex = 62;
@@ -364,12 +365,22 @@
             labelNoChannelAssigned.AutoSize = true;
             labelNoChannelAssigned.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             labelNoChannelAssigned.ForeColor = Color.Yellow;
-            labelNoChannelAssigned.Location = new Point(48, 284);
+            labelNoChannelAssigned.Location = new Point(15, 71);
             labelNoChannelAssigned.Name = "labelNoChannelAssigned";
             labelNoChannelAssigned.Size = new Size(416, 15);
             labelNoChannelAssigned.TabIndex = 61;
             labelNoChannelAssigned.Text = "Part 1 muted- no MIDI channel assigned. Assign a channel in System Settings.";
             labelNoChannelAssigned.Visible = false;
+            // 
+            // labelMT32ModeWarning
+            // 
+            labelMT32ModeWarning.AutoSize = true;
+            labelMT32ModeWarning.ForeColor = Color.FromArgb(255, 90, 90);
+            labelMT32ModeWarning.Location = new Point(13, 283);
+            labelMT32ModeWarning.Name = "labelMT32ModeWarning";
+            labelMT32ModeWarning.Size = new Size(456, 15);
+            labelMT32ModeWarning.TabIndex = 65;
+            labelMT32ModeWarning.Text = "MT-32 mode selected: Timbres containing CM-32L specific samples are shown in red.";
             // 
             // FormPatchEditor
             // 
@@ -378,6 +389,7 @@
             BackColor = Color.FromArgb(24, 24, 24);
             ClientSize = new Size(540, 960);
             ControlBox = false;
+            Controls.Add(labelMT32ModeWarning);
             Controls.Add(labelUnitNoWarning);
             Controls.Add(labelNoChannelAssigned);
             Controls.Add(buttonEditPreset);
@@ -403,7 +415,7 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            MinimumSize = new Size(350, 200);
+            MinimumSize = new Size(526, 200);
             Name = "FormPatchEditor";
             ShowIcon = false;
             ShowInTaskbar = false;
@@ -454,5 +466,6 @@
         private Button buttonEditPreset;
         private Label labelNoChannelAssigned;
         private Label labelUnitNoWarning;
+        private Label labelMT32ModeWarning;
     }
 }

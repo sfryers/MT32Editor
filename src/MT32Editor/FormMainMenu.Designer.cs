@@ -45,14 +45,19 @@
             viewToolStripMenuItem = new ToolStripMenuItem();
             patchEditorToolStripMenuItem = new ToolStripMenuItem();
             rhythmEditorToolStripMenuItem = new ToolStripMenuItem();
+            timbreEditorToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            restoreDefaultWindowSizeToolStripMenuItem = new ToolStripMenuItem();
             optionsToolStripMenuItem = new ToolStripMenuItem();
             masterSettingsToolStripMenuItem = new ToolStripMenuItem();
             autosaveEvery5MinutesToolStripMenuItem = new ToolStripMenuItem();
+            saveWindowSizeAndPositionToolStripMenuItem = new ToolStripMenuItem();
             ignoreSysConfigOnLoadToolStripMenuItem = new ToolStripMenuItem();
             excludeSysConfigonSaveToolStripMenuItem = new ToolStripMenuItem();
             hardwareMT32ConnectedToolStripMenuItem = new ToolStripMenuItem();
             sendMessagesToMT32DisplayToolStripMenuItem = new ToolStripMenuItem();
             allowMT32ResetToolStripMenuItem = new ToolStripMenuItem();
+            cM32LModeToolStripMenuItem = new ToolStripMenuItem();
             darkModeToolStripMenuItem = new ToolStripMenuItem();
             showConsoleToolStripMenuItem = new ToolStripMenuItem();
             verboseConsoleMessagesToolStripMenuItem = new ToolStripMenuItem();
@@ -62,6 +67,7 @@
             midiInToolStripMenuItem = new ToolStripComboBox();
             MidiOutLabelToolStripMenuItem = new ToolStripMenuItem();
             midiOutToolStripMenuItem = new ToolStripComboBox();
+            auditionToolStripMenuItem = new ToolStripMenuItem();
             timer = new System.Windows.Forms.Timer(components);
             timerAutoSave = new System.Windows.Forms.Timer(components);
             menuStrip.SuspendLayout();
@@ -74,7 +80,7 @@
             menuStrip.BackColor = SystemColors.MenuBar;
             menuStrip.Dock = DockStyle.None;
             menuStrip.ImageScalingSize = new Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, optionsToolStripMenuItem, helpToolStripMenuItem1, MidiInLabelToolStripMenuItem, midiInToolStripMenuItem, MidiOutLabelToolStripMenuItem, midiOutToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, optionsToolStripMenuItem, helpToolStripMenuItem1, MidiInLabelToolStripMenuItem, midiInToolStripMenuItem, MidiOutLabelToolStripMenuItem, midiOutToolStripMenuItem, auditionToolStripMenuItem });
             menuStrip.Location = new Point(1, 1);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(2192, 30);
@@ -88,6 +94,7 @@
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 26);
             fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.Click += menuStrip_Item_Clicked;
             // 
             // loadSysExFileToolStripMenuItem
             // 
@@ -156,10 +163,11 @@
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { patchEditorToolStripMenuItem, rhythmEditorToolStripMenuItem });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { patchEditorToolStripMenuItem, rhythmEditorToolStripMenuItem, timbreEditorToolStripMenuItem, toolStripSeparator3, restoreDefaultWindowSizeToolStripMenuItem });
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(44, 26);
             viewToolStripMenuItem.Text = "View";
+            viewToolStripMenuItem.Click += menuStrip_Item_Clicked;
             // 
             // patchEditorToolStripMenuItem
             // 
@@ -177,18 +185,39 @@
             rhythmEditorToolStripMenuItem.Text = "Rhythm Bank Editor";
             rhythmEditorToolStripMenuItem.Click += rhythmEditorToolStripMenuItem_Click;
             // 
+            // timbreEditorToolStripMenuItem
+            // 
+            timbreEditorToolStripMenuItem.Name = "timbreEditorToolStripMenuItem";
+            timbreEditorToolStripMenuItem.Size = new Size(179, 22);
+            timbreEditorToolStripMenuItem.Text = "Timbre Editor";
+            timbreEditorToolStripMenuItem.CheckedChanged += timbreEditorToolStripMenuItem_CheckedChanged;
+            timbreEditorToolStripMenuItem.Click += timbreEditorToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(176, 6);
+            // 
+            // restoreDefaultWindowSizeToolStripMenuItem
+            // 
+            restoreDefaultWindowSizeToolStripMenuItem.Name = "restoreDefaultWindowSizeToolStripMenuItem";
+            restoreDefaultWindowSizeToolStripMenuItem.Size = new Size(179, 22);
+            restoreDefaultWindowSizeToolStripMenuItem.Text = "Default window size";
+            restoreDefaultWindowSizeToolStripMenuItem.Click += restoreDefaultWindowSizeToolStripMenuItem_Click;
+            // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, autosaveEvery5MinutesToolStripMenuItem, ignoreSysConfigOnLoadToolStripMenuItem, excludeSysConfigonSaveToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, darkModeToolStripMenuItem, showConsoleToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
+            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { masterSettingsToolStripMenuItem, autosaveEvery5MinutesToolStripMenuItem, saveWindowSizeAndPositionToolStripMenuItem, ignoreSysConfigOnLoadToolStripMenuItem, excludeSysConfigonSaveToolStripMenuItem, hardwareMT32ConnectedToolStripMenuItem, sendMessagesToMT32DisplayToolStripMenuItem, allowMT32ResetToolStripMenuItem, cM32LModeToolStripMenuItem, darkModeToolStripMenuItem, showConsoleToolStripMenuItem, verboseConsoleMessagesToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             optionsToolStripMenuItem.Size = new Size(61, 26);
             optionsToolStripMenuItem.Text = "Options";
+            optionsToolStripMenuItem.Click += menuStrip_Item_Clicked;
             // 
             // masterSettingsToolStripMenuItem
             // 
             masterSettingsToolStripMenuItem.Image = Properties.Resources.Settings;
             masterSettingsToolStripMenuItem.Name = "masterSettingsToolStripMenuItem";
-            masterSettingsToolStripMenuItem.Size = new Size(370, 26);
+            masterSettingsToolStripMenuItem.Size = new Size(366, 22);
             masterSettingsToolStripMenuItem.Text = "System area settings";
             masterSettingsToolStripMenuItem.Click += masterSettingsToolStripMenuItem_Click;
             // 
@@ -197,22 +226,29 @@
             autosaveEvery5MinutesToolStripMenuItem.Checked = true;
             autosaveEvery5MinutesToolStripMenuItem.CheckState = CheckState.Checked;
             autosaveEvery5MinutesToolStripMenuItem.Name = "autosaveEvery5MinutesToolStripMenuItem";
-            autosaveEvery5MinutesToolStripMenuItem.Size = new Size(370, 26);
+            autosaveEvery5MinutesToolStripMenuItem.Size = new Size(366, 22);
             autosaveEvery5MinutesToolStripMenuItem.Text = "Autosave every 5 minutes";
             autosaveEvery5MinutesToolStripMenuItem.ToolTipText = "Saves current status to autosave.syx";
             autosaveEvery5MinutesToolStripMenuItem.Click += autosaveEvery5MinutesToolStripMenuItem_Click;
             // 
+            // saveWindowSizeAndPositionToolStripMenuItem
+            // 
+            saveWindowSizeAndPositionToolStripMenuItem.Name = "saveWindowSizeAndPositionToolStripMenuItem";
+            saveWindowSizeAndPositionToolStripMenuItem.Size = new Size(366, 22);
+            saveWindowSizeAndPositionToolStripMenuItem.Text = "Save window size and position";
+            saveWindowSizeAndPositionToolStripMenuItem.Click += saveWindowSizeAndPositionToolStripMenuItem_Click;
+            // 
             // ignoreSysConfigOnLoadToolStripMenuItem
             // 
             ignoreSysConfigOnLoadToolStripMenuItem.Name = "ignoreSysConfigOnLoadToolStripMenuItem";
-            ignoreSysConfigOnLoadToolStripMenuItem.Size = new Size(370, 26);
+            ignoreSysConfigOnLoadToolStripMenuItem.Size = new Size(366, 22);
             ignoreSysConfigOnLoadToolStripMenuItem.Text = "Ignore system config messages when loading SysEx file";
             ignoreSysConfigOnLoadToolStripMenuItem.Click += ignoreSysConfigOnLoadToolStripMenuItem_Click;
             // 
             // excludeSysConfigonSaveToolStripMenuItem
             // 
             excludeSysConfigonSaveToolStripMenuItem.Name = "excludeSysConfigonSaveToolStripMenuItem";
-            excludeSysConfigonSaveToolStripMenuItem.Size = new Size(370, 26);
+            excludeSysConfigonSaveToolStripMenuItem.Size = new Size(366, 22);
             excludeSysConfigonSaveToolStripMenuItem.Text = "Exclude system config messages when saving SysEx file";
             excludeSysConfigonSaveToolStripMenuItem.Click += excludeSysConfigonSaveToolStripMenuItem_Click;
             // 
@@ -221,7 +257,7 @@
             hardwareMT32ConnectedToolStripMenuItem.Checked = true;
             hardwareMT32ConnectedToolStripMenuItem.CheckState = CheckState.Checked;
             hardwareMT32ConnectedToolStripMenuItem.Name = "hardwareMT32ConnectedToolStripMenuItem";
-            hardwareMT32ConnectedToolStripMenuItem.Size = new Size(370, 26);
+            hardwareMT32ConnectedToolStripMenuItem.Size = new Size(366, 22);
             hardwareMT32ConnectedToolStripMenuItem.Text = "Hardware MT-32 connected";
             hardwareMT32ConnectedToolStripMenuItem.Click += hardwareMT32ConnectedToolStripMenuItem_Click;
             // 
@@ -230,21 +266,30 @@
             sendMessagesToMT32DisplayToolStripMenuItem.Checked = true;
             sendMessagesToMT32DisplayToolStripMenuItem.CheckState = CheckState.Checked;
             sendMessagesToMT32DisplayToolStripMenuItem.Name = "sendMessagesToMT32DisplayToolStripMenuItem";
-            sendMessagesToMT32DisplayToolStripMenuItem.Size = new Size(370, 26);
+            sendMessagesToMT32DisplayToolStripMenuItem.Size = new Size(366, 22);
             sendMessagesToMT32DisplayToolStripMenuItem.Text = "Send info to MT-32 display";
             sendMessagesToMT32DisplayToolStripMenuItem.Click += sendMessagesToMT32DisplayToolStripMenuItem_Click;
             // 
             // allowMT32ResetToolStripMenuItem
             // 
             allowMT32ResetToolStripMenuItem.Name = "allowMT32ResetToolStripMenuItem";
-            allowMT32ResetToolStripMenuItem.Size = new Size(370, 26);
+            allowMT32ResetToolStripMenuItem.Size = new Size(366, 22);
             allowMT32ResetToolStripMenuItem.Text = "Allow MT-32 reset from SysEx";
             allowMT32ResetToolStripMenuItem.Click += allowMT32ResetToolStripMenuItem_Click;
+            // 
+            // cM32LModeToolStripMenuItem
+            // 
+            cM32LModeToolStripMenuItem.Checked = true;
+            cM32LModeToolStripMenuItem.CheckState = CheckState.Checked;
+            cM32LModeToolStripMenuItem.Name = "cM32LModeToolStripMenuItem";
+            cM32LModeToolStripMenuItem.Size = new Size(366, 22);
+            cM32LModeToolStripMenuItem.Text = "CM-32L mode (requires restart)";
+            cM32LModeToolStripMenuItem.Click += cM32LModeToolStripMenuItem_Click;
             // 
             // darkModeToolStripMenuItem
             // 
             darkModeToolStripMenuItem.Name = "darkModeToolStripMenuItem";
-            darkModeToolStripMenuItem.Size = new Size(370, 26);
+            darkModeToolStripMenuItem.Size = new Size(366, 22);
             darkModeToolStripMenuItem.Text = "Dark mode";
             darkModeToolStripMenuItem.Click += darkModeToolStripMenuItem_Click;
             // 
@@ -253,14 +298,14 @@
             showConsoleToolStripMenuItem.Checked = true;
             showConsoleToolStripMenuItem.CheckState = CheckState.Checked;
             showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
-            showConsoleToolStripMenuItem.Size = new Size(370, 26);
+            showConsoleToolStripMenuItem.Size = new Size(366, 22);
             showConsoleToolStripMenuItem.Text = "Show console";
             showConsoleToolStripMenuItem.Click += showConsoleToolStripMenuItem_Click;
             // 
             // verboseConsoleMessagesToolStripMenuItem
             // 
             verboseConsoleMessagesToolStripMenuItem.Name = "verboseConsoleMessagesToolStripMenuItem";
-            verboseConsoleMessagesToolStripMenuItem.Size = new Size(370, 26);
+            verboseConsoleMessagesToolStripMenuItem.Size = new Size(366, 22);
             verboseConsoleMessagesToolStripMenuItem.Text = "Verbose console messages";
             verboseConsoleMessagesToolStripMenuItem.Click += verboseConsoleMessagesToolStripMenuItem_Click;
             // 
@@ -270,6 +315,7 @@
             helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             helpToolStripMenuItem1.Size = new Size(44, 26);
             helpToolStripMenuItem1.Text = "Help";
+            helpToolStripMenuItem1.Click += menuStrip_Item_Clicked;
             // 
             // aboutToolStripMenuItem
             // 
@@ -319,6 +365,17 @@
             midiOutToolStripMenuItem.Size = new Size(250, 23);
             midiOutToolStripMenuItem.DropDownClosed += midiOutToolStripMenuItem_DropDownClosed;
             // 
+            // auditionToolStripMenuItem
+            // 
+            auditionToolStripMenuItem.Image = Properties.Resources.Play;
+            auditionToolStripMenuItem.Margin = new Padding(30, 0, 0, 0);
+            auditionToolStripMenuItem.Name = "auditionToolStripMenuItem";
+            auditionToolStripMenuItem.Size = new Size(32, 26);
+            auditionToolStripMenuItem.ToolTipText = "Test selected timbre";
+            auditionToolStripMenuItem.MouseDown += auditionToolStripMenuItem_MouseDown;
+            auditionToolStripMenuItem.MouseLeave += auditionToolStripMenuItem_MouseLeave;
+            auditionToolStripMenuItem.MouseUp += auditionToolStripMenuItem_MouseUp;
+            // 
             // timer
             // 
             timer.Enabled = true;
@@ -335,15 +392,16 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(48, 48, 48);
-            ClientSize = new Size(1758, 1001);
+            ClientSize = new Size(1758, 999);
             Controls.Add(menuStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
-            MinimumSize = new Size(1774, 1038);
+            MinimumSize = new Size(1220, 1036);
             Name = "FormMainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Untitled - MT-32 Editor";
+            FormClosing += FormMainMenu_FormClosing;
             FormClosed += FormMainMenu_FormClosed;
             Load += FormMainMenu_Load;
             Resize += FormMainMenu_Resize;
@@ -387,5 +445,11 @@
         private System.Windows.Forms.Timer timerAutoSave;
         private ToolStripMenuItem autosaveEvery5MinutesToolStripMenuItem;
         private ToolStripMenuItem darkModeToolStripMenuItem;
+        private ToolStripMenuItem saveWindowSizeAndPositionToolStripMenuItem;
+        private ToolStripMenuItem auditionToolStripMenuItem;
+        private ToolStripMenuItem timbreEditorToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem restoreDefaultWindowSizeToolStripMenuItem;
+        private ToolStripMenuItem cM32LModeToolStripMenuItem;
     }
 }

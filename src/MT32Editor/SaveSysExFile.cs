@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.IO;
+using System.Windows.Forms;
+using System;
 namespace MT32Edit;
 
 /// <summary>
@@ -36,7 +39,7 @@ internal static class SaveSysExFile
                 //file error or cancelled dialogue
                 return FileTools.CANCELLED;
             }
-            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 //user didn't select a file
                 return FileTools.EMPTY;
@@ -150,7 +153,6 @@ internal static class SaveSysExFile
                 {
                     sysExAddr[1] = 0x03;
                 }
-
                 int sumOfSysExValues = 0;
                 SaveSysExHeader(sysExFile);
                 sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
@@ -230,7 +232,7 @@ internal static class SaveSysExFile
         //values of all parameters need to be totalled in order to calculate checksum
         int sumOfSysExValues = 0;
         string message = ParseTools.MakeNCharsLong(systemConfig.GetMessage(messageNo), 20);
-        if (message == "                    ")
+        if (message == ParseTools.MakeNCharsLong(string.Empty, 20))
         {
             //don't save blank messages
             return; 
@@ -255,12 +257,12 @@ internal static class SaveSysExFile
         {
             saveDialog.Title = "Save SysEx File";
             saveDialog.Filter = "MIDI System Exclusive message file|*.syx";
-            if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 saveDialog.FileName = "New MT32 system settings file.syx";
             }
 
-            if (saveDialog.ShowDialog() != DialogResult.OK || string.IsNullOrWhiteSpace(saveDialog.FileName))
+            if (saveDialog.ShowDialog() != DialogResult.OK || ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
             {
                 //file error or user left filename blank
                 return;

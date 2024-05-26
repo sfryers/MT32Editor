@@ -1,4 +1,8 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System.Drawing;
+using System;
+
+namespace MT32Edit;
 
 /// <summary>
 /// Form showing visual representation of MT-32's rhythm setup- allows custom rhythm instruments to be configured
@@ -6,7 +10,7 @@
 public partial class FormRhythmEditor : Form
 {
     // MT32Edit: FormRhythmEditor
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     // Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
     private const int BANK_OFFSET = 2;
@@ -14,10 +18,10 @@ public partial class FormRhythmEditor : Form
     private MT32State memoryState;
     private DateTime lastGlobalUpdate = DateTime.Now;
     private bool thisFormIsActive = false;
-    private bool changesMade = false;
     private bool darkMode = !UITools.DarkMode;
     private int pressedKey = -1;
     private float UIScale;
+    private Color mediumRed = Color.FromArgb(255, 90, 90);
 
     public FormRhythmEditor(float DPIScale, MT32State parentMemoryState)
     {
@@ -28,7 +32,7 @@ public partial class FormRhythmEditor : Form
         SetTheme();
         InitialiseRhythmBank();
         ConfigureWarnings();
-        changesMade = false;
+        memoryState.changesMade = false;
         timer.Start();
     }
 
@@ -44,11 +48,12 @@ public partial class FormRhythmEditor : Form
         {
             return;
         }
-        Label[] labels = {labelKeyNo, labelLevel, labelNoChannelAssigned, labelPan, labelReverb, labelTimbreGroup, labelTimbreName };
+        Label[] labels = { labelKeyNo, labelLevel, labelNoChannelAssigned, labelPan, labelReverb, labelTimbreGroup, labelTimbreName };
         Label[] warningLabels = { labelNoChannelAssigned, labelUnitNoWarning };
         RadioButton[] radioButtons = { radioButtonReverbOff, radioButtonReverbOn };
         BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels, checkBoxes: null, groupBoxes: null, listViewRhythmBank, radioButtons, alternate: true);
         darkMode = UITools.DarkMode;
+        InitialiseRhythmBank();
     }
 
     private void InitialiseRhythmBank()
@@ -99,7 +104,7 @@ public partial class FormRhythmEditor : Form
     /// </summary>
     private void ScaleListView()
     {
-        listViewRhythmBank.Width = Width - 30;
+        listViewRhythmBank.Width = Width - (int)(30 * Math.Pow(UIScale, 1.3));
         listViewRhythmBank.Height = Height - (int)(320 * Math.Pow(UIScale, 1.3));
     }
 
@@ -132,6 +137,31 @@ public partial class FormRhythmEditor : Form
         SelectKeyInListView(selectedKey);
     }
 
+    private void comboBoxTimbreName_DrawItem(object sender, DrawItemEventArgs e)
+    {
+        if (e.Index < 0)
+        {
+            //Abort if comboBox is empty
+            return;
+        }
+        e.DrawBackground();
+        string? timbreName = ((ComboBox)sender).Items[e.Index].ToString();
+        // Set text colour based on whether or not the timbre is valid for the current configuration
+        Brush brush = Brushes.Black;
+        if (!MT32SysEx.cm32LMode)
+        {
+            if (comboBoxTimbreGroup.Text == "Rhythm" && e.Index > 29 && e.Index < 63)
+            {
+                brush = Brushes.Red;
+            }
+            if (comboBoxTimbreGroup.Text == "Memory" && memoryState.GetMemoryTimbre(e.Index).ContainsCM32LSamples())
+            {
+                brush = Brushes.Red;
+            }
+        }
+        e.Graphics.DrawString(timbreName, ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
+    }
+
     /// <summary>
     /// Updates controls with selected patch parameter values
     /// </summary>
@@ -158,13 +188,50 @@ public partial class FormRhythmEditor : Form
         int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
         ListViewItem item = new ListViewItem(keyNo.ToString());
         Rhythm rhythmKey = memoryState.GetRhythmBank(bankNo);
+        int timbreNo = rhythmKey.GetTimbreNo();
+        string timbreGroup = rhythmKey.GetTimbreGroupType();
+        string timbreName = memoryState.GetTimbreNames().Get(timbreNo, rhythmKey.GetTimbreGroup() + BANK_OFFSET);
         item.SubItems.Add(MT32Strings.PitchNote(keyNo));
-        item.SubItems.Add(rhythmKey.GetTimbreGroupType());
-        item.SubItems.Add(memoryState.GetTimbreNames().Get(rhythmKey.GetTimbreNo(), rhythmKey.GetTimbreGroup() + BANK_OFFSET)); //get timbre name from timbre no. and timbre group);
+        item.SubItems.Add(timbreGroup);
+        item.SubItems.Add(timbreName); //get timbre name from timbre no. and timbre group);
         item.SubItems.Add(MT32Strings.OnOffStatus(rhythmKey.GetReverbEnabled()));
         item.SubItems.Add(rhythmKey.GetPanPot().ToString());
         item.SubItems.Add(rhythmKey.GetOutputLevel().ToString());
         listViewRhythmBank.Items.Add(item);
+        SetListViewColours(keyNo);
+    }
+
+    private void SetListViewColours(int keyNo)
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            labelMT32ModeWarning1.Visible = false;
+            labelMT32ModeWarning2.Visible = false;
+            return;
+        }
+        labelMT32ModeWarning1.Visible = true;
+        labelMT32ModeWarning2.Visible = true;
+        labelMT32ModeWarning1.ForeColor = mediumRed;
+        Color foreColor = darkMode ? Color.White : Color.Black;
+        int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
+        Rhythm rhythmKey = memoryState.GetRhythmBank(bankNo);
+        int timbreNo = rhythmKey.GetTimbreNo();
+        if (keyNo > RhythmConstants.LAST_MT32_KEY)
+        {
+            //Gray out rhythm keys which are only available on CM-32L
+            foreColor = Color.Gray;
+        }
+        if (rhythmKey.GetTimbreGroupType() == "Rhythm" && timbreNo > 29 && timbreNo < 63)
+        {
+            //Show any rhythm samples which are only available on CM-32L in red
+            foreColor = mediumRed;
+        }
+        if (rhythmKey.GetTimbreGroupType() == "Memory" && memoryState.GetMemoryTimbre(timbreNo).ContainsCM32LSamples())
+        {
+            //Show any memory timbres which contain CM-32L PCM samples in red
+            foreColor = mediumRed;
+        }
+        listViewRhythmBank.Items[bankNo].ForeColor = foreColor;
     }
 
     private void DoFullRefresh()
@@ -202,17 +269,18 @@ public partial class FormRhythmEditor : Form
 
     private void CheckForUnsavedChanges(FormClosingEventArgs e)
     {
-        if (changesMade)
+        if (memoryState.changesMade)
         {
             e.Cancel = !UITools.AskUserToConfirm("Unsaved changes will be lost!", "MT-32 Editor");
         }
     }
 
-    private void RefreshTimbreNamesList()
+    private void RefreshTimbreNamesList(int selectedBank = 0)
     {
         string[] memoryTimbreNameArray = memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex + BANK_OFFSET);
         comboBoxTimbreName.Items.Clear();
         comboBoxTimbreName.Items.AddRange(memoryTimbreNameArray);
+        comboBoxTimbreName.SelectedIndex = memoryState.GetRhythmBank(selectedBank).GetTimbreNo();
         comboBoxTimbreName.Invalidate();
     }
 
@@ -230,7 +298,7 @@ public partial class FormRhythmEditor : Form
         memoryState.SetSelectedKey(selectedKey);
         SelectKeyInListView(selectedKey);
         PopulateRhythmFormParameters(selectedKey);
-        RefreshTimbreNamesList();
+        RefreshTimbreNamesList(selectedKey - RhythmConstants.KEY_OFFSET);
     }
 
     private void comboBoxTimbreGroup_SelectionChangeCommitted(object sender, EventArgs e)
@@ -246,9 +314,10 @@ public partial class FormRhythmEditor : Form
             listViewRhythmBank.SelectedItems[0].SubItems[2].Text = rhythmData.GetTimbreGroupType();
             listViewRhythmBank.SelectedItems[0].SubItems[3].Text = memoryState.GetTimbreNames().Get(rhythmData.GetTimbreNo(), rhythmData.GetTimbreGroup() + BANK_OFFSET);
         }
+        SetListViewColours(selectedKey);
         PopulateRhythmFormParameters(selectedKey);
         MT32SysEx.SendRhythmKey(rhythmData, selectedKey);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void comboBoxTimbreName_SelectionChangeCommitted(object sender, EventArgs e)
@@ -260,8 +329,9 @@ public partial class FormRhythmEditor : Form
         {
             listViewRhythmBank.SelectedItems[0].SubItems[3].Text = comboBoxTimbreName.Text;
         }
+        SetListViewColours(selectedKey);
         MT32SysEx.SendRhythmKey(rhythmData, selectedKey);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void radioButtonReverbOn_CheckedChanged(object sender, EventArgs e)
@@ -289,7 +359,7 @@ public partial class FormRhythmEditor : Form
         }
         MT32SysEx.SendRhythmKey(rhythmData, selectedKey);
         SetPanPotToolTip();
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void trackBarLevel_ValueChanged(object sender, EventArgs e)
@@ -304,7 +374,7 @@ public partial class FormRhythmEditor : Form
         }
         SetLevelToolTip();
         MT32SysEx.SendRhythmKey(rhythmData, selectedKey);
-        changesMade = true;
+        memoryState.changesMade = true;
     }
 
     private void FormRhythmEditor_FormClosing(object sender, FormClosingEventArgs e)
@@ -391,17 +461,19 @@ public partial class FormRhythmEditor : Form
     private void SyncMemoryTimbreNames()
     {
         int selectedBank = memoryState.GetSelectedBank();
+        int selectedKey = selectedBank + RhythmConstants.KEY_OFFSET;
         string newTimbreName = memoryState.GetTimbreNames().Get(memoryState.GetRhythmBank(selectedBank).GetTimbreNo(), 2);
-        if (listViewRhythmBank.SelectedIndices.Count > 0)
+        if (listViewRhythmBank.SelectedIndices.Count > 0 && listViewRhythmBank.SelectedItems[0].SubItems[3].Text != newTimbreName)
         {
             listViewRhythmBank.SelectedItems[0].SubItems[3].Text = newTimbreName;
         }
+        SetListViewColours(selectedKey); 
 
         if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
         {
             ConsoleMessage.SendVerboseLine("Updating Memory Timbre Names List");
             //ensure that memory timbre name changes are synchronised across comboBox and listView
-            RefreshTimbreNamesList();
+            RefreshTimbreNamesList(selectedBank);
             comboBoxTimbreName.Text = newTimbreName;
         }
     }
@@ -422,5 +494,5 @@ public partial class FormRhythmEditor : Form
     private void FormRhythmEditor_Leave(object sender, EventArgs e)
     {
         thisFormIsActive = false;
-    }
+    }     
 }

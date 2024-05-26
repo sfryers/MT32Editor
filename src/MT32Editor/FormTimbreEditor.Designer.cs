@@ -311,7 +311,7 @@
             // labelWaveform
             // 
             labelWaveform.AutoSize = true;
-            labelWaveform.Location = new Point(26, 28);
+            labelWaveform.Location = new Point(31, 25);
             labelWaveform.Name = "labelWaveform";
             labelWaveform.Size = new Size(62, 15);
             labelWaveform.TabIndex = 1;
@@ -438,7 +438,6 @@
             // 
             // comboBoxPCMSample
             // 
-            comboBoxPCMSample.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPCMSample.DropDownWidth = 150;
             comboBoxPCMSample.FormattingEnabled = true;
             comboBoxPCMSample.Items.AddRange(new object[] { "Ac. Bass Drum", "Ac. Snare Drum", "El. Snare Drum", "Electric Tom", "Closed Hihat", "Open Hihat", "Crash Cymbal", "Crash Cymbal (loop)", "Ride cymbal", "Rim Shot", "Hand Clap", "Muted Conga", "Conga", "Bongo", "Cowbell", "Tambourine", "Agogo Bell", "Claves", "Timbale", "Cabasa", "Keypress", "Perc Organ", "Trombone", "Trumpet", "Breath Noise (loop)", "Clarinet", "Flute", "Pan Pipes", "Shakuhachi", "Alto Sax", "Baritone Sax", "Marimba", "Glockenspiel", "Xylophone", "Tubular Bells", "Fingered Bass", "Slap Bass", "Picked Bass (loop)", "Acoustic Bass", "Nylon Guitar", "Steel Guitar", "Pizzicato", "Harp", "Harpsichord (loop)", "Bow string", "Violin", "Timpani", "Orchestra Hit", "Flute", "Organ (loop)", "Bowed Glass (loop)", "Telephone", "Bowed Glass", "Reverse Cymbal", "Ac. Bass Drum #", "Ac. Snare Drum #", "El. Snare Drum #", "Ac. Tom #", "Closed Hihat #", "Open Hihat (loop) #", "Crash Cymbal #", "Crash Cymbal (loop) #", "Ride cymbal #", "Rim shot #", "Hand clap #", "Mute Conga #", "Conga #", "Bongo #", "Cowbell #", "Tambourine #", "Agogo #", "Claves #", "Timbale #", "Cabasa #", "Bass Drum (loop)", "Snare (loop)", "Acoustic Tom (loop)", "Electric Tom (loop)", "Hihat (loop)", "Crash Cymbal (loop)", "Ride cymbal (loop)", "Ride cymbal 2 (loop)", "Rim (loop)", "Hand clap (loop)", "Bongo (loop)", "Conga (loop)", "Muted conga (loop)", "Cowbell (loop)", "Tambourine (loop)", "Agogo (loop)", "Woodblock (loop)", "Timbales (loop)", "Maracas (loop)", "Sticks (loop)", "Perc Organ (loop)", "Trombone (loop)", "Trumpet (loop)", "Clarinet (loop)", "Piccolo (loop)", "Pan Pipe (loop)", "Breath Noise (loop)", "Alto Sax (loop)", "Baritone Sax (loop)", "Xylophone (loop)", "Glockenspiel (loop)", "Marimba (loop)", "Tubular Bells (loop)", "Fingered Bass (loop)", "Slap Bass (loop)", "Acoustic Bass (loop)", "Nylon Guitar (loop)", "Steel Guitar (loop)", "Pizzicato (loop)", "Harp (loop)", "Bowed string (loop)", "String Ensemble (loop)", "[null]", "Orchestra Hit (loop)", "Flute (loop)", "Percussion loop 1", "Percussion loop 2", "Orchestra & Percussion loop", "Wind & Percussion loop", "Guitar & Bass loop", "Orchestra loop", "Percussion loop 3", "Bass & Percussion loop", "Bass & Snare loop" });
@@ -453,7 +452,7 @@
             // labelPCMSample
             // 
             labelPCMSample.AutoSize = true;
-            labelPCMSample.Location = new Point(22, 196);
+            labelPCMSample.Location = new Point(20, 193);
             labelPCMSample.Name = "labelPCMSample";
             labelPCMSample.Size = new Size(75, 15);
             labelPCMSample.TabIndex = 10;
@@ -2475,7 +2474,7 @@
             // labelRefresh
             // 
             labelRefresh.AutoSize = true;
-            labelRefresh.Location = new Point(191, 116);
+            labelRefresh.Location = new Point(197, 116);
             labelRefresh.Name = "labelRefresh";
             labelRefresh.Size = new Size(46, 15);
             labelRefresh.TabIndex = 82;
@@ -2493,7 +2492,7 @@
             // labelSaveAs
             // 
             labelSaveAs.AutoSize = true;
-            labelSaveAs.Location = new Point(191, 149);
+            labelSaveAs.Location = new Point(197, 149);
             labelSaveAs.Name = "labelSaveAs";
             labelSaveAs.Size = new Size(47, 15);
             labelSaveAs.TabIndex = 84;
@@ -2751,7 +2750,7 @@
             // labelUndo
             // 
             labelUndo.AutoSize = true;
-            labelUndo.Location = new Point(124, 183);
+            labelUndo.Location = new Point(126, 183);
             labelUndo.Name = "labelUndo";
             labelUndo.Size = new Size(36, 15);
             labelUndo.TabIndex = 96;
@@ -2760,7 +2759,7 @@
             // labelRedo
             // 
             labelRedo.AutoSize = true;
-            labelRedo.Location = new Point(191, 183);
+            labelRedo.Location = new Point(197, 183);
             labelRedo.Name = "labelRedo";
             labelRedo.Size = new Size(34, 15);
             labelRedo.TabIndex = 98;
@@ -2808,7 +2807,7 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            MinimumSize = new Size(991, 960);
+            MinimumSize = new Size(253, 960);
             Name = "FormTimbreEditor";
             RightToLeft = RightToLeft.No;
             ShowIcon = false;

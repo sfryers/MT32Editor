@@ -1,4 +1,5 @@
-﻿namespace MT32Edit;
+﻿using System;
+namespace MT32Edit;
 
 /// <summary>
 /// Data structure representing user-accessible rhythm areas of MT-32, as per published MIDI implementation.
@@ -6,7 +7,7 @@
 public class Rhythm
 {
     // MT32Edit: Rhythm class
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private int timbreGroup = 1;
 
@@ -22,7 +23,7 @@ public class Rhythm
     {
         keyNo = LogicTools.ValidateRange("keyNo", keyNo, minPermitted: RhythmConstants.KEY_OFFSET, maxPermitted: 108, autoCorrect);
         timbreGroup = 1;
-        timbreNo = RhythmConstants.defaultSampleNo[keyNo - RhythmConstants.KEY_OFFSET];
+        timbreNo = RhythmConstants.defaultCM32LSampleNo[keyNo - RhythmConstants.KEY_OFFSET];
         panPot = RhythmConstants.defaultPanPosition[keyNo - RhythmConstants.KEY_OFFSET];
     }
 
@@ -164,6 +165,11 @@ public class Rhythm
     public void SetTimbreNo(int timbre, bool autoCorrect = false)
     {
         timbreNo = LogicTools.ValidateRange("Timbre No", timbre, minPermitted: 0, maxPermitted: 63, autoCorrect);
+    }
+
+    public void ClearTimbre()
+    {
+        timbreNo = 63;
     }
 
     public int GetTimbreNo()

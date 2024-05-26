@@ -58,6 +58,8 @@
             labelHeading = new Label();
             timer = new System.Windows.Forms.Timer(components);
             labelNoChannelAssigned = new Label();
+            labelMT32ModeWarning1 = new Label();
+            labelMT32ModeWarning2 = new Label();
             ((System.ComponentModel.ISupportInitialize)trackBarPanPot).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownKeyNo).BeginInit();
@@ -176,12 +178,14 @@
             // 
             // comboBoxTimbreName
             // 
+            comboBoxTimbreName.DrawMode = DrawMode.OwnerDrawFixed;
             comboBoxTimbreName.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTimbreName.FormattingEnabled = true;
             comboBoxTimbreName.Location = new Point(219, 113);
             comboBoxTimbreName.Name = "comboBoxTimbreName";
-            comboBoxTimbreName.Size = new Size(125, 23);
+            comboBoxTimbreName.Size = new Size(125, 24);
             comboBoxTimbreName.TabIndex = 35;
+            comboBoxTimbreName.DrawItem += comboBoxTimbreName_DrawItem;
             comboBoxTimbreName.SelectionChangeCommitted += comboBoxTimbreName_SelectionChangeCommitted;
             // 
             // numericUpDownKeyNo
@@ -314,13 +318,35 @@
             labelNoChannelAssigned.Text = "Rhythm part muted- no MIDI channel assigned. Open System Area Settings to resolve.";
             labelNoChannelAssigned.Visible = false;
             // 
+            // labelMT32ModeWarning1
+            // 
+            labelMT32ModeWarning1.AutoSize = true;
+            labelMT32ModeWarning1.ForeColor = Color.IndianRed;
+            labelMT32ModeWarning1.Location = new Point(170, 230);
+            labelMT32ModeWarning1.Name = "labelMT32ModeWarning1";
+            labelMT32ModeWarning1.Size = new Size(313, 15);
+            labelMT32ModeWarning1.TabIndex = 64;
+            labelMT32ModeWarning1.Text = "MT-32 mode selected: Unsupported timbres shown in red.";
+            // 
+            // labelMT32ModeWarning2
+            // 
+            labelMT32ModeWarning2.AutoSize = true;
+            labelMT32ModeWarning2.ForeColor = Color.Gray;
+            labelMT32ModeWarning2.Location = new Point(171, 248);
+            labelMT32ModeWarning2.Name = "labelMT32ModeWarning2";
+            labelMT32ModeWarning2.Size = new Size(232, 15);
+            labelMT32ModeWarning2.TabIndex = 65;
+            labelMT32ModeWarning2.Text = "Unsupported rhythm banks shown in grey.";
+            // 
             // FormRhythmEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 24, 24);
-            ClientSize = new Size(533, 960);
+            ClientSize = new Size(526, 960);
             ControlBox = false;
+            Controls.Add(labelMT32ModeWarning2);
+            Controls.Add(labelMT32ModeWarning1);
             Controls.Add(labelUnitNoWarning);
             Controls.Add(labelNoChannelAssigned);
             Controls.Add(labelHeading);
@@ -342,7 +368,7 @@
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
-            MinimumSize = new Size(350, 200);
+            MinimumSize = new Size(526, 200);
             Name = "FormRhythmEditor";
             ShowIcon = false;
             ShowInTaskbar = false;
@@ -387,5 +413,7 @@
         private System.Windows.Forms.Timer timer;
         private Label labelNoChannelAssigned;
         private Label labelUnitNoWarning;
+        private Label labelMT32ModeWarning1;
+        private Label labelMT32ModeWarning2;
     }
 }

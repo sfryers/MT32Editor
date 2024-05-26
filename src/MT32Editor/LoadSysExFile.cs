@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using System.IO;
+using System.Windows.Forms;
+using System;
 namespace MT32Edit;
 
 /// <summary>
@@ -8,7 +11,7 @@ namespace MT32Edit;
 internal static class LoadSysExFile
 {
     // MT32Edit: LoadSysExFile class (static)
-    // S.Fryers Apr 2024 
+    // S.Fryers May 2024 
 
     /// <summary>
     /// If true, ignores system area data when loading SysEx file
@@ -47,7 +50,7 @@ internal static class LoadSysExFile
                 return FileTools.CANCELLED; //file error or dialogue cancelled
             }
 
-            if (string.IsNullOrWhiteSpace(loadSysExDialog.FileName))
+            if (ParseTools.IsNullOrWhiteSpace(loadSysExDialog.FileName))
             {
                 return FileTools.ERROR; //No file specified, abort loading process
             }
@@ -205,7 +208,7 @@ internal static class LoadSysExFile
         if (!validSysExDataFound)
         {
             //reset memory state as soon as the first valid MT-32 sysex message is found
-            memoryState.ResetAll();
+            memoryState.ResetAll(MT32SysEx.cm32LMode);
             validSysExDataFound = true;
         }
 
@@ -328,7 +331,7 @@ internal static class LoadSysExFile
     {
         if (MT32SysEx.RequestMT32Reset())
         {
-            memoryState.ResetAll();
+            memoryState.ResetAll(MT32SysEx.cm32LMode);
         }
         else
         {
@@ -399,10 +402,10 @@ internal static class LoadSysExFile
             textChars[charNo] = (byte)sysExData[charNo];
         }
         string textMessage = Encoding.ASCII.GetString(textChars).Substring(0, textLength);
-        bool message1Present = string.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0));
+        bool message1Present = ParseTools.IsNullOrWhiteSpace(memoryState.GetSystem().GetMessage(0));
         int messageNo = LogicTools.BoolToInt(!message1Present);
         memoryState.GetSystem().SetMessage(messageNo, textMessage);
-        if (!string.IsNullOrWhiteSpace(textMessage))
+        if (!ParseTools.IsNullOrWhiteSpace(textMessage))
         {
             ConsoleMessage.SendLine($"Text found: {textMessage}", ConsoleColor.Yellow);
         }

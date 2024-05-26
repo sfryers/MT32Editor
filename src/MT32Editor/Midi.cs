@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using System.Runtime.InteropServices;
 
 namespace MT32Edit;
 

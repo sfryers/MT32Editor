@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Threading;
 namespace MT32Edit;
 
 /// <summary>
@@ -26,15 +28,23 @@ internal static class MT32SysEx
     public const int NO_OF_SYSTEM_PARAMETERS = 0x17;//no of parameters in system area
     public const int MT32_DELAY = 75;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
 
+
+
     /// <summary>
     /// Set to true whilst long SysEx uploads are occurring. MIDI Thru functionality will be disabled.
     /// </summary>
     public static bool uploadInProgress { get; set; } = false;
 
     /// <summary>
-    /// If set to true, short delay will be added between SysEx messages to avoid MT-32 hardware buffer overflow
+    /// If set to true, short delay will be added between SysEx messages to avoid MT-32 hardware buffer overflow.
     /// </summary>
     public static bool hardwareMT32Connected { get; set; } = true;
+
+    /// <summary>
+    /// If set to false, CM-32L-specific features will be marked in red or grey
+    /// and CM-32L-specific rhythm banks will not assigned a timbre by default.
+    /// </summary>
+    public static bool cm32LMode { get; set; } = true;
 
     /// <summary>
     /// If set to true, parameter changes will be displayed on MT-32 text display.
@@ -47,7 +57,7 @@ internal static class MT32SysEx
     public static bool blockMT32text { get; set; } = false;
 
     /// <summary>
-    /// If set to true, no system exclusive data will be sent to the selected MIDI Out device
+    /// If set to true, no system exclusive data will be sent to the selected MIDI Out device.
     /// </summary>
     public static bool blockSysExMessages { get; set; } = false;
 
@@ -504,7 +514,7 @@ internal static class MT32SysEx
 
     private static bool MatchesPreviousMessage(byte[] sysExMessage)
     {
-        if (sysExMessage.Length != previousSysExMessage.Length)
+        if (sysExMessage is null || previousSysExMessage is null || sysExMessage.Length != previousSysExMessage.Length)
         {
             return false;
         }

@@ -1,4 +1,5 @@
-﻿namespace MT32Edit;
+﻿using System;
+namespace MT32Edit;
 
 /// <summary>
 /// Data structure representing user-accessible memory areas of MT-32, as per published MIDI implementation.
@@ -6,7 +7,7 @@
 public class MT32State
 {
     // MT32Edit: MT32State class
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     public const int NO_OF_MEMORY_TIMBRES = 64;
     public const int NO_OF_PATCHES = 128;
@@ -26,6 +27,7 @@ public class MT32State
 
     public bool patchEditorActive { get; set; } = false;
     public bool rhythmEditorActive { get; set; } = false;
+    public bool memoryBankEditorActive { get; set; } = false;
     public bool returnFocusToPatchEditor { get; set; } = false;
     public bool returnFocusToRhythmEditor { get; set; } = false;
     public bool returnFocusToMemoryBankList { get; set; } = false;
@@ -42,11 +44,11 @@ public class MT32State
     /// <summary>
     /// Resets the entire internal MT-32 memory state.
     /// </summary>
-    public void ResetAll()
+    public void ResetAll(bool CM32LMode = true)
     {
         InitialisePatchArray();
         InitialiseMemoryTimbreArray();
-        InitialiseRhythmBank();
+        InitialiseRhythmBank(CM32LMode);
         system.SetMessage(0, "");
         system.SetMessage(1, "");
         changesMade = false;
@@ -68,12 +70,16 @@ public class MT32State
         }
     }
 
-    private void InitialiseRhythmBank()
+    private void InitialiseRhythmBank(bool CM32LMode)
     {
         for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < RhythmConstants.KEY_OFFSET + NO_OF_RHYTHM_BANKS; keyNo++)
         {
             int bankNo = keyNo - RhythmConstants.KEY_OFFSET;
             rhythmBank[bankNo] = new Rhythm(keyNo);
+        }
+        if (!CM32LMode)
+        {
+            SetDefaultMT32RhythmBanks();
         }
     }
 
@@ -272,5 +278,13 @@ public class MT32State
     public int GetSelectedMemoryTimbre()
     {
         return selectedMemoryTimbre;
+    }
+
+    public void SetDefaultMT32RhythmBanks()
+    {
+        for (int bankNo = 0; bankNo < NO_OF_RHYTHM_BANKS; bankNo++)
+        {
+            rhythmBank[bankNo].SetTimbreNo(RhythmConstants.defaultMT32SampleNo[bankNo]);
+        }
     }
 }

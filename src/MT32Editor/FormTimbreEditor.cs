@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
 namespace MT32Edit;
 
 /// <summary>
@@ -8,7 +12,7 @@ namespace MT32Edit;
 public partial class FormTimbreEditor : Form
 {
     // MT32Edit: FormTimbreEditor
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
@@ -70,7 +74,7 @@ public partial class FormTimbreEditor : Form
                             labelTVFT2, labelTVFT3, labelTVFT4, labelTVFT5, labelTVFTimeKF, labelTVFVeloKF, labelTVFVeloSens, labelUndo, labelRedo
                            };
         Label[] warningLabels = { labelNoActivePartials, labelPartialWarning };
-        RadioButton[] radioButtons = { radioButtonPartial1, radioButtonPartial2, radioButtonPartial3, radioButtonPartial4 };
+        RadioButton[] radioButtons = { radioButtonPartial1, radioButtonPartial2, radioButtonPartial3, radioButtonPartial4, radioButtonPCMBank1, radioButtonPCMBank2 };
         CheckBox[] checkBoxes = { checkBoxPartial1, checkBoxPartial2, checkBoxPartial3, checkBoxPartial4, checkBoxPitchBend, checkBoxShowAllPartials, checkBoxShowLabels, checkBoxSustain };
         GroupBox[] groupBoxes = { groupBoxEnvGraph, groupBoxLFO, groupBoxPartialStructure, groupBoxPitch, groupBoxPitchEnvelope, groupBoxTVA, groupBoxTVABias, groupBoxTVF, groupBoxWaveform };
         BackColor = UITools.SetThemeColours(labelHeading, labels, warningLabels, checkBoxes, groupBoxes, listView: null, radioButtons);
@@ -157,7 +161,7 @@ public partial class FormTimbreEditor : Form
 
     private void SetAllControlValues()
     {
-        //activePartial = timbre.GetActivePartial();
+
         SetMainControls();
         SetControlsforLeftPartial(timbre.GetPart12Structure());
         UpdatePartialControls();
@@ -166,6 +170,7 @@ public partial class FormTimbreEditor : Form
     private void SetMainControls()
     {
         textBoxTimbreName.Text = ParseTools.RemoveTrailingSpaces(timbre.GetTimbreName());
+        SetTimbreNameColour();
         comboBoxPart12Struct.SelectedIndex = timbre.GetPart12Structure();
         comboBoxPart34Struct.SelectedIndex = timbre.GetPart34Structure();
         UpdatePartialStructureImages();
@@ -177,6 +182,15 @@ public partial class FormTimbreEditor : Form
         checkBoxPartial4.Checked = !timbre.GetPartialMuteStatus()[3];
         checkBoxSustain.Checked = timbre.GetSustainStatus();
         labelPartialWarning.Visible = !checkBoxPartial1.Checked;
+    }
+
+    private void SetTimbreNameColour()
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            return;
+        }
+        textBoxTimbreName.ForeColor = timbre.ContainsCM32LSamples() ? Color.Red : Color.Black;
     }
 
     private void UpdatePartialStructureImages()
@@ -841,6 +855,7 @@ public partial class FormTimbreEditor : Form
         timbre.SetUIParameter(activePartial, 0x04, sysExValue);
         MT32SysEx.SendPCMBankNo(activePartial, sysExValue);
         UpdatePCMSampleList(bankNo);
+        SetTimbreNameColour();
         UpdateUndoHistory();
         changesMade = true;
     }
@@ -857,9 +872,11 @@ public partial class FormTimbreEditor : Form
         MT32SysEx.blockMT32text = true;
         comboBoxPCMSample.Items.Clear();
         comboBoxPCMSample.Items.AddRange(MT32Strings.GetAllSampleNames(bankNo));
+        comboBoxPCMSample.ForeColor = !MT32SysEx.cm32LMode && bankNo == 1 ? Color.Red : Color.Black;
         comboBoxPCMSample.Invalidate();
         comboBoxPCMSample.Text = MT32Strings.GetSampleName(bankNo, sampleNo);
         comboBoxPCMSample.SelectedIndex = sampleNo;
+
         MT32SysEx.blockMT32text = false;
     }
 

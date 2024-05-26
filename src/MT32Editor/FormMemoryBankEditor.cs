@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit;
 
 /// <summary>
 /// Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
@@ -6,7 +8,7 @@
 public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
-    // S.Fryers Apr 2024
+    // S.Fryers May 2024
 
     private MT32State memoryState;
     private FormTimbreEditor timbreEditor;
@@ -35,10 +37,12 @@ public partial class FormMemoryBankEditor : Form
         if (memoryState.patchEditorActive)
         {
             selectedTimbre = FindPatchTimbreInMemoryBank(selectedTimbre);
+            memoryState.memoryBankEditorActive = false;
         }
         else if (memoryState.rhythmEditorActive)
         {
             selectedTimbre = FindRhythmTimbreInMemoryBank(selectedTimbre);
+            memoryState.memoryBankEditorActive = false;
         }
         if (memoryState.returnFocusToMemoryBankList)
         {
@@ -80,8 +84,8 @@ public partial class FormMemoryBankEditor : Form
     {
         //Set column widths to fill the available space
         int listWidth = listViewTimbres.Width;
-        listViewTimbres.Columns[0].Width = (int)(listWidth * 0.31);
-        listViewTimbres.Columns[1].Width = (int)(listWidth * 0.55);
+        listViewTimbres.Columns[0].Width = (int)(listWidth * 0.25);
+        listViewTimbres.Columns[1].Width = (int)(listWidth * 0.53);
     }
 
     private void PopulateMemoryBankListView(int selectedTimbre)
@@ -89,7 +93,7 @@ public partial class FormMemoryBankEditor : Form
         listViewTimbres.Items.Clear();
         for (int timbreNo = 0; timbreNo < MT32State.NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
-            AddListViewColumnItems(timbreNo);
+            AddListViewColumnItem(timbreNo);
         }
         SelectTimbreInListView(selectedTimbre);
     }
@@ -108,7 +112,7 @@ public partial class FormMemoryBankEditor : Form
         memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, selectedTimbre);
     }
 
-    private void AddListViewColumnItems(int timbreNo)
+    private void AddListViewColumnItem(int timbreNo)
     {
         ListViewItem item;
         //enumerate memory bank list starting from 1
@@ -121,8 +125,23 @@ public partial class FormMemoryBankEditor : Form
         {
             item.SubItems.Add(memoryState.GetMemoryTimbre(timbreNo).GetTimbreName());
         }
-
         listViewTimbres.Items.Add(item);
+        ColourListViewItem(timbreNo);
+    }
+
+    private void ColourListViewItem(int timbreNo)
+    {
+        if (MT32SysEx.cm32LMode)
+        {
+            return;
+        }
+        if (memoryState.GetMemoryTimbre(timbreNo).ContainsCM32LSamples())
+        {
+            Color mediumRed = Color.FromArgb(255, 90, 90);
+            listViewTimbres.Items[timbreNo].ForeColor = mediumRed;
+            return;
+        }
+        listViewTimbres.Items[timbreNo].ForeColor = Color.Empty;
     }
 
     /// <summary>
@@ -320,6 +339,7 @@ public partial class FormMemoryBankEditor : Form
         {
             listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
         }
+        ColourListViewItem(selectedTimbre);
     }
 
     private void FormMemoryBankEditor_Resize(object sender, EventArgs e)
@@ -333,6 +353,7 @@ public partial class FormMemoryBankEditor : Form
         memoryState.SetMemoryTimbre(timbreEditor.TimbreData, selectedTimbre);
         memoryState.rhythmEditorActive = false;
         memoryState.patchEditorActive = false;
+        memoryState.memoryBankEditorActive = true;
         memoryState.SetTimbreIsEditable(true);
         MT32SysEx.SendMemoryTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
         MT32SysEx.PreviewTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
