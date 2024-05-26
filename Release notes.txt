@@ -9,7 +9,8 @@ v0.9.10b - 26th May 2024
     - Selectable CM-32L mode: when CM-32L mode is disabled, any CM-32L-specific elements (PCM sample bank 2, rhythm keys 88-108 and extended rhythm samples) which are incompatible with the original MT-32 spec are shown in red or grey. When CM-32L mode is enabled, UI appearance is unchanged from previous versions.
     - Application window can now be resized smaller than previously, which causes the Patch/Rhythm editor to either be hidden or to overlap the Timbre editor.
     - Size and position of application window can now optionally be saved and restored at next application start.
-    - Separate 'legacy' version added for compatibility with older Windows versions (98, ME, 2000, XP and Vista). Legacy build requires .NET Framework 2.0 and a minimum display resolution of 1024x768 or 1280x720. Aside from tweaked UI layout, underlying code base is largely identical to the main .NET 6.0 version.
+    - Play button added to main menu bar, enabling timbres to be previewed without a MIDI In controller.
+    - Separate 'legacy' version added for compatibility with older Windows versions (98, ME, 2000, XP and Vista). Legacy build requires .NET Framework 2.0, the Sanford.Multimedia.Midi.dll library and a minimum display resolution of 1024x768 or 1280x720. Aside from tweaked UI layout, underlying code base is largely identical to the main .NET 6.0 version.
   Miscellaneous:
     - Added MT32 Editor logo to 'About' box.
 
