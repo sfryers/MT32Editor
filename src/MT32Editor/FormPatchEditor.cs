@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using System;
+using System.Drawing;
 namespace MT32Edit;
 
 /// <summary>

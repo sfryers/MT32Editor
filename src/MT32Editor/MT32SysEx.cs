@@ -77,7 +77,7 @@ internal static class MT32SysEx
     public static bool echoSysExData {  get; set; } = false;
 
     private static readonly int channelNo = 1;
-    private static byte[] previousSysExMessage = Array.Empty<byte>();
+    private static byte[]? previousSysExMessage;
 
     /// <summary>
     /// Returns Roland-compatible SysEx checksum value

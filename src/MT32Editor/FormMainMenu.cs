@@ -26,12 +26,18 @@ public partial class FormMainMenu : Form
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
     private const string VERSION_NO = "v0.9.10b";
-#if NET472
-    private const string FRAMEWORK = ".NET 4.7.2";
-#elif NET6_0
+#if NET6_0
     private const string FRAMEWORK = ".NET 6.0";
-#else
-    private const string FRAMEWORK = "";
+#elif NET472
+    private const string FRAMEWORK = ".NET 4.7.2";
+#elif NET45
+    private const string FRAMEWORK = ".NET 4.5";
+#elif NET40
+    private const string FRAMEWORK = ".NET 4.0";
+#elif NET35
+    private const string FRAMEWORK = ".NET 3.5";
+#elif NET20
+    private const string FRAMEWORK = ".NET 2.0";
 #endif
     private const string RELEASE_DATE = "May 2024";
 
@@ -301,8 +307,9 @@ public partial class FormMainMenu : Form
         string[] midiDeviceNames = ConfigFile.Load();
         InitialiseMidiInConnection(midiDeviceNames[0]);
         InitialiseMidiOutConnection(midiDeviceNames[1]);
-        ConfigureConsole();
+
         SetOptionMenuFlags();
+        ConfigureConsole();
         if (midiInError || midiOutError)
         {
             Close();
@@ -784,8 +791,7 @@ public partial class FormMainMenu : Form
         MT32SysEx.cm32LMode ^= true;
         ConfigFile.Save();
         OpenRhythmEditor();
-        var DialogResult = MessageBox.Show("MT-32 Editor will now restart.\nIf you have unsaved work, select\nCancel and retry after saving.", "MT-32 Editor", MessageBoxButtons.OKCancel);
-        if (DialogResult == DialogResult.Cancel) 
+        if (!UITools.AskUserToConfirm("MT-32 Editor will now restart.\nIf you have unsaved work, select\nCancel and retry after saving.", "MT-32 Editor"))
         {
             MT32SysEx.cm32LMode ^= true;
             cM32LModeToolStripMenuItem.Checked ^= true;
