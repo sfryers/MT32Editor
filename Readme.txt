@@ -5,9 +5,9 @@ The term 'SysEx' refers to MIDI System Exclusive message files, which normally c
 
 COMPATIBILITY:
 
-- The 'main' .NET 6 release of this software should run on any PC running Windows 8, 8.1, 10 or 11 which has the .NET 6.0 runtime installed. A monitor with at least 1080p resolution is recommended. This version can alternatively be compiled for .NET 4.7.2.
+- The 'main' .NET 6 release of this software should run on any PC running Windows 8, 8.1, 10 or 11 which has the .NET 6.0 runtime installed. A monitor with at least 1080p resolution is recommended. This version can alternatively be compiled for .NET 8.
 - The 'legacy' .NET 2 release should run on any PC running Windows 98, Me, 2000, XP or later which has the .NET Framework 2.0 runtime installed. A monitor with at least 720p resolution is recommended. This version can alternatively be compiled for .NET Framework 3.5, 4.0 or 4.5.
-- The .NET 6 release should also run (with some UI imperfections) on Linux systems with the latest versions of Wine and wine-mono.msi installed. It has been successfully tested on Ubuntu 20.04 with Wine 9.2 and wine-mono 9.0. 
+- The application should also run (with some UI imperfections) on Linux systems with the latest versions of Wine and wine-mono.msi installed. It has been successfully tested on Ubuntu 24.04 with Wine 9.2 and wine-mono 9.0. 
 - A MIDI input device and an MT-32 compatible MIDI output device is strongly recommended but not required (SysEx files can still be loaded and edited without a connected MIDI device, but you will not hear any sounds).
 - SysEx (.syx) files created with this software can be uploaded to an MT-32 device using external software such as MIDI-OX, MIDI Tools, MUNT or any MIDI sequencer/DAW with built-in SysEx functionality.
 
@@ -86,7 +86,7 @@ Each partial is made up of either a synthesised tone (saw or square wave), or a 
 
 When a PCM tone is used for the selected partial, a pull-down list of available PCM tones is shown. Note that the bank 2 tones are only available on a CM-32L compatible device (or by using MUNT with a CM-32L ROM image). When a PCM tone is selected, filter (TVF) parameters are not available.
 
-Timbres can be named using basic ASCII characters (a-z, A-Z, 0-9, space and the symbols !"$%^&*()-+=_[]{};:'@#~\/|,.<>?). Timbre names can be up to 10 characters long. Any other characters entered into the timbre name box will be ignored or substituted when saved or sent to the device.
+Timbres can be named using standard ASCII characters (a-z, A-Z, 0-9, space and the symbols !"$%^&*()-+=_[]{};:'@#~\/|,.<>?). Timbre names can be up to 10 characters long. Any other characters entered into the timbre name box will be ignored or substituted when saved or sent to the device. Note that two ASCII symbols will display differently on the MT-32 display; backslash (\, substituted with ¥) and tilde (~, substituted with →).
 
 Refer to the original user manuals for detailed information on device specific features: 
 http://www.midimanuals.com/manuals/roland/mt-32/owners_manual/mt-32_om.pdf 
@@ -100,7 +100,7 @@ The patch editor occupies the right side of the application window. This area di
 
 Rhythm Editor
 
-The rhythm editor, when selected in place of the patch editor, also appears at the right hand side of the application window. This area displays a list of the MT-32's rhythm keys. Selecting a rhythm key will disable or enable the timbre editor, depending on whether that rhythm key is set to a rhythm timbre (non-user editable) or a memory timbre (user-editable). You can preview the full set of rhythm timbres using a MIDI input device set to channel 10, or hear the selected timbre by clicking the play button (green arrow) above the list.
+The rhythm editor, when selected in place of the patch editor, also appears at the right hand side of the application window. This area displays a list of the MT-32's rhythm keys. Selecting a rhythm key will disable or enable the timbre editor, depending on whether that rhythm key is set to a rhythm timbre (non-user editable) or a memory timbre (user-editable). You can preview the full set of rhythm timbres using a MIDI input device set to channel 10 (or whichever MIDI channel Part R of your MT-32 is set to receive messages on), or hear the selected timbre by clicking the play button (green arrow) above the list.
 
 TROUBLESHOOTING
 

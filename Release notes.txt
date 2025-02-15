@@ -2,6 +2,17 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v0.9.11b - 15th February 2025
+  Bug Fixes:
+    - Selecting 'Restore Preset Timbre' for Patch No. 63 no longer causes unhandled exception.
+    - Changing MIDI Out device whilst data is being received on the selected MIDI In device no longer causes unhandled exception.
+  New Features:
+    - MIDI Out and MIDI In devices can now be set to [none].
+    - The application will no longer automatically exit if the default MIDI In and MIDI Out devices return an error. This behaviour was making it difficult to run the application using Wine on Linux systems which have PipeWire installed as the default MIDI device.
+  Miscellaneous:
+    - Main version can optionally be compiled for .NET 8.0. Binary files included with the release still target .NET 6.0 and .NET Framework 2.0 respectively.
+    - Use of #if statements to ensure codebase of all non-form-related classes is identical between Main and Legacy versions.
+
 v0.9.10b - 26th May 2024
   Bug Fixes:
     - Changing between rhythm banks using numeric up/down selector no longer causes the Timbre Name comboBox to go blank.
