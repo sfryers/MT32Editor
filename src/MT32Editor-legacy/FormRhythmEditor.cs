@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using System;
-
 namespace MT32Edit_legacy;
 
 /// <summary>
@@ -463,12 +462,13 @@ public partial class FormRhythmEditor : Form
         int selectedBank = memoryState.GetSelectedBank();
 		int selectedKey = selectedBank + RhythmConstants.KEY_OFFSET;
         string newTimbreName = memoryState.GetTimbreNames().Get(memoryState.GetRhythmBank(selectedBank).GetTimbreNo(), 2);
-         if (listViewRhythmBank.SelectedIndices.Count > 0 && listViewRhythmBank.SelectedItems[0].SubItems[3].Text != newTimbreName)
+        if (listViewRhythmBank.SelectedIndices.Count > 0 && listViewRhythmBank.SelectedItems[0].SubItems[3].Text != newTimbreName)
         {
             listViewRhythmBank.SelectedItems[0].SubItems[3].Text = newTimbreName;
         }
 		SetListViewColours(selectedKey);
-        if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
+		
+if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
         {
             ConsoleMessage.SendVerboseLine("Updating Memory Timbre Names List");
             //ensure that memory timbre name changes are synchronised across comboBox and listView

@@ -27,8 +27,12 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.10b-legacy";
-#if NET6_0
+    private const string VERSION_NO = "v0.9.11b-legacy";
+#if NET8_0
+    private const string FRAMEWORK = ".NET 8.0";
+#elif NET7_0
+    private const string FRAMEWORK = ".NET 7.0";
+#elif NET6_0
     private const string FRAMEWORK = ".NET 6.0";
 #elif NET472
     private const string FRAMEWORK = ".NET 4.7.2";
@@ -41,10 +45,12 @@ public partial class FormMainMenu : Form
 #elif NET20
     private const string FRAMEWORK = ".NET 2.0";
 #endif
-    private const string RELEASE_DATE = "May 2024";
+    private const string RELEASE_DATE = "February 2025";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
+    private const int APP_WINDOW_DEFAULT_WIDTH = 1774;
+    private const int APP_WINDOW_DEFAULT_HEIGHT = 1038;
     private int timbreEditorFullWidth = 800;
 
     private bool midiInError = false;
@@ -74,10 +80,6 @@ public partial class FormMainMenu : Form
         Console.WriteLine($"Welcome to MT32 Editor {ParseTools.GetVersion(VERSION_NO)} ({FRAMEWORK})");
         ReadConfigFile();
 		SetROMCapabilities();
-        if (midiInError || midiOutError)
-        {
-            return;
-        }
         OpenTimbreEditor();
         OpenMemoryBankEditor();
         OpenRhythmEditor();
@@ -138,6 +140,7 @@ public partial class FormMainMenu : Form
     {
         timbreEditor = new FormTimbreEditor(DPIScale());
         timbreEditor.MdiParent = this;
+		timbreEditorFullWidth = (int)(timbreEditorFullWidth * Math.Pow(DPIScale(), 0.88));
         timbreEditor.Show();
     }
 
@@ -171,6 +174,7 @@ public partial class FormMainMenu : Form
     {
         if (!UITools.SaveWindowSizeAndPosition)
         {
+			SetDefaultWindowSizeAndPosition();
             return;
         }
         StartPosition = FormStartPosition.Manual;
@@ -178,6 +182,17 @@ public partial class FormMainMenu : Form
         Top = UITools.WindowLocation[1];
         Width = UITools.WindowSize[0];
         Height = UITools.WindowSize[1];
+		WindowState = UITools.WindowMaximised ? FormWindowState.Maximized : FormWindowState.Normal;
+	}
+	
+    private void SetDefaultWindowSizeAndPosition()
+    {
+        if (WindowState == FormWindowState.Maximized)
+        {
+            WindowState = FormWindowState.Normal;
+        }
+        Width = (int)(APP_WINDOW_DEFAULT_WIDTH * DPIScale());
+        Height = (int)(APP_WINDOW_DEFAULT_HEIGHT * DPIScale());
     }
 
     private void ScaleUIElements()
@@ -313,11 +328,7 @@ public partial class FormMainMenu : Form
         InitialiseMidiOutConnection(midiDeviceNames[1]);
         SetOptionMenuFlags();
         ConfigureConsole();
-        if (midiInError || midiOutError)
-        {
-            Close();
-            return;
-        }
+
 
         void ConfigureConsole()
         {
@@ -361,12 +372,8 @@ public partial class FormMainMenu : Form
             int midiInDeviceNo = 0;
             //List available MIDI In devices in combo box
             midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());
-            if (midiInToolStripMenuItem.Items.Count == 0)
-            {
-                return;
-            }
 
-            for (int device = 0; device <= Midi.CountInputDevices(); device++)
+            for (int device = 0; device < midiInToolStripMenuItem.Items.Count; device++)
             {
                 if (Midi.GetInputDeviceName(device).ToString() == midiInDeviceName)
                 {
@@ -378,6 +385,8 @@ public partial class FormMainMenu : Form
             if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
             {
                 midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
+                midiInDeviceNo = 0;
+                midiInToolStripMenuItem.SelectedIndex = 0;
             }
         }
 
@@ -386,12 +395,7 @@ public partial class FormMainMenu : Form
             int midiOutDeviceNo = 0;
             //List available MIDI Out devices in combo box
             midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());
-            if (midiOutToolStripMenuItem.Items.Count == 0)
-            {
-                return;
-            }
-
-            for (int device = 0; device <= Midi.CountOutputDevices(); device++)
+            for (int device = 0; device < midiOutToolStripMenuItem.Items.Count; device++)
             {
                 if (Midi.GetOutputDeviceName(device).ToString() == midiOutDeviceName)
                 {
@@ -403,6 +407,8 @@ public partial class FormMainMenu : Form
             if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
             {
                 midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
+                midiOutDeviceNo = 0;
+                midiOutToolStripMenuItem.SelectedIndex = 0;
             }
 
             SetMT32HardwareStatus(MT32SysEx.hardwareMT32Connected);
@@ -413,10 +419,6 @@ public partial class FormMainMenu : Form
 
     private void FormMainMenu_Load(object sender, EventArgs e)
     {
-        if (midiInError || midiOutError)
-        {
-            Close();
-        }
     }
 
     private void midiInToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -686,10 +688,6 @@ public partial class FormMainMenu : Form
         timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
         saveTimbreFileToolStripMenuItem.Enabled = memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() != MT32Strings.EMPTY;
         ShowPatchOrRhythmEditorIfEnabled(memoryState.memoryBankEditorActive);
-        if (midiInError || midiOutError)
-        {
-            Close();
-        }
 
         if (moveFocusToMemoryBankEditor && memoryBankEditor is not null && memoryBankEditor.Visible)
         {
@@ -828,8 +826,7 @@ public partial class FormMainMenu : Form
         MT32SysEx.cm32LMode ^= true;
         ConfigFile.Save();
         OpenRhythmEditor();
-        var DialogResult = MessageBox.Show("MT-32 Editor will now restart.\nIf you have unsaved work, select\nCancel and retry after saving.", "MT-32 Editor", MessageBoxButtons.OKCancel);
-        if (DialogResult == DialogResult.Cancel) 
+        if (!UITools.AskUserToConfirm("MT-32 Editor will now restart.\nIf you have unsaved work, select\nCancel and retry after saving.", "MT-32 Editor"))
         {
             MT32SysEx.cm32LMode ^= true;
             cM32LModeToolStripMenuItem.Checked ^= true;
@@ -853,6 +850,7 @@ public partial class FormMainMenu : Form
         UITools.WindowSize[1] = Size.Height;
         UITools.WindowLocation[0] = Left;
         UITools.WindowLocation[1] = Top;
+		UITools.WindowMaximised = WindowState == FormWindowState.Maximized ? true : false;
         ConfigFile.Save();
     }
 	
@@ -869,5 +867,9 @@ public partial class FormMainMenu : Form
     private void auditionToolStripMenuItem_MouseLeave(object sender, EventArgs e)
     {
         Midi.NoteOff(auditionNote, 1);
+	}
+    private void restoreDefaultWindowSizeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        SetDefaultWindowSizeAndPosition();
     }
 }

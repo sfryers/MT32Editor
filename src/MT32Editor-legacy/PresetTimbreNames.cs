@@ -1,5 +1,9 @@
 ﻿using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Read-only data class containing names of all preset MT-32 timbres.
@@ -7,7 +11,7 @@ namespace MT32Edit_legacy;
 internal static class PresetTimbreNames
 {
     // MT32Edit: PresetTimbreNames class (static)
-    // S.Fryers Feb 2023
+    // S.Fryers Feb 2025
 
     private static readonly string[] presetGroupA =     {
                                                         "AcouPiano1","AcouPiano2","AcouPiano3","ElecPiano1","ElecPiano2","ElecPiano3","ElecPiano4","Honkytonk" ,
@@ -39,7 +43,7 @@ internal static class PresetTimbreNames
                                                         "Punch"     ,"Heartbeat" ,"Footsteps1","Footsteps2","Applause"  ,"Creaking"  ,"Door"      ,"Scratch"   ,
                                                         "Windchime" ,"Engine"    ,"Car-stop"  ,"Car-pass"  ,"Crash"     ,"Siren"     ,"Train"     ,"Jet"       ,
                                                         "Helicopter","Starship"  ,"Pistol"    ,"Machinegun","Lasergun"  ,"Explosion" ,"Dog"       ,"Horse"     ,
-                                                        "Birds"     ,"Rain"      ,"Thunder"   ,"Wind"      ,"Waves"     ,"Stream"    ,"Bubble"    ,"[none]"
+                                                        "Birds"     ,"Rain"      ,"Thunder"   ,"Wind"      ,"Waves"     ,"Stream"    ,"Bubble"    , MT32Strings.NONE
                                                         }; //63 members plus blank (on CM-32L; only the first 30 samples are available on MT-32)
 
     public static string GetPresetA(int timbreNo)

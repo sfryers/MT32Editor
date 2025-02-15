@@ -94,7 +94,7 @@ public partial class FormMemoryBankEditor : Form
         listViewTimbres.Items.Clear();
         for (int timbreNo = 0; timbreNo < MT32State.NO_OF_MEMORY_TIMBRES; timbreNo++)
         {
-            AddListViewColumnItems(timbreNo);
+            AddListViewColumnItem(timbreNo);
         }
         SelectTimbreInListView(selectedTimbre);
     }
@@ -113,7 +113,7 @@ public partial class FormMemoryBankEditor : Form
         memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, selectedTimbre);
     }
 
-    private void AddListViewColumnItems(int timbreNo)
+    private void AddListViewColumnItem(int timbreNo)
     {
         ListViewItem item;
         //enumerate memory bank list starting from 1

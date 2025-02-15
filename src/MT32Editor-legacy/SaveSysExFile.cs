@@ -2,7 +2,11 @@
 using System.IO;
 using System.Windows.Forms;
 using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Tools to save MT-32 System Exclusive data files to local filesystem
@@ -153,7 +157,6 @@ internal static class SaveSysExFile
                 {
                     sysExAddr[1] = 0x03;
                 }
-
                 int sumOfSysExValues = 0;
                 SaveSysExHeader(sysExFile);
                 sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Text;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Simple tools for parsing text strings
@@ -216,7 +220,7 @@ internal static class ParseTools
     {
         return IntPtr.Size == 8 ? "x64" : "x86";
     }
-	
+
     /// <summary>
     /// Returns the version no. of the build and architecture of the host OS.
     /// </summary>

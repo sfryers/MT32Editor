@@ -1,6 +1,10 @@
 ﻿using System.Text;
 using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Data structure representing user-accessible timbre memory areas of MT-32, 
@@ -155,7 +159,7 @@ public class TimbreStructure
                 case 7:
                 case 9:
                 case 10: //structure nos. with S on right hand side
-                   return false;
+                    return false;
 
                 default:
                     return true;
@@ -350,7 +354,7 @@ public class TimbreStructure
         {
             for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
             {
-                clonedTimbre.SetSysExParameter(partialNo, parameterNo, partial[partialNo, parameterNo]); 
+                clonedTimbre.SetSysExParameter(partialNo, parameterNo, partial[partialNo, parameterNo]);
             }
         }
     }

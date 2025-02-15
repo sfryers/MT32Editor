@@ -1,5 +1,9 @@
 ﻿using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Simple tools for boolean logic and data validation.

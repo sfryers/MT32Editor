@@ -1,4 +1,8 @@
-﻿namespace MT32Edit_legacy;
+﻿#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Read-only data class containing default and maximum values for MT-32 partial parameters, 

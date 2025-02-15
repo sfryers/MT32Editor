@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 namespace MT32Edit_legacy;
 
+
 /// <summary>
 /// Form provides visual access to all MT-32 timbre parameters,
 /// allowing timbres to be created, edited and previewed through 

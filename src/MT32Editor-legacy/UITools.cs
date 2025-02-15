@@ -2,7 +2,11 @@
 using System.IO;
 using System.Drawing;
 using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Static class containing shared user interface tools for forms in the MT32 Editor application.
@@ -11,7 +15,7 @@ namespace MT32Edit_legacy;
 internal static class UITools
 {
     // MT32Edit: UITools class (static)
-    // S.Fryers May 2024
+    // S.Fryers June 2024
 
     public const int UI_REFRESH_INTERVAL = 200; //interval between form refreshes, in milliseconds 
 
@@ -42,6 +46,11 @@ internal static class UITools
     /// A two element array containing the {X,Y} dimensions of the main application window
     /// </summary>
     public static int[] WindowSize { get; set; } = { 0, 0 };
+
+    /// <summary>
+    /// If true, will maximise application window at next start time
+    /// </summary>
+    public static bool WindowMaximised { get; set; } = false;
 
     /// <summary>
     /// Creates OK/Cancel MessageBox using specified prompt and title.
@@ -96,7 +105,11 @@ internal static class UITools
     /// </summary>
     public static bool ShowMidiInErrorMessage(string midiInDeviceName)
     {
-        MessageBox.Show($"Error: Cannot open MIDI In device '{midiInDeviceName}'{Environment.NewLine}Please close any conflicting MIDI applications and restart MT-32 Editor.{Environment.NewLine}This program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
+        if (ParseTools.IsNullOrWhiteSpace(midiInDeviceName))
+        {
+            return false; 
+        }
+        MessageBox.Show($"Error: Cannot open MIDI In device '{midiInDeviceName}'{Environment.NewLine}Please close any conflicting MIDI applications, check your {Environment.NewLine}MIDI connections and restart MT-32 Editor.", "MT-32 Editor", MessageBoxButtons.OK);
         return true;
     }
 
@@ -105,7 +118,7 @@ internal static class UITools
     /// </summary>
     public static bool ShowMidiOutErrorMessage(string midiOutDeviceName)
     {
-        MessageBox.Show($"Error: Cannot open MIDI Out device '{midiOutDeviceName}'{Environment.NewLine}Please close any conflicting MIDI applications and restart MT-32 Editor.{Environment.NewLine}This program will now exit.", "MT-32 Editor", MessageBoxButtons.OK);
+        MessageBox.Show($"Error: Cannot open MIDI Out device '{midiOutDeviceName}'{Environment.NewLine}Please close any conflicting MIDI applications, check your {Environment.NewLine}MIDI connections and restart MT-32 Editor.", "MT-32 Editor", MessageBoxButtons.OK);
         return true;
     }
 

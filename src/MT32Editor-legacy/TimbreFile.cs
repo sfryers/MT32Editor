@@ -2,7 +2,11 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)

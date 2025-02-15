@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 namespace MT32Edit_legacy;
+
 /// <summary>
 /// Form to display app information, version number
 /// and release date

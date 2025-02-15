@@ -1,5 +1,9 @@
 ﻿using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
 namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Data structure representing user-accessible memory areas of MT-32, as per published MIDI implementation.
@@ -278,7 +282,7 @@ public class MT32State
     public int GetSelectedMemoryTimbre()
     {
         return selectedMemoryTimbre;
-}
+	}
 
     public void SetDefaultMT32RhythmBanks()
     {
