@@ -1,5 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-
+using System.Windows.Forms;
+using System.IO;
+using System;
 namespace MT32Edit;
 
 /// <summary>
@@ -25,8 +27,12 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.10b";
-#if NET6_0
+    private const string VERSION_NO = "v0.9.11b";
+#if NET8_0
+    private const string FRAMEWORK = ".NET 8.0";
+#elif NET7_0
+    private const string FRAMEWORK = ".NET 7.0";
+#elif NET6_0
     private const string FRAMEWORK = ".NET 6.0";
 #elif NET472
     private const string FRAMEWORK = ".NET 4.7.2";
@@ -39,7 +45,7 @@ public partial class FormMainMenu : Form
 #elif NET20
     private const string FRAMEWORK = ".NET 2.0";
 #endif
-    private const string RELEASE_DATE = "May 2024";
+    private const string RELEASE_DATE = "February 2025";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
@@ -49,6 +55,7 @@ public partial class FormMainMenu : Form
 
     private bool midiInError = false;
     private bool midiOutError = false;
+	private readonly bool win9x = Environment.OSVersion.Platform == PlatformID.Win32Windows;
     private readonly MT32State memoryState = new MT32State();
     private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private FormMemoryBankEditor? memoryBankEditor;
@@ -56,8 +63,6 @@ public partial class FormMainMenu : Form
     private FormPatchEditor? patchEditor;
     private FormRhythmEditor? rhythmEditor;
     private FormAbout? about;
-
-
     private string titleBarFileName = "Untitled";
     private string? loadedSysExFileName;
     private bool moveFocusToMemoryBankEditor = false;
@@ -71,11 +76,6 @@ public partial class FormMainMenu : Form
         Console.WriteLine($"Welcome to MT32 Editor {ParseTools.GetVersion(VERSION_NO)} ({FRAMEWORK})");
         ReadConfigFile();
         SetROMCapabilities();
-        if (midiInError || midiOutError)
-        {
-            return;
-        }
-        
         OpenTimbreEditor();
         OpenMemoryBankEditor();
         OpenRhythmEditor();
@@ -167,6 +167,7 @@ public partial class FormMainMenu : Form
     {
         if (!UITools.SaveWindowSizeAndPosition)
         {
+            SetDefaultWindowSizeAndPosition();
             return;
         }
         StartPosition = FormStartPosition.Manual;
@@ -174,6 +175,17 @@ public partial class FormMainMenu : Form
         Top = (int)(UITools.WindowLocation[1] * DPIScale());
         Width = (int)(UITools.WindowSize[0] * DPIScale());
         Height = (int)(UITools.WindowSize[1] * DPIScale());
+        WindowState = UITools.WindowMaximised ? FormWindowState.Maximized : FormWindowState.Normal;
+    }
+
+    private void SetDefaultWindowSizeAndPosition()
+    {
+        if (WindowState == FormWindowState.Maximized)
+        {
+            WindowState = FormWindowState.Normal;
+        }
+        Width = (int)(APP_WINDOW_DEFAULT_WIDTH * DPIScale());
+        Height = (int)(APP_WINDOW_DEFAULT_HEIGHT * DPIScale());
     }
 
     private void ScaleUIElements()
@@ -307,17 +319,20 @@ public partial class FormMainMenu : Form
         string[] midiDeviceNames = ConfigFile.Load();
         InitialiseMidiInConnection(midiDeviceNames[0]);
         InitialiseMidiOutConnection(midiDeviceNames[1]);
-
         SetOptionMenuFlags();
         ConfigureConsole();
-        if (midiInError || midiOutError)
-        {
-            Close();
-            return;
-        }
 
         void ConfigureConsole()
         {
+        	if (win9x) 
+            {
+                //disable show/hide Console window on Win9x systems- prevents crash from occurring
+                showConsoleToolStripMenuItem.Checked = true;
+                showConsoleToolStripMenuItem.Enabled = false;
+                verboseConsoleMessagesToolStripMenuItem.Checked = ConsoleMessage.Verbose();
+                verboseConsoleMessagesToolStripMenuItem.Enabled = true;
+                return;
+            }
             if (ConsoleMessage.Visible())
             {
                 ShowWindow(GetConsoleWindow(), CONSOLE_SHOW);
@@ -327,7 +342,6 @@ public partial class FormMainMenu : Form
                 ShowWindow(GetConsoleWindow(), CONSOLE_HIDE);
             }
         }
-
         void SetOptionMenuFlags()
         {
             showConsoleToolStripMenuItem.Checked = ConsoleMessage.Visible();
@@ -344,17 +358,14 @@ public partial class FormMainMenu : Form
             timbreEditorToolStripMenuItem.Checked = UITools.PrioritiseTimbreEditor;
         }
 
+
+
         void InitialiseMidiInConnection(string midiInDeviceName)
         {
             int midiInDeviceNo = 0;
             //List available MIDI In devices in combo box
             midiInToolStripMenuItem.Items.AddRange(Midi.ListInputDevices());
-            if (midiInToolStripMenuItem.Items.Count == 0)
-            {
-                return;
-            }
-
-            for (int device = 0; device <= Midi.CountInputDevices(); device++)
+            for (int device = 0; device < midiInToolStripMenuItem.Items.Count; device++)
             {
                 if (Midi.GetInputDeviceName(device).ToString() == midiInDeviceName)
                 {
@@ -366,6 +377,8 @@ public partial class FormMainMenu : Form
             if (!Midi.OpenInputDevice(midiInToolStripMenuItem.SelectedIndex))
             {
                 midiInError = UITools.ShowMidiInErrorMessage(midiInToolStripMenuItem.Text);
+                midiInDeviceNo = 0;
+                midiInToolStripMenuItem.SelectedIndex = 0;
             }
         }
 
@@ -374,12 +387,7 @@ public partial class FormMainMenu : Form
             int midiOutDeviceNo = 0;
             //List available MIDI Out devices in combo box
             midiOutToolStripMenuItem.Items.AddRange(Midi.ListOutputDevices());
-            if (midiOutToolStripMenuItem.Items.Count == 0)
-            {
-                return;
-            }
-
-            for (int device = 0; device <= Midi.CountOutputDevices(); device++)
+            for (int device = 0; device < midiOutToolStripMenuItem.Items.Count; device++)
             {
                 if (Midi.GetOutputDeviceName(device).ToString() == midiOutDeviceName)
                 {
@@ -391,6 +399,8 @@ public partial class FormMainMenu : Form
             if (!Midi.OpenOutputDevice(midiOutToolStripMenuItem.SelectedIndex))
             {
                 midiOutError = UITools.ShowMidiOutErrorMessage(midiOutToolStripMenuItem.Text);
+                midiOutDeviceNo = 0;
+                midiOutToolStripMenuItem.SelectedIndex = 0;
             }
 
             SetMT32HardwareStatus(MT32SysEx.hardwareMT32Connected);
@@ -401,10 +411,6 @@ public partial class FormMainMenu : Form
 
     private void FormMainMenu_Load(object sender, EventArgs e)
     {
-        if (midiInError || midiOutError)
-        {
-            Close();
-        }
     }
 
     private void midiInToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
@@ -653,10 +659,6 @@ public partial class FormMainMenu : Form
         timbreEditor.Enabled = (!memoryState.patchEditorActive && !memoryState.rhythmEditorActive) || memoryState.TimbreIsEditable();
         saveTimbreFileToolStripMenuItem.Enabled = memoryState.GetMemoryTimbre(memoryState.GetSelectedMemoryTimbre()).GetTimbreName() != MT32Strings.EMPTY;
         ShowPatchOrRhythmEditorIfEnabled(memoryState.memoryBankEditorActive);
-        if (midiInError || midiOutError)
-        {
-            Close();
-        }
 
         if (moveFocusToMemoryBankEditor && memoryBankEditor is not null && memoryBankEditor.Visible)
         {
@@ -726,6 +728,11 @@ public partial class FormMainMenu : Form
 
     private void showConsoleToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        if (win9x)
+        {
+            //prevent crash on Win9x systems
+            return;
+        }
         if (showConsoleToolStripMenuItem.Checked)
         {
             ConsoleMessage.Hide();
@@ -815,6 +822,7 @@ public partial class FormMainMenu : Form
         UITools.WindowSize[1] = (int)(Size.Height / DPIScale());
         UITools.WindowLocation[0] = (int)(Left / DPIScale());
         UITools.WindowLocation[1] = (int)(Top / DPIScale());
+        UITools.WindowMaximised = WindowState == FormWindowState.Maximized ? true : false;
         ConfigFile.Save();
     }
 
@@ -835,11 +843,6 @@ public partial class FormMainMenu : Form
 
     private void restoreDefaultWindowSizeToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (WindowState == FormWindowState.Maximized)
-        {
-            WindowState = FormWindowState.Normal;
-        }
-        Width = (int)(APP_WINDOW_DEFAULT_WIDTH * DPIScale());
-        Height = (int)(APP_WINDOW_DEFAULT_HEIGHT * DPIScale());
+        SetDefaultWindowSizeAndPosition();
     }
 }

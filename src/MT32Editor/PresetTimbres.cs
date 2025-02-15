@@ -1,4 +1,8 @@
-﻿namespace MT32Edit;
+﻿#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Read-only class containing complete parameter data for all 128 MT-32 factory preset timbres

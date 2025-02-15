@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using System;
-
 namespace MT32Edit;
 
 /// <summary>
@@ -494,5 +493,5 @@ public partial class FormRhythmEditor : Form
     private void FormRhythmEditor_Leave(object sender, EventArgs e)
     {
         thisFormIsActive = false;
-    }     
+    }
 }

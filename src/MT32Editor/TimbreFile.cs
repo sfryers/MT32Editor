@@ -1,5 +1,12 @@
 ﻿using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System;
+#if NET5_0_OR_GREATER
 namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Load/save MT-32 timbre data files from/to local filesystem (using proprietary binary .timbre format)
@@ -35,7 +42,7 @@ internal static class TimbreFile
         SetUpFileDialog(loadTimbreDialog);
         string fileName = loadTimbreDialog.FileName;
         loadTimbreDialog.Dispose();
-        if (string.IsNullOrWhiteSpace(fileName))
+        if (ParseTools.IsNullOrWhiteSpace(fileName))
         {
             return FileTools.CANCELLED;
         }
@@ -136,7 +143,7 @@ internal static class TimbreFile
 
     public static void Save(TimbreStructure timbre, SaveFileDialog saveDialog)
     {
-        if (string.IsNullOrWhiteSpace(saveDialog.FileName))
+        if (ParseTools.IsNullOrWhiteSpace(saveDialog.FileName))
         {
             return;
         }

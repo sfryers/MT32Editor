@@ -1,4 +1,9 @@
-﻿namespace MT32Edit;
+﻿using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Filter and send debug/status messages to console

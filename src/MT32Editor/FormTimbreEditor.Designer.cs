@@ -2413,7 +2413,7 @@
             // 
             // pictureBoxTVATVF
             // 
-            pictureBoxTVATVF.Image = (Image)resources.GetObject("pictureBoxTVATVF.Image");
+            pictureBoxTVATVF.Image = Properties.Resources.TVA_TVF_env_diagram;
             pictureBoxTVATVF.Location = new Point(10, 899);
             pictureBoxTVATVF.Name = "pictureBoxTVATVF";
             pictureBoxTVATVF.Size = new Size(236, 82);
@@ -2463,7 +2463,7 @@
             // 
             // pictureBoxPitch
             // 
-            pictureBoxPitch.Image = (Image)resources.GetObject("pictureBoxPitch.Image");
+            pictureBoxPitch.Image = Properties.Resources.Pitch_env_diagram;
             pictureBoxPitch.Location = new Point(10, 793);
             pictureBoxPitch.Name = "pictureBoxPitch";
             pictureBoxPitch.Size = new Size(236, 81);

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+#if NET5_0_OR_GREATER
 namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Saves and load system parameters from .ini file
@@ -9,7 +13,7 @@ namespace MT32Edit;
 internal static class ConfigFile
 {
     // MT32Edit: ConfigFile class (static)
-    // S.Fryers May 2024
+    // S.Fryers Jun 2024
 
     private const string COMMENT_CHARACTER = "#";
     private const string TEXT_MIDI_IN = "Midi In";
@@ -20,6 +24,7 @@ internal static class ConfigFile
     private const string TEXT_WINDOW_Y_POSITION = "App window Y position";
     private const string TEXT_WINDOW_WIDTH = "App window width";
     private const string TEXT_WINDOW_HEIGHT = "App window height";
+    private const string TEXT_WINDOW_MAXIMISED = "App window maximised";
     private const string TEXT_AUTOSAVE = "Autosave every 5 mins";
     private const string TEXT_DARK_MODE = "Dark Mode";
     private const string TEXT_CM32L_MODE = "CM-32L Mode";
@@ -48,7 +53,8 @@ internal static class ConfigFile
                                     TEXT_SHOW_CONSOLE, TEXT_VERBOSE_MESSAGES, TEXT_HARDWARE_CONNECTED, TEXT_ALLOW_RESET,
                                     TEXT_SEND_MESSAGES, TEXT_IGNORE_SYSTEM_ON_LOAD, TEXT_EXCLUDE_SYSTEM_ON_SAVE,
                                     TEXT_SEND_SYSEX_DATA_TO_CONSOLE, TEXT_PRIORITISE_TIMBRE_EDITOR, TEXT_SAVE_WINDOW_SIZE_POSITION,
-                                    TEXT_WINDOW_X_POSITION, TEXT_WINDOW_Y_POSITION, TEXT_WINDOW_WIDTH, TEXT_WINDOW_HEIGHT
+                                    TEXT_WINDOW_X_POSITION, TEXT_WINDOW_Y_POSITION, TEXT_WINDOW_WIDTH, TEXT_WINDOW_HEIGHT,
+                                    TEXT_WINDOW_MAXIMISED
                                   };
 
         if (!File.Exists(iniFileLocation))
@@ -112,6 +118,9 @@ internal static class ConfigFile
                     break;
                 case TEXT_WINDOW_X_POSITION:
                     CheckXPosSetting(inputText);
+                    break;
+                case TEXT_WINDOW_MAXIMISED:
+                    CheckWindowMaximisedSetting(status);
                     break;
                 case TEXT_WINDOW_Y_POSITION:
                     CheckYPosSetting(inputText);
@@ -195,7 +204,11 @@ internal static class ConfigFile
         void CheckWidthSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int width);
+            #if NET5_0_OR_GREATER
             if (width > 0)
+            #else
+            if (width > 0 && width < Screen.PrimaryScreen.WorkingArea.Width)
+            #endif
             {
                 UITools.WindowSize[0] = width;
             }
@@ -204,9 +217,21 @@ internal static class ConfigFile
         void CheckHeightSetting(string inputString)
         {
             int.TryParse(ParseTools.RightOfChar(inputString, '='), out int height);
+            #if NET5_0_OR_GREATER
             if (height > 0)
+            #else
+            if (width > 0 && width < Screen.PrimaryScreen.WorkingArea.Width)
+            #endif
             {
                 UITools.WindowSize[1] = height;
+            }
+        }
+
+        void CheckWindowMaximisedSetting(bool? status)
+        {
+            if (status.HasValue)
+            {
+                UITools.WindowMaximised = (bool)status;
             }
         }
 
@@ -340,6 +365,7 @@ internal static class ConfigFile
                 fs.WriteLine($"{TEXT_WINDOW_HEIGHT} = {UITools.WindowSize[1]}");
                 fs.WriteLine($"{TEXT_WINDOW_X_POSITION} = {UITools.WindowLocation[0]}");
                 fs.WriteLine($"{TEXT_WINDOW_Y_POSITION} = {UITools.WindowLocation[1]}");
+                fs.WriteLine($"{TEXT_WINDOW_MAXIMISED} = {UITools.WindowMaximised}");
             }
             fs.WriteLine($"{TEXT_AUTOSAVE} = {SaveSysExFile.autoSave}");
             fs.WriteLine($"{TEXT_DARK_MODE} = {UITools.DarkMode}");

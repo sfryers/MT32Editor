@@ -9,7 +9,7 @@ namespace MT32Edit;
 /// </summary>
 
 // MT32Edit: FormPatchEditor
-// S.Fryers May 2024
+// S.Fryers Jan 2025
 
 public partial class FormPatchEditor : Form
 {
@@ -57,15 +57,14 @@ public partial class FormPatchEditor : Form
     private void InitialisePatchArray()
     {
         listViewPatches.Items.Clear();
-        for (int patchNo = 0; patchNo < 128; patchNo++)
+        for (int patchNo = 0; patchNo < MT32State.NO_OF_PATCHES; patchNo++)
         {
             AddListViewColumnItems(patchNo);
         }
         int selectedPatch = memoryState.GetSelectedPatchNo();
         SelectPatchInListView(selectedPatch);
         PopulatePatchFormParameters(selectedPatch);
-        comboBoxTimbreName.Items.Clear();
-        comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex));
+        PopulateTimbreNamesList();
         int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(0);
         Midi.SendProgramChange(selectedPatch, midiChannel);
     }
@@ -165,7 +164,7 @@ public partial class FormPatchEditor : Form
     private void RefreshPatchList()
     {
         listViewPatches.Items.Clear();
-        for (int patchNo = 0; patchNo < 128; patchNo++)
+        for (int patchNo = 0; patchNo < MT32State.NO_OF_PATCHES; patchNo++)
         {
             AddListViewColumnItems(patchNo);
         }
@@ -270,9 +269,14 @@ public partial class FormPatchEditor : Form
 
     private void RefreshTimbreNamesList()
     {
+        PopulateTimbreNamesList();
+        comboBoxTimbreName.Invalidate();
+    }
+
+    private void PopulateTimbreNamesList()
+    {
         comboBoxTimbreName.Items.Clear();
         comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex));
-        comboBoxTimbreName.Invalidate();
     }
 
     /// <summary>
@@ -357,8 +361,7 @@ public partial class FormPatchEditor : Form
         Patch memoryPatch = memoryState.GetPatch(selectedPatch);
         memoryPatch.SetTimbreGroup(comboBoxTimbreGroup.SelectedIndex);
         memoryPatch.SetTimbreNo(0);
-        comboBoxTimbreName.Items.Clear();
-        comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex));
+        PopulateTimbreNamesList();
         comboBoxTimbreName.Text = memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup());
         ConfigureEditButton();
         if (listViewPatches.SelectedIndices.Count > 0)
@@ -470,7 +473,7 @@ public partial class FormPatchEditor : Form
 
     private void FindMemoryTimbreInPatchList(int selectedTimbreNo)
     {
-        for (int patchNo = 0; patchNo < 128; patchNo++)
+        for (int patchNo = 0; patchNo < MT32State.NO_OF_PATCHES; patchNo++)
         {
             Patch patchData = memoryState.GetPatch(patchNo);
             if (patchData.GetTimbreGroupType() == "Memory" && patchData.GetTimbreNo() == selectedTimbreNo)
@@ -570,7 +573,7 @@ public partial class FormPatchEditor : Form
 
     private void RestorePresetTimbre(int selectedPatch)
     {
-        if (selectedPatch < 63)
+        if (selectedPatch < MT32State.NO_OF_MEMORY_TIMBRES)
         {
             memoryState.GetPatch(selectedPatch).SetTimbreGroup(0);
             memoryState.GetPatch(selectedPatch).SetTimbreNo(selectedPatch);
@@ -578,7 +581,7 @@ public partial class FormPatchEditor : Form
         else
         {
             memoryState.GetPatch(selectedPatch).SetTimbreGroup(1);
-            memoryState.GetPatch(selectedPatch).SetTimbreNo(selectedPatch - 64);
+            memoryState.GetPatch(selectedPatch).SetTimbreNo(selectedPatch - MT32State.NO_OF_MEMORY_TIMBRES);
         }
     }
 }

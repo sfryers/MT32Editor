@@ -1,4 +1,9 @@
-﻿namespace MT32Edit;
+﻿using System.Drawing;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Plot graphs to represent MT-32 pitch, filter and amplitude envelopes
@@ -161,10 +166,17 @@ internal class EnvelopeGraph
         envelope.DrawString("L2", font, brush, xStart + T[2, p] - 5, yStart + (yMid - L[2, p]) - 20, StringFormat.GenericTypographic);
         envelope.DrawString("Sustain", font, brush, xStart + TSus[p] - 48, yStart + (yMid - LSus[p]) - 20, StringFormat.GenericTypographic);
         envelope.DrawString("Release", font, brush, xStart + T[4, p] - 5, yStart + (yMid - LRel[p]) - 20, StringFormat.GenericTypographic);
+#if NET5_0_OR_GREATER
         envelope.DrawString("T1", font, brush, xStart + T[1, p] - 5, yStart + yMid + 5, StringFormat.GenericTypographic);
         envelope.DrawString("T2", font, brush, xStart + T[2, p] - 5, yStart + yMid + 5, StringFormat.GenericTypographic);
         envelope.DrawString("T3", font, brush, xStart + T[3, p] - 5, yStart + yMid + 5, StringFormat.GenericTypographic);
         envelope.DrawString("T4", font, brush, xStart + T[4, p] - 5, yStart + yMid + 5, StringFormat.GenericTypographic);
+#else
+        envelope.DrawString("T1", font, brush, xStart + T[1, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T2", font, brush, xStart + T[2, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T3", font, brush, xStart + T[3, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+        envelope.DrawString("T4", font, brush, xStart + T[4, p] - 5, yStart + yHeight + 5, StringFormat.GenericTypographic);
+#endif
     }
 
     private void DrawTVATVFLabels(Graphics envelope, int partial)

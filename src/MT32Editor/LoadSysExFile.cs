@@ -2,7 +2,11 @@
 using System.IO;
 using System.Windows.Forms;
 using System;
+#if NET5_0_OR_GREATER
 namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Tools to load MT-32 System Exclusive data files from local filesystem

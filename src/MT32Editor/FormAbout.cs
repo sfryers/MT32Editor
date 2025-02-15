@@ -1,4 +1,7 @@
-﻿namespace MT32Edit;
+﻿using System;
+using System.Windows.Forms;
+namespace MT32Edit;
+
 /// <summary>
 /// Form to display app information, version number
 /// and release date
@@ -36,6 +39,6 @@ public partial class FormAbout : Form
     {
         linkLabelProject.LinkVisited = true;
         Clipboard.SetText("https://github.com/sfryers/MT32Editor");
-        MessageBox.Show("URL copied to clipboard.");
+        MessageBox.Show("URL copied to clipboard.", "MT-32 Editor");
     }
 }

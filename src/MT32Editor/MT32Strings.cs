@@ -1,5 +1,9 @@
 ﻿using System.Text;
+#if NET5_0_OR_GREATER
 namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Read-only data class containing MT-32 PCM sample names, parameter names and other user-readable strings.
@@ -7,7 +11,7 @@ namespace MT32Edit;
 internal static class MT32Strings
 {
     // MT32Edit: MT32Strings class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Feb 2025
 
     public static readonly string[] bank1SampleNames =
     {
@@ -70,38 +74,39 @@ internal static class MT32Strings
     public static readonly string[] partialConfig = { "(SS)     ", "(S(SR))", "(PS)     ", "(P(SR))", "(S(PR))", "(PP)     ", "(P(PR))", "(S)(S)   ", "(P)(P)  ", "(SS)R ", "(PS)R ", "(SP)R ", "(PP)R " };
 
     public static readonly string[] partialConfig12Desc =   {
-                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) → Mono Out",
-                                                            "(Partial 1 [Synth] + Partial 2 [Synth] → Ring Mod.) + Partial 1 [Synth] → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [Synth] → Ring Mod.) + Partial 1 [PCM] → Mono Out",
-                                                            "(Partial 1 [Synth] + Partial 2 [PCM] → Ring Mod.) + Partial 1 [Synth] → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [PCM] → Ring Mod.) + Partial 1 [PCM] → Mono Out",
-                                                            "(Partial 1 [Synth] → Left Channel) (Partial 2 [Synth] → Right Channel) → Stereo Out",
-                                                            "(Partial 1 [PCM] → Left Channel) (Partial 2 [PCM] → Right Channel) → Stereo Out",
-                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) → Ring Mod. → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) → Ring Mod. → Mono Out",
-                                                            "(Partial 1 [Synth] + Partial 2 [PCM]) → Ring Mod. → Mono Out",
-                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) → Ring Mod. → Mono Out"
+                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) » Mono Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [Synth] » Ring Mod.) + Partial 1 [Synth] » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [Synth] » Ring Mod.) + Partial 1 [PCM] » Mono Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [PCM] » Ring Mod.) + Partial 1 [Synth] » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [PCM] » Ring Mod.) + Partial 1 [PCM] » Mono Out",
+                                                            "(Partial 1 [Synth] » Left Channel) (Partial 2 [Synth] » Right Channel) » Stereo Out",
+                                                            "(Partial 1 [PCM] » Left Channel) (Partial 2 [PCM] » Right Channel) » Stereo Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [Synth]) » Ring Mod. » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [Synth]) » Ring Mod. » Mono Out",
+                                                            "(Partial 1 [Synth] + Partial 2 [PCM]) » Ring Mod. » Mono Out",
+                                                            "(Partial 1 [PCM] + Partial 2 [PCM]) » Ring Mod. » Mono Out"
                                                             };
 
     public static readonly string[] partialConfig34Desc = {
-                                                            "(Partial 3 [Synth] + Partial 4 [Synth]) → Mono Out",
-                                                            "(Partial 3 [Synth] + Partial 4 [Synth] → Ring Mod.) + Partial 3 [Synth] → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [Synth]) → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [Synth] → Ring Mod.) + Partial 3 [PCM] → Mono Out",
-                                                            "(Partial 3 [Synth] + Partial 4 [PCM] → Ring Mod.) + Partial 3 [Synth] → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [PCM]) → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [PCM] → Ring Mod.) + Partial 3 [PCM] → Mono Out",
-                                                            "(Partial 3 [Synth] → Left Channel) (Partial 4 [Synth] → Right Channel) → Stereo Out",
-                                                            "(Partial 3 [PCM] → Left Channel) (Partial 4 [PCM] → Right Channel) → Stereo Out",
-                                                            "(Partial 3 [Synth] + Partial 4 [Synth]) → Ring Mod. → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [Synth]) → Ring Mod. → Mono Out",
-                                                            "(Partial 3 [Synth] + Partial 4 [PCM]) → Ring Mod. → Mono Out",
-                                                            "(Partial 3 [PCM] + Partial 4 [PCM]) → Ring Mod. → Mono Out"
+                                                            "(Partial 3 [Synth] + Partial 4 [Synth]) » Mono Out",
+                                                            "(Partial 3 [Synth] + Partial 4 [Synth] » Ring Mod.) + Partial 3 [Synth] » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [Synth]) » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [Synth] » Ring Mod.) + Partial 3 [PCM] » Mono Out",
+                                                            "(Partial 3 [Synth] + Partial 4 [PCM] » Ring Mod.) + Partial 3 [Synth] » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [PCM]) » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [PCM] » Ring Mod.) + Partial 3 [PCM] » Mono Out",
+                                                            "(Partial 3 [Synth] » Left Channel) (Partial 4 [Synth] » Right Channel) » Stereo Out",
+                                                            "(Partial 3 [PCM] » Left Channel) (Partial 4 [PCM] » Right Channel) » Stereo Out",
+                                                            "(Partial 3 [Synth] + Partial 4 [Synth]) » Ring Mod. » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [Synth]) » Ring Mod. » Mono Out",
+                                                            "(Partial 3 [Synth] + Partial 4 [PCM]) » Ring Mod. » Mono Out",
+                                                            "(Partial 3 [PCM] + Partial 4 [PCM]) » Ring Mod. » Mono Out"
                                                             };
 
     public const string EMPTY = "[empty]";
+    public const string NONE = "[none]";
 
     /// <summary>
     /// Returns note & octave name from integer value where 0 = C-1 and 120 = C9

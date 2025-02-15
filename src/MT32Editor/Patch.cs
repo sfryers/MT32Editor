@@ -1,4 +1,9 @@
-﻿namespace MT32Edit;
+﻿using System;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Data structure representing user-accessible patch memory areas of MT-32, as per published MIDI implementation.

@@ -1,4 +1,8 @@
-﻿namespace MT32Edit;
+﻿#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Data class containing names of MT-32 memory timbres and an interface to static read-only class PresetTimbreNames.
@@ -6,9 +10,10 @@
 public class TimbreNames
 {
     // MT32Edit: TimbreNames class
-    // S.Fryers Feb 2024
+    // S.Fryers Feb 2025
 
     private const string EMPTY = MT32Strings.EMPTY;
+    private const string NONE = MT32Strings.NONE;
     private const string TIMBRE = "Timbre No.";
     private const string GROUP = "Group No.";
 
@@ -42,12 +47,23 @@ public class TimbreNames
 
             case 3:
                 LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 63, autoCorrect: false);
-                return timbreNo == 63 ? "[none]" : PresetTimbreNames.GetRhythm(timbreNo);
+                return timbreNo == 63 ? NONE : PresetTimbreNames.GetRhythm(timbreNo);
 
             default:
                 LogicTools.ValidateRange(TIMBRE, timbreNo, 0, 127, autoCorrect: false);
                 return timbreNo < 64 ? PresetTimbreNames.GetPresetA(timbreNo) : PresetTimbreNames.GetPresetB(timbreNo - 64);
         }
+    }
+
+    public string[] GetAllWithIndices(int groupNo)
+    {
+        LogicTools.ValidateRange(GROUP, groupNo, 0, 3, autoCorrect: false);
+        string[] list = GetAll(groupNo);
+        for (int i = 0; i < list.Length; i++)
+        {
+            list[i] = $"{i+1}: {list[i]}";
+        }
+        return list;
     }
 
     public string[] GetAll(int groupNo)

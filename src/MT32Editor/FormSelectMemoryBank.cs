@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit;
 
 /// <summary>
 /// Simple form allowing selection of a memory bank to copy preset timbre into
@@ -6,12 +8,12 @@
 public partial class FormSelectMemoryBank : Form
 {
     // MT32Edit: FormSelectMemoryBank
-    // S.Fryers Feb 2024
+    // S.Fryers Feb 2025
 
     private const int MEMORY_GROUP = 2;
 
     private readonly MT32State memoryState = new MT32State();
-    private readonly string presetTimbreName = "none";
+    private readonly string presetTimbreName = MT32Strings.NONE;
 
     public FormSelectMemoryBank(MT32State memoryStateInput, string timbreNameInput)
     {

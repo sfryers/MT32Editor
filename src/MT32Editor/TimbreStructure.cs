@@ -1,6 +1,10 @@
 ﻿using System.Text;
 using System;
+#if NET5_0_OR_GREATER
 namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Data structure representing user-accessible timbre memory areas of MT-32, 

@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System;
+namespace MT32Edit;
 
 /// <summary>
 /// Form gives access to MT-32 system area parameters. <br/>

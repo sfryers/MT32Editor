@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	<TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
+	<TargetFrameworks>net8.0-windows;net6.0-windows</TargetFrameworks>
 	<LangVersion>10.0</LangVersion>
 	<!--With PublishSingleFile set to true, Publish will fail for .NET 4.7.2.-->
 	<!--Project will Publish correctly for .NET 6.0 (or later) and will Build for any supported framework-->
@@ -16,10 +16,10 @@
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<ApplicationIcon>MT32Edit.ico</ApplicationIcon>
 	<Product>MT32 Editor</Product>
-	<Version>0.9.10.0</Version>
-	<AssemblyVersion>0.9.10.0</AssemblyVersion>
-	<FileVersion>0.9.10.0</FileVersion>
-	<Copyright>Copyright © 2024 S.Fryers. Licenced under GPL3</Copyright>
+	<Version>0.9.11.0</Version>
+	<AssemblyVersion>0.9.11.0</AssemblyVersion>
+	<FileVersion>0.9.11.0</FileVersion>
+	<Copyright>Copyright © 2025 S.Fryers. Licenced under GPL3</Copyright>
 	<Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 

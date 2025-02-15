@@ -1,4 +1,10 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System.IO;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Basic filename/filepath tools
@@ -44,7 +50,7 @@ internal static class FileTools
             {
                 return ERROR;
             }
-            else if (string.IsNullOrWhiteSpace(pathName))
+            else if (ParseTools.IsNullOrWhiteSpace(pathName))
             {
                 return CANCELLED;
             }

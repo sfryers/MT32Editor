@@ -3,6 +3,7 @@ using System.Drawing;
 using System;
 namespace MT32Edit;
 
+
 /// <summary>
 /// Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
 /// </summary>

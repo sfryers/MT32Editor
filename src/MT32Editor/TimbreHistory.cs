@@ -1,4 +1,8 @@
-﻿namespace MT32Edit;
+﻿#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Maintains a stack of previous timbre states to facilitate undo/redo function

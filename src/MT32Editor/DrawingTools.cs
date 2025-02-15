@@ -1,4 +1,10 @@
-﻿namespace MT32Edit;
+﻿using System.Windows.Forms;
+using System.Drawing;
+#if NET5_0_OR_GREATER
+namespace MT32Edit;
+#else
+namespace MT32Edit_legacy;
+#endif
 
 /// <summary>
 /// Custom drawing tools for MT-32 Editor UI

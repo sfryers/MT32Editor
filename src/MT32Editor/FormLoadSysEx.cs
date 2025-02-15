@@ -1,4 +1,6 @@
-﻿namespace MT32Edit;
+﻿using System;
+using System.Windows.Forms;
+namespace MT32Edit;
 
 /// <summary>
 /// Simple form to display loading bar during timbre data upload. 
