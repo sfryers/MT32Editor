@@ -6,6 +6,7 @@ v0.9.11b - 15th February 2025
   Bug Fixes:
     - Selecting 'Restore Preset Timbre' for Patch No. 63 no longer causes unhandled exception.
     - Changing MIDI Out device whilst data is being received on the selected MIDI In device no longer causes unhandled exception.
+    - Loading a SysEx file containing custom patches changes the patch editor button function from "Edit Preset Timbre" to "Restore Preset Timbre" if a patch containing a memory timbre is in the previously-selected position.
   New Features:
     - MIDI Out and MIDI In devices can now be set to [none].
     - The application will no longer automatically exit if the default MIDI In and MIDI Out devices return an error. This behaviour was making it difficult to run the application using Wine on Linux systems which have PipeWire installed as the default MIDI device.
