@@ -9,7 +9,7 @@ namespace MT32Edit;
 /// </summary>
 
 // MT32Edit: FormPatchEditor
-// S.Fryers Jan 2025
+// S.Fryers Feb 2025
 
 public partial class FormPatchEditor : Form
 {
@@ -265,6 +265,7 @@ public partial class FormPatchEditor : Form
         RefreshPatchList();
         SendPatch(patchNo, sendSysExMessage: true);
         RefreshTimbreNamesList();
+        ConfigureEditButton();
     }
 
     private void RefreshTimbreNamesList()
