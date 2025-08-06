@@ -30,7 +30,7 @@
   <ItemGroup>
     <PackageReference Include="NAudio.Midi" Version="2.2.1" />
 	<!--Reference to System.Resources.Extensions can be removed if only .NET 6.0 (or later) is to be targeted-->
-    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.ILLink.Analyzers" Version="7.0.100-1.23401.1" />
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
