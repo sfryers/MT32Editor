@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
 	<TargetFramework>net20</TargetFramework>
-	<LangVersion>10.0</LangVersion>
+	<LangVersion>14.0</LangVersion>
 	<PublishSingleFile>true</PublishSingleFile> 
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
