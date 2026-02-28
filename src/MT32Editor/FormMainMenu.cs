@@ -27,8 +27,12 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v0.9.11b";
-#if NET8_0
+    private const string VERSION_NO = "v1.0.0";
+#if NET10_0
+    private const string FRAMEWORK = ".NET 10.0";
+#elif NET9_0
+    private const string FRAMEWORK = ".NET 9.0";
+#elif NET8_0
     private const string FRAMEWORK = ".NET 8.0";
 #elif NET7_0
     private const string FRAMEWORK = ".NET 7.0";
@@ -45,7 +49,7 @@ public partial class FormMainMenu : Form
 #elif NET20
     private const string FRAMEWORK = ".NET 2.0";
 #endif
-    private const string RELEASE_DATE = "February 2025";
+    private const string RELEASE_DATE = "February 2026";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
