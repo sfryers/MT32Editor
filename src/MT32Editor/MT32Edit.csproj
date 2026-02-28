@@ -10,6 +10,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	<!--The following line can be removed if only .NET 6.0 (or later) is to be targeted-->
 	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <StartupObject>MT32Edit.Program</StartupObject>
