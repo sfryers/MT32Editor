@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	<TargetFrameworks>net8.0-windows;net6.0-windows</TargetFrameworks>
-	<LangVersion>10.0</LangVersion>
+	<TargetFramework>net10.0-windows</TargetFramework>
+	<LangVersion>14.0</LangVersion>
 	<!--With PublishSingleFile set to true, Publish will fail for .NET 4.7.2.-->
 	<!--Project will Publish correctly for .NET 6.0 (or later) and will Build for any supported framework-->
 	<PublishSingleFile>true</PublishSingleFile> 
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<NoWarn>$(NoWarn);WFO1000</NoWarn>
 	<!--The following line can be removed if only .NET 6.0 (or later) is to be targeted-->
 	<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <StartupObject>MT32Edit.Program</StartupObject>
@@ -19,7 +20,7 @@
 	<Version>0.9.11.0</Version>
 	<AssemblyVersion>0.9.11.0</AssemblyVersion>
 	<FileVersion>0.9.11.0</FileVersion>
-	<Copyright>Copyright © 2025 S.Fryers. Licenced under GPL3</Copyright>
+	<Copyright>Copyright © 2026 S.Fryers. Licenced under GPL3</Copyright>
 	<Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
@@ -29,8 +30,8 @@
 
   <ItemGroup>
     <PackageReference Include="NAudio.Midi" Version="2.2.1" />
-	<!--Reference to System.Resources.Extensions can be removed if only .NET 6.0 (or later) is to be targeted-->
-    <PackageReference Include="System.Resources.Extensions" Version="10.0.2" />
+	<!--Reference to System.Resources.Extensions can be removed if only .NET 6.0 (or later) is to be targeted
+    <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />-->
   </ItemGroup>
 
   <ItemGroup>
