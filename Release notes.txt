@@ -2,6 +2,10 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v1.0.0 - 6th March 2026
+    - Full release version, no new features or bug-fixes.
+    - Build migrated to Visual Studio 2026; main version now targets .NET 10.0, legacy version still targets .NET Framework 2.0.
+
 v0.9.11b - 15th February 2025
   Bug Fixes:
     - Selecting 'Restore Preset Timbre' for Patch No. 63 no longer causes unhandled exception.

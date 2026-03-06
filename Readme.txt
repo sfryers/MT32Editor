@@ -5,9 +5,9 @@ The term 'SysEx' refers to MIDI System Exclusive message files, which normally c
 
 COMPATIBILITY:
 
-- The 'main' .NET 6 release of this software should run on any PC running Windows 8, 8.1, 10 or 11 which has the .NET 6.0 runtime installed. A monitor with at least 1080p resolution is recommended. This version can alternatively be compiled for .NET 8.
-- The 'legacy' .NET 2 release should run on any PC running Windows 98, Me, 2000, XP or later which has the .NET Framework 2.0 runtime installed. A monitor with at least 720p resolution is recommended. This version can alternatively be compiled for .NET Framework 3.5, 4.0 or 4.5.
-- The application should also run (with some UI imperfections) on Linux systems with the latest versions of Wine and wine-mono.msi installed. It has been successfully tested on Ubuntu 24.04 with Wine 9.2 and wine-mono 9.0. 
+- The 'main' release of this software should run on any PC running Windows 10 or 11 which has the .NET 10.0 runtime installed. A monitor with at least 1080p resolution is recommended.
+- The 'legacy' release should run on any PC running Windows 98, Me, 2000, XP or later which has the .NET Framework 2.0 runtime installed. A monitor with at least 720p resolution is recommended. This version can alternatively be compiled for .NET Framework 3.5, 4.0 or 4.5.
+- The application should also run (with some UI imperfections) on Linux systems with the latest versions of Wine and wine-mono.msi installed. The main and legacy versions have both been successfully tested on Ubuntu 24.04 with Wine 11.0, wine-mono 10.4.1 and Windows Desktop Runtime 10.0.3. 
 - A MIDI input device and an MT-32 compatible MIDI output device is strongly recommended but not required (SysEx files can still be loaded and edited without a connected MIDI device, but you will not hear any sounds).
 - SysEx (.syx) files created with this software can be uploaded to an MT-32 device using external software such as MIDI-OX, MIDI Tools, MUNT or any MIDI sequencer/DAW with built-in SysEx functionality.
 
