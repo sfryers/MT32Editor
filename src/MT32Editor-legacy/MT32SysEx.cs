@@ -13,27 +13,31 @@ namespace MT32Edit_legacy;
 internal static class MT32SysEx
 {
     // MT32Edit: MT32SysEx class (static)
-    // S.Fryers Apr 2024
+    // S.Fryers Mar 2026
 
     public const byte START_OF_DATA_BLOCK = 0xF0;   //SysEx message blocks start with F0
     public const byte MANUFACTURER_ID = 0x41;       //Manufacturer ID (Roland)
-    public const byte DEFAULT_DEVICE_ID = 0x10;     //Default device ID (17)
+    public const byte DEFAULT_DEVICE_ID = 0x10;     //Default device ID (decimal 17)
     public const byte MODEL_ID = 0x16;              //Model ID for MT-32
     public const byte RX = 0x11;                    //Receive SysEx data from device
     public const byte TX = 0x12;                    //Transmit SysEx data to device
     public const byte RESET = 0x7F;                 //MT-32 reset
     public const byte END_OF_DATA_BLOCK = 0xF7;     //SysEx message blocks terminate with F7
 
-    public const int MAX_BLOCK_LENGTH = 270;        //maximum length (in bytes) of SysEx data block
-    public const int NO_OF_PARTIAL_PARAMETERS = TimbreStructure.NO_OF_PARAMETERS;  
-                                                    //no. of parameters in each partial
+    public const int MAX_BLOCK_LENGTH = 270;        //maximum permitted length (in bytes) of SysEx data block
+    public const int NO_OF_TIMBRES_PER_GROUP = TimbreConstants.NO_OF_TIMBRES_PER_GROUP;
+                                                    //no. of timbres in each group (64)
+    public const int NO_OF_PARTIALS = TimbreConstants.NO_OF_PARTIALS;
+                                                    //no. of timbre partials (4)
+    public const int NO_OF_PARTIAL_PARAMETERS = TimbreConstants.NO_OF_PARTIAL_PARAMETERS;  
+                                                    //no. of parameters in each partial (58)
     public const int PARTIAL_ADDRESS_OFFSET = 0x0E; //partial parameters start at address offset 0x0E
 
     public const int NO_OF_SYSTEM_PARAMETERS = 0x17;//no of parameters in system area
 #if NET5_0_OR_GREATER
-    public const int MT32_DELAY = 75;              //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
+    public const int MT32_DELAY = 75;               //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
 #else	
-	public const int MT32_DELAY = 150;              //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow
+	public const int MT32_DELAY = 150;              //no of milliseconds to delay between SysEx messages to avoid MT-32 hardware buffer overflow- legacy build adds more delay to ensure better compatibility on slower machines
 #endif
 
     /// <summary>
@@ -146,7 +150,7 @@ internal static class MT32SysEx
     /// </summary>
     public static byte[] MemoryTimbreAddress(int timbreNo)
     {
-        LogicTools.ValidateRange("Timbre No", timbreNo, 0, MT32State.NO_OF_MEMORY_TIMBRES - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Timbre No", timbreNo, 0, NO_OF_TIMBRES_PER_GROUP - 1, autoCorrect: false);
         byte[] addr = new byte[2];
         addr[0] = Convert.ToByte(timbreNo * 2);
         addr[1] = 0x00;
@@ -159,8 +163,8 @@ internal static class MT32SysEx
     /// </summary>
     public static byte[] PartialAddress(int timbreNo, int partialNo)
     {
-        LogicTools.ValidateRange("Timbre No", timbreNo, 0, MT32State.NO_OF_MEMORY_TIMBRES - 1, autoCorrect: false);
-        LogicTools.ValidateRange("Partial No", partialNo, 0, TimbreStructure.NO_OF_PARTIALS - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Timbre No", timbreNo, 0, NO_OF_TIMBRES_PER_GROUP - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Partial No", partialNo, 0, NO_OF_PARTIALS - 1, autoCorrect: false);
         int[] addr = new int[2];
         addr[0] = 0x00;
         addr[1] = PARTIAL_ADDRESS_OFFSET + partialNo * NO_OF_PARTIAL_PARAMETERS;
@@ -176,7 +180,7 @@ internal static class MT32SysEx
     private static byte[] TempPartialAddress(int parameter, int partial)
     {
         LogicTools.ValidateRange("Parameter No", parameter, 0, NO_OF_PARTIAL_PARAMETERS - 1, autoCorrect: false);
-        LogicTools.ValidateRange("Partial No", partial, 0, 3, autoCorrect: false);
+        LogicTools.ValidateRange("Partial No", partial, 0, NO_OF_PARTIALS - 1, autoCorrect: false);
         int[] addr = new int[2];
         addr[0] = 0x00;
         addr[1] = parameter + PARTIAL_ADDRESS_OFFSET + (NO_OF_PARTIAL_PARAMETERS * partial);
@@ -282,7 +286,7 @@ internal static class MT32SysEx
     {
         string parameterName = MT32Strings.partialParameterNames[parameterNo];
         int sysExParameterValue = parameterValue + PartialConstants.offset[parameterNo];
-        LogicTools.ValidateRange("Partial No", partialNo, 0, 3, autoCorrect: false);
+        LogicTools.ValidateRange("Partial No", partialNo, 0, NO_OF_PARTIALS - 1, autoCorrect: false);
         LogicTools.ValidateRange("Parameter No", parameterNo, 0, NO_OF_PARTIAL_PARAMETERS  - 1, autoCorrect: false);
         LogicTools.ValidateRange("Parameter Value", sysExParameterValue, 0, 127, autoCorrect: false);
         byte[] sysExAddr = TempPartialAddress(parameterNo, partialNo);
@@ -299,7 +303,7 @@ internal static class MT32SysEx
     {
         bool keepBlocking = blockMT32text;
         blockMT32text = true;
-        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
         {
             ApplyPartialParameters(timbre, partialNo);
         }
@@ -421,7 +425,7 @@ internal static class MT32SysEx
     /// </summary>
     public static void SendTimbreName(string timbreName)
     {
-        timbreName = ParseTools.MakeNCharsLong(timbreName, 10);
+        timbreName = ParseTools.MakeNCharsLong(timbreName, TimbreConstants.TIMBRE_NAME_LENGTH);
         // start of temp patch name register
         byte[] sysExAddr = { 0x04, 0x00, 0x00 };
         // convert string to ASCII values
@@ -565,6 +569,7 @@ internal static class MT32SysEx
             string hexString = sysExMessage[i].ToString("X");
             if (hexString.Length == 1)
             {
+                //add leading zero to ensure string represents two hex digits
                 hexString = $"0{hexString}";
             }
             ConsoleMessage.SendVerboseString($"{hexString}", ConsoleColor.White);
@@ -598,8 +603,8 @@ internal static class MT32SysEx
     /// </summary>
     private static void SendTimbre(int timbreNo, TimbreStructure timbre, byte[] sysExAddress)
     {
-        byte[] sysExData = new byte[(TimbreStructure.NO_OF_PARTIALS * NO_OF_PARTIAL_PARAMETERS) + PARTIAL_ADDRESS_OFFSET]; //246
-        byte[] timbreName = Encoding.ASCII.GetBytes(ParseTools.MakeNCharsLong(timbre.GetTimbreName(), 10));
+        byte[] sysExData = new byte[(TimbreConstants.NO_OF_PARTIALS * NO_OF_PARTIAL_PARAMETERS) + PARTIAL_ADDRESS_OFFSET]; //246
+        byte[] timbreName = Encoding.ASCII.GetBytes(ParseTools.MakeNCharsLong(timbre.GetTimbreName(), TimbreConstants.TIMBRE_NAME_LENGTH));
         for (int i = 0; i < 10; i++)
         {
             sysExData[i] = timbreName[i];
@@ -613,7 +618,7 @@ internal static class MT32SysEx
         sysExData[12] = PartialMuteValue(timbre.GetPartialMuteStatus());
         sysExData[13] = (byte)(timbre.GetSustainStatus() ? 0 : 1);
         int byteNo = PARTIAL_ADDRESS_OFFSET;
-        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
         {
             for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {

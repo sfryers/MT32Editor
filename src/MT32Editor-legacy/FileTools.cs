@@ -12,11 +12,12 @@ namespace MT32Edit_legacy;
 internal static class FileTools
 {
     // MT32Edit: FileTools class (static)
-    // S.Fryers Mar 2024
+    // S.Fryers Mar 2026
 
     public const string MIDI_FILE = ".mid";
     public const string SYSEX_FILE = ".syx";
     public const string TIMBRE_FILE = ".timbre";
+    public const string INSTRUMENT_DEFINITION = ".ins";
     public const string EMPTY = "Empty";
     public const string ERROR = "Error";
     public const string CANCELLED = "Cancelled";

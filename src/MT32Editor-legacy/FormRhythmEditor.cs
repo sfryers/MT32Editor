@@ -9,7 +9,7 @@ namespace MT32Edit_legacy;
 public partial class FormRhythmEditor : Form
 {
     // MT32Edit: FormRhythmEditor
-    // S.Fryers May 2024
+    // S.Fryers Mar 2026
 
     // Preset banks A [0] and B [1] cannot be allocated to rhythm part, only memory [2] and rhythm [3] banks can be used.
     private const int BANK_OFFSET = 2;
@@ -58,7 +58,7 @@ public partial class FormRhythmEditor : Form
     private void InitialiseRhythmBank()
     {
         listViewRhythmBank.Items.Clear();
-        for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < MT32State.NO_OF_RHYTHM_BANKS + RhythmConstants.KEY_OFFSET; keyNo++)
+        for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < RhythmConstants.NO_OF_RHYTHM_KEYS + RhythmConstants.KEY_OFFSET; keyNo++)
         {
             AddListViewColumnItems(keyNo);
         }
@@ -68,6 +68,9 @@ public partial class FormRhythmEditor : Form
         comboBoxTimbreName.Items.AddRange(memoryState.GetTimbreNames().GetAll(comboBoxTimbreGroup.SelectedIndex + BANK_OFFSET));
     }
 
+    /// <summary>
+    /// Displays warning message if DeviceID is set to anything other than the default value
+    /// </summary>
     private void ConfigureWarnings()
     {
         if (MT32SysEx.DeviceID != MT32SysEx.DEFAULT_DEVICE_ID)
@@ -82,14 +85,13 @@ public partial class FormRhythmEditor : Form
         {
             int selectedTimbre = memoryState.GetSelectedMemoryTimbre();
             CheckForMemoryStateUpdates();
+            UpdateMemoryTimbreNames();
             FindMemoryTimbreInRhythmList(selectedTimbre);
-
+            if (comboBoxTimbreGroup.Text == "Memory")
+            {
+                SyncMemoryTimbreNames();
+            }
         }
-        if (comboBoxTimbreGroup.Text == "Memory")
-        {
-            SyncMemoryTimbreNames();
-        }
-
         if (memoryState.returnFocusToRhythmEditor)
         {
             ReturnFocusToRhythmEditor();
@@ -128,7 +130,7 @@ public partial class FormRhythmEditor : Form
     private void RefreshRhythmBankList()
     {
         listViewRhythmBank.Items.Clear();
-        for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < MT32State.NO_OF_RHYTHM_BANKS + RhythmConstants.KEY_OFFSET; keyNo++)
+        for (int keyNo = RhythmConstants.KEY_OFFSET; keyNo < RhythmConstants.NO_OF_RHYTHM_KEYS + RhythmConstants.KEY_OFFSET; keyNo++)
         {
             AddListViewColumnItems(keyNo);
         }
@@ -390,6 +392,12 @@ public partial class FormRhythmEditor : Form
     {
         int selectedKey = memoryState.GetSelectedKey();
         int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(8);
+        Rhythm rhythmData = memoryState.GetRhythmKey(selectedKey);
+        if (rhythmData.GetTimbreGroupType() == "Memory")
+        {
+            int timbreNo = rhythmData.GetTimbreNo();
+            MT32SysEx.SendMemoryTimbre(timbreNo, memoryState.GetMemoryTimbre(timbreNo));
+        }
         Midi.NoteOn(selectedKey, midiChannel);
         pressedKey = selectedKey;
     }
@@ -419,7 +427,7 @@ public partial class FormRhythmEditor : Form
 
     private void FindMemoryTimbreInRhythmList(int selectedTimbreNo)
     {
-        for (int bankNo = 0; bankNo < MT32State.NO_OF_RHYTHM_BANKS; bankNo++)
+        for (int bankNo = 0; bankNo < RhythmConstants.NO_OF_RHYTHM_KEYS; bankNo++)
         {
             Rhythm rhythmData = memoryState.GetRhythmBank(bankNo);
             if (rhythmData.GetTimbreGroupType() == "Memory" && rhythmData.GetTimbreNo() == selectedTimbreNo)
@@ -468,7 +476,7 @@ public partial class FormRhythmEditor : Form
         }
 		SetListViewColours(selectedKey);
 		
-if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
+		if (comboBoxTimbreName.Text != newTimbreName && !comboBoxTimbreName.DroppedDown)
         {
             ConsoleMessage.SendVerboseLine("Updating Memory Timbre Names List");
             //ensure that memory timbre name changes are synchronised across comboBox and listView

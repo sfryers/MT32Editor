@@ -10,14 +10,15 @@ namespace MT32Edit_legacy;
 internal static class RhythmConstants
 {
     // MT32Edit: RhythmConstants class (static)
-    // S.Fryers May 2024
+    // S.Fryers Mar 2026
 
     //lowest MIDI note no. to which a rhythm timbre can be allocated
+    public const int NO_OF_RHYTHM_KEYS = 85;
     public const int KEY_OFFSET = 24;
     public const int PANPOT_OFFSET = 7;
     public const int LAST_MT32_SAMPLE = 75;
     public const int LAST_MT32_KEY = 87;
-
+    public const int LAST_CM32L_KEY = 108;
 
     public static readonly byte[] defaultCM32LSampleNo =
     {

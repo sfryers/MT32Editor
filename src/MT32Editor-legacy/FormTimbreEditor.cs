@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 namespace MT32Edit_legacy;
 
-
 /// <summary>
 /// Form provides visual access to all MT-32 timbre parameters,
 /// allowing timbres to be created, edited and previewed through 
@@ -13,12 +12,12 @@ namespace MT32Edit_legacy;
 public partial class FormTimbreEditor : Form
 {
     // MT32Edit: FormTimbreEditor
-    // S.Fryers May 2024
+    // S.Fryers Mar 2026
 
     private SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private TimbreStructure timbre = new TimbreStructure(createAudibleTimbre: false);
     private TimbreHistory timbreHistory;
-    private byte[] partialClipboard = new byte[TimbreStructure.NO_OF_PARAMETERS];
+    private byte[] partialClipboard = new byte[TimbreConstants.NO_OF_PARTIAL_PARAMETERS];
     private bool changesMade = false;
     private bool initialisationComplete = false;
     private bool thisFormIsActive = true;
@@ -57,6 +56,9 @@ public partial class FormTimbreEditor : Form
         comboBoxPart34Struct.DropDownWidth = (int)(525 * UIScale);
     }
 
+    /// <summary>
+    /// Sets UI colour scheme to Dark Mode or Light Mode
+    /// </summary>
     private void SetTheme()
     {
         if (darkMode == UITools.DarkMode)
@@ -92,6 +94,7 @@ public partial class FormTimbreEditor : Form
             //SetAllControlValues is called multiple times per second whenever focus is not on the timbre editor- potentially CPU-intensive on slow systems
             activePartial = timbre.GetActivePartial();
             SetAllControlValues();
+			ConfigurePartialWarnings();
             allowQuickSave = false;
             saveTimbreDialog.FileName = string.Empty;
             changesMade = false;
@@ -108,6 +111,9 @@ public partial class FormTimbreEditor : Form
         initialisationComplete = true;
     }
 
+    /// <summary>
+    /// Enables Undo and Redo buttons if edits have been made to the current timbre state
+    /// </summary>
     private void SetUndoRedoButtons()
     {
         buttonUndo.Enabled = timbreHistory.GetLatestActionNo() > 0;
@@ -160,6 +166,9 @@ public partial class FormTimbreEditor : Form
         }
     }
 
+    /// <summary>
+    /// Sets all UI control values to the currently selected timbre/partial state
+    /// </summary>
     private void SetAllControlValues()
     {
         SetMainControls();
@@ -167,6 +176,9 @@ public partial class FormTimbreEditor : Form
         UpdatePartialControls();
     }
 
+    /// <summary>
+    /// Sets main UI control values to the currently selected timbre/partial state
+    /// </summary>
     private void SetMainControls()
     {
         textBoxTimbreName.Text = ParseTools.RemoveTrailingSpaces(timbre.GetTimbreName());
@@ -184,6 +196,9 @@ public partial class FormTimbreEditor : Form
         labelPartialWarning.Visible = !checkBoxPartial1.Checked;
     }
 
+    /// <summary>
+    /// Colours timbre name red if it contains CM-32L-specific samples
+    /// </summary>
     private void SetTimbreNameColour()
     {
         if (MT32SysEx.cm32LMode)
@@ -192,6 +207,10 @@ public partial class FormTimbreEditor : Form
         }
         textBoxTimbreName.ForeColor = timbre.ContainsCM32LSamples() ? Color.Red : Color.Black;
     }
+	
+	/// <summary>
+    /// Displays diagrams corresponding to the selected partial structures
+    /// </summary>
     private void UpdatePartialStructureImages()
     {
         if (comboBoxPart12Struct.SelectedIndex > -1 && comboBoxPart12Struct.SelectedIndex != part12Image)
@@ -208,6 +227,9 @@ public partial class FormTimbreEditor : Form
         }
     }
 
+    /// <summary>
+    /// Sets the correct radio button for the selected partialNo
+    /// </summary>
     private void SetPartialRadioButtons(int partialNo)
     {
         switch (partialNo)
@@ -231,7 +253,7 @@ public partial class FormTimbreEditor : Form
 
     /// <summary>
     /// Returns an array of all trackbars in the Timbre Editor form, using parameterNo values as the array reference.
-    /// Parameters with a non-trackbar control type are allocated dummy values.
+    /// Parameters with a non-trackbar control type are allocated dummy placeholder states, to ensure array indices are consistent with order of MT-32 timbre parameters.
     /// </summary>
     private TrackBar[] GetTrackBars()
     {
@@ -253,7 +275,7 @@ public partial class FormTimbreEditor : Form
     }
 
     /// <summary>
-    /// Updates all UI controls to match current partial parameters
+    /// Sets UI partial control values to match current partial parameters
     /// </summary>
     private void UpdatePartialControls()
     {
@@ -274,7 +296,7 @@ public partial class FormTimbreEditor : Form
             {
                 UpdateTrackBar(i, timbreTrackbar[i]);
             }
-            for (byte i = 6; i < TimbreStructure.NO_OF_PARAMETERS; i++)
+            for (byte i = 6; i < TimbreConstants.NO_OF_PARTIAL_PARAMETERS; i++)
             {
                 UpdateTrackBar(i, timbreTrackbar[i]);
             }
@@ -322,6 +344,9 @@ public partial class FormTimbreEditor : Form
         }
     }
 
+    /// <summary>
+    /// Displays warning message if the currently selected partial is muted
+    /// </summary>
     private void ConfigurePartialWarnings()
     {
         labelPartialWarning.Visible = timbre.GetPartialMuteStatus()[activePartial];
@@ -483,9 +508,11 @@ public partial class FormTimbreEditor : Form
         changesMade = true;
     }
 
+    /// <summary>
+    /// Enables or disables trackbars as appropriate for PCM or LA Synth on partial 1 or 3
+    /// </summary>
     private void SetControlsforLeftPartial(int structureType)
     {
-        //Enable or disable sliders as appropriate for PCM or LA Synth on partial 1 or 3
         switch (structureType)
         {
             case 0:
@@ -503,9 +530,11 @@ public partial class FormTimbreEditor : Form
         }
     }
 
+    /// <summary>
+    /// Enables or disables trackbars as appropriate for PCM or LA Synth on partial 2 or 4
+    /// </summary>
     private void SetControlsforRightPartial(int structureType)
     {
-        //Enable or disable sliders as appropriate for PCM or LA Synth on partial 2 or 4
         switch (structureType)
         {
             case 0:
@@ -536,6 +565,9 @@ public partial class FormTimbreEditor : Form
         dividedComboBox.DrawStructureList(e, isPartial12: false, comboBoxPart34Struct.DroppedDown, UIScale);
     }
 
+    /// <summary>
+    /// Enables PCM-specific UI controls and disables LA-specific UI controls
+    /// </summary>
     private void ShowOnlyPCMControls()
     {
         comboBoxWaveform.Enabled = false;
@@ -564,6 +596,9 @@ public partial class FormTimbreEditor : Form
         RefreshGraphs();
     }
 
+    /// <summary>
+    /// Enables LA-specific UI controls and disables PCM-specific UI controls
+    /// </summary>
     private void ShowOnlyLASynthControls()
     {
         comboBoxWaveform.Enabled = true;
@@ -612,6 +647,9 @@ public partial class FormTimbreEditor : Form
         SelectPartial(LogicTools.GetRadioButtonValue(radioButtonPartial1.Checked, radioButtonPartial2.Checked, radioButtonPartial3.Checked, radioButtonPartial4.Checked));
     }
 
+    /// <summary>
+    /// Sets UI control values to match selected partialNo
+    /// </summary>
     private void SelectPartial(int partialNo)
     {   
         if (initialisationComplete)
@@ -766,6 +804,9 @@ public partial class FormTimbreEditor : Form
         UpdatePartialMuteStatus(3, checkBoxPartial4.Checked);
     }
 
+    /// <summary>
+    /// Updates partial mute status from the current UI checkbox values
+    /// </summary>
     void UpdatePartialMuteStatus(int partialNo, bool checkBoxStatus)
     {
         // set mute status to inverse of checkbox status
@@ -776,6 +817,10 @@ public partial class FormTimbreEditor : Form
     }
 
     ////////////////////////////////////////////////////// Update partial 1-4 parameters ////////////////////////////////////////////////////
+	
+	/// <summary>
+    /// Updates partial parameters from the current UI trackbar values
+    /// </summary>
     private void UpdateTimbreParameterFromTrackBarValue(byte parameterNo, TrackBar trackBar)
     {
         int parameterValue = trackBar.Value;
@@ -786,6 +831,9 @@ public partial class FormTimbreEditor : Form
         changesMade = true;
     }
 
+    /// <summary>
+    /// Updates tooltip value to show trackbar parameter name and value
+    /// </summary>
     private void UpdateTrackBarToolTip(byte parameterNo, TrackBar trackBar)
     {
         toolTipParameterValue.SetToolTip(trackBar, $"{MT32Strings.partialParameterNames[parameterNo]} = {MT32Strings.PartialParameterValueText(parameterNo, trackBar.Value)}");
@@ -843,6 +891,19 @@ public partial class FormTimbreEditor : Form
         SetPCMBank();
     }
 
+    private void radioButtonPCMBank1_KeyUp(object sender, KeyEventArgs e)
+    {
+        SetPCMBank();
+    }
+
+    private void radioButtonPCMBank2_KeyUp(object sender, KeyEventArgs e)
+    {
+        SetPCMBank();
+    }
+	
+	/// <summary>
+    /// Set PCM Bank 1 or 2, only if the selected partial is set to PCM.
+    /// </summary>
     private void SetPCMBank()
     {
         if (!radioButtonPCMBank1.Enabled)
@@ -865,6 +926,9 @@ public partial class FormTimbreEditor : Form
         UpdatePCMSampleList(bankNo);
     }
 
+    /// <summary>
+    /// Update list of PCM ROM sample names, using red colour for any CM-32L-specific samples as required
+    /// </summary>
     private void UpdatePCMSampleList(int bankNo)
     {
         int sampleNo = timbre.GetUIParameter(activePartial, 0x05);

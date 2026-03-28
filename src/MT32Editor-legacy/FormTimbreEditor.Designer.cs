@@ -625,7 +625,7 @@ namespace MT32Edit_legacy
             this.radioButtonPCMBank2.Text = "Bank 2";
             this.toolTipParameterValue.SetToolTip(this.radioButtonPCMBank2, "Bank 2 is only available on CM-32L or compatible ROMs");
             this.radioButtonPCMBank2.UseVisualStyleBackColor = true;
-            this.radioButtonPCMBank2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarKeyUp);
+            this.radioButtonPCMBank2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.radioButtonPCMBank2_KeyUp);
             this.radioButtonPCMBank2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.radioButtonPCMBank2_MouseUp);
             // 
             // radioButtonPCMBank1
@@ -640,6 +640,7 @@ namespace MT32Edit_legacy
             this.radioButtonPCMBank1.TabStop = true;
             this.radioButtonPCMBank1.Text = "Bank 1";
             this.radioButtonPCMBank1.UseVisualStyleBackColor = true;
+            this.radioButtonPCMBank1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.radioButtonPCMBank1_KeyUp);
             this.radioButtonPCMBank1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.radioButtonPCMBank1_MouseUp);
             // 
             // labelPWVeloSens

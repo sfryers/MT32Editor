@@ -13,9 +13,9 @@ public class MT32State
     // MT32Edit: MT32State class
     // S.Fryers May 2024
 
-    public const int NO_OF_MEMORY_TIMBRES = 64;
+    public const int NO_OF_MEMORY_TIMBRES = TimbreConstants.NO_OF_TIMBRES_PER_GROUP; //64
     public const int NO_OF_PATCHES = 128;
-    public const int NO_OF_RHYTHM_BANKS = 85;
+    public const int NO_OF_RHYTHM_BANKS = RhythmConstants.NO_OF_RHYTHM_KEYS; //85
 
     private SystemLevel system = new SystemLevel();
     private TimbreStructure[] memoryTimbre = new TimbreStructure[NO_OF_MEMORY_TIMBRES];
@@ -123,7 +123,7 @@ public class MT32State
 
     private void ValidateKeyNo(int keyNo)
     {
-        LogicTools.ValidateRange("Key No.", keyNo, 24, NO_OF_RHYTHM_BANKS + RhythmConstants.KEY_OFFSET - 1, autoCorrect: false);
+        LogicTools.ValidateRange("Key No.", keyNo, RhythmConstants.KEY_OFFSET, NO_OF_RHYTHM_BANKS + RhythmConstants.KEY_OFFSET - 1, autoCorrect: false);
     }
 
     private void ValidateBankNo(int bankNo)

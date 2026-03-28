@@ -11,7 +11,7 @@ namespace MT32Edit_legacy;
 public class Rhythm
 {
     // MT32Edit: Rhythm class
-    // S.Fryers May 2024
+    // S.Fryers Mar 2026
 
     private int timbreGroup = 1;
 
@@ -25,7 +25,7 @@ public class Rhythm
 
     public Rhythm(int keyNo, bool autoCorrect = false)
     {
-        keyNo = LogicTools.ValidateRange("keyNo", keyNo, minPermitted: RhythmConstants.KEY_OFFSET, maxPermitted: 108, autoCorrect);
+        keyNo = LogicTools.ValidateRange("keyNo", keyNo, minPermitted: RhythmConstants.KEY_OFFSET, maxPermitted: RhythmConstants.LAST_CM32L_KEY, autoCorrect);
         timbreGroup = 1;
         timbreNo = RhythmConstants.defaultCM32LSampleNo[keyNo - RhythmConstants.KEY_OFFSET];
         panPot = RhythmConstants.defaultPanPosition[keyNo - RhythmConstants.KEY_OFFSET];
@@ -80,15 +80,7 @@ public class Rhythm
                 return;
 
             case 3:
-                if (parameterValue == 1)
-                {
-                    SetReverbEnabled(true);
-                }
-                else
-                {
-                    SetReverbEnabled(false);
-                }
-
+                SetReverbEnabled(LogicTools.IntToBool(parameterValue));
                 return;
 
             default:
@@ -114,15 +106,7 @@ public class Rhythm
                 return;
 
             case 3:
-                if (parameterValue == 1)
-                {
-                    SetReverbEnabled(true);
-                }
-                else
-                {
-                    SetReverbEnabled(false);
-                }
-
+                SetReverbEnabled(LogicTools.IntToBool(parameterValue));
                 return;
 
             default:
