@@ -13,7 +13,7 @@ COMPATIBILITY:
 
 LICENCE:
 
-This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available from GitHub (https://github.com/sfryers/MT32Editor). The only external dependencies are the NAudio.Midi library for the main version, or the Sanford.Multimedia.Midi library for the legacy version. These can be imported using NuGet in Visual Studio (https://www.nuget.org/packages/NAudio.Midi/2.2.1, https://www.nuget.org/packages/Sanford.Multimedia.Midi/6.6.2).
+This software is licenced under the GPL3.0 (https://www.gnu.org/licenses/gpl-3.0.en.html). No warranty is offered. Source code is available from GitHub (https://github.com/sfryers/MT32Editor). The only external dependencies are the NAudio.Midi library for the main version, or the Sanford.Multimedia.Midi library for the legacy version. These can be imported using NuGet in Visual Studio (https://www.nuget.org/packages/NAudio.Midi/2.3.0, https://www.nuget.org/packages/Sanford.Multimedia.Midi/6.7.3).
 
 This software and its author are in no way linked to or endorsed by the Roland Corporation.
 
@@ -27,6 +27,7 @@ FEATURES:
 - Edit all MT-32 rhythm parameters
 - Live preview of timbres via hardware or software MIDI devices
 - Load and save individual timbres as .timbre files
+- Export Cakewalk Instrument Definition (.ins) files
 
 A settings file named MT32Edit.ini will be created in the same folder as the application- ensure you have write access to the folder where the application is stored.
 
@@ -43,6 +44,8 @@ Menu Bar
 File Menu - load or save a SysEx file (a complete MT-32 memory state, consisting of system settings plus up to 64 timbres, 128 patches and 85 rhythm keys). Any existing MT-32 compatible SysEx files can be loaded, browsed and edited.
 
 Individual timbres, in .timbre format, can also be loaded and saved using this menu. SysEx files are saved in a standard format and can be used with any compatible external software and devices, however .timbre files are only intended to be used with this software.
+
+Cakewalk Instrument Definition (.ins) files can be exported, containing all patch names and rhythm key names in the current configuration. Instrument definition files can be loaded into certain DAW and MIDI applications (principally all versions of Cakewalk/SONAR) to enable the correct custom patch and rhythm instrument names to be shown. Files are encoded as plain text, so can easily be manually edited for other purposes.
 
 View Menu 
 	- Patch Editor (shows the patch editor at the right hand side of the application window).

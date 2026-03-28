@@ -2,6 +2,19 @@ MT-32 Editor - a patch editor and librarian for MT-32/CM-32L and compatible MIDI
 
 Release Notes
 
+v1.1.0 - 27th March 2026
+  Bug Fixes:
+    - After selecting a memory timbre which has partial 1 disabled, an active partial is selected without the warning 'Selected partial is not enabled!' appearing incorrectly.
+    - List of memory timbres in the rhythm bank editor drop down box update immediately when a timbre name is changed in the timbre editor.
+    - When editing a memory timbre that is used in a custom rhythm bank, changes are now audible when using the rhythm bank audition button without having to reselect the timbre again in the timbre memory area.
+    - PCM bank changes when using keyboard input (previously only worked using mouse input)
+    - Custom settings for highest-numbered rhythm key (#108) are now properly saved and loaded. Previously any changes made to this key were erroneously ignored.
+  New Features:
+    - Ability to export Cakewalk Instrument Definition (.ins) file format, containing all patch and rhythm key names. 
+  Miscellaneous:
+    - Code documentation- added summary comments to several methods.
+    - Code readability- replaced a number of hard-coded numeric values with references to constants.
+
 v1.0.0 - 6th March 2026
     - Full release version, no new features or bug-fixes.
     - Build migrated to Visual Studio 2026; main version now targets .NET 10.0, legacy version still targets .NET Framework 2.0.
