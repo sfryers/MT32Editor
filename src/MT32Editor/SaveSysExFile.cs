@@ -15,7 +15,10 @@ namespace MT32Edit_legacy;
 internal static class SaveSysExFile
 {
     // MT32Edit: SaveSysExFile class (static)
-    // S.Fryers Apr 2024 
+    // S.Fryers Mar 2026
+
+    const int PATCHES_PER_SYSEX_BLOCK = 32;
+    const int RHYTHM_BANKS_PER_SYSEX_BLOCK = 64;
 
     /// <summary>
     ///  If true, will not save system area settings to file.
@@ -122,7 +125,7 @@ internal static class SaveSysExFile
             for (int blockNo = 0; blockNo < 4; blockNo++)
             {
                 int sumOfSysExValues = 0;
-                byte[] sysExAddr = MT32SysEx.PatchAddress(blockNo * 32);
+                byte[] sysExAddr = MT32SysEx.PatchAddress(blockNo * PATCHES_PER_SYSEX_BLOCK);
                 SaveSysExHeader(sysExFile);
                 sumOfSysExValues += SaveSysExAddress(sysExFile, sysExAddr);
                 sumOfSysExValues += SavePatchBlock(blockNo);
@@ -132,10 +135,9 @@ internal static class SaveSysExFile
 
         int SavePatchBlock(int blockNo)
         {
-            int startingPatchNo = blockNo * 32;
-            int noOfPatches = 32;
+            int startingPatchNo = blockNo * PATCHES_PER_SYSEX_BLOCK;
             int sumOfSysExValues = 0;
-            for (int patchNo = startingPatchNo; patchNo < (noOfPatches + startingPatchNo); patchNo++)
+            for (int patchNo = startingPatchNo; patchNo < (PATCHES_PER_SYSEX_BLOCK + startingPatchNo); patchNo++)
             {
                 byte[] parameterData = new byte[8];
                 for (int parameterNo = 0; parameterNo < 8; parameterNo++)
@@ -168,8 +170,8 @@ internal static class SaveSysExFile
         int SaveRhythmBlock(int blockNo)
         {
             int sumOfSysExValues = 0;
-            int startingBankNo = blockNo * 64;
-            int[] finalBankNo = { 64, 84 };
+            int startingBankNo = blockNo * RHYTHM_BANKS_PER_SYSEX_BLOCK;
+            int[] finalBankNo = { RHYTHM_BANKS_PER_SYSEX_BLOCK, RhythmConstants.NO_OF_RHYTHM_KEYS};
             for (int bankNo = startingBankNo; bankNo < finalBankNo[blockNo]; bankNo++)
             {
                 byte[] parameterData = new byte[4];

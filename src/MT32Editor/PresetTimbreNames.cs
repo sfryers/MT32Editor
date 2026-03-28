@@ -11,7 +11,7 @@ namespace MT32Edit_legacy;
 internal static class PresetTimbreNames
 {
     // MT32Edit: PresetTimbreNames class (static)
-    // S.Fryers Feb 2025
+    // S.Fryers Mar 2026
 
     private static readonly string[] presetGroupA =     {
                                                         "AcouPiano1","AcouPiano2","AcouPiano3","ElecPiano1","ElecPiano2","ElecPiano3","ElecPiano4","Honkytonk" ,
@@ -48,7 +48,7 @@ internal static class PresetTimbreNames
 
     public static string GetPresetA(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63)
+        if (timbreNo < 0 || timbreNo > TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1)
         {
             OutOfRangeException(timbreNo);
         }
@@ -58,7 +58,7 @@ internal static class PresetTimbreNames
 
     public static string GetPresetB(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63)
+        if (timbreNo < 0 || timbreNo > TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1)
         {
             OutOfRangeException(timbreNo);
         }
@@ -68,7 +68,7 @@ internal static class PresetTimbreNames
 
     public static string GetRhythm(int timbreNo)
     {
-        if (timbreNo < 0 || timbreNo > 63)
+        if (timbreNo < 0 || timbreNo > TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1)
         {
             OutOfRangeException(timbreNo);
         }
@@ -93,6 +93,6 @@ internal static class PresetTimbreNames
 
     private static void OutOfRangeException(int timbreNo)
     {
-        throw new ArgumentOutOfRangeException("Timbre No.", $"Specified Timbre No. ({timbreNo}) is outside of the permitted range (0 to 63)");
+        throw new ArgumentOutOfRangeException("Timbre No.", $"Specified Timbre No. ({timbreNo}) is outside of the permitted range (0 to {TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1})");
     }
 }

@@ -23,12 +23,12 @@ namespace MT32Edit_legacy;
 internal static class TimbreFile
 {
     // MT32Edit: TimbreFile class (static)
-    // S.Fryers Apr 2024
+    // S.Fryers Mar 2026
 
     private const string TIMBRE_FILE_HEADER = "MT-32 Editor v1 timbre definition file: ";
 
     // Total size of valid .timbre file is 286 bytes.
-    private static readonly int VALID_FILE_LENGTH = TIMBRE_FILE_HEADER.Length + MT32SysEx.PARTIAL_ADDRESS_OFFSET + (TimbreStructure.NO_OF_PARAMETERS * TimbreStructure.NO_OF_PARTIALS);
+    private static readonly int VALID_FILE_LENGTH = TIMBRE_FILE_HEADER.Length + MT32SysEx.PARTIAL_ADDRESS_OFFSET + (TimbreConstants.NO_OF_PARTIAL_PARAMETERS * TimbreConstants.NO_OF_PARTIALS);
 
     /// <summary>
     /// Loads timbre data into the provided TimbreStructure. If successful, return the name of the opened file, otherwise "Cancelled" or "Error".
@@ -74,7 +74,11 @@ internal static class TimbreFile
 
         //load data from file
         FileStream timbreFile = File.OpenRead(fileName);
+#if NET5_0_OR_GREATER
+        timbreFile.ReadExactly(header, 0, header.Length);
+#else
         timbreFile.Read(header, 0, header.Length);
+#endif
         if (timbreFile.Length != VALID_FILE_LENGTH || Encoding.ASCII.GetString(header) != TIMBRE_FILE_HEADER)
         {
             //incorrect file length or invalid header: stop loading
@@ -96,9 +100,18 @@ internal static class TimbreFile
 
         void LoadTimbreParameters()
         {
+#if NET5_0_OR_GREATER
+            timbreFile.ReadExactly(timbreNameBytes, 0, timbreNameBytes.Length);
+#else
             timbreFile.Read(timbreNameBytes, 0, timbreNameBytes.Length);
+#endif
+
             timbre.SetTimbreName(Encoding.ASCII.GetString(timbreNameBytes));
+#if NET5_0_OR_GREATER
+            timbreFile.ReadExactly(timbreData, 0, timbreData.Length);
+#else
             timbreFile.Read(timbreData, 0, timbreData.Length);
+#endif
             timbre.SetPart12Structure(timbreData[0]);
             timbre.SetPart34Structure(timbreData[1]);
 
@@ -108,7 +121,7 @@ internal static class TimbreFile
 
         void LoadPartials()
         {
-            for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+            for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
             {
                 SetPartialMuteStatus(partialNo);
                 LoadPartialParameters(partialNo);
@@ -129,7 +142,11 @@ internal static class TimbreFile
 
         void LoadPartialParameters(int partialNo)
         {
+#if NET5_0_OR_GREATER
+            timbreFile.ReadExactly(parameterValue, 0, parameterValue.Length);
+#else
             timbreFile.Read(parameterValue, 0, parameterValue.Length);
+#endif
             for (byte parameterNo = 0; parameterNo < MT32SysEx.NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
                 timbre.SetSysExParameter(partialNo, parameterNo, parameterValue[parameterNo]);
@@ -274,7 +291,7 @@ internal static class TimbreFile
 
     public static int SaveTimbreParameters(TimbreStructure timbre, FileStream file)
     {
-        string timbreName = ParseTools.MakeNCharsLong(timbre.GetTimbreName(), 10);
+        string timbreName = ParseTools.MakeNCharsLong(timbre.GetTimbreName(), TimbreConstants.TIMBRE_NAME_LENGTH);
         byte[] timbreNameASCIIChars = Encoding.ASCII.GetBytes(timbreName);
         byte[] timbreData = new byte[] { 0, 0, 0, 1 };
         bool[] partialStatus = timbre.GetPartialMuteStatus();
@@ -284,7 +301,7 @@ internal static class TimbreFile
         timbreData[3] = (byte)(timbre.GetSustainStatus() ? 0 : 1);
         file.Write(timbreNameASCIIChars, 0, 10);
         file.Write(timbreData, 0, timbreData.Length);
-        int sumOfSysExValues = ParseTools.CharacterSum(timbreNameASCIIChars, 10) + timbreData[0] + timbreData[1] + timbreData[2] + timbreData[3];
+        int sumOfSysExValues = ParseTools.CharacterSum(timbreNameASCIIChars, TimbreConstants.TIMBRE_NAME_LENGTH) + timbreData[0] + timbreData[1] + timbreData[2] + timbreData[3];
 
         //sum of individual parameter values- required to calculate checksum
         return sumOfSysExValues;
@@ -292,11 +309,11 @@ internal static class TimbreFile
 
     public static int SavePartials(TimbreStructure timbre, FileStream file)
     {
-        byte[] parameterData = new byte[TimbreStructure.NO_OF_PARAMETERS];
+        byte[] parameterData = new byte[TimbreConstants.NO_OF_PARTIAL_PARAMETERS];
         int sumOfSysExValues = 0;
-        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
         {
-            for (int parameterNo = 0; parameterNo < TimbreStructure.NO_OF_PARAMETERS; parameterNo++)
+            for (int parameterNo = 0; parameterNo < TimbreConstants.NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
                 parameterData[parameterNo] = timbre.GetSysExParameter(partialNo, parameterNo);
                 sumOfSysExValues += parameterData[parameterNo];

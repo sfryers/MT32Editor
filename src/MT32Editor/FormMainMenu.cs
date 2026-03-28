@@ -27,7 +27,7 @@ public partial class FormMainMenu : Form
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-    private const string VERSION_NO = "v1.0.0";
+    private const string VERSION_NO = "v1.1.0";
 #if NET10_0
     private const string FRAMEWORK = ".NET 10.0";
 #elif NET9_0
@@ -49,7 +49,7 @@ public partial class FormMainMenu : Form
 #elif NET20
     private const string FRAMEWORK = ".NET 2.0";
 #endif
-    private const string RELEASE_DATE = "February 2026";
+    private const string RELEASE_DATE = "March 2026";
 
     private const int CONSOLE_HIDE = 0;
     private const int CONSOLE_SHOW = 5;
@@ -59,7 +59,7 @@ public partial class FormMainMenu : Form
 
     private bool midiInError = false;
     private bool midiOutError = false;
-	private readonly bool win9x = Environment.OSVersion.Platform == PlatformID.Win32Windows;
+    private readonly bool win9x = Environment.OSVersion.Platform == PlatformID.Win32Windows;
     private readonly MT32State memoryState = new MT32State();
     private readonly SaveFileDialog saveTimbreDialog = new SaveFileDialog();
     private FormMemoryBankEditor? memoryBankEditor;
@@ -328,7 +328,7 @@ public partial class FormMainMenu : Form
 
         void ConfigureConsole()
         {
-        	if (win9x) 
+            if (win9x)
             {
                 //disable show/hide Console window on Win9x systems- prevents crash from occurring
                 showConsoleToolStripMenuItem.Checked = true;
@@ -561,6 +561,23 @@ public partial class FormMainMenu : Form
     private void saveAllTimbresToolStripMenuItem_Click(object sender, EventArgs e)
     {
         TimbreFile.SaveAll(memoryState.GetMemoryTimbreArray());
+    }
+
+    private void exportInstrumentDefinitionMenuItem_Click(object sender, EventArgs e)
+    {
+        string fileName;
+        if (loadedSysExFileName is not null && FileTools.IsSysExOrMidi(loadedSysExFileName))
+        {
+            fileName = InstrumentDefinition.Save(memoryState, loadedSysExFileName);
+        }
+        else
+        {
+            fileName = InstrumentDefinition.Save(memoryState);
+        }
+        if (!FileTools.Success(fileName))
+        {
+            return;
+        }
     }
 
     private void closeToolStripMenuItem_Click(object sender, EventArgs e)

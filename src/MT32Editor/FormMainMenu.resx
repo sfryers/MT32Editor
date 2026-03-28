@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -132,6 +132,16 @@
         uPHOq1BdUADSHLvzONCAzUB/mjKErmKDyqACUBhgDQuwzUDN+ABOzSAAcbYJlIcJCMZC7K6fDEkbeKE8
         7ABvOiDkAoIgZmcjwTDAC0KPcQINOQaMiS0McTvMcMYCXgAyJHZnA9Art4GG1UBFBz1gYAAACfFaTLGJ
         f5EAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="exportInstrumentDefinitionMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA7AAAAOwAFq1okJAAAAuElE
+        QVQ4T9WRTQrCQAyF5xpu5u8cCuJGRMQDtMVjlrbncG3xZ1EvoXlxFpOhQ+1OP3ik8PKSoVG/hfd+75x7
+        kF45WWvvxphdiEhgUtNBa71IRd4FHtUj6RYiEmwYC0Oxh+8QkUwNiNSHiGRqQGjL8ycDTrXlGkNmj4ZU
+        dK6rGIBw2T5V0a05WLWfobgr7htvhNhMqbolBQdVNpt4wBbb0hewiaZRNWeusynqFQXlC74m9w9mIa6g
+        1BtnWoFR/fa44QAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

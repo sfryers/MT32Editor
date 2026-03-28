@@ -10,7 +10,7 @@ namespace MT32Edit_legacy;
 internal static class PresetTimbres
 {
     // MT32Edit: PresetTimbres class (static)
-    // S.Fryers Mar 2023
+    // S.Fryers Mar 2026
 
     private static readonly byte[,] presetTimbreData = new byte[,]
     {
@@ -926,33 +926,33 @@ internal static class PresetTimbres
         LogicTools.ValidateRange("Bank No.", bankNo, -1, 1, autoCorrect: false);
         if (bankNo == -1)
         {
-            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 127, autoCorrect: false);
+            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, (TimbreConstants.NO_OF_TIMBRES_PER_GROUP * 2) - 1, autoCorrect: false);
         }
         else
         {
-            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, 63, autoCorrect: false);
+            LogicTools.ValidateRange("Timbre No.", timbreNo, 0, TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1, autoCorrect: false);
         }
 
         if (bankNo == 1)
         {
-            timbreNo += 64;
+            timbreNo += TimbreConstants.NO_OF_TIMBRES_PER_GROUP;
         }
 
         TimbreStructure timbre = new TimbreStructure(false);
-        if (timbreNo < 64)
+        if (timbreNo < TimbreConstants.NO_OF_TIMBRES_PER_GROUP)
         {
             timbre.SetTimbreName(PresetTimbreNames.GetPresetA(timbreNo));
         }
         else
         {
-            timbre.SetTimbreName(PresetTimbreNames.GetPresetB(timbreNo - 64));
+            timbre.SetTimbreName(PresetTimbreNames.GetPresetB(timbreNo - TimbreConstants.NO_OF_TIMBRES_PER_GROUP));
         }
         timbre.SetPart12Structure(presetTimbreData[timbreNo, 0]);
         timbre.SetPart34Structure(presetTimbreData[timbreNo, 1]);
         //use inverse value for sustain status
         timbre.SetSustainStatus(!LogicTools.IntToBool(presetTimbreData[timbreNo, 3]));
 
-        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
         {
             SetPartialParameters(partialNo);
         }
@@ -969,9 +969,9 @@ internal static class PresetTimbres
                 timbre.SetPartialMuteStatus(partialNo, false);
             }
 
-            for (byte parameterNo = 0; parameterNo < TimbreStructure.NO_OF_PARAMETERS; parameterNo++)
+            for (byte parameterNo = 0; parameterNo < TimbreConstants.NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
-                timbre.SetSysExParameter(partialNo, parameterNo, presetTimbreData[timbreNo, (partialNo * 58) + parameterNo + 4]);
+                timbre.SetSysExParameter(partialNo, parameterNo, presetTimbreData[timbreNo, (partialNo * TimbreConstants.NO_OF_PARTIAL_PARAMETERS) + parameterNo + 4]);
             }
         }
     }

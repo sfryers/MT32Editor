@@ -9,7 +9,7 @@ namespace MT32Edit;
 /// </summary>
 
 // MT32Edit: FormPatchEditor
-// S.Fryers Feb 2025
+// S.Fryers Mar 2026
 
 public partial class FormPatchEditor : Form
 {
@@ -91,12 +91,11 @@ public partial class FormPatchEditor : Form
             CheckForMemoryStateUpdates();
             UpdateMemoryTimbreNames();
             FindMemoryTimbreInPatchList(selectedTimbre);
+            if (comboBoxTimbreGroup.Text == "Memory")
+            {
+                SyncMemoryTimbreNames();
+            }
         }
-        if (comboBoxTimbreGroup.Text == "Memory")
-        {
-            SyncMemoryTimbreNames();
-        }
-
         if (memoryState.returnFocusToPatchEditor)
         {
             ReturnFocusToPatchEditor();
@@ -195,8 +194,13 @@ public partial class FormPatchEditor : Form
             MT32SysEx.SendPatchData(memoryState.GetPatchArray(), patchNo);
         }
         int midiChannel = memoryState.GetSystem().GetSysExMidiChannel(0);
-        Midi.SendProgramChange(patchNo, midiChannel);
         Patch memoryPatch = memoryState.GetPatch(patchNo);
+        int selectedTimbre = memoryPatch.GetTimbreNo();
+        Midi.SendProgramChange(patchNo, midiChannel);
+        if (memoryPatch.GetTimbreGroupType() == "Memory" && sendSysExMessage)
+        {
+            MT32SysEx.PreviewTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
+        }
         MT32SysEx.SendText($"Patch {patchNo + 1}|{memoryState.GetTimbreNames().Get(memoryPatch.GetTimbreNo(), memoryPatch.GetTimbreGroup())}");
     }
 

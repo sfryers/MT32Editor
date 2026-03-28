@@ -3,14 +3,13 @@ using System.Drawing;
 using System;
 namespace MT32Edit;
 
-
 /// <summary>
 /// Form showing visual representation of MT-32's 64 memory banks- allows custom timbres to be mapped
 /// </summary>
 public partial class FormMemoryBankEditor : Form
 {
     // MT32Edit: FormMemoryBankEditor
-    // S.Fryers May 2024
+    // S.Fryers Mar 2026
 
     private MT32State memoryState;
     private FormTimbreEditor timbreEditor;
@@ -90,6 +89,9 @@ public partial class FormMemoryBankEditor : Form
         listViewTimbres.Columns[1].Width = (int)(listWidth * 0.53);
     }
 
+    /// <summary>
+    /// Populates the Memory Timbre listView
+    /// </summary>
     private void PopulateMemoryBankListView(int selectedTimbre)
     {
         listViewTimbres.Items.Clear();
@@ -100,20 +102,9 @@ public partial class FormMemoryBankEditor : Form
         SelectTimbreInListView(selectedTimbre);
     }
 
-    private void SelectTimbreInListView(int selectedTimbre)
-    {
-        listViewTimbres.Items[selectedTimbre].Selected = true;
-        listViewTimbres.Items[selectedTimbre].EnsureVisible();
-        listViewTimbres.Select();
-    }
-
-    private void SynchroniseTimbreEditor(int selectedTimbre)
-    {
-        timbreEditor.TimbreData = memoryState.GetMemoryTimbre(selectedTimbre);
-        string timbreName = timbreEditor.TimbreData.GetTimbreName();
-        memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, selectedTimbre);
-    }
-
+    /// <summary>
+    /// Adds an item to the Memory Timbre listView
+    /// </summary>
     private void AddListViewColumnItem(int timbreNo)
     {
         ListViewItem item;
@@ -131,6 +122,29 @@ public partial class FormMemoryBankEditor : Form
         ColourListViewItem(timbreNo);
     }
 
+    /// <summary>
+    /// Highlights the desired item in the Memory Timbre listView
+    /// </summary>
+    private void SelectTimbreInListView(int selectedTimbre)
+    {
+        listViewTimbres.Items[selectedTimbre].Selected = true;
+        listViewTimbres.Items[selectedTimbre].EnsureVisible();
+        listViewTimbres.Select();
+    }
+
+    /// <summary>
+    /// Sets the Timbre Editor to show the currently selected Memory Timbre
+    /// </summary>
+    private void SynchroniseTimbreEditor(int selectedTimbre)
+    {
+        timbreEditor.TimbreData = memoryState.GetMemoryTimbre(selectedTimbre);
+        string timbreName = timbreEditor.TimbreData.GetTimbreName();
+        memoryState.GetTimbreNames().SetMemoryTimbreName(timbreName, selectedTimbre);
+    }
+
+    /// <summary>
+    /// Applies red colour to items which are CM-32L-specific
+    /// </summary>
     private void ColourListViewItem(int timbreNo)
     {
         if (MT32SysEx.cm32LMode)
@@ -151,10 +165,110 @@ public partial class FormMemoryBankEditor : Form
     /// </summary>
     private void PopulateTimbreFormParameters(int selectedTimbre)
     {
-        //numericUpDown range is 1-64
+        //numericUpDownTimbreNo.Value range is 1-64
         numericUpDownTimbreNo.Value = selectedTimbre + 1;
         labelTimbreName.Text = memoryState.GetMemoryTimbreName(selectedTimbre);
         MT32SysEx.PreviewTimbre(selectedTimbre, memoryState.GetMemoryTimbre(selectedTimbre));
+    }
+
+    /// <summary>
+    /// Highlights memory timbre matching the currently selected patch, if the currently selected patch uses a memory timbre
+    /// </summary>
+    private int FindPatchTimbreInMemoryBank(int selectedTimbreNo)
+    {
+        int requiredTimbreNo = selectedTimbreNo;
+        int selectedPatchNo = memoryState.GetSelectedPatchNo();
+        Patch patchData = memoryState.GetPatch(selectedPatchNo);
+        if (patchData.GetTimbreGroupType() == "Memory")
+        {
+            //focus memory bank editor on selected memory patch and enable timbre editor
+            FindTimbre();
+        }
+        else
+        {
+            memoryState.SetTimbreIsEditable(false);
+        }
+
+        return requiredTimbreNo;
+
+        void FindTimbre()
+        {
+            requiredTimbreNo = patchData.GetTimbreNo();
+            if (requiredTimbreNo != selectedTimbreNo)
+            {
+                SetTimbreAsEditable(requiredTimbreNo);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Highlights memory timbre matching the currently selected rhythm key, if the currently selected rhythm key uses a memory timbre
+    /// </summary>
+    private int FindRhythmTimbreInMemoryBank(int selectedTimbreNo)
+    {
+        int requiredTimbreNo = selectedTimbreNo;
+        int bankNo = memoryState.GetSelectedBank();
+        Rhythm rhythmBank = memoryState.GetRhythmBank(bankNo);
+        if (rhythmBank.GetTimbreGroupType() == "Memory")
+        {
+            //focus rhythm bank editor on selected memory patch and enable timbre editor
+            FindTimbre();
+        }
+        else
+        {
+            memoryState.SetTimbreIsEditable(false);
+        }
+
+        return requiredTimbreNo;
+
+        void FindTimbre()
+        {
+            requiredTimbreNo = rhythmBank.GetTimbreNo();
+            if (requiredTimbreNo != selectedTimbreNo)
+            {
+                SetTimbreAsEditable(requiredTimbreNo);
+            }
+        }
+    }
+
+    private void SetTimbreAsEditable(int selectedTimbre)
+    {
+        numericUpDownTimbreNo.Value = selectedTimbre + 1;
+        memoryState.SetTimbreIsEditable(true);
+        SynchroniseTimbreEditor(selectedTimbre);
+        memoryState.returnFocusToPatchEditor = true;
+    }
+
+    /// <summary>
+    /// Set window focus to Memory Timbre ListView and clear flag
+    /// </summary>
+    private void ReturnFocusToMemoryBankList()
+    {
+        listViewTimbres.Select();
+        memoryState.returnFocusToMemoryBankList = false;
+    }
+
+
+    /// <summary>
+    /// Refreshes Memory Timbre listview if memoryState has recently been updated
+    /// </summary>
+    private void RefreshMemoryBankListView(int selectedTimbre)
+    {
+        TimbreStructure timbre = memoryState.GetMemoryTimbre(selectedTimbre);
+        TimbreNames timbreNames = new TimbreNames();
+        string timbreName = timbre.GetTimbreName();
+        if (lastGlobalUpdate < timbre.GetUpdateTime())
+        {
+            PopulateMemoryBankListView(selectedTimbre);
+            lastGlobalUpdate = DateTime.Now;
+        }
+        timbreNames.SetMemoryTimbreName(timbreName, selectedTimbre);
+        labelTimbreName.Text = timbreNames.Get(selectedTimbre, 2);
+        if (listViewTimbres.SelectedIndices.Count > 0)
+        {
+            listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
+        }
+        ColourListViewItem(selectedTimbre);
     }
 
     private void numericUpDownTimbreNo_ValueChanged(object sender, EventArgs e)
@@ -254,94 +368,6 @@ public partial class FormMemoryBankEditor : Form
             string currentTimbreName = memoryState.GetMemoryTimbre(selectedTimbre).GetTimbreName();
             return !UITools.AskUserToConfirm($"Overwrite {currentTimbreName} with copied timbre {copiedTimbre.GetTimbreName()}?", "MT-32 Editor");
         }
-    }
-
-    private int FindPatchTimbreInMemoryBank(int selectedTimbreNo)
-    {
-        int requiredTimbreNo = selectedTimbreNo;
-        int selectedPatchNo = memoryState.GetSelectedPatchNo();
-        Patch patchData = memoryState.GetPatch(selectedPatchNo);
-        if (patchData.GetTimbreGroupType() == "Memory")
-        {
-            //focus memory bank editor on selected memory patch and enable timbre editor
-            FindTimbre();
-        }
-        else
-        {
-            memoryState.SetTimbreIsEditable(false);
-        }
-
-        return requiredTimbreNo;
-
-        void FindTimbre()
-        {
-            requiredTimbreNo = patchData.GetTimbreNo();
-            if (requiredTimbreNo != selectedTimbreNo)
-            {
-                SetTimbreAsEditable(requiredTimbreNo);
-            }
-        }
-    }
-
-    private int FindRhythmTimbreInMemoryBank(int selectedTimbreNo)
-    {
-        int requiredTimbreNo = selectedTimbreNo;
-        int bankNo = memoryState.GetSelectedBank();
-        Rhythm rhythmBank = memoryState.GetRhythmBank(bankNo);
-        if (rhythmBank.GetTimbreGroupType() == "Memory")
-        {
-            //focus rhythm bank editor on selected memory patch and enable timbre editor
-            FindTimbre();
-        }
-        else
-        {
-            memoryState.SetTimbreIsEditable(false);
-        }
-
-        return requiredTimbreNo;
-
-        void FindTimbre()
-        {
-            requiredTimbreNo = rhythmBank.GetTimbreNo();
-            if (requiredTimbreNo != selectedTimbreNo)
-            {
-                SetTimbreAsEditable(requiredTimbreNo);
-            }
-        }
-    }
-
-    private void SetTimbreAsEditable(int selectedTimbre)
-    {
-        numericUpDownTimbreNo.Value = selectedTimbre + 1;
-        memoryState.SetTimbreIsEditable(true);
-        SynchroniseTimbreEditor(selectedTimbre);
-        memoryState.returnFocusToPatchEditor = true;
-    }
-
-    private void ReturnFocusToMemoryBankList()
-    {
-        listViewTimbres.Select();
-        memoryState.returnFocusToMemoryBankList = false;
-    }
-
-    private void RefreshMemoryBankListView(int selectedTimbre)
-    {
-        TimbreStructure timbre = memoryState.GetMemoryTimbre(selectedTimbre);
-        TimbreNames timbreNames = new TimbreNames();
-        string timbreName = timbre.GetTimbreName();
-        //refresh listview if memoryState has recently been updated
-        if (lastGlobalUpdate < timbre.GetUpdateTime())
-        {
-            PopulateMemoryBankListView(selectedTimbre);
-            lastGlobalUpdate = DateTime.Now;
-        }
-        timbreNames.SetMemoryTimbreName(timbreName, selectedTimbre);
-        labelTimbreName.Text = timbreNames.Get(selectedTimbre, 2);
-        if (listViewTimbres.SelectedIndices.Count > 0)
-        {
-            listViewTimbres.SelectedItems[0].SubItems[1].Text = timbreNames.Get(selectedTimbre, 2);
-        }
-        ColourListViewItem(selectedTimbre);
     }
 
     private void FormMemoryBankEditor_Resize(object sender, EventArgs e)

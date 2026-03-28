@@ -499,7 +499,7 @@
             radioButtonPCMBank2.Text = "Bank 2";
             toolTipParameterValue.SetToolTip(radioButtonPCMBank2, "Bank 2 is only available on CM-32L or compatible ROMs");
             radioButtonPCMBank2.UseVisualStyleBackColor = true;
-            radioButtonPCMBank2.KeyUp += trackBarKeyUp;
+            radioButtonPCMBank2.KeyUp += radioButtonPCMBank2_KeyUp;
             radioButtonPCMBank2.MouseUp += radioButtonPCMBank2_MouseUp;
             // 
             // radioButtonPCMBank1
@@ -514,6 +514,7 @@
             radioButtonPCMBank1.TabStop = true;
             radioButtonPCMBank1.Text = "Bank 1";
             radioButtonPCMBank1.UseVisualStyleBackColor = true;
+            radioButtonPCMBank1.KeyUp += radioButtonPCMBank1_KeyUp;
             radioButtonPCMBank1.MouseUp += radioButtonPCMBank1_MouseUp;
             // 
             // labelPWVeloSens
@@ -2019,7 +2020,7 @@
             labelTVALevel.AccessibleDescription = "TVA Level";
             labelTVALevel.AccessibleName = "TVA Level";
             labelTVALevel.AutoSize = true;
-            labelTVALevel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTVALevel.Font = new Font("Segoe UI", 9F);
             labelTVALevel.Location = new Point(16, 131);
             labelTVALevel.Name = "labelTVALevel";
             labelTVALevel.Size = new Size(38, 15);
@@ -2293,7 +2294,7 @@
             // 
             // textBoxTimbreName
             // 
-            textBoxTimbreName.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            textBoxTimbreName.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold);
             textBoxTimbreName.Location = new Point(119, 74);
             textBoxTimbreName.MaxLength = 10;
             textBoxTimbreName.Name = "textBoxTimbreName";
@@ -2403,7 +2404,7 @@
             // labelHeading
             // 
             labelHeading.AutoSize = true;
-            labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            labelHeading.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             labelHeading.ForeColor = SystemColors.ActiveCaption;
             labelHeading.Location = new Point(14, 39);
             labelHeading.Name = "labelHeading";
@@ -2565,7 +2566,7 @@
             // labelPartialType
             // 
             labelPartialType.AutoSize = true;
-            labelPartialType.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            labelPartialType.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             labelPartialType.Location = new Point(35, 89);
             labelPartialType.Name = "labelPartialType";
             labelPartialType.Size = new Size(165, 15);

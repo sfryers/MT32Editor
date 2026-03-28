@@ -13,23 +13,17 @@ namespace MT32Edit_legacy;
 public class TimbreStructure
 {
     // MT32Edit: TimbreStructure class
-    // S.Fryers May 2024
-
-    //each timbre consists of (up to) 4 partials
-    public const int NO_OF_PARTIALS = 4;
-
-    //each partial contains 58 (0x3A) parameters
-    public const int NO_OF_PARAMETERS = 58;
-
+    // S.Fryers Mar 2026
     public const string NEW_TIMBRE = "New Timbre";
-
+    private const int NO_OF_PARTIALS = TimbreConstants.NO_OF_PARTIALS;
+    private const int NO_OF_PARTIAL_PARAMETERS = TimbreConstants.NO_OF_PARTIAL_PARAMETERS;
     private string timbreName = string.Empty;
     private int part12Structure;
     private int part34Structure;
     private int activePartial = 0;
     private bool[] partialMuteStatus = new bool[NO_OF_PARTIALS];
     private bool sustain;
-    private readonly byte[,] partial = new byte[NO_OF_PARTIALS, NO_OF_PARAMETERS];
+    private readonly byte[,] partial = new byte[NO_OF_PARTIALS, NO_OF_PARTIAL_PARAMETERS];
     private DateTime timeOfLastFullUpdate;
 
     public TimbreStructure(bool createAudibleTimbre)
@@ -54,7 +48,7 @@ public class TimbreStructure
         }
         else
         {
-            timbreName = ParseTools.MakeNCharsLong(MT32Strings.EMPTY, 10);
+            timbreName = ParseTools.MakeNCharsLong(MT32Strings.EMPTY, TimbreConstants.TIMBRE_NAME_LENGTH);
 
             //all partials muted
             partialMuteStatus = new bool[] { true, true, true, true };
@@ -72,7 +66,7 @@ public class TimbreStructure
 
     private void SetDefaultPartialValues(int partialNo)
     {
-        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
+        for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
         {
             partial[partialNo, parameterNo] = PartialConstants.defaultValue[parameterNo];
         }
@@ -95,7 +89,7 @@ public class TimbreStructure
 
     public void SetTimbreName(string name)
     {
-        timbreName = ParseTools.MakeNCharsLong(name, 10);
+        timbreName = ParseTools.MakeNCharsLong(name, TimbreConstants.TIMBRE_NAME_LENGTH);
     }
 
     public int GetPart12Structure()
@@ -179,7 +173,7 @@ public class TimbreStructure
 
     private void ValidateParameterNo(int parameterNo)
     {
-        LogicTools.ValidateRange("Parameter No.", parameterNo, minPermitted: 0, maxPermitted: 57, autoCorrect: false);
+        LogicTools.ValidateRange("Parameter No.", parameterNo, minPermitted: 0, maxPermitted: NO_OF_PARTIAL_PARAMETERS - 1, autoCorrect: false);
     }
 
     public bool[] GetPartialMuteStatus()
@@ -311,8 +305,8 @@ public class TimbreStructure
     public byte[] CopyPartial(int partialNo)
     {
         ValidatePartialNo(partialNo);
-        byte[] partialValues = new byte[NO_OF_PARAMETERS];
-        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
+        byte[] partialValues = new byte[NO_OF_PARTIAL_PARAMETERS];
+        for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
         {
             partialValues[parameterNo] = partial[partialNo, parameterNo];
         }
@@ -325,7 +319,7 @@ public class TimbreStructure
     public void PastePartial(int partialNo, byte[] partialValues)
     {
         ValidatePartialNo(partialNo);
-        for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
+        for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
         {
             partial[partialNo, parameterNo] = partialValues[parameterNo];
         }
@@ -352,7 +346,7 @@ public class TimbreStructure
 
         void ClonePartial(int partialNo)
         {
-            for (int parameterNo = 0; parameterNo < NO_OF_PARAMETERS; parameterNo++)
+            for (int parameterNo = 0; parameterNo < NO_OF_PARTIAL_PARAMETERS; parameterNo++)
             {
                 clonedTimbre.SetSysExParameter(partialNo, parameterNo, partial[partialNo, parameterNo]);
             }
@@ -375,9 +369,9 @@ public class TimbreStructure
         long SumOfParameterValues(int partialNo)
         {
             long sum = 0;
-            for (int i = 0; i < NO_OF_PARAMETERS; i++)
+            for (int i = 0; i < NO_OF_PARTIAL_PARAMETERS; i++)
             {
-                sum += (long)partial[partialNo, i] * (partialNo + ((i + 1) * NO_OF_PARAMETERS)) * 128;
+                sum += (long)partial[partialNo, i] * (partialNo + ((i + 1) * NO_OF_PARTIAL_PARAMETERS)) * 128;
             }
             return sum;
         }

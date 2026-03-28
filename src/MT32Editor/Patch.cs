@@ -11,7 +11,7 @@ namespace MT32Edit_legacy;
 public class Patch
 {
     // MT32Edit: Patch class
-    // S.Fryers Mar 2023
+    // S.Fryers Mar 2026
 
     private int timbreGroup = 0;
 
@@ -30,7 +30,7 @@ public class Patch
     public Patch(int patchNo, bool autoCorrect = false)
     {
         patchNo = LogicTools.ValidateRange("Patch No.", patchNo, minPermitted: 0, maxPermitted: MT32State.NO_OF_PATCHES - 1, autoCorrect);
-        if (patchNo < 64)
+        if (patchNo < TimbreConstants.NO_OF_TIMBRES_PER_GROUP)
         {
             timbreGroup = 0;
             timbreNo = patchNo;
@@ -38,7 +38,7 @@ public class Patch
         else
         {
             timbreGroup = 1;
-            timbreNo = patchNo - 64;
+            timbreNo = patchNo - TimbreConstants.NO_OF_TIMBRES_PER_GROUP;
         }
     }
 
@@ -213,7 +213,7 @@ public class Patch
 
     public void SetTimbreGroup(int groupNo, bool autoCorrect = false)
     {
-        timbreGroup = LogicTools.ValidateRange("Timbre Group", groupNo, minPermitted: 0, maxPermitted: 3, autoCorrect);
+        timbreGroup = LogicTools.ValidateRange("Timbre Group", groupNo, minPermitted: 0, maxPermitted: TimbreConstants.NO_OF_TIMBRE_GROUPS - 1, autoCorrect);
     }
 
     public string GetTimbreGroupType()
@@ -233,7 +233,7 @@ public class Patch
 
     public void SetKeyShift(int keyShiftValue, bool autoCorrect = false)
     {
-        keyShift = LogicTools.ValidateRange("Key Shift", keyShiftValue, minPermitted: -24, maxPermitted: 24, autoCorrect);
+        keyShift = LogicTools.ValidateRange("Key Shift", keyShiftValue, minPermitted: 0 - KEY_SHIFT_OFFSET, maxPermitted: KEY_SHIFT_OFFSET, autoCorrect);
     }
 
     public int GetKeyShift()
@@ -243,7 +243,7 @@ public class Patch
 
     public void SetFineTune(int fineTuneValue, bool autoCorrect = false)
     {
-        fineTune = LogicTools.ValidateRange("Fine Tune", fineTuneValue, minPermitted: -50, maxPermitted: 50, autoCorrect);
+        fineTune = LogicTools.ValidateRange("Fine Tune", fineTuneValue, minPermitted: 0 - FINE_TUNE_OFFSET, maxPermitted: FINE_TUNE_OFFSET, autoCorrect);
     }
 
     public int GetFineTune()

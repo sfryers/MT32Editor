@@ -470,9 +470,9 @@ internal static class LoadSysExFile
         ConsoleMessage.SendVerboseLine($"{noOfKeys} keys found.");
         int byteNo = 0;
         int bankTotal = noOfKeys + startingbankNo;
-        if (bankTotal > 84)
+        if (bankTotal > RhythmConstants.NO_OF_RHYTHM_KEYS)
         {
-            bankTotal = 84;
+            bankTotal = RhythmConstants.NO_OF_RHYTHM_KEYS; // check if this should be -1
         }
         for (int bankNo = startingbankNo; bankNo < bankTotal; bankNo++)
         {
@@ -498,7 +498,7 @@ internal static class LoadSysExFile
         }
 
         int timbreNo = GetTimbreNo(sysExAddress);
-        if (timbreNo < 0 || timbreNo > 63)
+        if (timbreNo < 0 || timbreNo > TimbreConstants.NO_OF_TIMBRES_PER_GROUP - 1)
         {
             ConsoleMessage.SendVerboseLine("Timbre address invalid, ignoring.", ConsoleColor.Red);
             return;
@@ -551,17 +551,17 @@ internal static class LoadSysExFile
 
     private static string ExtractTimbreName(int[] sysExData)
     {
-        int nameLength = 10;
+        int nameLength = TimbreConstants.TIMBRE_NAME_LENGTH;
         if (sysExData.Length < nameLength)
         {
             nameLength = sysExData.Length;
         }
-        byte[] timbreNameChars = new byte[10];
-        for (int i = 0; i < nameLength; i++)
+        byte[] timbreNameChars = new byte[TimbreConstants.TIMBRE_NAME_LENGTH];
+        for (int chr = 0; chr < nameLength; chr++)
         {
-            timbreNameChars[i] = (byte)sysExData[i];
+            timbreNameChars[chr] = (byte)sysExData[chr];
         }
-        string timbreName = Encoding.ASCII.GetString(timbreNameChars).Substring(0, 10);
+        string timbreName = Encoding.ASCII.GetString(timbreNameChars).Substring(0, TimbreConstants.TIMBRE_NAME_LENGTH);
         timbreName = ParseTools.RemoveTrailingSpaces(timbreName);
         return timbreName;
     }
@@ -576,7 +576,7 @@ internal static class LoadSysExFile
         memoryTimbre.SetPart34Structure(sysExData[11 - startAddress], autoCorrect: true);
         //need to invert value to get correct sustain state
         memoryTimbre.SetSustainStatus(!LogicTools.IntToBool(sysExData[13 - startAddress]));
-        for (int partialNo = 0; partialNo < TimbreStructure.NO_OF_PARTIALS; partialNo++)
+        for (int partialNo = 0; partialNo < TimbreConstants.NO_OF_PARTIALS; partialNo++)
         {
             if ((sysExData[12 - startAddress] & (1 << partialNo)) != 0)
             {
